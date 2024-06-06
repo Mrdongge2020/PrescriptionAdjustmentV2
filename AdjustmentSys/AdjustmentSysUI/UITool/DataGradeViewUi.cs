@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdjustmentSysUI.UITool
 {
+    /// <summary>
+    /// 表格ui
+    /// </summary>
     public class DataGradeViewUi
     {
         /// <summary>
