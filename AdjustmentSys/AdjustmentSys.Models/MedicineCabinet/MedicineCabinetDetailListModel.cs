@@ -47,6 +47,15 @@ namespace AdjustmentSys.Models.MedicineCabinet
         /// 库存
         /// </summary>
         public float? Stock { get; set; }
+
+        /// <summary>
+        /// 密度
+        /// </summary>
+        public float? Density { get; set; }
+        /// <summary>
+        /// 密度系数
+        /// </summary>
+        public float? DensityCoefficient { get; set; }
         /// <summary>
         /// rfd
         /// </summary>

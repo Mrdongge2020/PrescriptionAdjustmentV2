@@ -19,6 +19,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 {
     public partial class FrmListingParticles : UIEditForm
     {
+        //public string TextBoxValue { get { return comboBoxSearh.Text; } set { comboBoxSearh.Text = value; } }
         ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
         public int _Id;
         public string _Name;
@@ -39,13 +40,13 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (cblisDurg.SelectedIndex==-1)
+            if (cblisDurg.SelectedValue==null)
             {
                 ShowWarningDialog("请选择药上架的颗粒信息");
                 return;
             }
             _Id= (int)cblisDurg.SelectedValue;
-            _Name = cblisDurg.SelectedText;
+            _Name = cblisDurg.Text;
            
         }
     }

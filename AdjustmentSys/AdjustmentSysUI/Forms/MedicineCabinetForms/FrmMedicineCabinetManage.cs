@@ -7,6 +7,7 @@ using Microsoft.Identity.Client.NativeInterop;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -92,11 +93,15 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     dgvList.Columns.Add(dataGridViewTextBoxColumn);
                 }
             }
-            dgvList.RowTemplate.Height = 55;
+            
+            dgvList.RowTemplate.Height = 70;
 
             //添加所有行
             for (int i = 0; i < cabinetsList.Max(x => x.RowCount); i++)
             {
+                //DataGridViewRow row = new DataGridViewRow();
+                //row.DefaultCellStyle.BackColor = Color.White;
+                //dgvList.Rows.Add(row);
                 dgvList.Rows.Add();//添加行
             }
 
@@ -111,7 +116,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     sortIndex++;
                     for (int i = 0; i < cabinetsList.Max(x => x.RowCount); i++)
                     {
-                        this.dgvList.Rows[i].Cells[sortIndex == 1 ? item.CoordinateY - 1 : item.CoordinateY].Value = i + 1;
+                        this.dgvList.Rows[i].Cells[sortIndex == 1 ? item.CoordinateY - 1 : item.CoordinateY].Value = i + 1;//序号填充
                     }
                     cabinetId = item.MedicineCabinetId;
                 }
@@ -120,15 +125,30 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 if (item.ParticlesID > 0)
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
-                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style.BackColor = BackColor(item.Stock ?? 0);
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
                 }
-
-                this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
             }
             #endregion
 
         }
 
+        /// <summary>
+        /// 设置单元格格式
+        /// </summary>
+        /// <param name="nameLength">药品名称长度</param>
+        /// <param name="stock">药品库存</param>
+        /// <returns></returns>
+        private DataGridViewCellStyle CellStyleSet(float? stock)
+        {
+            // 创建一个Font对象，设置字体大小
+            Font newFont = new Font("微软雅黑", 10);
+            // 更新单元格样式中的字体
+            DataGridViewCellStyle style = new DataGridViewCellStyle();
+            style.Font = newFont;
+            style.BackColor = BackColor(stock ?? 0);
+            return style;
+        }
         /// <summary>
         /// 药柜单元格背景颜色设置
         /// </summary>
@@ -143,7 +163,8 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
             if (stock > 50 && stock < 100)
             {
-                return Color.Wheat;
+                return Color.Blue;
+                //return Color.Wheat;
             }
             if (stock > 50 && stock <= 50)
             {
@@ -227,7 +248,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
 
             selectDurgModel = cabinetDrugList.FirstOrDefault(x => x.CoordinateX == rowIndex && x.CoordinateY == columnIndex);
-            cbDurg.Text =selectDurgModel.ParticlesName;
+            cbDurg.Text = selectDurgModel.ParticlesName;
         }
 
         /// <summary>
@@ -246,14 +267,17 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             FrmListingParticles frmListingParticles = new FrmListingParticles();
             frmListingParticles.StartPosition = FormStartPosition.Manual;
             frmListingParticles.Location = startPoint;
-            DialogResult Result =frmListingParticles.ShowDialog();
-            if (Result == DialogResult.OK) 
+            DialogResult Result = frmListingParticles.ShowDialog();
+            if (Result == DialogResult.OK)
             {
                 string msg = _medicineCabinetDrugManageBLL.ListingParticle(selectDurgModel.ID, code, frmListingParticles._Id);
                 if (msg == "")
                 {
                     ShowSuccessTip("上架颗粒成功");
-                    dgvList.Rows[Rowindex].Cells[Colindex].Value = frmListingParticles._Name;
+                    int index = frmListingParticles._Name.IndexOf('(');
+                    string valueText = frmListingParticles._Name.Substring(0, index) + "\r\n" + "0克";
+                    dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
+                    dgvList.Rows[Rowindex].Cells[Colindex].Value = valueText;
                 }
                 else
                 {
@@ -274,25 +298,25 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             InitData();
         }
 
-        //private void cbDurg_SelectedValueChanged(object sender, EventArgs e)
-        //{
-        //    cbDurg.SelectedValue.WriteConsole();
-        //    cbDurg.SelectedItem.WriteConsole();
-        //    cbDurg.Text.WriteConsole();
-        //}
-
-        //private void dgvList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-        //    if (e.Button != MouseButtons.Right) 
-        //    {
-        //        return;
-        //    }
-        //    if (dgvList.Columns[e.ColumnIndex].Name.Contains("Sort"))
-        //    {
-        //        return;
-        //    }
-
-
-        //}
+        private void RemoveParticles_Click(object sender, EventArgs e)
+        {
+            if (selectDurgModel==null) 
+            {
+                ShowWarningDialog("请选择药柜信息");
+                return;
+            }
+            string msg = _medicineCabinetDrugManageBLL.RemoveParticle(selectDurgModel.ID);
+            if (msg == "")
+            {
+                ShowSuccessTip("下架颗粒成功");
+            
+                dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
+                dgvList.Rows[Rowindex].Cells[Colindex].Value = "";
+            }
+            else
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
+        }
     }
 }

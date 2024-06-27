@@ -43,5 +43,14 @@ namespace AdjustmentSys.BLL.MedicineCabinet
         { 
             return medicineCabinetDrugManageDAL.ListingParticle(id, code, parId);
         }
+
+        /// <summary>
+        /// 下架颗粒
+        /// </summary>
+        /// <param name="id">药柜id</param>
+        public string RemoveParticle(int id) 
+        {
+            return medicineCabinetDrugManageDAL.RemoveParticle(id);
+        }
     }
 }

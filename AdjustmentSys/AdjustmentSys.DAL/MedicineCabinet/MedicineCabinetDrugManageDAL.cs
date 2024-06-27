@@ -32,6 +32,8 @@ namespace AdjustmentSys.DAL.MedicineCabinet
 			                        c.Name AS ParticlesName,
 			                        a.ValidityTime,
 			                        a.Stock,
+                                    a.Density,
+									a.DensityCoefficient,
 			                        a.RFID 
                              FROM MedicineCabinetDetail AS a
                              JOIN MedicineCabinetInfo AS b ON a.MedicineCabinetId= b.ID
@@ -73,6 +75,23 @@ namespace AdjustmentSys.DAL.MedicineCabinet
             _eFCoreContext.MedicineCabinetDetails.Update(detail);
             int index= _eFCoreContext.SaveChanges();
             return index > 0 ? "" : "上架颗粒失败，请稍后再试";
+        }
+
+        /// <summary>
+        /// 下架颗粒
+        /// </summary>
+        /// <param name="id">药柜id</param>
+        public string RemoveParticle(int id)
+        {
+            var detail = _eFCoreContext.MedicineCabinetDetails.FirstOrDefault(x => x.ID == id);
+            if (detail == null)
+            {
+                return "药柜信息不存在了";
+            }
+            detail.ParticlesID = null;
+            _eFCoreContext.MedicineCabinetDetails.Update(detail);
+            int index = _eFCoreContext.SaveChanges();
+            return index > 0 ? "" : "下架颗粒失败，请稍后再试";
         }
 
     }

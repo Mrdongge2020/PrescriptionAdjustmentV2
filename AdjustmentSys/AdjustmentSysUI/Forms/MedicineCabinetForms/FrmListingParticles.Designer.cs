@@ -52,6 +52,7 @@
             // 
             cblisDurg.DataSource = null;
             cblisDurg.FillColor = Color.White;
+            cblisDurg.FilterIgnoreCase = true;
             cblisDurg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cblisDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cblisDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
@@ -60,6 +61,8 @@
             cblisDurg.MinimumSize = new Size(63, 0);
             cblisDurg.Name = "cblisDurg";
             cblisDurg.Padding = new Padding(0, 0, 30, 2);
+            cblisDurg.ShowClearButton = true;
+            cblisDurg.ShowFilter = true;
             cblisDurg.Size = new Size(226, 32);
             cblisDurg.SymbolSize = 24;
             cblisDurg.TabIndex = 2;
