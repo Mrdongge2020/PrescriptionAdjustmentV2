@@ -201,6 +201,7 @@
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Symbol = 361451;
             Text = "药柜管理";
             Load += FrmMedicineCabinetManage_Load;
             uiPanelTop.ResumeLayout(false);

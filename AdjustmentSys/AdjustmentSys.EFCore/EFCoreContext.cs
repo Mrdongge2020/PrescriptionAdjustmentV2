@@ -86,9 +86,17 @@ namespace AdjustmentSys.EFCore
         /// <summary>
         /// 本地处方信息
         /// </summary>
-        public DbSet<DataPrescription> DataPrescriptions { get; set; }
+        public DbSet<LocalDataPrescriptionInfo> LocalDataPrescriptionInfos { get; set; }
         /// <summary>
         /// 本地处方详情信息
+        /// </summary>
+        public DbSet<LocalDataPrescriptionDetail> LocalDataPrescriptionDetails { get; set; }
+        /// <summary>
+        /// 待下载处方信息
+        /// </summary>
+        public DbSet<DataPrescription> DataPrescriptions { get; set; }
+        /// <summary>
+        /// 待下载处方详情信息
         /// </summary>
         public DbSet<DataPrescriptionDetail> DataPrescriptionDetails { get; set; }
         /// <summary>

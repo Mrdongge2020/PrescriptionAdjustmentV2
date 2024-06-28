@@ -10,4 +10,8 @@
     <ProjectReference Include="..\AdjustmentSys.Tool\AdjustmentSys.Tool.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Prescription\" />
+  </ItemGroup>
+
 </Project>

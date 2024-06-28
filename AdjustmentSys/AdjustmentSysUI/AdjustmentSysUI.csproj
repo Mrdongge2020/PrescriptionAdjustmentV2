@@ -21,4 +21,8 @@
     <ProjectReference Include="..\AdjustmentSys.Models\AdjustmentSys.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Forms\PrescriptionForms\" />
+  </ItemGroup>
+
 </Project>

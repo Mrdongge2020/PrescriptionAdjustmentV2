@@ -1,5 +1,7 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -53,7 +55,7 @@ namespace AdjustmentSys.DAL.Common
         }
 
         /// <summary>
-        /// 药品下拉列表数据集
+        /// 药品下拉列表数据集,字典
         /// </summary>
         /// <returns></returns>
         public List<ComboxModel> GetParticlesInfoComboxData()
@@ -66,5 +68,23 @@ namespace AdjustmentSys.DAL.Common
 
             return result;
         }
+
+        /// <summary>
+        /// 药品下拉列表数据集,药柜
+        /// </summary>
+        /// <returns></returns>
+        public List<ComboxModel> GetCabinetParticlesComboxData(string code)
+        {
+            List<ComboxModel> result = new List<ComboxModel>();
+            string sql = $@" select a.ParticlesID as Id,c.Name+'('+c.NameSimplifiedPinyin+')' as Name 
+                             from MedicineCabinetDetail as a
+                             left join MedicineCabinetInfo as b on a.MedicineCabinetId=b.ID
+                             left join ParticlesInfo as c  on a.ParticlesID=c.ID
+                             where  b.Code='{code}' and   a.ParticlesID is not null and a.ParticlesID>0
+                             order by c.ID ";
+            result = DBHelper.ExecuteQuery<ComboxModel>(sql);
+            return result;
+        }
+
     }
 }

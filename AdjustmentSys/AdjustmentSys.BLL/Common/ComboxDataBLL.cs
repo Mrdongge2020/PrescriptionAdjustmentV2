@@ -47,5 +47,14 @@ namespace AdjustmentSys.BLL.Common
         {
             return comboxDataDAL.GetParticlesInfoComboxData();
         }
+
+        /// <summary>
+        /// 药品下拉列表数据集,药柜
+        /// </summary>
+        /// <returns></returns>
+        public List<ComboxModel> GetCabinetParticlesComboxData(string code)
+        {
+            return comboxDataDAL.GetCabinetParticlesComboxData(code);
+        }
     }
 }

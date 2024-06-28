@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace AdjustmentSys.Entity
 {
     /// <summary>
-    /// 待下载处方表
+    /// 本地处方表
     /// </summary>
-    [Table("DataPrescription")]
-    public class DataPrescription:BaseModel
+    [Table("LocalDataPrescriptionInfo")]
+    public class LocalDataPrescriptionInfo:BaseModel
     {
         /// <summary>
         /// 处方编号
@@ -197,7 +197,7 @@ namespace AdjustmentSys.Entity
         /// 处方状态
         /// </summary>
         [Column("ProcessStatus")]
-        public int ProcessStatus { get; set; }
+        public ProcessStatusEnum ProcessStatus { get; set; }
 
         /// <summary>
         /// 处方来源
@@ -219,6 +219,23 @@ namespace AdjustmentSys.Entity
         [MaxLength(200)]
         public string UsageMethod { get; set; }
 
+        /// <summary>
+        /// 下载人名称
+        /// </summary>
+        [Column("DownloadName")]
+        [MaxLength(20)]
+        public string DownloadName { get; set; }
+        /// <summary>
+        /// 下载人
+        /// </summary>
+        [Column("DownloadBy")]
+        public int DownloadBy { get; set; }
+
+        /// <summary>
+        /// 下载时间
+        /// </summary>
+        [Column("DownloadTime")]
+        public DateTime DownloadTime { get; set; }
         /// <summary>
         /// 预留字段1
         /// </summary>
