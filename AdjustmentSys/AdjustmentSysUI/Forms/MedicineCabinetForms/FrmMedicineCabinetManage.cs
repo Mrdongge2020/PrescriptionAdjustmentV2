@@ -163,8 +163,8 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
             if (stock > 50 && stock < 100)
             {
-                return Color.Blue;
-                //return Color.Wheat;
+                //return Color.Blue;
+                return Color.Wheat;
             }
             if (stock > 50 && stock <= 50)
             {
