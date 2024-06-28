@@ -189,7 +189,6 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             dataGridViewTextBoxColumn.Name = "Sort" + meId; ;
             //设置标题
             dataGridViewTextBoxColumn.HeaderText = "序号";
-
             //设置是否只读
             dataGridViewTextBoxColumn.ReadOnly = true;
             //设置是否可见
