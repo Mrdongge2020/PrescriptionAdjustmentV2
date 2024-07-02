@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace AdjustmentSys.Entity
 {
     /// <summary>
-    /// 待下载处方详情表
+    /// 本地处方详情表记录
     /// </summary>
-    [Table("DataPrescriptionDetail")]
-    public class DataPrescriptionDetail: BaseModel
+    [Table("LocalDataPrescriptionDetailRecord")]
+    public class LocalDataPrescriptionDetailRecord: BaseModel
     {
         /// <summary>
         /// 处方唯一编号

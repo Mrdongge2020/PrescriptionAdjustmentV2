@@ -3,6 +3,7 @@ using AdjustmentSysUI.Forms.DeviceForms;
 using AdjustmentSysUI.Forms.Drug;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
 using AdjustmentSysUI.Forms.Pharmacopoeia;
+using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.Forms.UserForms;
 using Sunny.UI;
 using System;
@@ -45,7 +46,11 @@ namespace AdjustmentSysUI.Forms
             parent = navMenuMainLeft.CreateNode("药柜管理", 358587, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMedicineCabinet(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMedicineCabinetManage(), ++pageIndex));
-            
+
+            pageIndex = 1400;
+            parent = navMenuMainLeft.CreateNode("处方管理", 358587, 28, pageIndex);
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmPrescriptionList(), ++pageIndex));
+
 
             //登录用户信息
             lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;

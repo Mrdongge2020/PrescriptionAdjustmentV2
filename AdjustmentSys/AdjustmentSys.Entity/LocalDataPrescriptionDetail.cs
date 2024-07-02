@@ -43,7 +43,7 @@ namespace AdjustmentSys.Entity
         public string ParticlesCodeHIS { get; set; }
 
         /// <summary>
-        /// 我库颗粒编号，默认-1
+        /// 我库颗粒id，默认-1
         /// </summary>
         [Column("ParticlesID")]
         public int ParticlesID { get; set; }

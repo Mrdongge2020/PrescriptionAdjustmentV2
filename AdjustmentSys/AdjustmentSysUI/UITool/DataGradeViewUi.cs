@@ -45,7 +45,7 @@ namespace AdjustmentSysUI.UITool
             {
                 tbc.Width = _width;
             }
-            else
+            else if(_width>0)
             {
                 tbc.FillWeight = _width;
             }

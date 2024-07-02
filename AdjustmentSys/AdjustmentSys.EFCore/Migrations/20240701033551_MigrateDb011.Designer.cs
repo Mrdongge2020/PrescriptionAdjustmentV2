@@ -4,6 +4,7 @@ using AdjustmentSys.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdjustmentSys.EFCore.Migrations
 {
     [DbContext(typeof(EFCoreContext))]
-    partial class EFCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240701033551_MigrateDb011")]
+    partial class MigrateDb011
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -385,7 +388,7 @@ namespace AdjustmentSys.EFCore.Migrations
                     b.Property<int>("ParticlesID")
                         .HasColumnType("int")
                         .HasColumnName("ParticlesID")
-                        .HasComment("我库颗粒id，默认-1");
+                        .HasComment("我库颗粒编号，默认-1");
 
                     b.Property<string>("ParticlesName")
                         .IsRequired()
@@ -778,7 +781,7 @@ namespace AdjustmentSys.EFCore.Migrations
                     b.Property<int>("ParticlesID")
                         .HasColumnType("int")
                         .HasColumnName("ParticlesID")
-                        .HasComment("我库颗粒id，默认-1");
+                        .HasComment("我库颗粒编号，默认-1");
 
                     b.Property<string>("ParticlesName")
                         .IsRequired()
@@ -854,7 +857,7 @@ namespace AdjustmentSys.EFCore.Migrations
                     b.Property<int>("ParticlesID")
                         .HasColumnType("int")
                         .HasColumnName("ParticlesID")
-                        .HasComment("我库颗粒id，默认-1");
+                        .HasComment("我库颗粒编号，默认-1");
 
                     b.Property<string>("ParticlesName")
                         .IsRequired()
@@ -1198,11 +1201,10 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnName("DetailedCount")
                         .HasComment("处方明细条数");
 
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("DeviceName")
-                        .HasComment("调配设备名称");
+                    b.Property<int>("DeviceID")
+                        .HasColumnType("int")
+                        .HasColumnName("DeviceID")
+                        .HasComment("调配设备");
 
                     b.Property<string>("DoctorName")
                         .IsRequired()
@@ -1351,11 +1353,6 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("TimeConsuming")
                         .HasComment("调配耗时");
-
-                    b.Property<int>("TimeConsumingSecond")
-                        .HasColumnType("int")
-                        .HasColumnName("TimeConsumingSecond")
-                        .HasComment("调配耗时秒");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)")

@@ -99,6 +99,23 @@ namespace AdjustmentSys.EFCore
         /// 待下载处方详情信息
         /// </summary>
         public DbSet<DataPrescriptionDetail> DataPrescriptionDetails { get; set; }
+
+        /// <summary>
+        /// 本地处方信息记录
+        /// </summary>
+        public DbSet<LocalDataPrescriptionInfoRecord> LocalDataPrescriptionInfoRecords { get; set; }
+        /// <summary>
+        /// 本地处方详情信息记录
+        /// </summary>
+        public DbSet<LocalDataPrescriptionDetailRecord> LocalDataPrescriptionDetailRecords { get; set; }
+        /// <summary>
+        /// 协定处方
+        /// </summary>
+        public DbSet<AgreementPrescriptionInfo> AgreementPrescriptionInfos { get; set; }
+        /// <summary>
+        /// 协定处方明细
+        /// </summary>
+        public DbSet<AgreementPrescriptionDetail> AgreementPrescriptionDetails { get; set; }
         /// <summary>
         /// 颗粒字典信息
         /// </summary>
@@ -107,7 +124,6 @@ namespace AdjustmentSys.EFCore
         /// 颗粒字典详情信息
         /// </summary>
         public DbSet<ParticlesInfoExtend> ParticlesInfoExtends { get; set; }
-        
 
         /// <summary>
         /// 颗粒相融规则
