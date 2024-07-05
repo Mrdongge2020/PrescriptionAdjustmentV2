@@ -49,12 +49,21 @@ namespace AdjustmentSys.BLL.Common
         }
 
         /// <summary>
+        /// 获取医生下拉数据
+        /// </summary>
+        /// <returns></returns>
+        public List<ComboxModel> GetDoctorComboxData() 
+        {
+            return comboxDataDAL.GetDoctorComboxData();
+        }
+
+        /// <summary>
         /// 药品下拉列表数据集,药柜
         /// </summary>
         /// <returns></returns>
-        public List<ComboxModel> GetCabinetParticlesComboxData(string code)
+        public List<ComboxModel> GetCabinetParticlesComboxData()
         {
-            return comboxDataDAL.GetCabinetParticlesComboxData(code);
+            return comboxDataDAL.GetCabinetParticlesComboxData();
         }
     }
 }

@@ -134,28 +134,28 @@ namespace AdjustmentSys.Entity
         /// </summary>
         [Column("RegisterID")]
         [MaxLength(50)]
-        public string RegisterID { get; set; }
+        public string? RegisterID { get; set; }
 
         /// <summary>
         /// 处方缴费类型
         /// </summary>
         [Column("PaymentType")]
         [MaxLength(50)]
-        public string PaymentType { get; set; }
+        public string? PaymentType { get; set; }
 
         /// <summary>
         /// 缴费状态
         /// </summary>
         [Column("PaymentStatus")]
         [MaxLength(10)]
-        public string PaymentStatus { get; set; }
+        public string? PaymentStatus { get; set; }
 
         /// <summary>
         /// 处方类型，住院或门诊
         /// </summary>
         [Column("PrescriptionType")]
         [MaxLength(50)]
-        public string PrescriptionType { get; set; }
+        public string? PrescriptionType { get; set; }
 
         /// <summary>
         /// 导入时间
@@ -224,20 +224,20 @@ namespace AdjustmentSys.Entity
         /// </summary>
         [Column("BackupField1")]
         [MaxLength(100)]
-        public string BackupField1 { get; set; }
+        public string? BackupField1 { get; set; }
 
         /// <summary>
         /// 预留字段1
         /// </summary>
         [Column("BackupField2")]
         [MaxLength(100)]
-        public string BackupField2 { get; set; }
+        public string? BackupField2 { get; set; }
 
         /// <summary>
         /// 预留字段1
         /// </summary>
         [Column("BackupField3")]
         [MaxLength(100)]
-        public string BackupField3 { get; set; }
+        public string? BackupField3 { get; set; }
     }
 }

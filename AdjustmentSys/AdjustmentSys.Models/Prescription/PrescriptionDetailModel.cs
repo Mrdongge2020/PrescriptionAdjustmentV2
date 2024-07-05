@@ -23,7 +23,7 @@ namespace AdjustmentSys.Models.Prescription
         /// <summary>
         /// HIS颗粒名称
         /// </summary>
-        public string ParticlesName { get; set; }
+        public string ParticlesNameHIS { get; set; }
 
         /// <summary>
         /// 颗粒HIS码
@@ -34,6 +34,11 @@ namespace AdjustmentSys.Models.Prescription
         /// 我库颗粒id
         /// </summary>
         public int ParticlesID { get; set; }
+        /// <summary>
+        /// 我库颗粒编码
+        /// </summary>
+        public string ParCode { get; set; }
+        
         /// <summary>
         /// 我库颗粒名称
         /// </summary>
@@ -63,5 +68,13 @@ namespace AdjustmentSys.Models.Prescription
         /// 药品单价
         /// </summary>
         public decimal Price { get; set; }
+        /// <summary>
+        /// 库存
+        /// </summary>
+        public float? Stock { get; set; }
+        /// <summary>
+        /// 剂量上限
+        /// </summary>
+        public float? DoseLimit { get; set; }
     }
 }

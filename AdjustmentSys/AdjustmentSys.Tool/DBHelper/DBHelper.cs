@@ -199,6 +199,44 @@ namespace AdjustmentSys.Tool
             return ExecuteQueryOne<T>(sql, new SqlParameter[] { });
         }
 
+        /// <summary>
+        /// 返回第一行第一列的值
+        /// </summary>
+        /// <param name="sqlcmd">TSQL语句</param>
+        /// <returns></returns>
+        public static object ExecuteScalar(string sqlcmd)
+        {
+            SqlConnection conn = new SqlConnection(SqlConn);
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlcmd, conn))
+                {
+                    object Result = null;
+                    if (conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
+                    Result = cmd.ExecuteScalar();
+                    if (Result == null)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        return Result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
 
         /// <summary>
         /// 将查出的数据装到table里，返回一个DataTable

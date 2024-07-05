@@ -43,8 +43,8 @@
             cbPreState = new Sunny.UI.UIComboBox();
             uiPage = new Sunny.UI.UIPagination();
             dgvList = new Sunny.UI.UIDataGridView();
-            btnAdd = new Sunny.UI.UISymbolButton();
-            btnEditUser = new Sunny.UI.UISymbolButton();
+            btnAddPre = new Sunny.UI.UISymbolButton();
+            btnCopyPre = new Sunny.UI.UISymbolButton();
             btnSearch = new Sunny.UI.UISymbolButton();
             txtPrID = new Sunny.UI.UITextBox();
             txtPatentName = new Sunny.UI.UITextBox();
@@ -66,7 +66,7 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(233, 134);
+            btnRefc.Location = new Point(459, 134);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 1;
@@ -165,7 +165,6 @@
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvList.RowHeadersVisible = false;
             dgvList.RowHeadersWidth = 51;
             dataGridViewCellStyle5.BackColor = Color.White;
             dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -177,36 +176,38 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 33;
             dgvList.CellClick += dgvList_CellClick;
-            dgvList.RowEnter += dgvList_RowEnter;
+            dgvList.RowPostPaint += dgvList_RowPostPaint;
             // 
-            // btnAdd
+            // btnAddPre
             // 
-            btnAdd.Cursor = Cursors.Hand;
-            btnAdd.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAdd.Location = new Point(16, 134);
-            btnAdd.MinimumSize = new Size(1, 1);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Radius = 1;
-            btnAdd.Size = new Size(70, 30);
-            btnAdd.Symbol = 362211;
-            btnAdd.TabIndex = 32;
-            btnAdd.Text = "新增";
-            btnAdd.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAddPre.Cursor = Cursors.Hand;
+            btnAddPre.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAddPre.Location = new Point(16, 134);
+            btnAddPre.MinimumSize = new Size(1, 1);
+            btnAddPre.Name = "btnAddPre";
+            btnAddPre.Radius = 1;
+            btnAddPre.Size = new Size(100, 30);
+            btnAddPre.Symbol = 362211;
+            btnAddPre.TabIndex = 32;
+            btnAddPre.Text = "录入处方";
+            btnAddPre.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAddPre.Click += btnAddPre_Click;
             // 
-            // btnEditUser
+            // btnCopyPre
             // 
-            btnEditUser.Cursor = Cursors.Hand;
-            btnEditUser.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEditUser.Location = new Point(117, 134);
-            btnEditUser.MinimumSize = new Size(1, 1);
-            btnEditUser.Name = "btnEditUser";
-            btnEditUser.Radius = 1;
-            btnEditUser.Size = new Size(70, 30);
-            btnEditUser.Symbol = 361741;
-            btnEditUser.SymbolColor = SystemColors.Window;
-            btnEditUser.TabIndex = 31;
-            btnEditUser.Text = "修改";
-            btnEditUser.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCopyPre.Cursor = Cursors.Hand;
+            btnCopyPre.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCopyPre.Location = new Point(138, 134);
+            btnCopyPre.MinimumSize = new Size(1, 1);
+            btnCopyPre.Name = "btnCopyPre";
+            btnCopyPre.Radius = 1;
+            btnCopyPre.Size = new Size(100, 30);
+            btnCopyPre.Symbol = 361741;
+            btnCopyPre.SymbolColor = SystemColors.Window;
+            btnCopyPre.TabIndex = 31;
+            btnCopyPre.Text = "复制处方";
+            btnCopyPre.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCopyPre.Click += btnCopyPre_Click;
             // 
             // btnSearch
             // 
@@ -455,8 +456,8 @@
             Controls.Add(cbPreState);
             Controls.Add(uiPage);
             Controls.Add(dgvList);
-            Controls.Add(btnAdd);
-            Controls.Add(btnEditUser);
+            Controls.Add(btnAddPre);
+            Controls.Add(btnCopyPre);
             Controls.Add(btnSearch);
             Controls.Add(txtPrID);
             Name = "FrmPrescriptionList";
@@ -476,8 +477,8 @@
         private Sunny.UI.UIComboBox cbPreState;
         private Sunny.UI.UIPagination uiPage;
         private Sunny.UI.UIDataGridView dgvList;
-        private Sunny.UI.UISymbolButton btnAdd;
-        private Sunny.UI.UISymbolButton btnEditUser;
+        private Sunny.UI.UISymbolButton btnAddPre;
+        private Sunny.UI.UISymbolButton btnCopyPre;
         private Sunny.UI.UISymbolButton btnSearch;
         private Sunny.UI.UITextBox txtPrID;
         private Sunny.UI.UITextBox txtPatentName;

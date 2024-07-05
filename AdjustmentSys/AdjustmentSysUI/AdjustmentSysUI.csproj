@@ -21,4 +21,10 @@
     <ProjectReference Include="..\AdjustmentSys.Models\AdjustmentSys.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Forms\PrescriptionForms\FrmPrescriptionAdd.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>

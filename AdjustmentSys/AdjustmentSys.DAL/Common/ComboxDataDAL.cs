@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -70,17 +71,28 @@ namespace AdjustmentSys.DAL.Common
         }
 
         /// <summary>
+        /// 获取医生下拉数据
+        /// </summary>
+        /// <returns></returns>
+        public List<ComboxModel> GetDoctorComboxData()
+        {
+            List<ComboxModel> result = _eFCoreContext.DoctorInfos.AsNoTracking().OrderBy(x => x.ID)
+                .Select(x => new ComboxModel() { Id = x.ID, Name = x.DoctorName })
+                .ToList();
+            return result;
+        }
+        /// <summary>
         /// 药品下拉列表数据集,药柜
         /// </summary>
         /// <returns></returns>
-        public List<ComboxModel> GetCabinetParticlesComboxData(string code)
+        public List<ComboxModel> GetCabinetParticlesComboxData()
         {
             List<ComboxModel> result = new List<ComboxModel>();
             string sql = $@" select a.ParticlesID as Id,c.Name+'('+c.NameSimplifiedPinyin+')' as Name 
                              from MedicineCabinetDetail as a
                              left join MedicineCabinetInfo as b on a.MedicineCabinetId=b.ID
                              left join ParticlesInfo as c  on a.ParticlesID=c.ID
-                             where  b.Code='{code}' and   a.ParticlesID is not null and a.ParticlesID>0
+                             where  b.Code='{SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode}' and   a.ParticlesID is not null and a.ParticlesID>0
                              order by c.ID ";
             result = DBHelper.ExecuteQuery<ComboxModel>(sql);
             return result;

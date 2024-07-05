@@ -31,9 +31,9 @@ namespace AdjustmentSys.Entity
         /// <summary>
         /// HIS颗粒名称
         /// </summary>
-        [Column("ParticlesName")]
+        [Column("ParticlesNameHIS")]
         [MaxLength(50)]
-        public string ParticlesName { get; set; }
+        public string ParticlesNameHIS { get; set; }
 
         /// <summary>
         /// 颗粒HIS码
@@ -53,7 +53,7 @@ namespace AdjustmentSys.Entity
         /// </summary>
         [Column("BatchNumber")]
         [MaxLength(50)]
-        public string BatchNumber { get; set; }
+        public string? BatchNumber { get; set; }
 
         /// <summary>
         /// 颗粒饮片剂量

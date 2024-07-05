@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.DAL.Prescription;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Prescription;
+using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,17 @@ namespace AdjustmentSys.BLL.Prescription
         /// <returns></returns>
         public string AddPrescription(DataPrescription dataPrescription, List<DataPrescriptionDetail> dataPrescriptionDetails)
         {
+            decimal totalPrice= dataPrescriptionDetails.Sum(x => x.Price*(decimal)x.DoseHerb);
+            dataPrescription.CreateName = SysLoginUser._currentUser.UserName;
+            dataPrescription.CreateTime= DateTime.Now;
+            dataPrescription.ValuationTime= DateTime.Now;
+            dataPrescription.ImportTime = DateTime.Now;
+            dataPrescription.UnitPrice =Math.Round(totalPrice/dataPrescription.Quantity,3);
+            dataPrescription.TotalPrice = totalPrice;
+            dataPrescription.DetailedCount = dataPrescriptionDetails.Count;
+            dataPrescription.ProcessStatus = 0;
+            dataPrescription.PrescriptionSource = 1;
+
             return prescriptionDAL.AddPrescription(dataPrescription,dataPrescriptionDetails);
         }
 
@@ -54,6 +66,14 @@ namespace AdjustmentSys.BLL.Prescription
         }
 
         /// <summary>
+        /// 获取处方信息，主要回写处方录入用
+        /// </summary>
+        /// <returns></returns>
+        public PrescriptionInfoModel GetPrescriptionInfo(string prescriptionID, ProcessStatusEnum? processStatus) 
+        {
+            return prescriptionDAL.GetPrescriptionInfo(prescriptionID,processStatus);
+        }
+        /// <summary>
         /// 查询处方详情
         /// </summary>
         /// <param name="prescriptionID">处方编号</param>
@@ -62,6 +82,34 @@ namespace AdjustmentSys.BLL.Prescription
         public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus) 
         {
             return prescriptionDAL.GetPrescriptionDetailList(prescriptionID,processStatus);
+        }
+
+        /// <summary>
+        /// 获取医生科室
+        /// </summary>
+        /// <param name="docId">医生id</param>
+        /// <returns></returns>
+        public string GetDoctorDepartment(int docId) 
+        { 
+            return prescriptionDAL.GetDoctorDepartment(docId);
+        }
+
+        /// <summary>
+        /// 获取颗粒信息
+        /// </summary>
+        /// <param name="parId">颗粒id</param>
+        /// <returns></returns>
+        public ParticlesInfoModel GetParticlesInfo(int parId)
+        {
+            return prescriptionDAL.GetParticlesInfo(parId);
+        }
+        /// <summary>
+        /// 获取所有相容规则
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticleProhibitionRule> GetAllRuler()
+        { 
+            return prescriptionDAL.GetAllRuler();
         }
     }
 }

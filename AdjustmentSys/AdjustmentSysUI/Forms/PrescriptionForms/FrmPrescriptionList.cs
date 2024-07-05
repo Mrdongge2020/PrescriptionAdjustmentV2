@@ -1,7 +1,10 @@
-﻿using AdjustmentSys.BLL.Prescription;
+﻿using AdjustmentSys.BLL.MedicineCabinet;
+using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSysUI.Forms.MedicineCabinetForms;
+using AdjustmentSysUI.Forms.UserForms;
 using AdjustmentSysUI.UITool;
 using Microsoft.Identity.Client.NativeInterop;
 using Sunny.UI;
@@ -25,8 +28,6 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             InitializeComponent();
         }
-
-
         private void FrmPrescriptionList_Load(object sender, EventArgs e)
         {
             var names = Enum.GetNames(typeof(ProcessStatusEnum));
@@ -74,58 +75,49 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             //设置分页控件每页数量
             uiPage.PageSize = 20;
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
+            int datecolwidth = 160;
             //创建列
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionID", "处方编号", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientName", "患者姓名", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientSexText", "性别", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientAgeText", "年龄", true, true, 100, "");
+            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 0, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionID", "处方编号", true, true, 130, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientName", "患者姓名", true, true, 90, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientSexText", "性别", true, true, 60, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientAgeText", "年龄", true, true, 70, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientTel", "联系电话", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Quantity", "付数", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TaskFrequency", "分服次数", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DetailedCount", "明细条数", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ProcessStatusText", "处方状态", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DoctorName", "医生", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Quantity", "付数", true, true, 60, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TaskFrequency", "分服次数", true, true, 70, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DetailedCount", "明细条数", true, true, 70, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ProcessStatusText", "处方状态", true, true, 80, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DoctorName", "医生", true, true, 90, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DepartmentName", "科室", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionSourceText", "处方来源", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UnitPrice", "处方单价", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TotalPrice", "处方总价", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionSourceText", "处方来源", true, true, 80, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UnitPrice", "处方单价", true, true, 70, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TotalPrice", "处方总价", true, true, 70, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, 100, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss");
 
             if (cbPreState.SelectedIndex > 0)
             {
                 dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DownloadName", "下载人", true, true, 100, "");
-                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DownloadTime", "下载时间", true, true, 100, "yyyy-MM-dd HH:mm:ss");
+                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DownloadTime", "下载时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss");
             }
             if (cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成))
             {
-                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "BoxNumber", "盒数", true, true, 100, "");
+                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "BoxNumber", "盒数", true, true, 60, "");
                 dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AllocateName", "调剂员", true, true, 100, "");
-                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CompleteTime", "完成时间", true, true, 100, "yyyy-MM-dd HH:mm:ss");
-                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TimeConsumingSecond", "调配耗时秒", true, true, 100, "");
+                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CompleteTime", "完成时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss");
+                dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TimeConsumingSecond", "调配耗时秒", true, true, 70, "");
                 dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceName", "设备名称", true, true, 100, "");
                 dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AnalysisResult", "处方分析结果", true, true, 100, "");
             }
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DownloadName", "下载人", true, cbPreState.SelectedIndex>0?true:false, 0, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DownloadTime", "下载时间", true, cbPreState.SelectedIndex > 0 ? true : false, 0, "yyyy-MM-dd HH:mm:ss");
-
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "BoxNumber", "盒数", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成)?true:false, 0, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AllocateName", "调剂员", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成) ? true : false, 0, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CompleteTime", "完成时间", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成) ? true : false, 0, "yyyy-MM-dd HH:mm:ss");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "TimeConsumingSecond", "调配耗时秒", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成) ? true : false, 0, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceName", "设备名称", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成) ? true : false, 0, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AnalysisResult", "处方分析结果", true, cbPreState.Text == Enum.GetName(typeof(ProcessStatusEnum), ProcessStatusEnum.完成) ? true : false, 0, "");
-
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientLocation", "患者位置", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionName", "协定处方名称", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionName", "协定处方名称", true, true, 110, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ValuerName", "划价员", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ValueSn", "划价单号", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ValuationTime", "划价时间", true, true, 100, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ValuationTime", "划价时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PaymentType", "缴费类型", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PaymentStatus", "缴费状态", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionType", "处方类型", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ImportTime", "导入时间", true, true, 100, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ImportTime", "导入时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Remarks", "备注", true, true, 100, "");
 
         }
@@ -148,9 +140,15 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             dgvList.DataSource = preDatas;
 
+            this.dgvList.TopLeftHeaderCell.Value = "序号";
+
             //清除默认选中的行
             dgvList.ClearSelection();
             selectPreId = "";
+            foreach (DataGridViewRow row in dgvList.SelectedRows)
+            {
+                row.Selected = false;
+            }
         }
 
         /// <summary>
@@ -158,17 +156,25 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         /// </summary>
         private void InitPreDetail()
         {
+            dgvPreDetail.AutoGenerateColumns = false;//不自动生成列
+            dgvPreDetail.AllowUserToAddRows = false;//不自动产生最后的新行
+            dgvPreDetail.AllowUserToResizeRows = false;
+            dgvPreDetail.AllowUserToResizeColumns = false;
+            dgvPreDetail.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticleOrder", "序号", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticleOrder", "序号", true, true, 50, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParName", "颗粒名称", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "DoseHerb", "饮片剂量", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Equivalent", "当量", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Dose", "颗粒剂量", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Price", "单价", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "DoseHerb", "饮片剂量", true, true, 80, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Equivalent", "当量", true, true, 80, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Dose", "颗粒剂量", true, true, 80, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Price", "单价", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesName", "HIS名称", true, true, 100, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesCodeHIS", "HIS码", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesCodeHIS", "HIS码", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "BatchNumber", "批号", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Stock", "库存", true, false, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "DoseLimit", "剂量上限", true, false, 100, "");
+
         }
         /// <summary>
         /// 查询处方详情
@@ -188,7 +194,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             txtPrID.Text = string.Empty;
             txtPatentName.Text = string.Empty;
-            cbPreState.SelectedIndex = 1;
+            cbPreState.SelectedIndex = 0;
             cbSource.SelectedIndex = -1;
             dtpStart.Value = DateTime.Now;
             dtpEnd.Value = DateTime.Now;
@@ -200,6 +206,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             if (e.RowIndex < 0) { return; }
 
             selectPreId = this.dgvList.Rows[e.RowIndex].Cells["PrescriptionID"].Value.ToString();
+            QueryPreDetailList();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -213,9 +220,72 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             QueryPrePageList();
         }
 
-        private void dgvList_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void btnAddPre_Click(object sender, EventArgs e)
         {
-            QueryPreDetailList();
+            Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x is FrmPrescriptionAdd).FirstOrDefault();
+            if (existingForm != null)
+            {
+                // 窗体已打开，关闭旧窗体
+                existingForm.Close();
+            }
+            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd("", null);
+            frmPrescriptionAdd.Text = "录入处方";
+            frmPrescriptionAdd.ShowDialog();
+            string msg = frmPrescriptionAdd.saveMessage;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("提交处方成功");
+                QueryPrePageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
+
+        }
+
+        private void btnCopyPre_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectPreId))
+            {
+                ShowWarningDialog("异常提示", "请先选择要复制的处方");
+                return;
+            }
+
+            Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x is FrmPrescriptionAdd).FirstOrDefault();
+            if (existingForm != null)
+            {
+                // 窗体已打开，关闭旧窗体
+                existingForm.Close();
+            }
+
+            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd(selectPreId, cbPreState.SelectedIndex);
+            frmPrescriptionAdd.Text = "复制处方";
+            frmPrescriptionAdd.ShowDialog();
+
+            string msg = frmPrescriptionAdd.saveMessage;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("提交处方成功");
+                QueryPrePageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
+        }
+
+        private void dgvList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X,
+            e.RowBounds.Location.Y,
+            dgvList.RowHeadersWidth - 4,
+            e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+            dgvList.RowHeadersDefaultCellStyle.Font,
+            rectangle,
+            dgvList.RowHeadersDefaultCellStyle.ForeColor,
+            TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
     }
 }

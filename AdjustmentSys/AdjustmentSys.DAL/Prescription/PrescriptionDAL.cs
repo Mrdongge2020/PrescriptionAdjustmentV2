@@ -2,6 +2,7 @@
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.MedicineCabinet;
 using AdjustmentSys.Models.Prescription;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
@@ -176,7 +177,7 @@ namespace AdjustmentSys.DAL.Prescription
 
             string sqlCount = $@" select count(1) from {tableName}   {sqlWhere} ";
 
-            totalCount = DBHelper.ExecuteQueryOne<int>(sqlCount);
+            totalCount = Convert.ToInt32(DBHelper.ExecuteScalar(sqlCount));
             if (totalCount<=0) 
             {
                 return null;
@@ -195,12 +196,50 @@ namespace AdjustmentSys.DAL.Prescription
         }
 
         /// <summary>
+        /// 获取处方信息，主要回写处方录入用
+        /// </summary>
+        /// <returns></returns>
+        public PrescriptionInfoModel GetPrescriptionInfo(string prescriptionID, ProcessStatusEnum? processStatus) 
+        {
+            string tableName = " LocalDataPrescriptionInfo ";
+            if (processStatus.Value == ProcessStatusEnum.完成)
+            {
+                tableName = " LocalDataPrescriptionInfoRecord ";
+
+            }
+            else if (processStatus.Value == ProcessStatusEnum.待下载)
+            {
+                tableName = " DataPrescription ";
+            }
+
+            PrescriptionInfoModel prescriptionInfoModel = new PrescriptionInfoModel();
+            string sql = $@" SELECT
+	                                ID,
+	                                PrescriptionID,
+	                                PatientName,
+	                                PatientSex,
+	                                PatientAge,
+	                                PatientBirthMonth,
+	                                PatientTel,
+	                                DoctorName,
+	                                DepartmentName,
+	                                Quantity,
+	                                TaskFrequency,
+	                                Remarks 
+                              FROM
+	                                {tableName} 
+                              where PrescriptionID='{prescriptionID}' ";
+            prescriptionInfoModel = DBHelper.ExecuteQueryOne<PrescriptionInfoModel>(sql);
+            prescriptionInfoModel.Details = GetPrescriptionDetailList(prescriptionID,processStatus);
+            return prescriptionInfoModel;
+        }
+        /// <summary>
         /// 查询处方详情
         /// </summary>
         /// <param name="prescriptionID">处方编号</param>
         /// <param name="processStatus">处方状态</param>
         /// <returns></returns>
-        public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus) 
+        public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus,bool isQueryStock=false) 
         {
             string tableName = " LocalDataPrescriptionDetail ";
             if (processStatus.Value == ProcessStatusEnum.完成)
@@ -215,24 +254,104 @@ namespace AdjustmentSys.DAL.Prescription
 
             string sql = $@"select a.ID
                                   ,b.Name as ParName
+                                  ,b.Code as ParCode
+                                  ,c.DoseLimit
                                   ,ParticleOrder
-                                  ,ParticlesName
+                                  ,ParticlesNameHIS
                                   ,ParticlesCodeHIS
-                                  ,ParticlesID
-                                  ,BatchNumber
+                                  ,a.ParticlesID
+                                  ,a.BatchNumber
                                   ,DoseHerb
-                                  ,Equivalent
+                                  ,a.Equivalent
                                   ,Dose
                                   ,Price
                             from {tableName} as a
                             left join ParticlesInfo as b on  a.ParticlesID=b.ID 
+                            left join ParticlesInfoExtend as c on a.ParticlesID=c.ParticlesID
                             where a.PrescriptionID='{prescriptionID}'
                             order by ParticleOrder asc ";
 
             List<PrescriptionDetailModel> result = DBHelper.ExecuteQuery<PrescriptionDetailModel>(sql);
-
+            if (result==null) 
+            { 
+                return null;
+            }
+            if (isQueryStock) 
+            {
+                //获取药柜上的库存信息等
+                string code = SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
+                if (string.IsNullOrEmpty(code))
+                {
+                    //根据编号获取药柜id
+                    List<int> mcids = _eFCoreContext.MedicineCabinetInfos.Where(x => x.Code == code).Select(x => x.ID).ToList();
+                    List<int> parIds= result.Select(x => x.ID).ToList();
+                    if (mcids==null)
+                    {
+                        return result;
+                    }
+                    var mcdlist= _eFCoreContext.MedicineCabinetDetails.Where(x =>mcids.Contains(x.MedicineCabinetId) && x.ParticlesID>0 && parIds.Contains((int)x.ParticlesID)).ToList();
+                    if (mcdlist == null) 
+                    {
+                        return result;
+                    }
+                    foreach (var item in result)
+                    {
+                        item.Stock = mcdlist.FirstOrDefault(x => x.ParticlesID == item.ParticlesID)?.Stock;
+                    }
+                }
+            }
             return result;
-            
+        }
+
+        /// <summary>
+        /// 获取医生科室
+        /// </summary>
+        /// <param name="docId">医生id</param>
+        /// <returns></returns>
+        public string GetDoctorDepartment(int docId) 
+        {
+            string depName = _eFCoreContext.DoctorInfos.FirstOrDefault(x=>x.ID==docId)?.DoctorDepartmentName;
+            return depName;
+        }
+
+        /// <summary>
+        /// 获取颗粒信息
+        /// </summary>
+        /// <param name="parId">颗粒id</param>
+        /// <returns></returns>
+        public ParticlesInfoModel GetParticlesInfo(int parId) 
+        {
+            string sql = $@" select a.ID,a.Name as ParName,HisCode,a.Code,b.Equivalent,DoseLimit,RetailPrice
+                        from ParticlesInfo as a
+                        left join ParticlesInfoExtend as b on a.ID=b.ParticlesID
+                        where a.ID={parId} ";
+            ParticlesInfoModel particlesInfoModel= DBHelper.ExecuteQueryOne<ParticlesInfoModel>(sql);
+            if (particlesInfoModel == null)
+            {
+                return null;
+            }
+            //获取药柜上的库存信息等
+            string code= SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
+            if (string.IsNullOrEmpty(code)) 
+            { 
+                //根据编号获取药柜id
+                List<int> mcids=_eFCoreContext.MedicineCabinetInfos.Where(x=>x.Code==code).Select(x=>x.ID).ToList();
+                if (mcids!=null && mcids.Count>0)
+                {
+                    particlesInfoModel.Stock= _eFCoreContext.MedicineCabinetDetails.FirstOrDefault(x=>mcids.Contains(x.MedicineCabinetId) && x.ParticlesID== parId)?.Stock;
+                }
+            }
+           return particlesInfoModel;
+        }
+
+        /// <summary>
+        /// 获取所有相容规则
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticleProhibitionRule> GetAllRuler() 
+        {
+            var rulers = _eFCoreContext.ParticleProhibitionRules.ToList();
+            return rulers;
         }
     }
 }
