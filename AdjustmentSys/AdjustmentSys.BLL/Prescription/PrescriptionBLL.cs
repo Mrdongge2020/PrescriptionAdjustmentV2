@@ -111,5 +111,59 @@ namespace AdjustmentSys.BLL.Prescription
         { 
             return prescriptionDAL.GetAllRuler();
         }
+
+        /// <summary>
+        /// 新增或编辑协定方
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <param name="agreementPrescriptionInfo">基本信息</param>
+        /// <param name="agreementPrescriptionDetails">详情信息</param>
+        /// <returns></returns>
+        public string AddOrEditAgreementPrescriptionInfo(int? agreementPrescriptionId, AgreementPrescriptionInfo agreementPrescriptionInfo, List<AgreementPrescriptionDetail> agreementPrescriptionDetails)
+        {
+            if (prescriptionDAL.IsExitAgreementPrescription(agreementPrescriptionId, agreementPrescriptionInfo.Name)) 
+            {
+                return "当前协定方名称在系统已存在";
+            }
+            if (agreementPrescriptionId==null) 
+            {
+                agreementPrescriptionInfo.CreateName = SysLoginUser._currentUser.UserName;
+                agreementPrescriptionInfo.CreateBy = SysLoginUser._currentUser.UserId;
+                agreementPrescriptionInfo.CreateTime = DateTime.Now;
+            }
+          
+            return prescriptionDAL.AddOrEditAgreementPrescriptionInfo(agreementPrescriptionId,agreementPrescriptionInfo,agreementPrescriptionDetails);
+        }
+
+        /// <summary>
+        /// 删除协定方
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public string DeleteAgreementPrescriptionInfo(int agreementPrescriptionId)
+        {
+            return prescriptionDAL.DeleteAgreementPrescriptionInfo(agreementPrescriptionId);
+        }
+        /// <summary>
+        /// 协定方列表查询
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="pageIndex">当前页</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns></returns>
+        public List<AgreementPrescriptionInfo> GetAgreementPrescriptionByPage(string? name, int pageIndex, int pageSize, out int count) 
+        {
+            return prescriptionDAL.GetAgreementPrescriptionByPage(name, pageIndex, pageSize, out count);
+        }
+
+        /// <summary>
+        /// 获取协定方详情信息
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public List<AgreementPrescriptionDetail> GetAgreementPrescriptionDetails(int? agreementPrescriptionId)
+        {
+            return prescriptionDAL.GetAgreementPrescriptionDetails(agreementPrescriptionId);
+        }
     }
 }

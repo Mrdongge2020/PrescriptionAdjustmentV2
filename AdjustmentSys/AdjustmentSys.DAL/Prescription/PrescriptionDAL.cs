@@ -6,6 +6,7 @@ using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -353,5 +354,170 @@ namespace AdjustmentSys.DAL.Prescription
             var rulers = _eFCoreContext.ParticleProhibitionRules.ToList();
             return rulers;
         }
+
+        #region 协定方
+        /// <summary>
+        /// 新增或编辑协定方
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <param name="agreementPrescriptionInfo">基本信息</param>
+        /// <param name="agreementPrescriptionDetails">详情信息</param>
+        /// <returns></returns>
+        public string AddOrEditAgreementPrescriptionInfo(int? agreementPrescriptionId, AgreementPrescriptionInfo agreementPrescriptionInfo,List<AgreementPrescriptionDetail> agreementPrescriptionDetails)
+        {
+            string error = "";
+            if (agreementPrescriptionId == null)
+            {
+
+                #region 新增协定方
+                using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        _eFCoreContext.AgreementPrescriptionInfos.Add(agreementPrescriptionInfo);
+                        _eFCoreContext.AgreementPrescriptionDetails.AddRange(agreementPrescriptionDetails);
+                        _eFCoreContext.SaveChanges();
+
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                        error = "保存协定方信息失败,请稍后再试";
+                    }
+                } 
+                #endregion
+
+            }else 
+            {
+                #region 编辑协定方
+
+                var info = _eFCoreContext.AgreementPrescriptionInfos.FirstOrDefault(x => x.ID == agreementPrescriptionId);
+                if (info == null)
+                {
+                    error = "编辑协定方信息失败,未找到要修改的协定方";
+                    return error;
+                }
+                info.Name = agreementPrescriptionInfo.Name;
+                info.Description = agreementPrescriptionInfo.Description;
+
+                using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                       //删除旧的协定方详情数据
+                        _eFCoreContext.AgreementPrescriptionDetails.Where(x=>x.AgreementPrescriptionId== agreementPrescriptionId).ExecuteDelete();
+                        //更新协定方基本信息
+                        _eFCoreContext.AgreementPrescriptionInfos.Update(info);
+                        //重新插入新的协定方详情数据
+                        _eFCoreContext.AgreementPrescriptionDetails.AddRange(agreementPrescriptionDetails);
+                        _eFCoreContext.SaveChanges();
+
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                        error = "编辑协定方信息失败,请稍后再试";
+                    }
+                } 
+                #endregion
+            }
+
+            return error;
+        }
+
+        /// <summary>
+        /// 删除协定方
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public string DeleteAgreementPrescriptionInfo(int agreementPrescriptionId) 
+        {
+            string error = "";
+
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    //删除协定方基本信息
+                    _eFCoreContext.AgreementPrescriptionInfos.Where(x => x.ID == agreementPrescriptionId).ExecuteDelete();
+                    //删除协定方详情数据
+                    _eFCoreContext.AgreementPrescriptionDetails.Where(x => x.AgreementPrescriptionId == agreementPrescriptionId).ExecuteDelete();
+
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                    error = "删除协定方信息失败,请稍后再试";
+                }
+            }
+            return error;
+        }
+        /// <summary>
+        /// 判断协定方是否已存在
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <param name="name">协定方名称</param>
+        /// <returns></returns>
+        public bool IsExitAgreementPrescription(int? agreementPrescriptionId,string name) 
+        {
+            if (agreementPrescriptionId != null)
+            {
+                return _eFCoreContext.AgreementPrescriptionInfos.Any(x => x.Name == name && x.ID != agreementPrescriptionId);
+            }
+            else 
+            {
+                return _eFCoreContext.AgreementPrescriptionInfos.Any(x => x.Name == name);
+            }
+        }
+
+        /// <summary>
+        /// 协定方列表查询
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="pageIndex">当前页</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns></returns>
+        public List<AgreementPrescriptionInfo> GetAgreementPrescriptionByPage(string? name, int pageIndex, int pageSize, out int count)
+        {
+            var where = _eFCoreContext.AgreementPrescriptionInfos.AsNoTracking()
+                .Where(x =>1==1);
+
+            //名称条件
+            if (!string.IsNullOrEmpty(name))
+            {
+                where = where.Where(x => (x.Name.Contains(name)));
+            }
+
+            //统计总记录数
+            count = where.Count();
+            if (count == 0)
+            {
+                return null;
+            }
+
+            //结果按照创建时间倒序排序
+            where = where.OrderByDescending(x => x.CreateTime);
+
+            //跳过翻页的数量
+            var list = where.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+
+            return list;
+        }
+
+        /// <summary>
+        /// 获取协定方详情信息
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public List<AgreementPrescriptionDetail> GetAgreementPrescriptionDetails(int? agreementPrescriptionId) 
+        {
+            return _eFCoreContext.AgreementPrescriptionDetails.Where(x => x.AgreementPrescriptionId == agreementPrescriptionId).ToList();
+        }
+        #endregion
     }
 }
