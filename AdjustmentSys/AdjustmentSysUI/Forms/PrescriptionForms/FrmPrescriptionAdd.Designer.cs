@@ -59,6 +59,16 @@
             uiGroupBox2 = new Sunny.UI.UIGroupBox();
             dgvFooter = new Sunny.UI.UIDataGridViewFooter();
             dgvDurgList = new Sunny.UI.UIDataGridView();
+            ID = new DataGridViewTextBoxColumn();
+            ParName = new DataGridViewTextBoxColumn();
+            ParticlesCodeHIS = new DataGridViewTextBoxColumn();
+            Code = new DataGridViewTextBoxColumn();
+            DoseHerb = new DataGridViewTextBoxColumn();
+            Equivalent = new DataGridViewTextBoxColumn();
+            Dose = new DataGridViewTextBoxColumn();
+            Stock = new DataGridViewTextBoxColumn();
+            Price = new DataGridViewTextBoxColumn();
+            TotalPrice = new DataGridViewTextBoxColumn();
             cmsDurg = new Sunny.UI.UIContextMenuStrip();
             removeDurg = new ToolStripMenuItem();
             uiLabel15 = new Sunny.UI.UILabel();
@@ -74,16 +84,6 @@
             uiLabel16 = new Sunny.UI.UILabel();
             txtXDFMC = new Sunny.UI.UITextBox();
             btnSaveXDF = new Sunny.UI.UIButton();
-            ID = new DataGridViewTextBoxColumn();
-            ParName = new DataGridViewTextBoxColumn();
-            ParticlesCodeHIS = new DataGridViewTextBoxColumn();
-            Code = new DataGridViewTextBoxColumn();
-            DoseHerb = new DataGridViewTextBoxColumn();
-            Equivalent = new DataGridViewTextBoxColumn();
-            Dose = new DataGridViewTextBoxColumn();
-            Stock = new DataGridViewTextBoxColumn();
-            Price = new DataGridViewTextBoxColumn();
-            TotalPrice = new DataGridViewTextBoxColumn();
             uiGroupBox1.SuspendLayout();
             uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDurgList).BeginInit();
@@ -515,18 +515,99 @@
             dgvDurgList.CellClick += dgvDurgList_CellClick;
             dgvDurgList.RowPostPaint += dgvDurgList_RowPostPaint;
             // 
+            // ID
+            // 
+            ID.DataPropertyName = "ID";
+            ID.HeaderText = "主键id";
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ID.Visible = false;
+            // 
+            // ParName
+            // 
+            ParName.DataPropertyName = "ParName";
+            ParName.HeaderText = "药品名称";
+            ParName.Name = "ParName";
+            ParName.ReadOnly = true;
+            ParName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ParticlesCodeHIS
+            // 
+            ParticlesCodeHIS.DataPropertyName = "ParticlesCodeHIS";
+            ParticlesCodeHIS.HeaderText = "HIS编码";
+            ParticlesCodeHIS.Name = "ParticlesCodeHIS";
+            ParticlesCodeHIS.ReadOnly = true;
+            ParticlesCodeHIS.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Code
+            // 
+            Code.DataPropertyName = "Code";
+            Code.HeaderText = "药品编码";
+            Code.Name = "Code";
+            Code.ReadOnly = true;
+            Code.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // DoseHerb
+            // 
+            DoseHerb.DataPropertyName = "DoseHerb";
+            DoseHerb.HeaderText = "饮片剂量";
+            DoseHerb.Name = "DoseHerb";
+            DoseHerb.ReadOnly = true;
+            DoseHerb.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Equivalent
+            // 
+            Equivalent.DataPropertyName = "Equivalent";
+            Equivalent.HeaderText = "当量";
+            Equivalent.Name = "Equivalent";
+            Equivalent.ReadOnly = true;
+            Equivalent.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Dose
+            // 
+            Dose.DataPropertyName = "Dose";
+            Dose.HeaderText = "颗粒剂量";
+            Dose.Name = "Dose";
+            Dose.ReadOnly = true;
+            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Stock
+            // 
+            Stock.DataPropertyName = "Stock";
+            Stock.HeaderText = "库存";
+            Stock.Name = "Stock";
+            Stock.ReadOnly = true;
+            Stock.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Price
+            // 
+            Price.DataPropertyName = "Price";
+            Price.HeaderText = "饮片单价";
+            Price.Name = "Price";
+            Price.ReadOnly = true;
+            Price.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // TotalPrice
+            // 
+            TotalPrice.DataPropertyName = "TotalPrice";
+            TotalPrice.HeaderText = "饮片总价";
+            TotalPrice.Name = "TotalPrice";
+            TotalPrice.ReadOnly = true;
+            TotalPrice.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
             // cmsDurg
             // 
             cmsDurg.BackColor = Color.FromArgb(243, 249, 255);
             cmsDurg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsDurg.Items.AddRange(new ToolStripItem[] { removeDurg });
             cmsDurg.Name = "cmsDurg";
-            cmsDurg.Size = new Size(107, 26);
+            cmsDurg.Size = new Size(181, 48);
             // 
             // removeDurg
             // 
             removeDurg.Name = "removeDurg";
-            removeDurg.Size = new Size(106, 22);
+            removeDurg.Size = new Size(180, 22);
             removeDurg.Text = "移除";
             removeDurg.Click += removeDurg_Click;
             // 
@@ -706,87 +787,7 @@
             btnSaveXDF.TabIndex = 28;
             btnSaveXDF.Text = "存为协定方";
             btnSaveXDF.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            // 
-            // ID
-            // 
-            ID.DataPropertyName = "ID";
-            ID.HeaderText = "主键id";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ID.Visible = false;
-            // 
-            // ParName
-            // 
-            ParName.DataPropertyName = "ParName";
-            ParName.HeaderText = "药品名称";
-            ParName.Name = "ParName";
-            ParName.ReadOnly = true;
-            ParName.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ParticlesCodeHIS
-            // 
-            ParticlesCodeHIS.DataPropertyName = "ParticlesCodeHIS";
-            ParticlesCodeHIS.HeaderText = "HIS编码";
-            ParticlesCodeHIS.Name = "ParticlesCodeHIS";
-            ParticlesCodeHIS.ReadOnly = true;
-            ParticlesCodeHIS.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Code
-            // 
-            Code.DataPropertyName = "Code";
-            Code.HeaderText = "药品编码";
-            Code.Name = "Code";
-            Code.ReadOnly = true;
-            Code.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // DoseHerb
-            // 
-            DoseHerb.DataPropertyName = "DoseHerb";
-            DoseHerb.HeaderText = "饮片剂量";
-            DoseHerb.Name = "DoseHerb";
-            DoseHerb.ReadOnly = true;
-            DoseHerb.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Equivalent
-            // 
-            Equivalent.DataPropertyName = "Equivalent";
-            Equivalent.HeaderText = "当量";
-            Equivalent.Name = "Equivalent";
-            Equivalent.ReadOnly = true;
-            Equivalent.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Dose
-            // 
-            Dose.DataPropertyName = "Dose";
-            Dose.HeaderText = "颗粒剂量";
-            Dose.Name = "Dose";
-            Dose.ReadOnly = true;
-            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Stock
-            // 
-            Stock.DataPropertyName = "Stock";
-            Stock.HeaderText = "库存";
-            Stock.Name = "Stock";
-            Stock.ReadOnly = true;
-            Stock.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Price
-            // 
-            Price.DataPropertyName = "Price";
-            Price.HeaderText = "饮片单价";
-            Price.Name = "Price";
-            Price.ReadOnly = true;
-            Price.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // TotalPrice
-            // 
-            TotalPrice.DataPropertyName = "TotalPrice";
-            TotalPrice.HeaderText = "饮片总价";
-            TotalPrice.Name = "TotalPrice";
-            TotalPrice.ReadOnly = true;
-            TotalPrice.SortMode = DataGridViewColumnSortMode.NotSortable;
+            btnSaveXDF.Click += btnSaveXDF_Click;
             // 
             // FrmPrescriptionAdd
             // 

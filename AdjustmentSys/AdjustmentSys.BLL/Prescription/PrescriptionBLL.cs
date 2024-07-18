@@ -1,5 +1,6 @@
 ﻿using AdjustmentSys.DAL.Prescription;
 using AdjustmentSys.Entity;
+using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
@@ -113,6 +114,43 @@ namespace AdjustmentSys.BLL.Prescription
         }
 
         /// <summary>
+        /// 相容性规则检查
+        /// </summary>
+        /// <param name="parId">当前颗粒id</param>
+        /// <param name="parIds">已添加的颗粒id集合</param>
+        /// <param name="durgDLData">药柜药品下拉集合</param>
+        /// <returns></returns>
+        public List<string> CheckRuler(int parId, List<int> parIds, List<ComboxModel> durgDLData)
+        {
+            //获取所有规则
+            var rulers = GetAllRuler();
+            if (rulers == null || rulers.Count == 0)
+            {
+                return null;
+            }
+            List<string> resultlist = new List<string>();
+            foreach (var cid in parIds)
+            {
+                var currentRulers = rulers.Where(x => (parId == x.FirstParticlesID && cid == x.SecondParticlesID) || (parId == x.SecondParticlesID && cid == x.FirstParticlesID)).ToList();
+                if (currentRulers == null)
+                {
+                    continue;
+                }
+                foreach (var cr in currentRulers)
+                {
+                    string fname = durgDLData.FirstOrDefault(x => x.Id == cr.FirstParticlesID)?.Name;
+                    string sname = durgDLData.FirstOrDefault(x => x.Id == cr.SecondParticlesID)?.Name;
+                    string rulerString = $"[{fname}]与[{sname}]违反药品相融规则[{cr.Name + "," + cr.Remark}]";
+                    if (!resultlist.Contains(rulerString))
+                    {
+                        resultlist.Add(rulerString);
+                    }
+                }
+            }
+            return resultlist;
+        }
+
+        /// <summary>
         /// 新增或编辑协定方
         /// </summary>
         /// <param name="agreementPrescriptionId">协定方id</param>
@@ -161,9 +199,27 @@ namespace AdjustmentSys.BLL.Prescription
         /// </summary>
         /// <param name="agreementPrescriptionId">协定方id</param>
         /// <returns></returns>
-        public List<AgreementPrescriptionDetail> GetAgreementPrescriptionDetails(int? agreementPrescriptionId)
+        public List<AgreementPrescriptionDetailModel> GetAgreementPrescriptionDetails(int agreementPrescriptionId)
         {
             return prescriptionDAL.GetAgreementPrescriptionDetails(agreementPrescriptionId);
+        }
+        /// <summary>
+        /// 获取协定方详情，主要编辑协定方回显用
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public List<PrescriptionDetailModel> GetAgreementPrescriptionDetailsV1(int agreementPrescriptionId)
+        { 
+            return prescriptionDAL.GetAgreementPrescriptionDetailsV1(agreementPrescriptionId);
+        }
+        /// <summary>
+        /// 获取协定方名称
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public string GetAgreementPrescriptionName(int agreementPrescriptionId) 
+        {
+            return prescriptionDAL.GetAgreementPrescriptionName(agreementPrescriptionId);
         }
     }
 }

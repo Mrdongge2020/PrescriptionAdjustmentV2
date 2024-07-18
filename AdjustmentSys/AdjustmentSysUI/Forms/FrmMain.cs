@@ -48,9 +48,9 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMedicineCabinetManage(), ++pageIndex));
 
             pageIndex = 1400;
-            parent = navMenuMainLeft.CreateNode("处方管理", 358587, 28, pageIndex);
+            parent = navMenuMainLeft.CreateNode("处方管理", 361788, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmPrescriptionList(), ++pageIndex));
-
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmAgreementPrescriptionManager(), ++pageIndex));
 
             //登录用户信息
             lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;

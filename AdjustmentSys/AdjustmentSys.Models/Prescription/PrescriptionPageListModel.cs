@@ -186,7 +186,7 @@ namespace AdjustmentSys.Models.Prescription
         /// 处方来源
         /// </summary>
         public string PrescriptionSourceText { 
-            get { return PrescriptionSource == 1 ? "HIS系统" : "TMC系统"; }
+            get { return PrescriptionSource == 0 ? "HIS系统" : "TMC系统"; }
         }
 
         /// <sumary>

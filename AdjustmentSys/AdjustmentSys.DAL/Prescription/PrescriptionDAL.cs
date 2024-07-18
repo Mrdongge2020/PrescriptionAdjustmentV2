@@ -375,12 +375,14 @@ namespace AdjustmentSys.DAL.Prescription
                     try
                     {
                         _eFCoreContext.AgreementPrescriptionInfos.Add(agreementPrescriptionInfo);
+                        _eFCoreContext.SaveChanges();
+                        agreementPrescriptionDetails.ForEach(x => { x.AgreementPrescriptionId = agreementPrescriptionInfo.ID; });
                         _eFCoreContext.AgreementPrescriptionDetails.AddRange(agreementPrescriptionDetails);
                         _eFCoreContext.SaveChanges();
 
                         dbContextTransaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         dbContextTransaction.Rollback();
                         error = "保存协定方信息失败,请稍后再试";
@@ -415,7 +417,7 @@ namespace AdjustmentSys.DAL.Prescription
 
                         dbContextTransaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         dbContextTransaction.Rollback();
                         error = "编辑协定方信息失败,请稍后再试";
@@ -514,9 +516,58 @@ namespace AdjustmentSys.DAL.Prescription
         /// </summary>
         /// <param name="agreementPrescriptionId">协定方id</param>
         /// <returns></returns>
-        public List<AgreementPrescriptionDetail> GetAgreementPrescriptionDetails(int? agreementPrescriptionId) 
+        public List<AgreementPrescriptionDetailModel> GetAgreementPrescriptionDetails(int agreementPrescriptionId) 
         {
-            return _eFCoreContext.AgreementPrescriptionDetails.Where(x => x.AgreementPrescriptionId == agreementPrescriptionId).ToList();
+            string sql = $@" select
+	                         a.ID,
+	                         a.ParticlesId,
+	                         a.DoseHerb,
+	                         a.Equivalent,
+	                         a.Dose,
+	                         a.Price,
+	                         b.Name 
+                             from AgreementPrescriptionDetail as a
+                             left join ParticlesInfo as b on a.ParticlesId=b.ID  
+                             where  AgreementPrescriptionId={agreementPrescriptionId} ";
+
+            return DBHelper.ExecuteQuery<AgreementPrescriptionDetailModel>(sql); 
+        }
+
+        /// <summary>
+        /// 获取协定方详情，主要编辑协定方回显用
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public List<PrescriptionDetailModel> GetAgreementPrescriptionDetailsV1(int agreementPrescriptionId)
+        {
+            string sql = $@" select
+	                                 a.ID,
+	                                 b.Name as ParName,
+							         b.Code as ParCode,
+							         c.DoseLimit,
+							         c.HisName as ParticlesNameHIS,
+							         c.HisCode as ParticlesCodeHIS,
+							         a.ParticlesID,
+	                                 a.DoseHerb,
+	                                 a.Equivalent,
+	                                 a.Dose,
+	                                 a.Price
+                             from AgreementPrescriptionDetail as a
+                             left join ParticlesInfo as b on a.ParticlesId=b.ID  
+							 left join ParticlesInfoExtend as c on b.ID=c.ParticlesID
+                             where  a.AgreementPrescriptionId={agreementPrescriptionId} ";
+
+            return DBHelper.ExecuteQuery<PrescriptionDetailModel>(sql);
+        }
+
+        /// <summary>
+        /// 获取协定方名称
+        /// </summary>
+        /// <param name="agreementPrescriptionId">协定方id</param>
+        /// <returns></returns>
+        public string GetAgreementPrescriptionName(int agreementPrescriptionId)
+        {
+            return _eFCoreContext.AgreementPrescriptionInfos.FirstOrDefault(x => x.ID == agreementPrescriptionId)?.Name;
         }
         #endregion
     }

@@ -228,7 +228,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 // 窗体已打开，关闭旧窗体
                 existingForm.Close();
             }
-            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd("", null);
+            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd("", null,null);
             frmPrescriptionAdd.Text = "录入处方";
             frmPrescriptionAdd.ShowDialog();
             string msg = frmPrescriptionAdd.saveMessage;
@@ -259,7 +259,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 existingForm.Close();
             }
 
-            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd(selectPreId, cbPreState.SelectedIndex);
+            FrmPrescriptionAdd frmPrescriptionAdd = new FrmPrescriptionAdd(selectPreId, cbPreState.SelectedIndex,null);
             frmPrescriptionAdd.Text = "复制处方";
             frmPrescriptionAdd.ShowDialog();
 

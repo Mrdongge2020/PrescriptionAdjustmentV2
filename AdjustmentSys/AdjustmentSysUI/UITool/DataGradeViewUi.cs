@@ -45,11 +45,12 @@ namespace AdjustmentSysUI.UITool
             {
                 tbc.Width = _width;
             }
-            else if(_width>0)
+            else if (_width > 0)
             {
                 tbc.FillWeight = _width;
             }
-           
+
+
             //设置格式
             if (_format != "")
             {
@@ -91,6 +92,25 @@ namespace AdjustmentSysUI.UITool
             cbc.FillWeight = _width;
             //将创建的列添加到DataGridView中
             dgv.Columns.Add(cbc);
+        }
+
+        /// <summary>
+        /// 计算dgv列的值的总和
+        /// </summary>
+        /// <param name="dataGrid">dgv对象</param>
+        /// <param name="colNname">列名</param>
+        /// <returns></returns>
+        public double ComputeColumnSum(DataGridView dataGrid, string colNname)
+        {
+            double sum = 0;        //计算合计  
+            for (int i = 0; i < dataGrid.Rows.Count; i++) //获取dataGridView1表格的数据集
+            {
+                if (dataGrid.Rows[i].Cells[colNname].Value != null)
+                {
+                    sum += Convert.ToDouble(dataGrid.Rows[i].Cells[colNname].Value.ToString());
+                }
+            }
+            return sum;
         }
     }
 }
