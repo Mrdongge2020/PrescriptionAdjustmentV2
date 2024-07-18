@@ -82,17 +82,18 @@ namespace AdjustmentSys.DAL.Drug
         }
 
         /// <summary>
-        /// 删除厂家
+        /// 启用厂家
         /// </summary>
-        public string DeleteManufacturerInfo(int id)
+        public string DeleteManufacturerInfo(int id,bool isdelete)
         {
-            var manufacturerInfo = _eFCoreContext.ManufacturerInfos.AsNoTracking().FirstOrDefault(x => x.ID == id);
+            string typeStr = isdelete ? "启用" : "禁用";
+            var manufacturerInfo = _eFCoreContext.ManufacturerInfos.FirstOrDefault(x => x.ID == id);
             if (manufacturerInfo == null)
             {
-                return "要删除的厂家信息不存在，请刷新列表后再试";
+                return $"要{typeStr}的厂家信息不存在，请刷新列表后再试";
             }
             
-            manufacturerInfo.IsDelete = true;
+            manufacturerInfo.IsDelete = isdelete;
             manufacturerInfo.DeleteTime = DateTime.Now;
             manufacturerInfo.DeleteBy = SysLoginUser._currentUser.UserId;
             manufacturerInfo.DeleteName = SysLoginUser._currentUser.UserName;
@@ -101,7 +102,7 @@ namespace AdjustmentSys.DAL.Drug
 
             int index = _eFCoreContext.SaveChanges();
 
-            return index > 0 ? "" : "删除厂家信息失败,请稍后再试";
+            return index > 0 ? "" : $"{typeStr}厂家信息失败,请稍后再试";
         }
 
         /// <summary>
@@ -113,8 +114,8 @@ namespace AdjustmentSys.DAL.Drug
         /// <returns></returns>
         public List<ManufacturerPageListModel> GetManufacturerByPage(int pageIndex, int pageSize, out int count)
         {
-            var where = _eFCoreContext.ManufacturerInfos.AsNoTracking()
-                .Where(x => !x.IsDelete);
+            var where = _eFCoreContext.ManufacturerInfos.AsNoTracking();
+                //.Where(x => !x.IsDelete);
             //统计总记录数
             count = where.Count();
 
@@ -133,6 +134,7 @@ namespace AdjustmentSys.DAL.Drug
                     ID = x.ID,
                     Name=x.Name,
                     Sort=x.Sort,
+                    IsDelete=x.IsDelete,
                     CreateName=x.CreateName,
                     CreateTime=x.CreateTime,
                     UpdateName=x.UpdateName,

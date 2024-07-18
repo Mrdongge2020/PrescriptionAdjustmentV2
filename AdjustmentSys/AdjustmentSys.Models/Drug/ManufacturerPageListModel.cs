@@ -23,7 +23,11 @@ namespace AdjustmentSys.Models.Drug
         /// 名称
         /// </summary>
         public string Name { get; set; }
-       
+
+        /// <summary>
+        /// 是否已删除
+        /// </summary>
+        public bool IsDelete { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

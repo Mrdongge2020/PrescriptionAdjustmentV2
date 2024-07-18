@@ -26,5 +26,6 @@ namespace AdjustmentSys.Entity
         [Column("Name")]
         [MaxLength(50)]
         public string Name { get; set; }
+
     }
 }

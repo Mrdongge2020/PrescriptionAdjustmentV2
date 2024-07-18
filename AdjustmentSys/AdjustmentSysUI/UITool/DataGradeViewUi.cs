@@ -77,11 +77,14 @@ namespace AdjustmentSysUI.UITool
             DataGridViewCheckBoxColumn cbc = new DataGridViewCheckBoxColumn();
             //设置对齐方式
             cbc.HeaderCell.Style.Alignment = _alignmeng;
+
+            cbc.ValueType=typeof(bool);
             //设置列名
             cbc.Name = _columnName;
             //设置标题
             cbc.HeaderText = _headerText;
-
+            //绑定字段值
+            cbc.DataPropertyName = _columnName;
             //设置是否默认选中
             //cbc.Selected = _selected.Equals("男") ? true : false;
             //设置是否只读

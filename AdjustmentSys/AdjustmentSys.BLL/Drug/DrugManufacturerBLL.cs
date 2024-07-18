@@ -39,11 +39,11 @@ namespace AdjustmentSys.BLL.Drug
         }
 
         /// <summary>
-        /// 删除厂家
+        /// 启用/禁用厂家
         /// </summary>
-        public string DeleteManufacturerInfo(int id) 
+        public string DeleteManufacturerInfo(int id,bool isdelete) 
         { 
-            return _drugManufacturerDAL.DeleteManufacturerInfo(id);
+            return _drugManufacturerDAL.DeleteManufacturerInfo(id, isdelete);
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace AdjustmentSys.DAL.Common
         /// <returns></returns>
         public List<ComboxModel> GetManufacturerComboxData()
         {
-            List<ComboxModel> result = _eFCoreContext.ManufacturerInfos.AsNoTracking().Where(x=>!x.IsDelete).OrderBy(x => x.ID)
+            List<ComboxModel> result = _eFCoreContext.ManufacturerInfos.AsNoTracking().Where(x=>x.IsDelete).OrderBy(x => x.ID)
                 .Select(x => new ComboxModel() { Id = x.ID, Name = x.Name })
                 .ToList();
             return result;

@@ -34,7 +34,6 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             dgvList = new Sunny.UI.UIDataGridView();
-            btnDelete = new Sunny.UI.UISymbolButton();
             btnAdd = new Sunny.UI.UISymbolButton();
             btnEdit = new Sunny.UI.UISymbolButton();
             btnRefc = new Sunny.UI.UISymbolButton();
@@ -138,22 +137,7 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 0;
             dgvList.CellClick += dgvList_CellClick;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Cursor = Cursors.Hand;
-            btnDelete.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Location = new Point(202, 50);
-            btnDelete.MinimumSize = new Size(1, 1);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Radius = 1;
-            btnDelete.Size = new Size(70, 30);
-            btnDelete.Symbol = 559691;
-            btnDelete.SymbolColor = SystemColors.Window;
-            btnDelete.TabIndex = 25;
-            btnDelete.Text = "删除";
-            btnDelete.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Click += btnDelete_Click;
+            dgvList.CellContentClick += dgvList_CellContentClick;
             // 
             // btnAdd
             // 
@@ -190,7 +174,7 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(301, 50);
+            btnRefc.Location = new Point(202, 50);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 1;
@@ -941,7 +925,6 @@
             Controls.Add(uiLabel1);
             Controls.Add(uiPage);
             Controls.Add(btnRefc);
-            Controls.Add(btnDelete);
             Controls.Add(btnAdd);
             Controls.Add(btnEdit);
             Controls.Add(dgvList);
@@ -961,7 +944,6 @@
         #endregion
 
         private Sunny.UI.UIDataGridView dgvList;
-        private Sunny.UI.UISymbolButton btnDelete;
         private Sunny.UI.UISymbolButton btnAdd;
         private Sunny.UI.UISymbolButton btnEdit;
         private Sunny.UI.UISymbolButton btnRefc;

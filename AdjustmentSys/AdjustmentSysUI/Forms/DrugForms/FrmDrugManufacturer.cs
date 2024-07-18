@@ -2,6 +2,7 @@
 using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
@@ -24,11 +25,11 @@ namespace AdjustmentSysUI.Forms.Drug
     {
         DrugManufacturerBLL _drugManufacturerBLL = new DrugManufacturerBLL();
         private int _Id;//厂家id
-        private ManufacturerInfo _manufacturerInfo =new ManufacturerInfo();
+        private ManufacturerInfo _manufacturerInfo = new ManufacturerInfo();
         public FrmDrugManufacturer()
         {
             InitializeComponent();
-            InitDgvFormat();
+           
         }
 
         /// <summary>
@@ -51,13 +52,14 @@ namespace AdjustmentSysUI.Forms.Drug
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
 
             //创建列
+            dataGradeViewUi.InitDgvCheckBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "IsDelete", "是否启用", false, true, 13);
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "id", true, false, 2, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Sort", "序号", true, true, 10, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "厂家名称", true, true, 35, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 18, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, 35, "yyyy-MM-dd HH:mm:ss");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateName", "更新人", true, true, 14, "");
-            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateTime", "更新时间", true, true, 20, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "厂家名称", true, true, 30, "");
+            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 18, "");
+            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, 35, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateName", "更新人", true, true, 18, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateTime", "更新时间", true, true, 27, "yyyy-MM-dd HH:mm:ss");
 
         }
 
@@ -67,16 +69,46 @@ namespace AdjustmentSysUI.Forms.Drug
         public void QueryPageList()
         {
             int allCount = 0;//总条数
+            //dgvList.Rows.Clear();
             var datas = _drugManufacturerBLL.GetManufacturerByPage(uiPage.ActivePage, uiPage.PageSize, out allCount);
             //设置分页控件总数
             uiPage.TotalCount = allCount;
 
             dgvList.DataSource = datas;
-
+            //if (datas != null)
+            //{
+            //    if (dgvList.ColumnCount==0) 
+            //    {
+            //        InitDgvFormat();
+            //    }
+            //    for (int i = 0; i < datas.Count; i++)
+            //    {
+            //        dgvList.Rows.Add();
+            //        dgvList.Rows[i].Cells[0].Value = datas[i].IsDelete;
+            //        dgvList.Rows[i].Cells[1].Value = datas[i].ID;
+            //        dgvList.Rows[i].Cells[2].Value = datas[i].Sort;
+            //        dgvList.Rows[i].Cells[3].Value = datas[i].Name;
+            //        dgvList.Rows[i].Cells[4].Value = datas[i].UpdateName;
+            //        dgvList.Rows[i].Cells[5].Value = datas[i].UpdateTime;
+            //    }
+            //}
+            //foreach (ManufacturerPageListModel model in datas)
+            //{
+            //    DataGridViewRow Result = new DataGridViewRow();
+            //    Result.CreateCells(dgvList);
+            //    Result.Height = 30;
+            //    Result.Cells[0].Value = model.IsDelete;
+            //    Result.Cells[1].Value = model.ID;
+            //    Result.Cells[2].Value = model.Sort;
+            //    Result.Cells[3].Value = model.Name;
+            //    Result.Cells[4].Value = model.UpdateName;
+            //    Result.Cells[5].Value = model.UpdateTime;
+            //    dgvList.Rows.Add(Result);
+            //}
             //清除默认选中的行
             dgvList.ClearSelection();
             _Id = 0;
-            _manufacturerInfo = new ManufacturerInfo() { ID=0, Name="",Sort=0 };
+            _manufacturerInfo = new ManufacturerInfo() { ID = 0, Name = "", Sort = 0 };
         }
 
 
@@ -203,30 +235,6 @@ namespace AdjustmentSysUI.Forms.Drug
             frmEdit.Text = "编辑厂家";
             frmEdit.Show();
         }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (_Id == 0)
-            {
-                ShowWarningDialog("异常提示", "请先选择要编辑的厂家");
-                return;
-            }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的厂家吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
-            {
-                return;
-            }
-            var msg = _drugManufacturerBLL.DeleteManufacturerInfo(_Id);
-            if (msg == "")
-            {
-                ShowErrorTip("删除成功");
-                QueryPageList();
-            }
-            else
-            {
-                ShowErrorDialog("错误提示", msg);
-            }
-        }
-
 
         private void btnreset_Click(object sender, EventArgs e)
         {
@@ -657,10 +665,39 @@ namespace AdjustmentSysUI.Forms.Drug
 
         private void FrmDrugManufacturer_Load(object sender, EventArgs e)
         {
+            InitDgvFormat();
             //清除默认选中的行
             dgvList.ClearSelection();
             _Id = 0;
             _manufacturerInfo = new ManufacturerInfo() { ID = 0, Name = "", Sort = 0 };
+        }
+
+        private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 确保改变的是Checkbox列
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+
+                //获取DataGridView中CheckBox的Cell
+                DataGridViewCheckBoxCell dgvCheck = (DataGridViewCheckBoxCell)(this.dgvList.Rows[this.dgvList.CurrentCell.RowIndex].Cells[0]);
+
+                //获取被选中列的相关信息
+
+                int id = Int32.Parse(dgvList.Rows[e.RowIndex].Cells["ID"].Value.ToString());
+                bool isChecked = Convert.ToBoolean(dgvCheck.EditedFormattedValue);
+                string msg = _drugManufacturerBLL.DeleteManufacturerInfo(id, isChecked);
+                if (msg == "")
+                {
+                    ShowSuccessTip((isChecked ? "启用" : "禁用") + "厂家成功");
+                    //dgvList.Rows[e.RowIndex].Cells[0].Value = !isChecked;
+                    QueryPageList();
+                }
+                else
+                {
+                    ShowErrorDialog("错误提示", msg);
+                }
+
+            }
         }
     }
 }
