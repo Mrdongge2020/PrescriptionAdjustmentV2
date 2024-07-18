@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentSys.Models", "Adj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentSys.Tool", "AdjustmentSys.Tool\AdjustmentSys.Tool.csproj", "{8C7F8B2F-DE4B-4745-8E53-C453772B28A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdjustmentSys.DAL", "AdjustmentSys.DAL\AdjustmentSys.DAL.csproj", "{4ED8A547-0EC5-4DF0-B845-DAD3846C49F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentSys.DAL", "AdjustmentSys.DAL\AdjustmentSys.DAL.csproj", "{4ED8A547-0EC5-4DF0-B845-DAD3846C49F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdjustmentSys.BLL", "AdjustmentSys.BLL\AdjustmentSys.BLL.csproj", "{12578231-F97D-40BB-9F31-A782039FE1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentSys.BLL", "AdjustmentSys.BLL\AdjustmentSys.BLL.csproj", "{12578231-F97D-40BB-9F31-A782039FE1F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
