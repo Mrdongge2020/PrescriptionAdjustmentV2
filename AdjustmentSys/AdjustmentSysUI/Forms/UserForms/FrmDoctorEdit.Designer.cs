@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            uiLabel11 = new Sunny.UI.UILabel();
-            uiLabel8 = new Sunny.UI.UILabel();
             cbDepartment = new Sunny.UI.UIComboBox();
             uiLabel7 = new Sunny.UI.UILabel();
             txtRemark = new Sunny.UI.UITextBox();
@@ -42,45 +40,10 @@
             uiLabel1 = new Sunny.UI.UILabel();
             txtEmail = new Sunny.UI.UITextBox();
             uiLabel2 = new Sunny.UI.UILabel();
-            pnlBtm.SuspendLayout();
+            btnCancel = new Sunny.UI.UISymbolButton();
+            btnOK = new Sunny.UI.UISymbolButton();
+            uiLine1 = new Sunny.UI.UILine();
             SuspendLayout();
-            // 
-            // pnlBtm
-            // 
-            pnlBtm.Location = new Point(1, 475);
-            pnlBtm.Size = new Size(593, 55);
-            // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(465, 12);
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // btnOK
-            // 
-            btnOK.Location = new Point(350, 12);
-            btnOK.Click += btnOK_Click;
-            // 
-            // uiLabel11
-            // 
-            uiLabel11.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel11.ForeColor = Color.Red;
-            uiLabel11.Location = new Point(471, 116);
-            uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new Size(100, 23);
-            uiLabel11.TabIndex = 40;
-            uiLabel11.Text = "必填";
-            uiLabel11.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel8
-            // 
-            uiLabel8.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = Color.Red;
-            uiLabel8.Location = new Point(469, 60);
-            uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(100, 23);
-            uiLabel8.TabIndex = 37;
-            uiLabel8.Text = "必填";
-            uiLabel8.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cbDepartment
             // 
@@ -104,7 +67,7 @@
             // uiLabel7
             // 
             uiLabel7.Font = new Font("宋体", 10.5F);
-            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel7.ForeColor = Color.Red;
             uiLabel7.Location = new Point(28, 115);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(100, 23);
@@ -205,7 +168,7 @@
             // uiLabel1
             // 
             uiLabel1.Font = new Font("宋体", 10.5F);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel1.ForeColor = Color.Red;
             uiLabel1.Location = new Point(26, 60);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(100, 23);
@@ -238,14 +201,52 @@
             uiLabel2.Text = "Email地址：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Location = new Point(370, 491);
+            btnCancel.MinimumSize = new Size(1, 1);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(85, 35);
+            btnCancel.Symbol = 361453;
+            btnCancel.TabIndex = 45;
+            btnCancel.TabStop = false;
+            btnCancel.Text = "取消";
+            btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnOK
+            // 
+            btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Location = new Point(232, 491);
+            btnOK.MinimumSize = new Size(1, 1);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(85, 35);
+            btnOK.TabIndex = 44;
+            btnOK.Text = "提交";
+            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
+            // 
+            // uiLine1
+            // 
+            uiLine1.BackColor = Color.Transparent;
+            uiLine1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLine1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLine1.Location = new Point(0, 456);
+            uiLine1.MinimumSize = new Size(1, 1);
+            uiLine1.Name = "uiLine1";
+            uiLine1.Size = new Size(599, 29);
+            uiLine1.TabIndex = 43;
+            // 
             // FrmDoctorEdit
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(595, 533);
+            ClientSize = new Size(555, 540);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            Controls.Add(uiLine1);
             Controls.Add(txtEmail);
             Controls.Add(uiLabel2);
-            Controls.Add(uiLabel11);
-            Controls.Add(uiLabel8);
             Controls.Add(cbDepartment);
             Controls.Add(uiLabel7);
             Controls.Add(txtRemark);
@@ -256,32 +257,15 @@
             Controls.Add(uiLabel4);
             Controls.Add(txtName);
             Controls.Add(uiLabel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmDoctorEdit";
             Text = "新增医生";
             ZoomScaleRect = new Rectangle(15, 15, 595, 556);
-            Controls.SetChildIndex(pnlBtm, 0);
-            Controls.SetChildIndex(uiLabel1, 0);
-            Controls.SetChildIndex(txtName, 0);
-            Controls.SetChildIndex(uiLabel4, 0);
-            Controls.SetChildIndex(txtOffic, 0);
-            Controls.SetChildIndex(uiLabel5, 0);
-            Controls.SetChildIndex(txtPhone, 0);
-            Controls.SetChildIndex(uiLabel6, 0);
-            Controls.SetChildIndex(txtRemark, 0);
-            Controls.SetChildIndex(uiLabel7, 0);
-            Controls.SetChildIndex(cbDepartment, 0);
-            Controls.SetChildIndex(uiLabel8, 0);
-            Controls.SetChildIndex(uiLabel11, 0);
-            Controls.SetChildIndex(uiLabel2, 0);
-            Controls.SetChildIndex(txtEmail, 0);
-            pnlBtm.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Sunny.UI.UILabel uiLabel11;
-        private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UIComboBox cbDepartment;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UITextBox txtRemark;
@@ -294,5 +278,8 @@
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UITextBox txtEmail;
         private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UISymbolButton btnCancel;
+        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UILine uiLine1;
     }
 }

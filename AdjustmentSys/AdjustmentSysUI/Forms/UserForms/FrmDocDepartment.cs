@@ -96,7 +96,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmDocDepartmentEdit frmEdit = new FrmDocDepartmentEdit(0);
             frmEdit.Text = "新增科室";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            string msg = frmEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("新增医生科室成功");
+                QueryPageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -115,8 +125,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmDocDepartmentEdit frmEdit = new FrmDocDepartmentEdit(checkedDepId);
             frmEdit.Text = "编辑科室";
-
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            string msg = frmEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("编辑医生科室成功");
+                QueryPageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

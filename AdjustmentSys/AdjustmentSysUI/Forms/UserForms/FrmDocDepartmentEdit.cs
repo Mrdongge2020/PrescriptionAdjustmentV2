@@ -14,10 +14,11 @@ using System.Windows.Forms;
 
 namespace AdjustmentSysUI.Forms.UserForms
 {
-    public partial class FrmDocDepartmentEdit : UIEditForm
+    public partial class FrmDocDepartmentEdit : UIForm
     {
         DepartmentInfoBLL _departmentInfoBLL = new DepartmentInfoBLL();
         private int Id;
+        public string resultMsg = "";
         public FrmDocDepartmentEdit(int id)
         {
             InitializeComponent();
@@ -76,12 +77,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = _departmentInfoBLL.AddOrEditDepartmentInfo(depInfo);
             if (msg == "")
             {
-                ShowSuccessTip((Id > 0 ? "编辑" : "新增") + "成功");
+                resultMsg = "Successed";
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                resultMsg = msg;
             }
         }
         private bool CheckInfo() 

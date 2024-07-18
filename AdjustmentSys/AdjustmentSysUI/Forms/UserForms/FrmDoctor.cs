@@ -149,8 +149,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmDoctorEdit frmEdit = new FrmDoctorEdit(checkDocId);
             frmEdit.Text = "编辑医生";
-
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            string msg = frmEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("编辑医生成功");
+                QueryPageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
         private void btnAddDoctor_Click(object sender, EventArgs e)
@@ -163,7 +172,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmDoctorEdit frmEdit = new FrmDoctorEdit(0);
             frmEdit.Text = "新增医生";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            string msg = frmEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("新增医生成功");
+                QueryPageList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
        

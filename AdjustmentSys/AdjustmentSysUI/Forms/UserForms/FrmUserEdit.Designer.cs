@@ -42,36 +42,19 @@
             uiLabel6 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             cbLevel = new Sunny.UI.UIComboBox();
-            uiLabel8 = new Sunny.UI.UILabel();
-            uiLabel9 = new Sunny.UI.UILabel();
-            uiLabel10 = new Sunny.UI.UILabel();
-            uiLabel11 = new Sunny.UI.UILabel();
             uiLabel12 = new Sunny.UI.UILabel();
             rbTrue = new Sunny.UI.UIRadioButton();
             rbFalse = new Sunny.UI.UIRadioButton();
-            pnlBtm.SuspendLayout();
+            uiLine1 = new Sunny.UI.UILine();
+            btnOK = new Sunny.UI.UISymbolButton();
+            btnCancel = new Sunny.UI.UISymbolButton();
             SuspendLayout();
-            // 
-            // pnlBtm
-            // 
-            pnlBtm.Location = new Point(1, 546);
-            pnlBtm.Size = new Size(651, 55);
-            // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(523, 12);
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // btnOK
-            // 
-            btnOK.Location = new Point(408, 12);
-            btnOK.Click += btnOK_Click;
             // 
             // uiLabel1
             // 
             uiLabel1.Font = new Font("宋体", 10.5F);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(43, 63);
+            uiLabel1.ForeColor = Color.Red;
+            uiLabel1.Location = new Point(25, 61);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(100, 23);
             uiLabel1.TabIndex = 2;
@@ -81,7 +64,7 @@
             // txtName
             // 
             txtName.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtName.Location = new Point(183, 59);
+            txtName.Location = new Point(165, 57);
             txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.MinimumSize = new Size(1, 16);
             txtName.Name = "txtName";
@@ -95,7 +78,7 @@
             // txtPassword
             // 
             txtPassword.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtPassword.Location = new Point(183, 110);
+            txtPassword.Location = new Point(165, 108);
             txtPassword.Margin = new Padding(4, 5, 4, 5);
             txtPassword.MinimumSize = new Size(1, 16);
             txtPassword.Name = "txtPassword";
@@ -110,8 +93,8 @@
             // uiLabel2
             // 
             uiLabel2.Font = new Font("宋体", 10.5F);
-            uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(43, 114);
+            uiLabel2.ForeColor = Color.Red;
+            uiLabel2.Location = new Point(25, 112);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(100, 23);
             uiLabel2.TabIndex = 4;
@@ -121,7 +104,7 @@
             // txtConfimPassword
             // 
             txtConfimPassword.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtConfimPassword.Location = new Point(183, 163);
+            txtConfimPassword.Location = new Point(165, 161);
             txtConfimPassword.Margin = new Padding(4, 5, 4, 5);
             txtConfimPassword.MinimumSize = new Size(1, 16);
             txtConfimPassword.Name = "txtConfimPassword";
@@ -136,8 +119,8 @@
             // uiLabel3
             // 
             uiLabel3.Font = new Font("宋体", 10.5F);
-            uiLabel3.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new Point(43, 167);
+            uiLabel3.ForeColor = Color.Red;
+            uiLabel3.Location = new Point(25, 165);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(100, 23);
             uiLabel3.TabIndex = 6;
@@ -147,7 +130,7 @@
             // txtOffic
             // 
             txtOffic.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtOffic.Location = new Point(183, 308);
+            txtOffic.Location = new Point(165, 306);
             txtOffic.Margin = new Padding(4, 5, 4, 5);
             txtOffic.MinimumSize = new Size(1, 16);
             txtOffic.Name = "txtOffic";
@@ -162,7 +145,7 @@
             // 
             uiLabel4.Font = new Font("宋体", 10.5F);
             uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel4.Location = new Point(43, 312);
+            uiLabel4.Location = new Point(25, 310);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(100, 23);
             uiLabel4.TabIndex = 8;
@@ -172,7 +155,7 @@
             // txtPhone
             // 
             txtPhone.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtPhone.Location = new Point(183, 356);
+            txtPhone.Location = new Point(165, 354);
             txtPhone.Margin = new Padding(4, 5, 4, 5);
             txtPhone.MinimumSize = new Size(1, 16);
             txtPhone.Name = "txtPhone";
@@ -187,7 +170,7 @@
             // 
             uiLabel5.Font = new Font("宋体", 10.5F);
             uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new Point(43, 356);
+            uiLabel5.Location = new Point(25, 354);
             uiLabel5.Name = "uiLabel5";
             uiLabel5.Size = new Size(100, 23);
             uiLabel5.TabIndex = 10;
@@ -197,7 +180,7 @@
             // txtRemark
             // 
             txtRemark.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtRemark.Location = new Point(183, 405);
+            txtRemark.Location = new Point(165, 403);
             txtRemark.Margin = new Padding(4, 5, 4, 5);
             txtRemark.MinimumSize = new Size(1, 16);
             txtRemark.Multiline = true;
@@ -213,7 +196,7 @@
             // 
             uiLabel6.Font = new Font("宋体", 10.5F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(43, 405);
+            uiLabel6.Location = new Point(25, 403);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new Size(100, 23);
             uiLabel6.TabIndex = 12;
@@ -223,8 +206,8 @@
             // uiLabel7
             // 
             uiLabel7.Font = new Font("宋体", 10.5F);
-            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new Point(43, 215);
+            uiLabel7.ForeColor = Color.Red;
+            uiLabel7.Location = new Point(25, 213);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(100, 23);
             uiLabel7.TabIndex = 14;
@@ -239,7 +222,7 @@
             cbLevel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cbLevel.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbLevel.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbLevel.Location = new Point(181, 216);
+            cbLevel.Location = new Point(163, 214);
             cbLevel.Margin = new Padding(4, 5, 4, 5);
             cbLevel.MinimumSize = new Size(63, 0);
             cbLevel.Name = "cbLevel";
@@ -250,55 +233,11 @@
             cbLevel.TextAlignment = ContentAlignment.MiddleLeft;
             cbLevel.Watermark = "请选择权限等级";
             // 
-            // uiLabel8
-            // 
-            uiLabel8.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = Color.Red;
-            uiLabel8.Location = new Point(486, 63);
-            uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(100, 23);
-            uiLabel8.TabIndex = 16;
-            uiLabel8.Text = "必填";
-            uiLabel8.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel9
-            // 
-            uiLabel9.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel9.ForeColor = Color.Red;
-            uiLabel9.Location = new Point(486, 110);
-            uiLabel9.Name = "uiLabel9";
-            uiLabel9.Size = new Size(100, 23);
-            uiLabel9.TabIndex = 17;
-            uiLabel9.Text = "必填";
-            uiLabel9.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel10
-            // 
-            uiLabel10.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel10.ForeColor = Color.Red;
-            uiLabel10.Location = new Point(486, 167);
-            uiLabel10.Name = "uiLabel10";
-            uiLabel10.Size = new Size(100, 23);
-            uiLabel10.TabIndex = 18;
-            uiLabel10.Text = "必填";
-            uiLabel10.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel11
-            // 
-            uiLabel11.Font = new Font("宋体", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel11.ForeColor = Color.Red;
-            uiLabel11.Location = new Point(486, 216);
-            uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new Size(100, 23);
-            uiLabel11.TabIndex = 19;
-            uiLabel11.Text = "必填";
-            uiLabel11.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // uiLabel12
             // 
             uiLabel12.Font = new Font("宋体", 10.5F);
             uiLabel12.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel12.Location = new Point(43, 271);
+            uiLabel12.Location = new Point(25, 269);
             uiLabel12.Name = "uiLabel12";
             uiLabel12.Size = new Size(100, 23);
             uiLabel12.TabIndex = 20;
@@ -309,7 +248,7 @@
             // 
             rbTrue.Checked = true;
             rbTrue.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            rbTrue.Location = new Point(186, 268);
+            rbTrue.Location = new Point(168, 266);
             rbTrue.MinimumSize = new Size(1, 1);
             rbTrue.Name = "rbTrue";
             rbTrue.Size = new Size(74, 29);
@@ -319,24 +258,60 @@
             // rbFalse
             // 
             rbFalse.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            rbFalse.Location = new Point(290, 268);
+            rbFalse.Location = new Point(272, 266);
             rbFalse.MinimumSize = new Size(1, 1);
             rbFalse.Name = "rbFalse";
             rbFalse.Size = new Size(86, 29);
             rbFalse.TabIndex = 22;
             rbFalse.Text = "禁用";
             // 
+            // uiLine1
+            // 
+            uiLine1.BackColor = Color.Transparent;
+            uiLine1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLine1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLine1.Location = new Point(-1, 511);
+            uiLine1.MinimumSize = new Size(1, 1);
+            uiLine1.Name = "uiLine1";
+            uiLine1.Size = new Size(531, 29);
+            uiLine1.TabIndex = 33;
+            // 
+            // btnOK
+            // 
+            btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Location = new Point(228, 546);
+            btnOK.MinimumSize = new Size(1, 1);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(85, 35);
+            btnOK.TabIndex = 34;
+            btnOK.Text = "提交";
+            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Location = new Point(366, 546);
+            btnCancel.MinimumSize = new Size(1, 1);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(85, 35);
+            btnCancel.Symbol = 361453;
+            btnCancel.TabIndex = 35;
+            btnCancel.TabStop = false;
+            btnCancel.Text = "取消";
+            btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
+            // 
             // FrmUserEdit
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(653, 604);
+            ClientSize = new Size(527, 604);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            Controls.Add(uiLine1);
             Controls.Add(rbFalse);
             Controls.Add(rbTrue);
             Controls.Add(uiLabel12);
-            Controls.Add(uiLabel11);
-            Controls.Add(uiLabel10);
-            Controls.Add(uiLabel9);
-            Controls.Add(uiLabel8);
             Controls.Add(cbLevel);
             Controls.Add(uiLabel7);
             Controls.Add(txtRemark);
@@ -351,32 +326,11 @@
             Controls.Add(uiLabel2);
             Controls.Add(txtName);
             Controls.Add(uiLabel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmUserEdit";
             Text = "新增用户";
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
-            Controls.SetChildIndex(pnlBtm, 0);
-            Controls.SetChildIndex(uiLabel1, 0);
-            Controls.SetChildIndex(txtName, 0);
-            Controls.SetChildIndex(uiLabel2, 0);
-            Controls.SetChildIndex(txtPassword, 0);
-            Controls.SetChildIndex(uiLabel3, 0);
-            Controls.SetChildIndex(txtConfimPassword, 0);
-            Controls.SetChildIndex(uiLabel4, 0);
-            Controls.SetChildIndex(txtOffic, 0);
-            Controls.SetChildIndex(uiLabel5, 0);
-            Controls.SetChildIndex(txtPhone, 0);
-            Controls.SetChildIndex(uiLabel6, 0);
-            Controls.SetChildIndex(txtRemark, 0);
-            Controls.SetChildIndex(uiLabel7, 0);
-            Controls.SetChildIndex(cbLevel, 0);
-            Controls.SetChildIndex(uiLabel8, 0);
-            Controls.SetChildIndex(uiLabel9, 0);
-            Controls.SetChildIndex(uiLabel10, 0);
-            Controls.SetChildIndex(uiLabel11, 0);
-            Controls.SetChildIndex(uiLabel12, 0);
-            Controls.SetChildIndex(rbTrue, 0);
-            Controls.SetChildIndex(rbFalse, 0);
-            pnlBtm.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -396,12 +350,11 @@
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UIComboBox cbLevel;
-        private Sunny.UI.UILabel uiLabel8;
-        private Sunny.UI.UILabel uiLabel9;
-        private Sunny.UI.UILabel uiLabel10;
-        private Sunny.UI.UILabel uiLabel11;
         private Sunny.UI.UILabel uiLabel12;
         private Sunny.UI.UIRadioButton rbTrue;
         private Sunny.UI.UIRadioButton rbFalse;
+        private Sunny.UI.UILine uiLine1;
+        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UISymbolButton btnCancel;
     }
 }

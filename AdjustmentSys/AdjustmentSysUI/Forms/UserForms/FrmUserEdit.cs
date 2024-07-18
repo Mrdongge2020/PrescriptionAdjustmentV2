@@ -16,11 +16,12 @@ using System.Windows.Forms;
 
 namespace AdjustmentSysUI.Forms.UserForms
 {
-    public partial class FrmUserEdit : UIEditForm
+    public partial class FrmUserEdit : UIForm
     {
         private int userId;
         private readonly ComboxDataBLL _comboxDataBLL=new ComboxDataBLL();
         private readonly UserInfoBLL _userInfoBLL = new UserInfoBLL();
+        public string resultMsg = ""; 
         public FrmUserEdit(int id)
         {
             userId = id;
@@ -82,12 +83,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = _userInfoBLL.AddOrEditUserinfo(userInfo);
             if (msg == "")
             {
-                ShowSuccessTip((userId > 0 ? "编辑" : "新增") + "成功");
-                this.Close();              
+                resultMsg = "Successed";
+                this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示",msg);
+                resultMsg = msg;
             }
 
         }

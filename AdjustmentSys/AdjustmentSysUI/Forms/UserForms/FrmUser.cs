@@ -3,6 +3,7 @@ using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Service;
+using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using System;
@@ -64,7 +65,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmUserEdit frmUserEdit = new FrmUserEdit(0);
             frmUserEdit.Text = "新增用户";
-            frmUserEdit.Show();
+            frmUserEdit.ShowDialog();
+            string msg = frmUserEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("新增用户成功");
+                QueryUserList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
         //编辑用户点击事件
@@ -84,8 +95,17 @@ namespace AdjustmentSysUI.Forms.UserForms
             }
             FrmUserEdit frmUserEdit = new FrmUserEdit(checkedUserId);
             frmUserEdit.Text = "编辑用户";
-
-            frmUserEdit.Show();
+            frmUserEdit.ShowDialog();
+            string msg = frmUserEdit.resultMsg;
+            if (msg == "Successed")
+            {
+                ShowSuccessTip("编辑用户成功");
+                QueryUserList();
+            }
+            else if (msg != "")
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
         }
 
         /// <summary>

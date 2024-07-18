@@ -16,11 +16,12 @@ using System.Windows.Forms;
 
 namespace AdjustmentSysUI.Forms.UserForms
 {
-    public partial class FrmDoctorEdit : UIEditForm
+    public partial class FrmDoctorEdit : UIForm
     {
         DoctorInfoBLL _doctorInfoBLL = new DoctorInfoBLL();
         private readonly ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
         private int docId;
+        public string resultMsg = "";
         public FrmDoctorEdit(int docId)
         {
             InitializeComponent();
@@ -89,12 +90,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = _doctorInfoBLL.AddOrEditDoctorInfo(doctorInfo);
             if (msg == "")
             {
-                ShowSuccessTip((docId > 0 ? "编辑" : "新增") + "成功");
+                resultMsg = "Successed";
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示",msg);
+                resultMsg = msg ;
             }
         }
 
