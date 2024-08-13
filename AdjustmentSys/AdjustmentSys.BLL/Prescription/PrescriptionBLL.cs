@@ -38,14 +38,14 @@ namespace AdjustmentSys.BLL.Prescription
         }
 
         /// <summary>
-        /// 修改处方状态
+        /// 待下载处方修改处方状态
         /// </summary>
-        /// <param name="preId">处方id</param>
+        /// <param name="prescriptionIds">处方编号</param>
         /// <param name="status">状态</param>
         /// <returns></returns>
-        public string UpdatePrescriptionStatus(int preId, ProcessStatusEnum status)
+        public string UpdatePrescriptionStatus(List<string> prescriptionIds, ProcessStatusEnum status)
         {
-            return prescriptionDAL.UpdatePrescriptionStatus(preId,status);
+            return prescriptionDAL.UpdatePrescriptionStatus(prescriptionIds, status);
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace AdjustmentSys.BLL.Prescription
         /// <param name="prescriptionID">处方编号</param>
         /// <param name="processStatus">处方状态</param>
         /// <returns></returns>
-        public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus) 
+        public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus, bool isQueryStock=false) 
         {
-            return prescriptionDAL.GetPrescriptionDetailList(prescriptionID,processStatus);
+            return prescriptionDAL.GetPrescriptionDetailList(prescriptionID,processStatus,isQueryStock);
         }
 
         /// <summary>

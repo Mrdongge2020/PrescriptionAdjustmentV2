@@ -23,8 +23,12 @@ namespace AdjustmentSysUI.Forms
         public FrmMain()
         {
             InitializeComponent();
-            int pageIndex = 1000;
-            TreeNode parent = navMenuMainLeft.CreateNode("系统管理", 362718, 28, pageIndex);
+            int pageIndex = 100;
+            TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 362718, 28, pageIndex);
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
+
+            pageIndex = 200;
+            parent = navMenuMainLeft.CreateNode("系统管理", 362718, 28, pageIndex);
 
             //通过设置PageIndex关联，节点文字、图标由相应的Page的Text、Symbol提供
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmUser(), ++pageIndex));
@@ -32,22 +36,22 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDocDepartment(), ++pageIndex));
 
 
-            pageIndex = 1100;
+            pageIndex = 300;
             parent = navMenuMainLeft.CreateNode("药品管理", 361617, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugManagement(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugCompatibilityRuler(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugManufacturer(), ++pageIndex));
 
-            pageIndex = 1200;
+            pageIndex = 400;
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDevice(), ++pageIndex));
 
-            pageIndex = 1300;
+            pageIndex = 500;
             parent = navMenuMainLeft.CreateNode("药柜管理", 358587, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMedicineCabinet(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMedicineCabinetManage(), ++pageIndex));
 
-            pageIndex = 1400;
+            pageIndex = 600;
             parent = navMenuMainLeft.CreateNode("处方管理", 361788, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmPrescriptionList(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmAgreementPrescriptionManager(), ++pageIndex));

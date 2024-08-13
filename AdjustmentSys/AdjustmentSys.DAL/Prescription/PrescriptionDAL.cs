@@ -52,22 +52,24 @@ namespace AdjustmentSys.DAL.Prescription
         /// <summary>
         /// 修改处方状态
         /// </summary>
-        /// <param name="preId">处方id</param>
+        /// <param name="prescriptionIds">处方编号集合</param>
         /// <param name="status">状态</param>
         /// <returns></returns>
-        public string UpdatePrescriptionStatus(int preId, ProcessStatusEnum status) 
+        public string UpdatePrescriptionStatus(List<string> prescriptionIds, ProcessStatusEnum status) 
         {
             string error = "";
-            var preInfo = _eFCoreContext.LocalDataPrescriptionInfos.FirstOrDefault(x => x.ID == preId);
-            if (preInfo == null)
+            var preInfos = _eFCoreContext.DataPrescriptions.Where(x => prescriptionIds.Contains(x.PrescriptionID)).ToList();
+            if (preInfos == null || preInfos.Count<=0)
             {
-                error = "未查找到处方信息";
+                error = "未查找到相关处方信息";
                 return error;
             }
-
-            preInfo.ProcessStatus = status;
-            preInfo.Remarks = preInfo.Remarks + "("+DateTime.Now+"用户:" +SysLoginUser._currentUser.UserName + "修改处方状态为"+ status.ToString()+ ")";
-            _eFCoreContext.LocalDataPrescriptionInfos.Update(preInfo);
+            preInfos.ForEach(item => {
+                item.ProcessStatus = (int)status;
+                item.Remarks = item.Remarks + "(" + DateTime.Now + "用户:" + SysLoginUser._currentUser.UserName + "修改处方状态为" + status.ToString() + ")";
+            });
+           
+            _eFCoreContext.DataPrescriptions.UpdateRange(preInfos);
             _eFCoreContext.SaveChanges();
 
             return error;
