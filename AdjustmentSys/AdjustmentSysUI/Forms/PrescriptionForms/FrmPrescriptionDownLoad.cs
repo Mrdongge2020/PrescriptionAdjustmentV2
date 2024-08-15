@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.BLL.Prescription;
+using AdjustmentSys.BLL.User;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
@@ -18,12 +19,15 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
     {
         PrescriptionBLL _prescriptionBLL = new PrescriptionBLL();
         string selectPreId = "";//处方编号
+        public List<string> loadPrescriptionIdList = new List<string>();
         public FrmPrescriptionDownLoad()
         {
             InitializeComponent();
         }
         private void FrmPrescriptionDownLoad_Load(object sender, EventArgs e)
         {
+            dtpStart.Value = DateTime.Now;
+            dtpEnd.Value = DateTime.Now;
             InitDgvFormat();
             InitPreDetail();
             QueryPrePageList();
@@ -47,7 +51,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
             int datecolwidth = 160;
             //创建列
-            dataGradeViewUi.InitDgvCheckBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "isCheck", "选择", true, true, 60);
+            dataGradeViewUi.InitDgvCheckBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "isCheck", "选择", false, true, 60);
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionID", "处方编号", true, true, 130, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientName", "患者姓名", true, true, 90, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PatientSexText", "性别", true, true, 60, "");
@@ -80,12 +84,13 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticleOrder", "序号", true, true, 50, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParCode", "颗粒编号", true, true, 90, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParName", "颗粒名称", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "DoseHerb", "饮片剂量", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Equivalent", "当量", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Dose", "颗粒剂量", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Price", "单价", true, true, 80, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesName", "HIS名称", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesNameHIS", "HIS名称", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "ParticlesCodeHIS", "HIS码", true, true, 80, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "BatchNumber", "批号", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvPreDetail, DataGridViewContentAlignment.MiddleLeft, "Stock", "库存", true, false, 100, "");
@@ -146,9 +151,139 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         /// </summary>
         private void QueryPreDetailList()
         {
-            var preDetailsDatas = _prescriptionBLL.GetPrescriptionDetailList(selectPreId, (ProcessStatusEnum)(cbPreState.SelectedIndex),true);
+            var preDetailsDatas = _prescriptionBLL.GetPrescriptionDetailList(selectPreId, ProcessStatusEnum.待下载, true);
             dgvPreDetail.DataSource = preDetailsDatas;
             dgvPreDetail.ClearSelection();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            QueryPrePageList();
+        }
+
+        //获取选中待下载的处方编号
+        private List<string> GetAllCheckPreId()
+        {
+            List<string> checkedList = new List<string>(); //选中待下载的处方编号
+            foreach (DataGridViewRow row in dgvList.Rows)
+            {
+                DataGridViewCheckBoxCell checkCell = row.Cells[0] as DataGridViewCheckBoxCell;
+                if (checkCell != null && (bool)checkCell.EditedFormattedValue == true)
+                {
+                    checkedList.Add(row.Cells["PrescriptionID"].Value.ToString());
+                }
+            }
+            return checkedList;
+        }
+
+        private void btnZuoFei_Click(object sender, EventArgs e)
+        {
+            List<string> preIds = GetAllCheckPreId();
+            if (preIds == null || preIds.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "请选中要作废的处方");
+                return;
+            }
+            if (!ShowAskDialog("作废提示", "确定要作废选中的处方吗，作废后将不可恢复，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            {
+                return;
+            }
+            var msg = _prescriptionBLL.UpdatePrescriptionStatus(preIds, ProcessStatusEnum.作废);
+            if (msg == "")
+            {
+                ShowSuccessTip("作废成功");
+                QueryPrePageList();
+            }
+            else
+            {
+                ShowErrorDialog("错误提示", msg);
+            }
+        }
+
+        private void btnHis_Click(object sender, EventArgs e)
+        {
+            //if (selectPreId == "")
+            //{
+            //    ShowWarningDialog("异常提示", "请选中要匹配HIS码的处方");
+            //    return;
+            //}
+            List<string> preIds = GetAllCheckPreId();
+            if (preIds == null || preIds.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "请勾选要下载的处方");
+                return;
+            }
+            if (!ShowAskDialog("作废提示", $"确定要对选中的处方[{string.Join(",", preIds)}]匹配HIS码吗，操作不可逆，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            {
+                return;
+            }
+            int successCount = 0;
+            var errorList = _prescriptionBLL.HisMate(new List<string> { selectPreId }, out successCount);
+            if (successCount > 0)
+            {
+                errorList.Insert(0, $"成功匹配{successCount}条HIS码信息");
+            }
+            if (errorList != null && errorList.Count > 0)
+            {
+
+                ShowWarningDialog("结果提示", string.Join("\r\n", errorList));
+                QueryPrePageList();
+            }
+
+        }
+
+        private void btnDownLoad_Click(object sender, EventArgs e)
+        {
+            List<string> preIds = GetAllCheckPreId();
+            if (preIds == null || preIds.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "请勾选要下载的处方");
+                return;
+            }
+            List<string> errorList = null;
+            loadPrescriptionIdList = _prescriptionBLL.DownLoadPrescriptions(preIds, out errorList);
+            if (loadPrescriptionIdList != null && loadPrescriptionIdList.Count > 0)
+            {
+                if (errorList != null && errorList.Count > 0)
+                {
+                    ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
+                };
+                //QueryPrePageList();
+                this.Close();
+            }
+            else
+            {
+                if (errorList != null && errorList.Count > 0)
+                {
+                    ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
+                };
+            }
+
+        }
+
+        private void dgvList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X,
+            e.RowBounds.Location.Y,
+            dgvList.RowHeadersWidth - 4,
+            e.RowBounds.Height);
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+            dgvList.RowHeadersDefaultCellStyle.Font,
+            rectangle,
+            dgvList.RowHeadersDefaultCellStyle.ForeColor,
+            TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+
+        private void dgvList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //列头点击不处理
+            if (e.RowIndex < 0) { return; }
+            if (dgvList.Rows[e.RowIndex].Selected) 
+            {
+                dgvList.Rows[e.RowIndex].Selected = false;
+                selectPreId = "";
+                QueryPreDetailList();
+            } 
         }
     }
 }

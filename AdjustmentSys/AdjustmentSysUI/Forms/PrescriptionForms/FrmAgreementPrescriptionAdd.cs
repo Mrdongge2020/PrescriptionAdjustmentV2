@@ -72,9 +72,9 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dgvDurgList);
                 row.Cells[0].Value = parinfo.ParticlesID;
-                row.Cells[1].Value = parinfo.ParName;
-                row.Cells[2].Value = parinfo.ParticlesCodeHIS;
-                row.Cells[3].Value = parinfo.ParCode;
+                row.Cells[1].Value = parinfo.ParCode;
+                row.Cells[2].Value = parinfo.ParName;
+                row.Cells[3].Value = parinfo.ParticlesCodeHIS;
                 row.Cells[4].Value = parinfo.DoseHerb;
                 row.Cells[5].Value = parinfo.Equivalent;
                 row.Cells[6].Value = parinfo.Dose;
@@ -170,9 +170,9 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             row.CreateCells(dgvDurgList);
             // 设置新添加的行的单元格值
             row.Cells[0].Value = durgInfo.ID;
-            row.Cells[1].Value = durgInfo.ParName;
-            row.Cells[2].Value = durgInfo.HisCode;
-            row.Cells[3].Value = durgInfo.Code;
+            row.Cells[1].Value = durgInfo.Code;
+            row.Cells[2].Value = durgInfo.ParName;
+            row.Cells[3].Value = durgInfo.HisCode;
             row.Cells[4].Value = durgInfo.DoseHerb;
             row.Cells[5].Value = durgInfo.Equivalent;
             row.Cells[6].Value = durgInfo.Dose;

@@ -80,14 +80,14 @@ namespace AdjustmentSys.Models.Drug
         /// </summary>
         public string Remark { get; set; }
 
-        /// <summary>
-        /// 批号
-        /// </summary>
-        public string? BatchNumber { get; set; }
-        /// <summary>
-        /// 有效期至
-        /// </summary>
-        public string? VaildUntil { get; set; }
+        ///// <summary>
+        ///// 批号
+        ///// </summary>
+        //public string? BatchNumber { get; set; }
+        ///// <summary>
+        ///// 有效期至
+        ///// </summary>
+        //public string? VaildUntil { get; set; }
         /// <summary>
         /// HIS名称
         /// </summary>

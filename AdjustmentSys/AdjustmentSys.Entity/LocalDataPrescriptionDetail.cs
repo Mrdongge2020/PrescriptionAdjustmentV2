@@ -54,6 +54,12 @@ namespace AdjustmentSys.Entity
         [Column("BatchNumber")]
         [MaxLength(50)]
         public string? BatchNumber { get; set; }
+        /// <summary>
+        /// 有效期至
+        /// </summary>
+        [Column("ValidityTime")]
+        [MaxLength(20)]
+        public string? ValidityTime { get; set; }
 
         /// <summary>
         /// 颗粒饮片剂量

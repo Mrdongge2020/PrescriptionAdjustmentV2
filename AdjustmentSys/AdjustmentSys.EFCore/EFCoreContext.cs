@@ -109,6 +109,11 @@ namespace AdjustmentSys.EFCore
         /// </summary>
         public DbSet<LocalDataPrescriptionDetailRecord> LocalDataPrescriptionDetailRecords { get; set; }
         /// <summary>
+        /// 处方记录
+        /// </summary>
+        public DbSet<PrescriptionLog> PrescriptionLogs { get; set; }
+        
+        /// <summary>
         /// 协定处方
         /// </summary>
         public DbSet<AgreementPrescriptionInfo> AgreementPrescriptionInfos { get; set; }

@@ -9,7 +9,7 @@ namespace AdjustmentSys.Tool
     /// <summary>
     /// 字符串工具类
     /// </summary>
-    public class StringHelper
+    public  class StringHelper
     {
         /// <summary>
         /// 判断字符串是否是int型数字,返回true是，false不是
@@ -25,5 +25,7 @@ namespace AdjustmentSys.Tool
            
             return ismatch;
         }
+
+       
     }
 }

@@ -57,18 +57,18 @@ namespace AdjustmentSys.Entity
         [Column("PackageNumber")]
         [MaxLength(20)]
         public string? PackageNumber { get; set; }
-        /// <summary>
-        /// 批号
-        /// </summary>
-        [Column("BatchNumber")]
-        [MaxLength(50)]
-        public string? BatchNumber { get; set; }
-        /// <summary>
-        /// 有效期至
-        /// </summary>
-        [Column("VaildUntil")]
-        [MaxLength(20)]
-        public string? VaildUntil { get; set; }
+        ///// <summary>
+        ///// 批号
+        ///// </summary>
+        //[Column("BatchNumber")]
+        //[MaxLength(50)]
+        //public string? BatchNumber { get; set; }
+        ///// <summary>
+        ///// 有效期至
+        ///// </summary>
+        //[Column("VaildUntil")]
+        //[MaxLength(20)]
+        //public string? VaildUntil { get; set; }
         
         /// <summary>
         /// 批发价

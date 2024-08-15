@@ -77,8 +77,8 @@ namespace AdjustmentSys.DAL.Drug
             particlesInfoExtend.WholesalePrice = drugInfo.WholesalePrice;
             particlesInfoExtend.RetailPrice = drugInfo.RetailPrice;
             particlesInfoExtend.PackageNumber = drugInfo.PackageNumber;
-            particlesInfoExtend.BatchNumber = drugInfo.BatchNumber;
-            particlesInfoExtend.VaildUntil = drugInfo.VaildUntil;
+            //particlesInfoExtend.BatchNumber = drugInfo.BatchNumber;
+            //particlesInfoExtend.VaildUntil = drugInfo.VaildUntil;
            
             #endregion
 
@@ -184,8 +184,8 @@ namespace AdjustmentSys.DAL.Drug
                              Equivalent=b.Equivalent,
                              DoseLimit=b.DoseLimit,
                              PackageNumber=b.PackageNumber,
-                             BatchNumber=b.BatchNumber,
-                             VaildUntil=b.VaildUntil,
+                             //BatchNumber=b.BatchNumber,
+                             //VaildUntil=b.VaildUntil,
                              RetailPrice=b.RetailPrice,
                              WholesalePrice=b.WholesalePrice
                          }).FirstOrDefault();
@@ -261,8 +261,8 @@ namespace AdjustmentSys.DAL.Drug
                     model.PackageNumber = currentExtend.PackageNumber;
                     model.HisCode = currentExtend.HisCode;
                     model.HisName = currentExtend.HisName;
-                    model.BatchNumber = currentExtend.BatchNumber;
-                    model.VaildUntil = currentExtend.VaildUntil;
+                    //model.BatchNumber = currentExtend.BatchNumber;
+                    //model.VaildUntil = currentExtend.VaildUntil;
                 }
                 
               

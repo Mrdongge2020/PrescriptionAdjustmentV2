@@ -59,8 +59,8 @@ namespace AdjustmentSysUI.Forms.Drug
                     txtSSBH.Text = drugModel.ListingNumber;
                     txtBZ.Text = drugModel.Remark;
                     txtHISMC.Text = drugModel.HisName;
-                    txtPH.Text = drugModel.BatchNumber;
-                    txtXQZ.Text = drugModel.VaildUntil;
+                    //txtPH.Text = drugModel.BatchNumber;
+                    //txtXQZ.Text = drugModel.VaildUntil;
 
                     lblTM.Enabled = true;
                     txtBZTM.Enabled = true;
@@ -89,8 +89,7 @@ namespace AdjustmentSysUI.Forms.Drug
             txtDBZM.Text = string.Empty;
             txtSSBH.Text = string.Empty;
             txtBZ.Text = string.Empty;
-            txtPH.Text = string.Empty;
-            txtXQZ.Text = string.Empty;
+
             txtHISMC.Text = string.Empty;
 
             lblTM.Enabled = false;
@@ -128,8 +127,8 @@ namespace AdjustmentSysUI.Forms.Drug
             particlesInfo.ListingNumber = txtSSBH.Text?.Trim();
             particlesInfo.Remark = txtBZ.Text.Trim();
             particlesInfo.HisName = txtHISMC.Text?.Trim();
-            particlesInfo.BatchNumber = txtPH.Text?.Trim();
-            particlesInfo.VaildUntil = txtXQZ.Text?.Trim();
+            //particlesInfo.BatchNumber = txtPH.Text?.Trim();
+            //particlesInfo.VaildUntil = txtXQZ.Text?.Trim();
 
             string msg = _drugManagermentBLL.AddOrEditDrugInfo(particlesInfo);
             if (msg == "")
@@ -195,10 +194,8 @@ namespace AdjustmentSysUI.Forms.Drug
             var result= _drugManagermentBLL.GetManufacturerRuleResult(txtKLM.Text.Trim(),(int)cbCJ.SelectedValue);
             if (result!=null) 
             {
-                txtPH.Text = result.BatchNumber;
                 txtMD.Text = result.Density.ToString();
                 txtDL.Text = result.Equivalent.ToString();
-                txtXQZ.Text = result.VaildUntil;
                 txtDBZM.Text = result.PackageNumber;
             }
             ShowSuccessTip("解析完成");

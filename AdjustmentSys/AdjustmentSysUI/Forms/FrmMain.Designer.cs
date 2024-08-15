@@ -49,7 +49,7 @@
             navMenuMainLeft.FullRowSelect = true;
             navMenuMainLeft.Indent = 150;
             navMenuMainLeft.ItemHeight = 50;
-            navMenuMainLeft.Location = new Point(0, 160);
+            navMenuMainLeft.Location = new Point(0, 165);
             navMenuMainLeft.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             navMenuMainLeft.Name = "navMenuMainLeft";
             navMenuMainLeft.ScrollBarColor = Color.FromArgb(240, 240, 240);
@@ -58,7 +58,7 @@
             navMenuMainLeft.ShowLines = false;
             navMenuMainLeft.ShowOneNode = true;
             navMenuMainLeft.ShowPlusMinus = false;
-            navMenuMainLeft.Size = new Size(286, 745);
+            navMenuMainLeft.Size = new Size(286, 740);
             navMenuMainLeft.TabIndex = 2;
             navMenuMainLeft.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
@@ -68,7 +68,7 @@
             uiNavBar1.Dock = DockStyle.Top;
             uiNavBar1.DropMenuFont = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiNavBar1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiNavBar1.Location = new Point(0, 35);
+            uiNavBar1.Location = new Point(0, 40);
             uiNavBar1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             uiNavBar1.Name = "uiNavBar1";
             uiNavBar1.Size = new Size(1168, 125);
@@ -80,11 +80,11 @@
             uiTabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             uiTabControl1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiTabControl1.ItemSize = new Size(0, 1);
-            uiTabControl1.Location = new Point(286, 160);
+            uiTabControl1.Location = new Point(286, 165);
             uiTabControl1.MainPage = "";
             uiTabControl1.Name = "uiTabControl1";
             uiTabControl1.SelectedIndex = 0;
-            uiTabControl1.Size = new Size(882, 745);
+            uiTabControl1.Size = new Size(882, 740);
             uiTabControl1.SizeMode = TabSizeMode.Fixed;
             uiTabControl1.TabIndex = 4;
             uiTabControl1.TabUnSelectedForeColor = Color.FromArgb(240, 240, 240);
@@ -144,7 +144,10 @@
             Controls.Add(uiNavBar1);
             Controls.Add(navMenuMainLeft);
             Name = "FrmMain";
-            Text = "家施德中医颗粒调剂系统";
+            Padding = new Padding(0, 40, 0, 0);
+            Text = "颗粒调剂系统";
+            TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleHeight = 40;
             WindowState = FormWindowState.Maximized;
             ZoomScaleRect = new Rectangle(19, 19, 800, 450);
             pannelBottom.ResumeLayout(false);

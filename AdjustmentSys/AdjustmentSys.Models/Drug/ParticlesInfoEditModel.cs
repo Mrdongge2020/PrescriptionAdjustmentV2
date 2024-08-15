@@ -73,15 +73,6 @@ namespace AdjustmentSys.Models.Drug
         /// </summary>
         public string? PackageNumber { get; set; }
         /// <summary>
-        /// 批号
-        /// </summary>
-        public string? BatchNumber { get; set; }
-        /// <summary>
-        /// 有效期至
-        /// </summary>
-        public string? VaildUntil { get; set; }
-
-        /// <summary>
         /// 批发价
         /// </summary>
         public decimal? WholesalePrice { get; set; }

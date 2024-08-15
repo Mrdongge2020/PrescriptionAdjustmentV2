@@ -1,6 +1,8 @@
 ﻿using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.Forms.UserControl;
+using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 {
     public partial class FrmBoxedDevice : UIPage
     {
+        DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
         public FrmBoxedDevice()
         {
             InitializeComponent();
@@ -50,21 +53,20 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     btn.FillColor = Color.Red;
                 }
-                //else
-                //{ 
-                //    // 创建一个红色的画刷
-                //    using (Brush redBrush = new SolidBrush(Color.Lime))
-                //    {
-                //        // 重新绘制椭圆使用红色画刷
-                //        btn.Invalidate(); // 触发重绘事件
-                //    }
-                //}
                 //建议用封装的方法Add
                 uiFlowLayoutPanel1.Add(btn);
             }
 
             //lblDownLoadCount.Text = "已下载列表(" + dlist.Count + ")";
             this.Render();
+        }
+
+        private void lblDownLoad_Click(object sender, EventArgs e)
+        {
+            dataGradeViewUi.FormClose("FrmPrescriptionDownLoad");
+            FrmPrescriptionDownLoad frmPrescriptionDownLoad = new FrmPrescriptionDownLoad();
+            frmPrescriptionDownLoad.ShowDialog();
+
         }
     }
 }

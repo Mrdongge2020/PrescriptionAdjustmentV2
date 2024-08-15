@@ -115,5 +115,15 @@ namespace AdjustmentSysUI.UITool
             }
             return sum;
         }
+
+        public void FormClose(string formName)
+        {
+            Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == formName).FirstOrDefault();
+            if (existingForm != null)
+            {
+                // 窗体已打开，关闭旧窗体
+                existingForm.Close();
+            }
+        }
     }
 }

@@ -1,7 +1,10 @@
-﻿using AdjustmentSys.DAL.Prescription;
+﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.DAL.Prescription;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.Prescription;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
 using System;
@@ -15,6 +18,7 @@ namespace AdjustmentSys.BLL.Prescription
     public class PrescriptionBLL
     {
         PrescriptionDAL prescriptionDAL = new PrescriptionDAL();
+        CommonDataBLL commonDataBLL = new CommonDataBLL();
         /// <summary>
         /// 新增处方信息
         /// </summary>
@@ -220,6 +224,245 @@ namespace AdjustmentSys.BLL.Prescription
         public string GetAgreementPrescriptionName(int agreementPrescriptionId) 
         {
             return prescriptionDAL.GetAgreementPrescriptionName(agreementPrescriptionId);
+        }
+
+        /// <summary>
+        /// 处方匹配his码
+        /// </summary>
+        public List<string> HisMate(List<string> preIds,out int successedCount) 
+        {
+            List<string> errorList = new List<string>();
+            successedCount = 0;
+            (List<DataPrescription> parinfos, List<DataPrescriptionDetail> parDetails) = GetPreData(preIds, out errorList);
+
+            if (parDetails==null || parDetails.Count==0) 
+            {
+                return errorList;
+            }
+            //修改待下载的处方详情信息
+            var isSuccess = prescriptionDAL.UpdateDataPrescriptionDetails(parDetails);
+            if (isSuccess)
+            {
+                successedCount = parDetails.Count;
+            }
+            else 
+            {
+                errorList.Add($"匹配HIS码失败");
+            }
+
+            return errorList;
+        }
+
+        /// <summary>
+        /// 下载处方数据到本地
+        /// </summary>
+        /// <param name="preIds">处方编号</param>
+        /// <param name="errorStrings">错误信息</param>
+        /// <returns></returns>
+        public List<string> DownLoadPrescriptions(List<string> preIds,out List<string> errorStrings) 
+        {
+            //List<string> successPreIds = new List<string>();//下载成功的处方编号
+            (List<DataPrescription> parinfos, List<DataPrescriptionDetail> parDetails) = GetPreData(preIds, out errorStrings);
+            if (parinfos == null || parinfos.Count <= 0)
+            {
+                return null;
+            }
+
+            //新增本地处方数据
+            List<LocalDataPrescriptionInfo> localDataPrescriptionInfos = new List<LocalDataPrescriptionInfo>();
+            foreach (var item in parinfos)
+            {
+                LocalDataPrescriptionInfo localDataPrescriptionInfo = new LocalDataPrescriptionInfo();
+                localDataPrescriptionInfo =CopySimilarProperties<LocalDataPrescriptionInfo, DataPrescription>(localDataPrescriptionInfo,item);
+                if (localDataPrescriptionInfo!=default) 
+                {
+                    localDataPrescriptionInfo.DownloadBy = SysLoginUser._currentUser.UserId;
+                    localDataPrescriptionInfo.DownloadName = SysLoginUser._currentUser.UserName;
+                    localDataPrescriptionInfo.DownloadTime = DateTime.Now;
+                    localDataPrescriptionInfo.ProcessStatus = ProcessStatusEnum.待核对;
+                    localDataPrescriptionInfos.Add(localDataPrescriptionInfo);
+                }
+            }
+            //新增的本地处方编号
+            preIds = localDataPrescriptionInfos.Select(x => x.PrescriptionID).ToList();
+
+            //匹配HIS码
+            var updateDataPrescriptionDetails = parDetails.Where(x => !preIds.Contains(x.PrescriptionID)).ToList();
+
+
+            //新增本地处方详情数据
+            var addLocalDataPrescriptionDetails = parDetails.Where(x => preIds.Contains(x.PrescriptionID))
+                           .Select(x=>new LocalDataPrescriptionDetail() {
+                                PrescriptionID = x.PrescriptionID,
+                                ParticleOrder = x.ParticleOrder,
+                                ParticlesCodeHIS = x.ParticlesCodeHIS,
+                                ParticlesID = x.ParticlesID,
+                                ParticlesNameHIS = x.ParticlesNameHIS,
+                                BatchNumber = x.BatchNumber,
+                                Dose=x.Dose,
+                                DoseHerb=x.DoseHerb,
+                                Equivalent=x.Equivalent,
+                                Price=x.Price
+                           }).ToList();
+            //获取药柜信息
+            var mcDetails= commonDataBLL.GetMedicineCabinetDetails(SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
+            if (mcDetails!=null && mcDetails.Count>0)
+            { 
+                foreach (var adpd in addLocalDataPrescriptionDetails)
+                {
+                    var currentMC = mcDetails.FirstOrDefault(x=>x.ParticlesID==adpd.ParticlesID);
+                    if (currentMC!=null)
+                    {
+                        adpd.BatchNumber= currentMC?.BatchNumber;
+                        adpd.ValidityTime = currentMC?.ValidityTime?.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                }
+            }
+
+            //下载数据操作
+            bool isSuccess = prescriptionDAL.DownLoadPrescription(updateDataPrescriptionDetails, localDataPrescriptionInfos,addLocalDataPrescriptionDetails);
+
+            if (isSuccess)
+            {
+                return preIds;
+            }
+            else
+            {
+                errorStrings.Add($"匹配HIS码失败");
+                return null;
+            }
+        }
+
+        public  T CopySimilarProperties<T,S>(T target, S source)
+        {
+            if (source == null)
+                return default;
+
+            var sourceType = typeof(S);
+            var targetType = target.GetType();
+
+            var sourceProperties = sourceType.GetProperties().Where(p => p.CanRead);
+            foreach (var sourceProperty in sourceProperties)
+            {
+                var targetProperty = targetType.GetProperty(sourceProperty.Name);
+                if (targetProperty != null && targetProperty.CanWrite)
+                {
+                    var sourceValue = sourceProperty.GetValue(source, null); //sourceProperty.GetValue(targetProperty, null);
+                    if (sourceValue != null)
+                    {
+                        targetProperty.SetValue(target, sourceValue);
+                    }
+                    else 
+                    {
+                        var ptype = targetProperty.PropertyType;
+                        // 设置默认值
+                        if (ptype == typeof(int))
+                        {
+                            targetProperty.SetValue(source, 0);
+                        }
+                        else if (ptype == typeof(string))
+                        {
+                            targetProperty.SetValue(source, "");
+                        }
+                        else if (ptype == typeof(DateTime))
+                        {
+                            targetProperty.SetValue(source, DateTime.Now);
+                        }
+                        // ... 其他类型
+                        else
+                        {
+                            // 设置为null或其他默认值
+                            targetProperty.SetValue(source, null);
+                        }
+                    }   
+                }
+            }
+            return target;
+        }
+
+
+        /// <summary>
+        /// 获取处方数据
+        /// </summary>
+        /// <param name="preIds"></param>
+        /// <param name="errorStrings"></param>
+        /// <returns></returns>
+        private (List<DataPrescription>, List<DataPrescriptionDetail>) GetPreData(List<string> preIds, out List<string> errorStrings) 
+        {
+            
+            errorStrings = new List<string>();
+            //处方信息
+            var allPreinfos = commonDataBLL.GetAllDataPrescriptions(preIds);
+            if (allPreinfos == null || allPreinfos.Count <= 0)
+            {
+                errorStrings.Add("未找到相关处方数据");
+                return (null,null);
+            }
+
+            //处方数据校验
+            foreach (var prescriptionID in preIds)
+            {
+                var currentPre = allPreinfos.FirstOrDefault(x => x.PrescriptionID == prescriptionID);
+                if (currentPre == null)
+                {
+                    errorStrings.Add($"处方[{prescriptionID}]已被其他设备下载");
+                    preIds.Remove(prescriptionID);
+                    continue;
+                }
+                if (currentPre.ProcessStatus == 4)
+                {
+                    errorStrings.Add($"处方[{prescriptionID}]已被其他设备作废");
+                    preIds.Remove(prescriptionID);
+                    continue;
+                }
+            }
+
+            if (preIds.Count == 0)
+            {
+                return (null, null);
+            }
+
+            var datails = commonDataBLL.GetAllDataPrescriptionDetails(preIds);
+            if (datails == null || datails.Count <= 0)
+            {
+                errorStrings.Add("未找到相关处方详情数据");
+                return (null, null);
+            }
+
+            var allParticles = commonDataBLL.GetCommonParticles();
+
+            List<DataPrescriptionDetail> detailList = new List<DataPrescriptionDetail>();
+            foreach (var detail in datails)
+            {
+                ParticlesInfoEditModel currentParticle = new ParticlesInfoEditModel();
+                if (detail.ParticlesID>0) 
+                {
+                    currentParticle=allParticles.FirstOrDefault(x => x.ID == detail.ParticlesID);
+                }
+                else
+                {
+                    currentParticle=allParticles.FirstOrDefault(x => x.HisCode == detail.ParticlesCodeHIS);
+                }
+                    
+                if (currentParticle != null)
+                {
+                    detail.Equivalent = currentParticle.Equivalent;
+                    detail.Dose = (float)Math.Round(detail.DoseHerb / currentParticle.Equivalent, 2);
+                    detail.ParticlesCodeHIS = currentParticle.HisCode;
+                    detail.ParticlesNameHIS=currentParticle.HisName;
+                    detailList.Add(detail);
+                }
+                else
+                {
+                    errorStrings.Add($"颗粒[{detail.ParticlesNameHIS}]匹配HIS码失败");
+                    if (preIds.Contains(detail.PrescriptionID))
+                    {
+                        preIds.Remove(detail.PrescriptionID);
+                    }
+                }
+            }
+            allPreinfos= allPreinfos.Where(x => preIds.Contains(x.PrescriptionID)).ToList();
+            return (allPreinfos, detailList);
         }
     }
 }

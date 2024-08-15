@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -148,10 +149,11 @@ namespace AdjustmentSys.DAL.Prescription
             }
             if (prescriptionSource.HasValue) 
             {
-                sqlWhere += " and  PrescriptionSource=" + prescriptionSource;
+                sqlWhere += " and  PrescriptionSource=" + processStatus.Value;
             }
             if (processStatus.HasValue)
             {
+                sqlWhere += " and  ProcessStatus=" + (int)processStatus.Value; 
                 if (processStatus.Value == ProcessStatusEnum.完成)
                 {
                     tableName = " LocalDataPrescriptionInfoRecord ";
@@ -572,5 +574,67 @@ namespace AdjustmentSys.DAL.Prescription
             return _eFCoreContext.AgreementPrescriptionInfos.FirstOrDefault(x => x.ID == agreementPrescriptionId)?.Name;
         }
         #endregion
+
+        /// <summary>
+        /// 修改待下载处方详情信息
+        /// </summary>
+        /// <param name="datas">待下载处方详情集合</param>
+        /// <returns></returns>
+        public bool UpdateDataPrescriptionDetails(List<DataPrescriptionDetail> datas) 
+        {
+          
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.DataPrescriptionDetails.UpdateRange(datas);
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 下载处方插入数据
+        /// </summary>
+        /// <param name="updateDataPrescriptionDetails">要跟新his信息的待下载处方详情集合</param>
+        /// <param name="addlocalDataPrescriptionInfos">要插入的本地处方集合</param>
+        /// <param name="addlocalDataPrescriptionDetails">要插入的本地处方详情集合</param>
+        /// <returns></returns>
+        public bool DownLoadPrescription(List<DataPrescriptionDetail> updateDataPrescriptionDetails, List<LocalDataPrescriptionInfo> addlocalDataPrescriptionInfos, List<LocalDataPrescriptionDetail> addlocalDataPrescriptionDetails) 
+        {
+            List<string> preIds= addlocalDataPrescriptionInfos.Select(x => x.PrescriptionID).Distinct().ToList();
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    //插入本地处方数据
+                    _eFCoreContext.LocalDataPrescriptionInfos.AddRange(addlocalDataPrescriptionInfos);
+                    _eFCoreContext.LocalDataPrescriptionDetails.AddRange(addlocalDataPrescriptionDetails);
+                    //匹配his
+                    _eFCoreContext.DataPrescriptionDetails.UpdateRange(updateDataPrescriptionDetails);
+                    //删除已下载到本地数据
+                    _eFCoreContext.DataPrescriptions.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
+                    _eFCoreContext.DataPrescriptionDetails.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
+
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
