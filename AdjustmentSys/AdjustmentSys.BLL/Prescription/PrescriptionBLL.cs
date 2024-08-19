@@ -10,6 +10,7 @@ using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -328,7 +329,7 @@ namespace AdjustmentSys.BLL.Prescription
             }
             else
             {
-                errorStrings.Add($"匹配HIS码失败");
+                errorStrings.Add($"下载处方失败");
                 return null;
             }
         }
@@ -340,41 +341,90 @@ namespace AdjustmentSys.BLL.Prescription
 
             var sourceType = typeof(S);
             var targetType = target.GetType();
-
+            //foreach (var targetProperty in targetType.GetProperties())
+            //{
+            //    if (!(targetProperty != null && targetProperty.CanWrite)) 
+            //    {
+            //        continue;
+            //    }
+            //    var sourceProperty = sourceType.GetProperty(targetProperty.Name);
+            //    if (sourceProperty==null) 
+            //    {
+            //        continue;
+            //    }
+            //    var sourceValue = sourceProperty.GetValue(source, null);
+            //    if (sourceValue != null)
+            //    {
+            //        targetProperty.SetValue(target, sourceValue);
+            //    }
+            //    else
+            //    {
+            //        var ptype = targetProperty.PropertyType;
+            //        // 设置默认值
+            //        if (ptype == typeof(int) || ptype == typeof(int?))
+            //        {
+            //            targetProperty.SetValue(target, 0);
+            //        }
+            //        else if (ptype == typeof(decimal) || ptype == typeof(decimal?))
+            //        {
+            //            targetProperty.SetValue(target, 0);
+            //        }
+            //        else if (ptype == typeof(float) || ptype == typeof(float?)) 
+            //        {
+            //            targetProperty.SetValue(target, 0);
+            //        }
+            //        else if (ptype == typeof(double) || ptype == typeof(double?))
+            //        {
+            //            targetProperty.SetValue(target, 0);
+            //        }
+            //        else if (ptype == typeof(DateTime) || ptype == typeof(DateTime?))
+            //        {
+            //            targetProperty.SetValue(target, DateTime.Now);
+            //        }
+            //        // ... 其他类型
+            //        else
+            //        {
+            //            // 设置为null或其他默认值
+            //            targetProperty.SetValue(source, null);
+            //        }
+            //    }
+            //}
             var sourceProperties = sourceType.GetProperties().Where(p => p.CanRead);
+
             foreach (var sourceProperty in sourceProperties)
             {
                 var targetProperty = targetType.GetProperty(sourceProperty.Name);
-                if (targetProperty != null && targetProperty.CanWrite)
+                if (!(targetProperty != null && targetProperty.CanWrite)){ continue;}
+                if (targetProperty.Name=="ID") { continue; }
+                var sourceValue = sourceProperty.GetValue(source, null); //sourceProperty.GetValue(targetProperty, null);
+                if (sourceValue != null)
                 {
-                    var sourceValue = sourceProperty.GetValue(source, null); //sourceProperty.GetValue(targetProperty, null);
-                    if (sourceValue != null)
+                    targetProperty.SetValue(target, sourceValue);
+                }
+                else
+                {
+                    var ptype = targetProperty.PropertyType;
+                    // 设置默认值
+                    if (ptype == typeof(int) || ptype == typeof(int?) || ptype == typeof(double) ||
+                        ptype == typeof(double?) || ptype == typeof(float) || ptype == typeof(float?) ||
+                        ptype == typeof(decimal) || ptype == typeof(decimal?))
                     {
-                        targetProperty.SetValue(target, sourceValue);
+                        targetProperty.SetValue(target, 0);
                     }
-                    else 
+                    else if (ptype == typeof(string))
                     {
-                        var ptype = targetProperty.PropertyType;
-                        // 设置默认值
-                        if (ptype == typeof(int))
-                        {
-                            targetProperty.SetValue(source, 0);
-                        }
-                        else if (ptype == typeof(string))
-                        {
-                            targetProperty.SetValue(source, "");
-                        }
-                        else if (ptype == typeof(DateTime))
-                        {
-                            targetProperty.SetValue(source, DateTime.Now);
-                        }
-                        // ... 其他类型
-                        else
-                        {
-                            // 设置为null或其他默认值
-                            targetProperty.SetValue(source, null);
-                        }
-                    }   
+                        targetProperty.SetValue(target, "");
+                    }
+                    else if (ptype == typeof(DateTime))
+                    {
+                        targetProperty.SetValue(target, DateTime.Now);
+                    }
+                    // ... 其他类型
+                    else
+                    {
+                        // 设置为null或其他默认值
+                        targetProperty.SetValue(target, null);
+                    }
                 }
             }
             return target;

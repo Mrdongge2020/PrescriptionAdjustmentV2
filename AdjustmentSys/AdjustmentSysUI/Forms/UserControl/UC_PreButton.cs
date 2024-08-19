@@ -45,7 +45,7 @@ namespace AdjustmentSysUI.Forms.UserControl
             e.Graphics.DrawString(Text, Font, ForeColor, new Rectangle(10, 50, Width, 10), ContentAlignment.MiddleLeft);
             //e.Graphics.DrawLine(ForeColor, 10, 40, Width - 20, 40);
             //e.Graphics.DrawString("", Font, ForeColor, new Rectangle(10, 40, Width, Height - 40), ContentAlignment.MiddleLeft);
-            //e.Graphics.Clear(this.BackColor);
+            e.Graphics.Clear(this.BackColor);
 
         }
     }

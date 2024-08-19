@@ -181,10 +181,10 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             List<string> preIds = GetAllCheckPreId();
             if (preIds == null || preIds.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请选中要作废的处方");
+                ShowWarningDialog("异常提示", "请勾选要作废的处方");
                 return;
             }
-            if (!ShowAskDialog("作废提示", "确定要作废选中的处方吗，作废后将不可恢复，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!ShowAskDialog("作废提示", "确定要作废已勾选的处方吗，作废后将不可恢复，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -210,10 +210,10 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             List<string> preIds = GetAllCheckPreId();
             if (preIds == null || preIds.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请勾选要下载的处方");
+                ShowWarningDialog("异常提示", "请勾选要匹配HIS码的处方");
                 return;
             }
-            if (!ShowAskDialog("作废提示", $"确定要对选中的处方[{string.Join(",", preIds)}]匹配HIS码吗，操作不可逆，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!ShowAskDialog("作废提示", $"确定要对已勾选的处方[{string.Join(",", preIds)}]匹配HIS码吗，操作不可逆，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -248,7 +248,6 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 {
                     ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
                 };
-                //QueryPrePageList();
                 this.Close();
             }
             else

@@ -1,4 +1,6 @@
-﻿using AdjustmentSys.Models.User;
+﻿using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.Forms.DeviceForms;
 using AdjustmentSysUI.Forms.Drug;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
@@ -22,6 +24,7 @@ namespace AdjustmentSysUI.Forms
     {
         public FrmMain()
         {
+            //TestFile();
             InitializeComponent();
             int pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 362718, 28, pageIndex);
@@ -64,5 +67,15 @@ namespace AdjustmentSysUI.Forms
         {
             this.lbltime.Text = DateTime.Now.DateTimeString();
         }
+
+        //private void TestFile() 
+        //{
+        //    string fileUrl = Application.StartupPath + "\\testbinfile.bin";
+        //    TestFileModel testFileModel = new TestFileModel();
+        //    testFileModel.LoadedPreIds = new List<string>() {"222222","333333" };
+        //    BinFileHelper.WriteObjectToBinaryFile(fileUrl, testFileModel);
+
+        //    var dd = BinFileHelper.ReadObjectFromBinaryFile<TestFileModel>(fileUrl);
+        //}
     }
 }

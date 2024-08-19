@@ -40,6 +40,10 @@ namespace AdjustmentSys.Models.Prescription
         /// <summary>
         /// 处方状态
         /// </summary>
-        public string ProcessStatus { get; set; }
+        public ProcessStatusEnum ProcessStatus { get; set; }
+        /// <summary>
+        /// 处方状态
+        /// </summary>
+        public string ProcessStatusText { get { return ProcessStatus.ToString(); } } 
     }
 }

@@ -14,7 +14,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AdjustmentSys.DAL.Prescription
 {
@@ -628,7 +627,7 @@ namespace AdjustmentSys.DAL.Prescription
 
                     dbContextTransaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     dbContextTransaction.Rollback();
                     return false;

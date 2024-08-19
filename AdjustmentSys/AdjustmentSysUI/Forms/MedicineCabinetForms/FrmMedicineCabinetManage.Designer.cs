@@ -144,7 +144,7 @@
             dgvList.AllowUserToDeleteRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.BackgroundColor = Color.White;
             dgvList.BorderStyle = BorderStyle.Fixed3D;
@@ -161,12 +161,13 @@
             dgvList.ContextMenuStrip = cmsRightKeyMenu;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgvList.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvList.EditMode = DataGridViewEditMode.EditOnF2;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.EnterAsTab = true;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -187,9 +188,10 @@
             dgvList.SelectedIndex = -1;
             dgvList.Size = new Size(1635, 767);
             dgvList.StripeEvenColor = Color.Empty;
-            dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
+            dgvList.StripeOddColor = SystemColors.Control;
             dgvList.TabIndex = 2;
             dgvList.CellEnter += dgvList_CellEnter;
+            dgvList.CellPainting += dgvList_CellPainting;
             // 
             // FrmMedicineCabinetManage
             // 

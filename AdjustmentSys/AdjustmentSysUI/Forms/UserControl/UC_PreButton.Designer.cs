@@ -36,7 +36,7 @@
             BackColor = Color.White;
             Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Name = "UC_PreButton";
-            Size = new Size(262, 118);
+            Size = new Size(276, 118);
             Paint += UC_PreButton_Paint;
             ResumeLayout(false);
         }

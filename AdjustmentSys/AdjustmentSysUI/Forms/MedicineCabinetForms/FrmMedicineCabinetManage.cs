@@ -93,7 +93,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     dgvList.Columns.Add(dataGridViewTextBoxColumn);
                 }
             }
-            
+
             dgvList.RowTemplate.Height = 70;
 
             //添加所有行
@@ -126,7 +126,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
                     this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
-                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
+                    //this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
+                    //Color color = CellStyleSet(item.Stock);
+                    //this.dgvList.ClearCellStyle(rowIndex, columnIndex);
+                    //this.dgvList.SetCellStyle(rowIndex, columnIndex, Color.Red, Color.Yellow);
+                    this.dgvList[rowIndex,columnIndex].Style = CellStyleSet(item.Stock);
                 }
             }
             #endregion
@@ -299,7 +303,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void RemoveParticles_Click(object sender, EventArgs e)
         {
-            if (selectDurgModel==null) 
+            if (selectDurgModel == null)
             {
                 ShowWarningDialog("请选择药柜信息");
                 return;
@@ -308,13 +312,43 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             if (msg == "")
             {
                 ShowSuccessTip("下架颗粒成功");
-            
+
                 dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
                 dgvList.Rows[Rowindex].Cells[Colindex].Value = "";
             }
             else
             {
                 ShowErrorDialog("错误提示", msg);
+            }
+        }
+
+        private void dgvList_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // 检查是否为某些特定单元格，比如标题单元格
+            if (e.RowIndex == -1 && e.ColumnIndex == 0)
+            {
+                // 使用自定义背景色绘制单元格
+                using (Brush gridBrush = new SolidBrush(Color.LightBlue))
+                {
+                    e.Graphics.FillRectangle(gridBrush, e.CellBounds);
+                }
+
+                // 使用自定义字体绘制文本
+                using (Brush textBrush = new SolidBrush(Color.MidnightBlue))
+                {
+                    StringFormat format = new StringFormat()
+                    {
+                        // 水平或垂直方向文本对齐
+                        Alignment = StringAlignment.Center,
+                        // 对齐行内的文本
+                        LineAlignment = StringAlignment.Center
+                    };
+
+                    e.Graphics.DrawArrow(e.CellStyle.BackColor, e., textBrush, e.CellBounds, format);
+                }
+
+                // 阻止默认绘制
+                e.Handled = true;
             }
         }
     }
