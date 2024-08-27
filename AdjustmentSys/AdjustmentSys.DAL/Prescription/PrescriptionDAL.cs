@@ -610,6 +610,13 @@ namespace AdjustmentSys.DAL.Prescription
         public bool DownLoadPrescription(List<DataPrescriptionDetail> updateDataPrescriptionDetails, List<LocalDataPrescriptionInfo> addlocalDataPrescriptionInfos, List<LocalDataPrescriptionDetail> addlocalDataPrescriptionDetails) 
         {
             List<string> preIds= addlocalDataPrescriptionInfos.Select(x => x.PrescriptionID).Distinct().ToList();
+            var dataPrescriptions = _eFCoreContext.DataPrescriptions.Where(x => preIds.Contains(x.PrescriptionID)).ToList();
+            if (dataPrescriptions!=null && dataPrescriptions.Count>0) 
+            {
+                dataPrescriptions.ForEach(x => {
+                    x.ProcessStatus = -1;
+                });
+            }
             using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
             {
                 try
@@ -619,9 +626,10 @@ namespace AdjustmentSys.DAL.Prescription
                     _eFCoreContext.LocalDataPrescriptionDetails.AddRange(addlocalDataPrescriptionDetails);
                     //匹配his
                     _eFCoreContext.DataPrescriptionDetails.UpdateRange(updateDataPrescriptionDetails);
-                    //删除已下载到本地数据
-                    _eFCoreContext.DataPrescriptions.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
-                    _eFCoreContext.DataPrescriptionDetails.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
+                    //修改待下载数据
+                    _eFCoreContext.DataPrescriptions.UpdateRange(dataPrescriptions);
+                    //_eFCoreContext.DataPrescriptions.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
+                    //_eFCoreContext.DataPrescriptionDetails.Where(x => preIds.Contains(x.PrescriptionID)).ExecuteDelete();
 
                     _eFCoreContext.SaveChanges();
 
@@ -634,6 +642,38 @@ namespace AdjustmentSys.DAL.Prescription
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// 根据处方编号获取处方全部信息
+        /// </summary>
+        /// <param name="preId">处方编号</param>
+        /// <param name="processStatus">处方状态</param>
+        /// <param name="isQueryStock">处方详情是否查询库存</param>
+        /// <returns></returns>
+        public (object, List<PrescriptionDetailModel>) GetAllPrescriptionInfo(string  preId, ProcessStatusEnum processStatus,bool isQueryStock=false)
+        {
+            object mainTableInfo = null;
+            if (processStatus == ProcessStatusEnum.完成)
+            {
+                mainTableInfo= _eFCoreContext.LocalDataPrescriptionInfoRecords.FirstOrDefault(x => x.PrescriptionID == preId);
+            }
+            else if (processStatus == ProcessStatusEnum.待下载)
+            {
+                mainTableInfo= _eFCoreContext.DataPrescriptionDetails.FirstOrDefault(x => x.PrescriptionID == preId);
+            }
+            else 
+            {
+                mainTableInfo= _eFCoreContext.LocalDataPrescriptionInfos.FirstOrDefault(x => x.PrescriptionID == preId);
+            }
+            if (mainTableInfo==null) 
+            {
+                return (null,null);
+            }
+
+            List<PrescriptionDetailModel> prescriptionDetails = GetPrescriptionDetailList(preId, processStatus, isQueryStock);
+
+            return (mainTableInfo,prescriptionDetails);
         }
     }
 }

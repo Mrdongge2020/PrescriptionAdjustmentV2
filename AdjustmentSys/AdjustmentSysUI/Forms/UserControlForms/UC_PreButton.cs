@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
-namespace AdjustmentSysUI.Forms.UserControl
+namespace AdjustmentSysUI.Forms.UserControlForms
 {
     public partial class UC_PreButton : UIUserControl
     {
@@ -21,14 +21,14 @@ namespace AdjustmentSysUI.Forms.UserControl
             InitializeComponent();
         }
 
-        private Color fillColor = Color.Lime;
+        private Color fillEllipseColor = Color.WhiteSmoke;
 
-        public Color FillColor
+        public Color FillEllipseColor
         {
-            get { return fillColor; }
+            get { return fillEllipseColor; }
             set
             {
-                fillColor = value;
+                fillEllipseColor = value;
                 this.Invalidate(); // 触发重绘
             }
         }
@@ -40,12 +40,12 @@ namespace AdjustmentSysUI.Forms.UserControl
             //    // 使用画刷填充椭圆
             //    e.Graphics.FillEllipse(blueBrush, new Rectangle(230, 85, 20, 20));
             //}
-            e.Graphics.FillEllipse(fillColor, new Rectangle(230, 85, 20, 20));
+            e.Graphics.FillEllipse(fillEllipseColor, new Rectangle(230, 85, 20, 20));
             //e.Graphics.DrawString(Text, Font, ForeColor, new Rectangle(35, 0, Width, 40), ContentAlignment.MiddleLeft);
-            e.Graphics.DrawString(Text, Font, ForeColor, new Rectangle(10, 50, Width, 10), ContentAlignment.MiddleLeft);
+            e.Graphics.DrawString(Text, Font, Color.Black, new Rectangle(10, 50, Width, 10), ContentAlignment.MiddleLeft);
             //e.Graphics.DrawLine(ForeColor, 10, 40, Width - 20, 40);
             //e.Graphics.DrawString("", Font, ForeColor, new Rectangle(10, 40, Width, Height - 40), ContentAlignment.MiddleLeft);
-            e.Graphics.Clear(this.BackColor);
+            //e.Graphics.Clear(this.BackColor);
 
         }
     }

@@ -344,7 +344,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                         LineAlignment = StringAlignment.Center
                     };
 
-                    e.Graphics.DrawArrow(e.CellStyle.BackColor, e., textBrush, e.CellBounds, format);
+                    //e.Graphics.DrawArrow(e.CellStyle.BackColor, e., textBrush, e.CellBounds, format);
                 }
 
                 // 阻止默认绘制

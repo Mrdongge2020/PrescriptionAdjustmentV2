@@ -84,11 +84,6 @@ namespace AdjustmentSys.Entity
         [Column("EmptyBottleWeight")]
         public float? EmptyBottleWeight { get; set; }
         /// <summary>
-        /// 密度
-        /// </summary>
-        [Column("Density")]
-        public float? Density { get; set; }
-        /// <summary>
         /// 密度系数
         /// </summary>
         [Column("DensityCoefficient")]

@@ -1,4 +1,4 @@
-﻿namespace AdjustmentSysUI.Forms.UserControl
+﻿namespace AdjustmentSysUI.Forms.UserControlForms
 {
     partial class UC_PreButton
     {
@@ -34,9 +34,12 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
+            FillColor = Color.WhiteSmoke;
             Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            ForeColor = Color.Black;
             Name = "UC_PreButton";
             Size = new Size(276, 118);
+            Text = "ceshi";
             Paint += UC_PreButton_Paint;
             ResumeLayout(false);
         }

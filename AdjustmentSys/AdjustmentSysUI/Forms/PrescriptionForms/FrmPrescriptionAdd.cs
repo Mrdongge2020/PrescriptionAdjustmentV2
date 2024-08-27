@@ -66,7 +66,6 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             cbDoctorName.SelectedIndex = -1;
         }
 
-
         private void cbDoctorName_SelectedValueChanged(object sender, EventArgs e)
         {
             int docId = cbDoctorName.SelectedValue == null ? 0 : (int)cbDoctorName.SelectedValue;
@@ -515,7 +514,6 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             dgvFooter["Price"] = dataGradeViewUi.ComputeColumnSum(dgvDurgList, "Price").ToString();
             dgvFooter["TotalPrice"] = dataGradeViewUi.ComputeColumnSum(dgvDurgList, "TotalPrice").ToString();
         }
-
 
         private void dgvDurgList_CellClick(object sender, DataGridViewCellEventArgs e)
         {

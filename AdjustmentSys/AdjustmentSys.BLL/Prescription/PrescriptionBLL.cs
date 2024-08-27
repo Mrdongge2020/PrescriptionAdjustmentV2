@@ -341,54 +341,6 @@ namespace AdjustmentSys.BLL.Prescription
 
             var sourceType = typeof(S);
             var targetType = target.GetType();
-            //foreach (var targetProperty in targetType.GetProperties())
-            //{
-            //    if (!(targetProperty != null && targetProperty.CanWrite)) 
-            //    {
-            //        continue;
-            //    }
-            //    var sourceProperty = sourceType.GetProperty(targetProperty.Name);
-            //    if (sourceProperty==null) 
-            //    {
-            //        continue;
-            //    }
-            //    var sourceValue = sourceProperty.GetValue(source, null);
-            //    if (sourceValue != null)
-            //    {
-            //        targetProperty.SetValue(target, sourceValue);
-            //    }
-            //    else
-            //    {
-            //        var ptype = targetProperty.PropertyType;
-            //        // 设置默认值
-            //        if (ptype == typeof(int) || ptype == typeof(int?))
-            //        {
-            //            targetProperty.SetValue(target, 0);
-            //        }
-            //        else if (ptype == typeof(decimal) || ptype == typeof(decimal?))
-            //        {
-            //            targetProperty.SetValue(target, 0);
-            //        }
-            //        else if (ptype == typeof(float) || ptype == typeof(float?)) 
-            //        {
-            //            targetProperty.SetValue(target, 0);
-            //        }
-            //        else if (ptype == typeof(double) || ptype == typeof(double?))
-            //        {
-            //            targetProperty.SetValue(target, 0);
-            //        }
-            //        else if (ptype == typeof(DateTime) || ptype == typeof(DateTime?))
-            //        {
-            //            targetProperty.SetValue(target, DateTime.Now);
-            //        }
-            //        // ... 其他类型
-            //        else
-            //        {
-            //            // 设置为null或其他默认值
-            //            targetProperty.SetValue(source, null);
-            //        }
-            //    }
-            //}
             var sourceProperties = sourceType.GetProperties().Where(p => p.CanRead);
 
             foreach (var sourceProperty in sourceProperties)
@@ -514,5 +466,19 @@ namespace AdjustmentSys.BLL.Prescription
             allPreinfos= allPreinfos.Where(x => preIds.Contains(x.PrescriptionID)).ToList();
             return (allPreinfos, detailList);
         }
+
+        /// <summary>
+        /// 根据处方编号获取处方全部信息
+        /// </summary>
+        /// <param name="preId">处方编号</param>
+        /// <param name="processStatus">处方状态</param>
+        /// <param name="isQueryStock">处方详情是否查询库存</param>
+        /// <returns></returns>
+        public (object, List<PrescriptionDetailModel>) GetAllPrescriptionInfo(string preId, ProcessStatusEnum processStatus, bool isQueryStock = false) 
+        { 
+            return prescriptionDAL.GetAllPrescriptionInfo(preId, processStatus, isQueryStock);
+        }
+
+
     }
 }

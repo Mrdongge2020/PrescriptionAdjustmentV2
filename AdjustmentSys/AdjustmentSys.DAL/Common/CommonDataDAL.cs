@@ -47,6 +47,17 @@ namespace AdjustmentSys.DAL.Common
             result = DBHelper.ExecuteQuery<MedicineCabinetDetail>(sql);
             return result;
         }
+
+        /// <summary>
+        /// 获取所有相容性规则信息
+        /// </summary>
+        public List<ParticleProhibitionRule> GetParticleProhibitionRules()
+        {
+            
+            var result = _eFCoreContext.ParticleProhibitionRules.ToList();
+            return result;
+        }
+         
         /// <summary>
         /// 获取所有待下载处方
         /// </summary>

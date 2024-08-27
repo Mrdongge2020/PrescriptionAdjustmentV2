@@ -39,11 +39,17 @@
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             uiFlowLayoutPanel1 = new Sunny.UI.UIFlowLayoutPanel();
+            cmsDownLoad = new Sunny.UI.UIContextMenuStrip();
+            核对处方ToolStripMenuItem = new ToolStripMenuItem();
+            复位处方ToolStripMenuItem = new ToolStripMenuItem();
+            开始调剂ToolStripMenuItem = new ToolStripMenuItem();
+            终止调剂ToolStripMenuItem = new ToolStripMenuItem();
             panel1 = new Panel();
             lblDownLoad = new Sunny.UI.UISymbolLabel();
             cbZDJJ = new CheckBox();
             btnCheck = new Sunny.UI.UIButton();
             panel2 = new Panel();
+            lblPrescriptionPaper = new Sunny.UI.UISymbolLabel();
             lblRunStatus = new Sunny.UI.UILabel();
             btnAddParticle = new Sunny.UI.UISymbolLabel();
             btnStopRun = new Sunny.UI.UISymbolLabel();
@@ -120,11 +126,9 @@
             uiLabel11 = new Sunny.UI.UILabel();
             lbErrorMsg = new Sunny.UI.UIListBox();
             uiDataGridView2 = new Sunny.UI.UIDataGridView();
-            cmsDownLoad = new Sunny.UI.UIContextMenuStrip();
-            核对处方ToolStripMenuItem = new ToolStripMenuItem();
-            复位处方ToolStripMenuItem = new ToolStripMenuItem();
-            开始调剂ToolStripMenuItem = new ToolStripMenuItem();
-            终止调剂ToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
+            label2 = new Label();
+            cmsDownLoad.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             uiTitlePanel1.SuspendLayout();
@@ -142,7 +146,6 @@
             uiUserControl1.SuspendLayout();
             UC_Station1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)uiDataGridView2).BeginInit();
-            cmsDownLoad.SuspendLayout();
             SuspendLayout();
             // 
             // uiFlowLayoutPanel1
@@ -159,6 +162,40 @@
             uiFlowLayoutPanel1.TabIndex = 0;
             uiFlowLayoutPanel1.Text = "uiFlowLayoutPanel1";
             uiFlowLayoutPanel1.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // cmsDownLoad
+            // 
+            cmsDownLoad.BackColor = Color.FromArgb(243, 249, 255);
+            cmsDownLoad.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cmsDownLoad.Items.AddRange(new ToolStripItem[] { 核对处方ToolStripMenuItem, 复位处方ToolStripMenuItem, 开始调剂ToolStripMenuItem, 终止调剂ToolStripMenuItem });
+            cmsDownLoad.Name = "cmsDownLoad";
+            cmsDownLoad.Size = new Size(181, 130);
+            // 
+            // 核对处方ToolStripMenuItem
+            // 
+            核对处方ToolStripMenuItem.Name = "核对处方ToolStripMenuItem";
+            核对处方ToolStripMenuItem.Size = new Size(180, 26);
+            核对处方ToolStripMenuItem.Text = "核对处方";
+            核对处方ToolStripMenuItem.Click += 核对处方ToolStripMenuItem_Click;
+            // 
+            // 复位处方ToolStripMenuItem
+            // 
+            复位处方ToolStripMenuItem.Name = "复位处方ToolStripMenuItem";
+            复位处方ToolStripMenuItem.Size = new Size(180, 26);
+            复位处方ToolStripMenuItem.Text = "复位处方";
+            复位处方ToolStripMenuItem.Click += 复位处方ToolStripMenuItem_Click;
+            // 
+            // 开始调剂ToolStripMenuItem
+            // 
+            开始调剂ToolStripMenuItem.Name = "开始调剂ToolStripMenuItem";
+            开始调剂ToolStripMenuItem.Size = new Size(180, 26);
+            开始调剂ToolStripMenuItem.Text = "开始调剂";
+            // 
+            // 终止调剂ToolStripMenuItem
+            // 
+            终止调剂ToolStripMenuItem.Name = "终止调剂ToolStripMenuItem";
+            终止调剂ToolStripMenuItem.Size = new Size(180, 26);
+            终止调剂ToolStripMenuItem.Text = "终止调剂";
             // 
             // panel1
             // 
@@ -202,7 +239,7 @@
             btnCheck.FillColor = SystemColors.Control;
             btnCheck.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnCheck.ForeColor = Color.Black;
-            btnCheck.Location = new Point(4, 801);
+            btnCheck.Location = new Point(4, 800);
             btnCheck.MinimumSize = new Size(1, 1);
             btnCheck.Name = "btnCheck";
             btnCheck.Size = new Size(289, 35);
@@ -214,6 +251,7 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel2.BackColor = SystemColors.Control;
+            panel2.Controls.Add(lblPrescriptionPaper);
             panel2.Controls.Add(lblRunStatus);
             panel2.Controls.Add(btnAddParticle);
             panel2.Controls.Add(btnStopRun);
@@ -224,6 +262,19 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1163, 40);
             panel2.TabIndex = 6;
+            // 
+            // lblPrescriptionPaper
+            // 
+            lblPrescriptionPaper.Font = new Font("微软雅黑", 10.5F);
+            lblPrescriptionPaper.Location = new Point(609, 3);
+            lblPrescriptionPaper.MinimumSize = new Size(1, 1);
+            lblPrescriptionPaper.Name = "lblPrescriptionPaper";
+            lblPrescriptionPaper.Size = new Size(77, 32);
+            lblPrescriptionPaper.Symbol = 361508;
+            lblPrescriptionPaper.SymbolColor = Color.MediumSlateBlue;
+            lblPrescriptionPaper.TabIndex = 14;
+            lblPrescriptionPaper.Text = "处方笺";
+            lblPrescriptionPaper.Click += lblPrescriptionPaper_Click;
             // 
             // lblRunStatus
             // 
@@ -240,7 +291,7 @@
             // btnAddParticle
             // 
             btnAddParticle.Font = new Font("微软雅黑", 10.5F);
-            btnAddParticle.Location = new Point(519, 4);
+            btnAddParticle.Location = new Point(514, 4);
             btnAddParticle.MinimumSize = new Size(1, 1);
             btnAddParticle.Name = "btnAddParticle";
             btnAddParticle.Size = new Size(77, 32);
@@ -488,16 +539,18 @@
             // 
             // uiDataGridView1
             // 
+            uiDataGridView1.AllowUserToAddRows = false;
+            uiDataGridView1.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
             uiDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             uiDataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             uiDataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             uiDataGridView1.BackgroundColor = Color.White;
-            uiDataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            uiDataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.BackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
@@ -507,7 +560,7 @@
             uiDataGridView1.Columns.AddRange(new DataGridViewColumn[] { ParticleOrder, ParticlesName, Dose, Status, Position });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.Font = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
@@ -1210,23 +1263,27 @@
             lbErrorMsg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lbErrorMsg.HoverColor = Color.FromArgb(155, 200, 255);
             lbErrorMsg.ItemSelectForeColor = Color.White;
-            lbErrorMsg.Location = new Point(296, 556);
+            lbErrorMsg.Location = new Point(296, 580);
             lbErrorMsg.Margin = new Padding(4, 5, 4, 5);
             lbErrorMsg.MinimumSize = new Size(1, 1);
             lbErrorMsg.Name = "lbErrorMsg";
             lbErrorMsg.Padding = new Padding(2);
             lbErrorMsg.ShowText = false;
-            lbErrorMsg.Size = new Size(659, 278);
+            lbErrorMsg.Size = new Size(659, 254);
             lbErrorMsg.TabIndex = 12;
             lbErrorMsg.Text = "uiListBox1";
             // 
             // uiDataGridView2
             // 
+            uiDataGridView2.AllowUserToAddRows = false;
+            uiDataGridView2.AllowUserToDeleteRows = false;
+            uiDataGridView2.AllowUserToResizeColumns = false;
+            uiDataGridView2.AllowUserToResizeRows = false;
             dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
             uiDataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             uiDataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             uiDataGridView2.BackgroundColor = Color.White;
-            uiDataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            uiDataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
             dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -1247,7 +1304,7 @@
             uiDataGridView2.EnableHeadersVisualStyles = false;
             uiDataGridView2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiDataGridView2.GridColor = Color.FromArgb(80, 160, 255);
-            uiDataGridView2.Location = new Point(962, 556);
+            uiDataGridView2.Location = new Point(962, 580);
             uiDataGridView2.Name = "uiDataGridView2";
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
@@ -1261,48 +1318,37 @@
             dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiDataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle10;
             uiDataGridView2.SelectedIndex = -1;
-            uiDataGridView2.Size = new Size(497, 278);
+            uiDataGridView2.Size = new Size(497, 254);
             uiDataGridView2.StripeOddColor = Color.FromArgb(235, 243, 255);
             uiDataGridView2.TabIndex = 13;
             // 
-            // cmsDownLoad
+            // label1
             // 
-            cmsDownLoad.BackColor = Color.FromArgb(243, 249, 255);
-            cmsDownLoad.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cmsDownLoad.Items.AddRange(new ToolStripItem[] { 核对处方ToolStripMenuItem, 复位处方ToolStripMenuItem, 开始调剂ToolStripMenuItem, 终止调剂ToolStripMenuItem });
-            cmsDownLoad.Name = "cmsDownLoad";
-            cmsDownLoad.Size = new Size(145, 108);
+            label1.AutoSize = true;
+            label1.Font = new Font("微软雅黑", 9F);
+            label1.Location = new Point(302, 557);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 17);
+            label1.TabIndex = 14;
+            label1.Text = "调剂异常信息:";
             // 
-            // 核对处方ToolStripMenuItem
+            // label2
             // 
-            核对处方ToolStripMenuItem.Name = "核对处方ToolStripMenuItem";
-            核对处方ToolStripMenuItem.Size = new Size(144, 26);
-            核对处方ToolStripMenuItem.Text = "核对处方";
-            // 
-            // 复位处方ToolStripMenuItem
-            // 
-            复位处方ToolStripMenuItem.Name = "复位处方ToolStripMenuItem";
-            复位处方ToolStripMenuItem.Size = new Size(144, 26);
-            复位处方ToolStripMenuItem.Text = "复位处方";
-            复位处方ToolStripMenuItem.Click += 复位处方ToolStripMenuItem_Click;
-            // 
-            // 开始调剂ToolStripMenuItem
-            // 
-            开始调剂ToolStripMenuItem.Name = "开始调剂ToolStripMenuItem";
-            开始调剂ToolStripMenuItem.Size = new Size(144, 26);
-            开始调剂ToolStripMenuItem.Text = "开始调剂";
-            // 
-            // 终止调剂ToolStripMenuItem
-            // 
-            终止调剂ToolStripMenuItem.Name = "终止调剂ToolStripMenuItem";
-            终止调剂ToolStripMenuItem.Size = new Size(144, 26);
-            终止调剂ToolStripMenuItem.Text = "终止调剂";
+            label2.AutoSize = true;
+            label2.Font = new Font("微软雅黑", 9F);
+            label2.Location = new Point(969, 557);
+            label2.Name = "label2";
+            label2.Size = new Size(83, 17);
+            label2.TabIndex = 15;
+            label2.Text = "设备异常信息:";
             // 
             // FrmBoxedDevice
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1462, 839);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(uiDataGridView2);
             Controls.Add(lbErrorMsg);
             Controls.Add(uiPanel1);
@@ -1322,6 +1368,7 @@
             TitleFillColor = Color.FromArgb(80, 160, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmBoxedDevice_Load;
+            cmsDownLoad.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -1340,8 +1387,8 @@
             uiUserControl1.ResumeLayout(false);
             UC_Station1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)uiDataGridView2).EndInit();
-            cmsDownLoad.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -1433,5 +1480,8 @@
         private ToolStripMenuItem 复位处方ToolStripMenuItem;
         private ToolStripMenuItem 开始调剂ToolStripMenuItem;
         private ToolStripMenuItem 终止调剂ToolStripMenuItem;
+        private Label label1;
+        private Label label2;
+        private Sunny.UI.UISymbolLabel lblPrescriptionPaper;
     }
 }

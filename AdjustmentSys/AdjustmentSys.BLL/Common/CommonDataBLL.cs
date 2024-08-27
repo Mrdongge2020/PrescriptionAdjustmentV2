@@ -30,6 +30,14 @@ namespace AdjustmentSys.BLL.Common
         {
             return _commonDataDAL.GetMedicineCabinetDetails(code);
         }
+
+        /// <summary>
+        /// 获取所有相容性规则信息
+        /// </summary>
+        public List<ParticleProhibitionRule> GetParticleProhibitionRules() 
+        {
+            return _commonDataDAL.GetParticleProhibitionRules();
+        }
         /// <summary>
         /// 获取所有待下载处方
         /// </summary>

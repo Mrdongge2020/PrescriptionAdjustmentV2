@@ -72,6 +72,9 @@ namespace AdjustmentSys.DAL.MedicineCabinet
                 return "药柜信息不存在了";
             }
             detail.ParticlesID = parId;
+            detail.DensityCoefficient = 1;
+            detail.Stock = 0;
+            detail.RFID = parId;
             _eFCoreContext.MedicineCabinetDetails.Update(detail);
             int index= _eFCoreContext.SaveChanges();
             return index > 0 ? "" : "上架颗粒失败，请稍后再试";
