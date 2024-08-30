@@ -462,6 +462,7 @@
             btnClose.FillPressColor = Color.FromArgb(243, 249, 255);
             btnClose.FillSelectedColor = Color.FromArgb(243, 249, 255);
             btnClose.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnClose.ForeColor = Color.Black;
             btnClose.ForeHoverColor = Color.Black;
             btnClose.ForePressColor = Color.Black;
             btnClose.ForeSelectedColor = Color.Black;

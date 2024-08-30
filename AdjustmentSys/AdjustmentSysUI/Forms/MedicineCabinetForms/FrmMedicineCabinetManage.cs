@@ -130,7 +130,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     //Color color = CellStyleSet(item.Stock);
                     //this.dgvList.ClearCellStyle(rowIndex, columnIndex);
                     //this.dgvList.SetCellStyle(rowIndex, columnIndex, Color.Red, Color.Yellow);
-                    this.dgvList[rowIndex,columnIndex].Style = CellStyleSet(item.Stock);
+                    this.dgvList[rowIndex, columnIndex].Style = CellStyleSet(item.Stock);
                 }
             }
             #endregion
@@ -350,6 +350,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 // 阻止默认绘制
                 e.Handled = true;
             }
+        }
+
+        private void RedRfid_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

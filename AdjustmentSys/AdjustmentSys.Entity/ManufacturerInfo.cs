@@ -26,6 +26,11 @@ namespace AdjustmentSys.Entity
         [Column("Name")]
         [MaxLength(50)]
         public string Name { get; set; }
+        /// <summary>
+        /// 密度系数
+        /// </summary>
+        [Column("DensityCoefficient")]
+        public float? DensityCoefficient { get; set; } = 1;
 
     }
 }

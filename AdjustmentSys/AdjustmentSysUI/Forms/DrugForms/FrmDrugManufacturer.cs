@@ -214,7 +214,12 @@ namespace AdjustmentSysUI.Forms.Drug
             }
             FrmManufacturerEdit frmEdit = new FrmManufacturerEdit(null);
             frmEdit.Text = "新增厂家";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            bool issuccess = frmEdit.IsSuccess;
+            if (issuccess) 
+            {
+                ShowSuccessTip("新增厂家成功");
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -233,7 +238,12 @@ namespace AdjustmentSysUI.Forms.Drug
             }
             FrmManufacturerEdit frmEdit = new FrmManufacturerEdit(_manufacturerInfo);
             frmEdit.Text = "编辑厂家";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            bool issuccess = frmEdit.IsSuccess;
+            if (issuccess)
+            {
+                ShowSuccessTip("编辑厂家成功");
+            }
         }
 
         private void btnreset_Click(object sender, EventArgs e)

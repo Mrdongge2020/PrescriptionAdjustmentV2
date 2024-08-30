@@ -162,6 +162,18 @@ namespace AdjustmentSys.EFCore
         /// 药柜组与设备关联信息表
         /// </summary>
         public DbSet<DeviceMedicineCabinetCodeRelation> DeviceMedicineCabinetCodeRelations { get; set; }
+        /// <summary>
+        /// 药柜颗粒操作日志表
+        /// </summary>
+        public DbSet<MedicineCabinetOperationLogInfo> MedicineCabinetOperationLogInfos { get; set; }
+        /// <summary>
+        /// 药品字典操作日志表
+        /// </summary>
+        public DbSet<ParticleOperationLogInfo> ParticleOperationLogInfos { get; set; }
+        /// <summary>
+        /// 系统参数配置表
+        /// </summary>
+        public DbSet<SystemParameterInfo> SystemParameterInfos { get; set; }
 
 
         public static string GetEntityComment(string typeName, string? fieldName = null, List<string>? baseTypeNames = null)

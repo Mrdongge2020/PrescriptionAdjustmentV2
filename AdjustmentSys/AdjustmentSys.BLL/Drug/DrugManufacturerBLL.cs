@@ -30,6 +30,7 @@ namespace AdjustmentSys.BLL.Drug
                 manInfo.CreateBy = SysLoginUser._currentUser.UserId;
                 manInfo.CreateName = SysLoginUser._currentUser.UserName;
                 manInfo.CreateTime = DateTime.Now;
+                manInfo.DensityCoefficient = 1;
                 manInfo.IsDelete = false;
             }
             manInfo.UpdateBy = SysLoginUser._currentUser.UserId;

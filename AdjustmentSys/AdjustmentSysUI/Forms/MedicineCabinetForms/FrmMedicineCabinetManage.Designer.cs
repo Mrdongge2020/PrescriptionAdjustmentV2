@@ -116,27 +116,28 @@
             cmsRightKeyMenu.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsRightKeyMenu.Items.AddRange(new ToolStripItem[] { ListingParticles, RemoveParticles, RedRfid });
             cmsRightKeyMenu.Name = "cmsRightKeyMenu";
-            cmsRightKeyMenu.Size = new Size(139, 70);
+            cmsRightKeyMenu.Size = new Size(181, 92);
             // 
             // ListingParticles
             // 
             ListingParticles.Name = "ListingParticles";
-            ListingParticles.Size = new Size(138, 22);
+            ListingParticles.Size = new Size(180, 22);
             ListingParticles.Text = "上架颗粒";
             ListingParticles.Click += ListingParticles_Click;
             // 
             // RemoveParticles
             // 
             RemoveParticles.Name = "RemoveParticles";
-            RemoveParticles.Size = new Size(138, 22);
+            RemoveParticles.Size = new Size(180, 22);
             RemoveParticles.Text = "下架颗粒";
             RemoveParticles.Click += RemoveParticles_Click;
             // 
             // RedRfid
             // 
             RedRfid.Name = "RedRfid";
-            RedRfid.Size = new Size(138, 22);
+            RedRfid.Size = new Size(180, 22);
             RedRfid.Text = "写入RFID";
+            RedRfid.Click += RedRfid_Click;
             // 
             // dgvList
             // 

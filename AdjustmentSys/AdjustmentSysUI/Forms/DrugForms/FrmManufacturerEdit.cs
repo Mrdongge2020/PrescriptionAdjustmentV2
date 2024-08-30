@@ -16,6 +16,7 @@ namespace AdjustmentSysUI.Forms.Drug
     public partial class FrmManufacturerEdit : UIEditForm
     {
         private ManufacturerInfo _manufacturerInfo;
+        public bool IsSuccess = false;
         public FrmManufacturerEdit(ManufacturerInfo manufacturerInfo)
         {
             InitializeComponent();
@@ -65,7 +66,8 @@ namespace AdjustmentSysUI.Forms.Drug
             string msg = drugManufacturerBLL.AddOrEditManufacturerInfo(_manufacturerInfo);
             if (msg == "")
             {
-                ShowSuccessTip((_manufacturerInfo.ID > 0 ? "编辑" : "新增") + "成功");
+                IsSuccess = true;
+                //ShowSuccessTip((_manufacturerInfo.ID > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else

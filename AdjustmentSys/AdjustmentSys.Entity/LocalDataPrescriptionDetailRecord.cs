@@ -33,7 +33,7 @@ namespace AdjustmentSys.Entity
         /// </summary>
         [Column("ParticlesNameHIS")]
         [MaxLength(50)]
-        public string ParticlesNameHIS { get; set; }
+        public string? ParticlesNameHIS { get; set; }
 
         /// <summary>
         /// 颗粒HIS码

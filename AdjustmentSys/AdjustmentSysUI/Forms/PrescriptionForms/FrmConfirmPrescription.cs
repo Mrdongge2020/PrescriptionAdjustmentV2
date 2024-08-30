@@ -184,6 +184,15 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 }
             }
 
+            lbResultMsg.Items.Clear();
+            btnSayOK.Enabled=false;
+            LinkLabel LinkLabel = FindControlByName<LinkLabel>("lblCheckResult" + clickErrorType);
+            if (LinkLabel != null)
+            {
+                LinkLabel.Text = "通过";
+                LinkLabel.LinkColor = Color.Green;
+            }
+
             if (!errorList.Any(x => !x.IsPass))
             {
                 btnOK.Enabled = true;

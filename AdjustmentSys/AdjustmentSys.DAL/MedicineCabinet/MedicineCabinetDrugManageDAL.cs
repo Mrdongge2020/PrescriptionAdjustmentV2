@@ -32,7 +32,6 @@ namespace AdjustmentSys.DAL.MedicineCabinet
 			                        c.Name AS ParticlesName,
 			                        a.ValidityTime,
 			                        a.Stock,
-                                    a.Density,
 									a.DensityCoefficient,
 			                        a.RFID 
                              FROM MedicineCabinetDetail AS a

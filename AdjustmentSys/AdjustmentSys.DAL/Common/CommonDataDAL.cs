@@ -78,5 +78,6 @@ namespace AdjustmentSys.DAL.Common
             var list = _eFCoreContext.DataPrescriptionDetails.Where(x =>preIds.Contains(x.PrescriptionID)).ToList();
             return list;
         }
+
     }
 }
