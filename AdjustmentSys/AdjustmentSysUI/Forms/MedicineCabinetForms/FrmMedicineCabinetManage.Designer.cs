@@ -116,26 +116,26 @@
             cmsRightKeyMenu.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsRightKeyMenu.Items.AddRange(new ToolStripItem[] { ListingParticles, RemoveParticles, RedRfid });
             cmsRightKeyMenu.Name = "cmsRightKeyMenu";
-            cmsRightKeyMenu.Size = new Size(181, 92);
+            cmsRightKeyMenu.Size = new Size(139, 70);
             // 
             // ListingParticles
             // 
             ListingParticles.Name = "ListingParticles";
-            ListingParticles.Size = new Size(180, 22);
+            ListingParticles.Size = new Size(138, 22);
             ListingParticles.Text = "上架颗粒";
             ListingParticles.Click += ListingParticles_Click;
             // 
             // RemoveParticles
             // 
             RemoveParticles.Name = "RemoveParticles";
-            RemoveParticles.Size = new Size(180, 22);
+            RemoveParticles.Size = new Size(138, 22);
             RemoveParticles.Text = "下架颗粒";
             RemoveParticles.Click += RemoveParticles_Click;
             // 
             // RedRfid
             // 
             RedRfid.Name = "RedRfid";
-            RedRfid.Size = new Size(180, 22);
+            RedRfid.Size = new Size(138, 22);
             RedRfid.Text = "写入RFID";
             RedRfid.Click += RedRfid_Click;
             // 
@@ -161,7 +161,7 @@
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvList.ContextMenuStrip = cmsRightKeyMenu;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.BackColor = Color.Transparent;
             dataGridViewCellStyle3.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
@@ -186,13 +186,14 @@
             dgvList.RowHeadersVisible = false;
             dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvList.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgvList.SelectedIndex = -1;
             dgvList.Size = new Size(1635, 767);
             dgvList.StripeEvenColor = Color.Empty;
             dgvList.StripeOddColor = SystemColors.Control;
+            dgvList.Style = Sunny.UI.UIStyle.Custom;
             dgvList.TabIndex = 2;
             dgvList.CellEnter += dgvList_CellEnter;
-            dgvList.CellPainting += dgvList_CellPainting;
             // 
             // FrmMedicineCabinetManage
             // 

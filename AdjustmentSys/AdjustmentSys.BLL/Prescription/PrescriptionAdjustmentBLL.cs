@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.BLL.SystemSetting;
 using AdjustmentSys.DAL.Prescription;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Prescription;
@@ -118,21 +119,24 @@ namespace AdjustmentSys.BLL.Prescription
                 #endregion
 
                 #region 余量状态校验
+                SystemParameterBLL systemParameterBLL   = new SystemParameterBLL();
+                string yuliangxiaxian = CommonStaticDataBLL.GetSystemParameterValue("KeLiYuLiangXiaXian");
+                float lomit = (yuliangxiaxian == "" || !float.TryParse(yuliangxiaxian, out float value1)) ? 10 : float.Parse(yuliangxiaxian);
                 if (currentCabinetParticles != null &&  currentCabinetParticles.Count != 0)
                 {
                     var maxStock = currentCabinetParticles.Max(x => x.Stock);
-                    if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < 10) //一瓶最大库存不够
+                    if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < lomit) //一瓶最大库存不够
                     {
                         if (currentCabinetParticles.Count == 1)//只有一瓶，直接提示库存不足
                         {
-                            errorList.Add(new CheckPrescriptionResultModel { ErrorType = 2, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>剩余量已低于设定下限值10!" });
+                            errorList.Add(new CheckPrescriptionResultModel { ErrorType = 2, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>剩余量已低于设定下限值{lomit}!" });
                         }
                         else //多瓶要拿最大库存前两瓶判断总和是否足够
                         {
                             maxStock = currentCabinetParticles[0].Stock + currentCabinetParticles[1].Stock;
-                            if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < 20)
+                            if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < lomit*2)
                             {
-                                errorList.Add(new CheckPrescriptionResultModel { ErrorType = 2, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>剩余量已低于设定下限值10!" });
+                                errorList.Add(new CheckPrescriptionResultModel { ErrorType = 2, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>剩余量已低于设定下限值{lomit}!" });
                             }
                         }
                     }          

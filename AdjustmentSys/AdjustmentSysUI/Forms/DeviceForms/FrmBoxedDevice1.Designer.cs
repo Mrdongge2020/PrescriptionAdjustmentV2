@@ -49,7 +49,6 @@
             // 
             // dgvList
             // 
-            dgvList.AllowUserToAddRows = false;
             dgvList.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -58,7 +57,7 @@
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.BackColor = SystemColors.ControlDarkDark;
             dataGridViewCellStyle2.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle2.ForeColor = Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientInactiveCaption;
@@ -69,7 +68,7 @@
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.Columns.AddRange(new DataGridViewColumn[] { ParticleOrder, ParCode, ParName, DoseHerb, Dose, Column1, Price, ParticlesNameHIS, ParticlesCodeHIS, BatchNumber });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.BackColor = Color.Red;
             dataGridViewCellStyle3.Font = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle3.SelectionBackColor = Color.White;
@@ -78,9 +77,10 @@
             dgvList.DefaultCellStyle = dataGridViewCellStyle3;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(-142, 237);
+            dgvList.GridColor = Color.Crimson;
+            dgvList.Location = new Point(28, 116);
             dgvList.Name = "dgvList";
+            dgvList.RectColor = Color.DodgerBlue;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
             dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -90,11 +90,13 @@
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.BackColor = Color.Chocolate;
             dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvList.RowTemplate.DefaultCellStyle.BackColor = Color.BurlyWood;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1232, 259);
+            dgvList.Size = new Size(819, 259);
+            dgvList.StripeEvenColor = Color.Chocolate;
             dgvList.StripeOddColor = Color.White;
             dgvList.TabIndex = 27;
             // 

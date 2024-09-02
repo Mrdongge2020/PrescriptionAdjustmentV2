@@ -4,6 +4,7 @@ using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.MedicineCabinet;
 using Microsoft.Identity.Client.NativeInterop;
+using Microsoft.VisualBasic.Devices;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;
@@ -33,7 +34,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         public FrmMedicineCabinetManage()
         {
             InitializeComponent();
-            //InitData();
+            InitData();
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                         AddSortColumn(item.ID);
                         continue;
                     }
-                    DataGridViewButtonColumn dataGridViewTextBoxColumn = new DataGridViewButtonColumn();
+                    DataGridViewTextBoxColumn dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
                     //设置对齐方式
                     dataGridViewTextBoxColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     //设置列名
@@ -126,11 +127,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
                     this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
-                    //this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
                     //Color color = CellStyleSet(item.Stock);
                     //this.dgvList.ClearCellStyle(rowIndex, columnIndex);
                     //this.dgvList.SetCellStyle(rowIndex, columnIndex, Color.Red, Color.Yellow);
-                    this.dgvList[rowIndex, columnIndex].Style = CellStyleSet(item.Stock);
+                    //this.dgvList[rowIndex, columnIndex].Style = CellStyleSet(item.Stock);
                 }
             }
             #endregion
@@ -146,7 +147,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         private DataGridViewCellStyle CellStyleSet(float? stock)
         {
             // 创建一个Font对象，设置字体大小
-            Font newFont = new Font("微软雅黑", 10);
+            Font newFont = new Font("微软雅黑", 12);
             // 更新单元格样式中的字体
             DataGridViewCellStyle style = new DataGridViewCellStyle();
             style.Font = newFont;
@@ -298,7 +299,6 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void FrmMedicineCabinetManage_Load(object sender, EventArgs e)
         {
-            InitData();
         }
 
         private void RemoveParticles_Click(object sender, EventArgs e)
@@ -356,5 +356,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
 
         }
+
+        
     }
 }
