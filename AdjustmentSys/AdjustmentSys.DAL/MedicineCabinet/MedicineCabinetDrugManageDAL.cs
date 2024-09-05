@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
 using System;
 using System.Collections.Generic;
@@ -96,5 +97,46 @@ namespace AdjustmentSys.DAL.MedicineCabinet
             return index > 0 ? "" : "下架颗粒失败，请稍后再试";
         }
 
+        /// <summary>
+        /// 获取颗粒有效期列表
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime dateTime)
+        {
+            string sql = $@" SELECT
+			                        c.Code AS ParticleCode,
+			                        c.Name AS ParticleName,
+			                        a.ValidityTime,
+			                        a.BatchNumber
+                             FROM MedicineCabinetDetail AS a
+                             JOIN MedicineCabinetInfo AS b ON a.MedicineCabinetId= b.ID
+                             LEFT JOIN ParticlesInfo AS c ON a.ParticlesID= c.ID 
+                             WHERE a.ParticlesID>0 and  b.Code= '{SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode}' and a.ValidityTime<='{dateTime}'
+                             order by a.ValidityTime asc ";
+
+            var datails = DBHelper.ExecuteQuery<MedicineCabinetValidityModel>(sql);
+            return datails;
+        }
+
+        /// <summary>
+        /// 修改药柜药品有效期
+        /// </summary>
+        /// <param name="particleId">颗粒id</param>
+        /// <param name="validityDateTime">效期至</param>
+        /// <returns></returns>
+        public bool UpdateValidity(int? particleId,DateTime validityDateTime)
+        {
+            string sql = "";
+            if (particleId.HasValue)
+            {
+                sql = $" UPDATE MedicineCabinetDetail SET ValidityTime='{validityDateTime}' where ParticlesID={particleId} and MedicineCabinetId in (select ID from MedicineCabinetInfo where Code='{SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode}') ";
+            }
+            else 
+            {
+                sql = $" UPDATE MedicineCabinetDetail SET ValidityTime='{validityDateTime}' where  MedicineCabinetId in (select ID from MedicineCabinetInfo where Code='{SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode}') ";
+            }
+           return  DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

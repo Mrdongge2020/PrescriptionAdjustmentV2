@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -99,14 +100,21 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             List<string> preIdList = frmPrescriptionDownLoad.loadPrescriptionIdList;
             if (preIdList != null && preIdList.Count > 0)
             {
-                //AddButton(preIdList);
                 foreach (var item in preIdList)
                 {
                     //写入文件
-                    if (!downLoadPreModel.LoadedPreIds.Contains(item))
+                    if (downLoadPreModel != null && downLoadPreModel.LoadedPreIds != null && downLoadPreModel.LoadedPreIds.Count > 0)
                     {
-                        downLoadPreModel.LoadedPreIds.Add(item); 
+                        if (!downLoadPreModel.LoadedPreIds.Contains(item))
+                        {
+                            downLoadPreModel.LoadedPreIds.Add(item);
+                        }
                     }
+                    else 
+                    {
+                        downLoadPreModel.LoadedPreIds.Add(item);
+                    }
+                    
                 }
                 downLoadPreModel.LoadedPreIds= downLoadPreModel.LoadedPreIds.Distinct().ToList();
                 BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);

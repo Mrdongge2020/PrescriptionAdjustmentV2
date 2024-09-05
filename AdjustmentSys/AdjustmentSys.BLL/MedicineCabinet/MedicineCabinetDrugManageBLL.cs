@@ -52,5 +52,26 @@ namespace AdjustmentSys.BLL.MedicineCabinet
         {
             return medicineCabinetDrugManageDAL.RemoveParticle(id);
         }
+
+        /// <summary>
+        /// 获取颗粒有效期列表
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime dateTime)
+        { 
+            return medicineCabinetDrugManageDAL.GetMedicineCabinetValidity(dateTime);
+        }
+
+        /// <summary>
+        /// 修改药柜药品有效期
+        /// </summary>
+        /// <param name="particleId">颗粒id</param>
+        /// <param name="validityDateTime">效期至</param>
+        /// <returns></returns>
+        public bool UpdateValidity(int? particleId, DateTime validityDateTime) 
+        { 
+            return medicineCabinetDrugManageDAL.UpdateValidity(particleId, validityDateTime);
+        }
     }
 }

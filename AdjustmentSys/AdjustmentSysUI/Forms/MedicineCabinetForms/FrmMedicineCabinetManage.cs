@@ -299,6 +299,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void FrmMedicineCabinetManage_Load(object sender, EventArgs e)
         {
+
         }
 
         private void RemoveParticles_Click(object sender, EventArgs e)
@@ -357,6 +358,38 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         }
 
-        
+        private void btnOpterDropDown_Click(object sender, EventArgs e)
+        {
+            btnOpterDropDown.ShowContextMenuStrip(cmsOpterData, 0, btnOpterDropDown.Height);
+        }
+
+        private void btnExportOpter_Click(object sender, EventArgs e)
+        {
+            btnExportOpter.ShowContextMenuStrip(cmsExcelOpter, 0, btnExportOpter.Height);
+        }
+
+        private void 有效期查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPeriodOfValidity frmPeriodOfValidity = new FrmPeriodOfValidity();
+            frmPeriodOfValidity.ShowDialog();
+        }
+
+        private void 上药ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmParticleStockAdd frmParticleStockAdd = new FrmParticleStockAdd();
+            frmParticleStockAdd.ShowDialog();
+        }
+
+        private void 余量调整ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmAdjustmentOfSurplus frmAdjustmentOfSurplus = new FrmAdjustmentOfSurplus();
+            frmAdjustmentOfSurplus.ShowDialog();
+        }
+
+        private void 库存设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmStockSet frmStockSet = new FrmStockSet();
+            frmStockSet.ShowDialog();
+        }
     }
 }

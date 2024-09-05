@@ -33,7 +33,6 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            uiPanelTop = new Sunny.UI.UIPanel();
             btnRefc = new Sunny.UI.UISymbolButton();
             uiLabel1 = new Sunny.UI.UILabel();
             cbDurg = new Sunny.UI.UIComboBox();
@@ -42,31 +41,29 @@
             RemoveParticles = new ToolStripMenuItem();
             RedRfid = new ToolStripMenuItem();
             dgvList = new Sunny.UI.UIDataGridView();
-            uiPanelTop.SuspendLayout();
+            btnOpterDropDown = new Sunny.UI.UISymbolLabel();
+            btnExportOpter = new Sunny.UI.UISymbolLabel();
+            cmsOpterData = new Sunny.UI.UIContextMenuStrip();
+            上药ToolStripMenuItem = new ToolStripMenuItem();
+            余量调整ToolStripMenuItem = new ToolStripMenuItem();
+            库存设置ToolStripMenuItem = new ToolStripMenuItem();
+            有效期查询ToolStripMenuItem = new ToolStripMenuItem();
+            cmsExcelOpter = new Sunny.UI.UIContextMenuStrip();
+            导出颗粒余量Excel文件ToolStripMenuItem = new ToolStripMenuItem();
+            导出颗粒位置Excel文件ToolStripMenuItem = new ToolStripMenuItem();
+            导入颗粒余量Excel文件ToolStripMenuItem = new ToolStripMenuItem();
+            导入颗粒位置Excel文件ToolStripMenuItem = new ToolStripMenuItem();
             cmsRightKeyMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
+            cmsOpterData.SuspendLayout();
+            cmsExcelOpter.SuspendLayout();
             SuspendLayout();
-            // 
-            // uiPanelTop
-            // 
-            uiPanelTop.Controls.Add(btnRefc);
-            uiPanelTop.Controls.Add(uiLabel1);
-            uiPanelTop.Controls.Add(cbDurg);
-            uiPanelTop.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPanelTop.Location = new Point(-1, 35);
-            uiPanelTop.Margin = new Padding(4, 5, 4, 5);
-            uiPanelTop.MinimumSize = new Size(1, 1);
-            uiPanelTop.Name = "uiPanelTop";
-            uiPanelTop.Size = new Size(1637, 47);
-            uiPanelTop.TabIndex = 0;
-            uiPanelTop.Text = null;
-            uiPanelTop.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // btnRefc
             // 
             btnRefc.Cursor = Cursors.Hand;
-            btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(335, 7);
+            btnRefc.Font = new Font("微软雅黑", 12F);
+            btnRefc.Location = new Point(345, 48);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 1;
@@ -80,9 +77,9 @@
             // 
             // uiLabel1
             // 
-            uiLabel1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel1.Font = new Font("微软雅黑", 12F);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(11, 7);
+            uiLabel1.Location = new Point(19, 52);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(100, 23);
             uiLabel1.TabIndex = 1;
@@ -94,10 +91,10 @@
             cbDurg.DataSource = null;
             cbDurg.FillColor = Color.White;
             cbDurg.FilterIgnoreCase = true;
-            cbDurg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cbDurg.Font = new Font("微软雅黑", 12F);
             cbDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbDurg.Location = new Point(116, 7);
+            cbDurg.Location = new Point(126, 49);
             cbDurg.Margin = new Padding(4, 5, 4, 5);
             cbDurg.MinimumSize = new Size(63, 0);
             cbDurg.Name = "cbDurg";
@@ -147,7 +144,8 @@
             dgvList.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvList.BackgroundColor = Color.White;
+            dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvList.BackgroundColor = Color.LightGray;
             dgvList.BorderStyle = BorderStyle.Fixed3D;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -173,7 +171,7 @@
             dgvList.EnterAsTab = true;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(1, 79);
+            dgvList.Location = new Point(0, 87);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -188,35 +186,136 @@
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.RowTemplate.DefaultCellStyle.BackColor = Color.White;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1635, 767);
+            dgvList.Size = new Size(1140, 746);
             dgvList.StripeEvenColor = Color.Empty;
             dgvList.StripeOddColor = SystemColors.Control;
             dgvList.Style = Sunny.UI.UIStyle.Custom;
             dgvList.TabIndex = 2;
             dgvList.CellEnter += dgvList_CellEnter;
             // 
+            // btnOpterDropDown
+            // 
+            btnOpterDropDown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOpterDropDown.Font = new Font("微软雅黑", 12F);
+            btnOpterDropDown.Location = new Point(814, 46);
+            btnOpterDropDown.MinimumSize = new Size(1, 1);
+            btnOpterDropDown.Name = "btnOpterDropDown";
+            btnOpterDropDown.Size = new Size(151, 35);
+            btnOpterDropDown.Symbol = 560112;
+            btnOpterDropDown.SymbolColor = Color.Blue;
+            btnOpterDropDown.TabIndex = 34;
+            btnOpterDropDown.Text = "操作药柜数据";
+            btnOpterDropDown.Click += btnOpterDropDown_Click;
+            // 
+            // btnExportOpter
+            // 
+            btnExportOpter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExportOpter.Font = new Font("微软雅黑", 12F);
+            btnExportOpter.Location = new Point(971, 46);
+            btnExportOpter.MinimumSize = new Size(1, 1);
+            btnExportOpter.Name = "btnExportOpter";
+            btnExportOpter.Size = new Size(151, 35);
+            btnExportOpter.Symbol = 560112;
+            btnExportOpter.SymbolColor = Color.Blue;
+            btnExportOpter.TabIndex = 35;
+            btnExportOpter.Text = "导入导出数据";
+            btnExportOpter.Click += btnExportOpter_Click;
+            // 
+            // cmsOpterData
+            // 
+            cmsOpterData.BackColor = Color.FromArgb(243, 249, 255);
+            cmsOpterData.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cmsOpterData.Items.AddRange(new ToolStripItem[] { 上药ToolStripMenuItem, 余量调整ToolStripMenuItem, 库存设置ToolStripMenuItem, 有效期查询ToolStripMenuItem });
+            cmsOpterData.Name = "cmsOpterData";
+            cmsOpterData.Size = new Size(181, 130);
+            // 
+            // 上药ToolStripMenuItem
+            // 
+            上药ToolStripMenuItem.Name = "上药ToolStripMenuItem";
+            上药ToolStripMenuItem.Size = new Size(180, 26);
+            上药ToolStripMenuItem.Text = "上药";
+            上药ToolStripMenuItem.Click += 上药ToolStripMenuItem_Click;
+            // 
+            // 余量调整ToolStripMenuItem
+            // 
+            余量调整ToolStripMenuItem.Name = "余量调整ToolStripMenuItem";
+            余量调整ToolStripMenuItem.Size = new Size(180, 26);
+            余量调整ToolStripMenuItem.Text = "余量调整";
+            余量调整ToolStripMenuItem.Click += 余量调整ToolStripMenuItem_Click;
+            // 
+            // 库存设置ToolStripMenuItem
+            // 
+            库存设置ToolStripMenuItem.Name = "库存设置ToolStripMenuItem";
+            库存设置ToolStripMenuItem.Size = new Size(180, 26);
+            库存设置ToolStripMenuItem.Text = "库存设置";
+            库存设置ToolStripMenuItem.Click += 库存设置ToolStripMenuItem_Click;
+            // 
+            // 有效期查询ToolStripMenuItem
+            // 
+            有效期查询ToolStripMenuItem.Name = "有效期查询ToolStripMenuItem";
+            有效期查询ToolStripMenuItem.Size = new Size(180, 26);
+            有效期查询ToolStripMenuItem.Text = "查看有效期";
+            有效期查询ToolStripMenuItem.Click += 有效期查询ToolStripMenuItem_Click;
+            // 
+            // cmsExcelOpter
+            // 
+            cmsExcelOpter.BackColor = Color.FromArgb(243, 249, 255);
+            cmsExcelOpter.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cmsExcelOpter.Items.AddRange(new ToolStripItem[] { 导出颗粒余量Excel文件ToolStripMenuItem, 导出颗粒位置Excel文件ToolStripMenuItem, 导入颗粒余量Excel文件ToolStripMenuItem, 导入颗粒位置Excel文件ToolStripMenuItem });
+            cmsExcelOpter.Name = "uiContextMenuStrip1";
+            cmsExcelOpter.Size = new Size(257, 108);
+            // 
+            // 导出颗粒余量Excel文件ToolStripMenuItem
+            // 
+            导出颗粒余量Excel文件ToolStripMenuItem.Name = "导出颗粒余量Excel文件ToolStripMenuItem";
+            导出颗粒余量Excel文件ToolStripMenuItem.Size = new Size(256, 26);
+            导出颗粒余量Excel文件ToolStripMenuItem.Text = "导出颗粒余量(Excel文件)";
+            // 
+            // 导出颗粒位置Excel文件ToolStripMenuItem
+            // 
+            导出颗粒位置Excel文件ToolStripMenuItem.Name = "导出颗粒位置Excel文件ToolStripMenuItem";
+            导出颗粒位置Excel文件ToolStripMenuItem.Size = new Size(256, 26);
+            导出颗粒位置Excel文件ToolStripMenuItem.Text = "导出颗粒位置(Excel文件)";
+            // 
+            // 导入颗粒余量Excel文件ToolStripMenuItem
+            // 
+            导入颗粒余量Excel文件ToolStripMenuItem.Name = "导入颗粒余量Excel文件ToolStripMenuItem";
+            导入颗粒余量Excel文件ToolStripMenuItem.Size = new Size(256, 26);
+            导入颗粒余量Excel文件ToolStripMenuItem.Text = "导入颗粒余量(Excel文件)";
+            // 
+            // 导入颗粒位置Excel文件ToolStripMenuItem
+            // 
+            导入颗粒位置Excel文件ToolStripMenuItem.Name = "导入颗粒位置Excel文件ToolStripMenuItem";
+            导入颗粒位置Excel文件ToolStripMenuItem.Size = new Size(256, 26);
+            导入颗粒位置Excel文件ToolStripMenuItem.Text = "导入颗粒位置(Excel文件)";
+            // 
             // FrmMedicineCabinetManage
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1636, 849);
+            ClientSize = new Size(1140, 834);
+            Controls.Add(btnExportOpter);
+            Controls.Add(btnOpterDropDown);
+            Controls.Add(btnRefc);
+            Controls.Add(uiLabel1);
+            Controls.Add(cbDurg);
             Controls.Add(dgvList);
-            Controls.Add(uiPanelTop);
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
             Symbol = 361451;
             Text = "药柜管理";
+            TitleFillColor = Color.FromArgb(80, 160, 255);
+            TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmMedicineCabinetManage_Load;
-            uiPanelTop.ResumeLayout(false);
             cmsRightKeyMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
+            cmsOpterData.ResumeLayout(false);
+            cmsExcelOpter.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Sunny.UI.UIPanel uiPanelTop;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIComboBox cbDurg;
         private Sunny.UI.UIContextMenuStrip cmsRightKeyMenu;
@@ -225,5 +324,17 @@
         private ToolStripMenuItem RedRfid;
         private Sunny.UI.UISymbolButton btnRefc;
         private Sunny.UI.UIDataGridView dgvList;
+        private Sunny.UI.UISymbolLabel btnOpterDropDown;
+        private Sunny.UI.UISymbolLabel btnExportOpter;
+        private Sunny.UI.UIContextMenuStrip cmsOpterData;
+        private ToolStripMenuItem 上药ToolStripMenuItem;
+        private ToolStripMenuItem 余量调整ToolStripMenuItem;
+        private ToolStripMenuItem 库存设置ToolStripMenuItem;
+        private ToolStripMenuItem 有效期查询ToolStripMenuItem;
+        private Sunny.UI.UIContextMenuStrip cmsExcelOpter;
+        private ToolStripMenuItem 导出颗粒余量Excel文件ToolStripMenuItem;
+        private ToolStripMenuItem 导出颗粒位置Excel文件ToolStripMenuItem;
+        private ToolStripMenuItem 导入颗粒余量Excel文件ToolStripMenuItem;
+        private ToolStripMenuItem 导入颗粒位置Excel文件ToolStripMenuItem;
     }
 }

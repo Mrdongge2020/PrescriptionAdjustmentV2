@@ -37,6 +37,7 @@ namespace AdjustmentSys.Tool
                         {
                             cmd.Parameters.AddRange(pms);
                         }
+                        cmd.Transaction = transaction;
                         int rows = cmd.ExecuteNonQuery();
                         transaction.Commit();
                         return rows > 0;
