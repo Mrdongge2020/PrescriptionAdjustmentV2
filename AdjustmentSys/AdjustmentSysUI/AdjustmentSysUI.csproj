@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AdjustmentSys.BLL\AdjustmentSys.BLL.csproj" />
     <ProjectReference Include="..\AdjustmentSys.Models\AdjustmentSys.Models.csproj" />
+    <ProjectReference Include="..\AdjustmentSys.Tool\AdjustmentSys.Tool.csproj" />
   </ItemGroup>
 
   <ItemGroup>

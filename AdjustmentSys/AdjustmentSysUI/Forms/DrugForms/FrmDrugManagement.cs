@@ -1,13 +1,17 @@
 ﻿using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.BLL.User;
+using AdjustmentSys.Common.Tool;
+using AdjustmentSys.Models.Drug;
 using AdjustmentSysUI.Forms.Drug;
 using AdjustmentSysUI.Forms.UserForms;
 using AdjustmentSysUI.UITool;
+using NPOI.SS.UserModel;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -177,5 +181,64 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         {
             QueryPageList();
         }
+
+        private void 药品数据导出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var exportDatas = _drugManagermentBLL.ParticlesExports();
+            if (exportDatas == null || exportDatas.Count <= 0)
+            {
+                ShowWarningDialog("导出提示", "要导出的药品信息不存在");
+                return;
+            }
+            ExportParticles(exportDatas.ToList<object>());
+        }
+
+        private void ExportParticles(List<object>? list)
+        {
+            //组装生成工作簿参数
+            List<ExcelDataResource> excelDataResources = new List<ExcelDataResource>()
+            {
+                new ExcelDataResource ()
+                {
+                    SheetName="药品信息",
+                    TitleIndex=1,
+                    SheetDataResource=list
+                }
+            };
+
+            //生成工作簿
+            IWorkbook workbook1 = ExcelOperationHelper.DataToHSSFWorkbook(excelDataResources);
+
+            //导出操作
+            SaveFileDialog objSaveFileDialog = new SaveFileDialog();
+            objSaveFileDialog.Filter = @"Excel (*.xls)|*.xls";//@"Excel2007文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls";
+            objSaveFileDialog.Title = "请选择保存位置";
+            objSaveFileDialog.FileName = "药品信息" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            if (objSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    //导出excel文件，提示文件地址
+                    string exportMsg = ExcelOperationHelper.ExportWorkbookToLocal(workbook1, objSaveFileDialog.FileName);
+                    MessageBox.Show(exportMsg, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"导出失败:<{ex.Message}>", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void btnOpterDropDown_Click(object sender, EventArgs e)
+        {
+            btnOpterDropDown.ShowContextMenuStrip(cmsOpterDurgData, 0, btnOpterDropDown.Height);
+        }
+
+        private void brnDrugExport_Click(object sender, EventArgs e)
+        {
+            brnDrugExport.ShowContextMenuStrip(cmsDurgExcelOpter, 0, brnDrugExport.Height);
+        }
+
+       
     }
 }

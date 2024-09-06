@@ -40,6 +40,11 @@ namespace AdjustmentSys.Entity
         [Description("颗粒密度")]
         public float Density { get; set; }
         /// <summary>
+        /// 密度系数
+        /// </summary>
+        [Column("DensityCoefficient")]
+        public float? DensityCoefficient { get; set; }
+        /// <summary>
         /// 颗粒当量
         /// </summary>
         [Column("Equivalent")]

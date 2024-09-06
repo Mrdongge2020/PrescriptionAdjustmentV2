@@ -262,7 +262,6 @@ namespace AdjustmentSys.BLL.Prescription
         /// <returns></returns>
         public List<string> DownLoadPrescriptions(List<string> preIds,out List<string> errorStrings) 
         {
-            //List<string> successPreIds = new List<string>();//下载成功的处方编号
             (List<DataPrescription> parinfos, List<DataPrescriptionDetail> parDetails) = GetPreData(preIds, out errorStrings);
             if (parinfos == null || parinfos.Count <= 0)
             {

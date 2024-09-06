@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.DAL.Drug;
+﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.DAL.Drug;
 using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Drug;
@@ -7,6 +8,7 @@ using AdjustmentSys.Tool.Enums;
 using NPinyin;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -127,6 +129,111 @@ namespace AdjustmentSys.BLL.Drug
             resultModel.Equivalent = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Equivalent, codeStr, (int)code.EquivalentIndex, (int)code.EquivalentLength));
             resultModel.LoadCapacity= float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.LoadingCapacity, codeStr, (int)code.LoadingCapacityIndex, (int)code.LoadingCapacityLength));
             return resultModel;
+        }
+
+        /// <summary>
+        /// 获取导出的excel数据
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticlesExportModel> ParticlesExports() 
+        { 
+            return drugManagermentDAL.ParticlesExports();
+        }
+
+        public List<ErrorParticlesExportModel> CheckAllParticlesImport(List<ErrorParticlesExportModel> errorParticlesExportModels) 
+        {
+            CommonDataBLL commonDataBLL = new CommonDataBLL();
+            ComboxDataBLL comboxDataBLL = new ComboxDataBLL();
+
+            var allParticles = commonDataBLL.GetCommonParticles();
+            var manufacturers = comboxDataBLL.GetManufacturerComboxData();
+            errorParticlesExportModels.ForEach(item =>
+            {
+                if (string.IsNullOrEmpty(item.ParName)) 
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "药品简称不可以为空";
+                    return;
+                }
+                if (item.ParName.Length>0)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "药品简称长度不可超过20";
+                    return;
+                }
+                if (allParticles.Any(x=>x.Name== item.ParName))
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "药品简称已在系统药品字典存在";
+                    return;
+                }
+                if (string.IsNullOrEmpty(item.FullName))
+                {
+                    item.FullName = item.ParName;
+                }
+                if (!string.IsNullOrEmpty(item.FullName) && item.FullName.Length > 50)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "药品全称长度不可超过50";
+                    return;
+                }
+
+                item.ManufacturerId = 1;
+                if (!string.IsNullOrEmpty(item.ManufacturerName)) 
+                {
+                    if (manufacturers != null)
+                    {
+                        var id = manufacturers.FirstOrDefault(x => x.Name == item.ManufacturerName)?.Id;
+                        if (id.HasValue)
+                        {
+                            item.ManufacturerId = (int)id;
+                        }
+                        else 
+                        {
+                            item.IsPassed = "不通过";
+                            item.ErrorMessage = "厂家在系统不存在";
+                            return;
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(item.HisCode))
+                {
+                    item.HisCode = "无";
+                }
+                if (item.HisCode.Length > 50)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "HIS编码长度不可超过50";
+                    return;
+                }
+                if (!string.IsNullOrEmpty(item.HisName) && item.HisName.Length > 50)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "HIS名称长度不可超过50";
+                    return;
+                }
+
+                if (item.Density<0.5 && item.Density>2) 
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "密度只能是在[0.5~2]之间";
+                    return;
+                }
+                if (item.DensityCoefficient < 0.5 && item.Density > 2)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "密度系数只能是在[0.5~2]之间";
+                    return;
+                }
+                if (item.DensityCoefficient < 0.5 && item.Density > 2)
+                {
+                    item.IsPassed = "不通过";
+                    item.ErrorMessage = "密度系数只能是在[0.5~2]之间";
+                    return;
+                }
+
+            });
         }
     }
 }

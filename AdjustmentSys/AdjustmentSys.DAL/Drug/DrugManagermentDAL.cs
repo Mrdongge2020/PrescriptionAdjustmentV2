@@ -2,6 +2,7 @@
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,8 @@ namespace AdjustmentSys.DAL.Drug
             particlesInfoExtend.HisCode = drugInfo.HisCode;
             particlesInfoExtend.HisName = drugInfo.HisName;
             particlesInfoExtend.Density = drugInfo.Density;
+            var dc = _eFCoreContext.ManufacturerInfos.FirstOrDefault(x => x.ID == drugInfo.ManufacturerId)?.DensityCoefficient;
+            particlesInfoExtend.DensityCoefficient = dc.HasValue?dc.Value:1;
             particlesInfoExtend.Equivalent = drugInfo.Equivalent;
             particlesInfoExtend.DoseLimit = drugInfo.DoseLimit;
             particlesInfoExtend.WholesalePrice = drugInfo.WholesalePrice;
@@ -281,6 +284,36 @@ namespace AdjustmentSys.DAL.Drug
         public List<ManufacturerResolutionCode> GetManufacturerCodes(int manufacturerId) 
         {
            return _eFCoreContext.ManufacturerResolutionCodes.Where(x => x.ManufacturerId == manufacturerId).ToList();
+        }
+
+        /// <summary>
+        /// 获取导出的excel数据
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticlesExportModel> ParticlesExports()
+        {
+            string sql = @" select  a.Name as ParName,
+                                    a.FullName,
+                                    a.Code,
+                                    a.NameFullPinyin,
+                                    a.NameSimplifiedPinyin,
+                                    a.ManufacturerId,
+                                    c.Name as ManufacturerName,
+                                    a.ListingNumber,
+                                    a.Remark,
+                                    b.HisCode,
+                                    b.HisName,
+                                    b.Density,
+                                    b.Equivalent,
+                                    b.DoseLimit,
+                                    b.PackageNumber,
+                                    b.RetailPrice,
+                                    b.WholesalePrice
+                            from ParticlesInfo as a
+                            join ParticlesInfoExtend as b on a.ID=b.ParticlesID
+                            left join ManufacturerInfo as c on a.ManufacturerId=c.ID
+                            order by a.NameSimplifiedPinyin ";
+            return DBHelper.ExecuteQuery<ParticlesExportModel>(sql);
         }
     }
 }

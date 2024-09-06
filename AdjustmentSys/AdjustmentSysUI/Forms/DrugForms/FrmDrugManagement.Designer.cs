@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             btnDelete = new Sunny.UI.UISymbolButton();
             btnReset = new Sunny.UI.UISymbolButton();
             btnAdd = new Sunny.UI.UISymbolButton();
@@ -42,7 +42,17 @@
             dgvList = new Sunny.UI.UIDataGridView();
             btnRefc = new Sunny.UI.UISymbolButton();
             uiPage = new Sunny.UI.UIPagination();
+            btnOpterDropDown = new Sunny.UI.UISymbolLabel();
+            brnDrugExport = new Sunny.UI.UISymbolLabel();
+            cmsOpterDurgData = new Sunny.UI.UIContextMenuStrip();
+            药品系数调整ToolStripMenuItem = new ToolStripMenuItem();
+            cmsDurgExcelOpter = new Sunny.UI.UIContextMenuStrip();
+            药品数据导出ToolStripMenuItem = new ToolStripMenuItem();
+            药品数据导入ToolStripMenuItem = new ToolStripMenuItem();
+            匹配数据导入ToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
+            cmsOpterDurgData.SuspendLayout();
+            cmsDurgExcelOpter.SuspendLayout();
             SuspendLayout();
             // 
             // btnDelete
@@ -138,52 +148,52 @@
             // 
             // dgvList
             // 
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle12.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle12.ForeColor = Color.White;
-            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.ColumnHeadersHeight = 32;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = SystemColors.Window;
-            dataGridViewCellStyle13.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle13.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(6, 125);
+            dgvList.Location = new Point(5, 125);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle14.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle14.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle14.SelectionForeColor = Color.White;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvList.RowHeadersVisible = false;
             dgvList.RowHeadersWidth = 51;
-            dataGridViewCellStyle15.BackColor = Color.White;
-            dataGridViewCellStyle15.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvList.Size = new Size(1507, 459);
+            dgvList.Size = new Size(1317, 476);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 27;
             dgvList.ZoomScaleDisabled = true;
@@ -209,23 +219,95 @@
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(6, 592);
+            uiPage.Location = new Point(6, 609);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(753, 46);
+            uiPage.Size = new Size(591, 46);
             uiPage.TabIndex = 31;
             uiPage.Text = "uiPagination1";
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;
             uiPage.PageChanged += uiPage_PageChanged;
             // 
+            // btnOpterDropDown
+            // 
+            btnOpterDropDown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOpterDropDown.Font = new Font("微软雅黑", 12F);
+            btnOpterDropDown.Location = new Point(991, 84);
+            btnOpterDropDown.MinimumSize = new Size(1, 1);
+            btnOpterDropDown.Name = "btnOpterDropDown";
+            btnOpterDropDown.Size = new Size(151, 35);
+            btnOpterDropDown.Symbol = 560112;
+            btnOpterDropDown.SymbolColor = Color.Blue;
+            btnOpterDropDown.TabIndex = 35;
+            btnOpterDropDown.Text = "操作药品数据";
+            btnOpterDropDown.Click += btnOpterDropDown_Click;
+            // 
+            // brnDrugExport
+            // 
+            brnDrugExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            brnDrugExport.Font = new Font("微软雅黑", 12F);
+            brnDrugExport.Location = new Point(1163, 84);
+            brnDrugExport.MinimumSize = new Size(1, 1);
+            brnDrugExport.Name = "brnDrugExport";
+            brnDrugExport.Size = new Size(151, 35);
+            brnDrugExport.Symbol = 560112;
+            brnDrugExport.SymbolColor = Color.Blue;
+            brnDrugExport.TabIndex = 36;
+            brnDrugExport.Text = "导入导出药品数据";
+            brnDrugExport.Click += brnDrugExport_Click;
+            // 
+            // cmsOpterDurgData
+            // 
+            cmsOpterDurgData.BackColor = Color.FromArgb(243, 249, 255);
+            cmsOpterDurgData.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cmsOpterDurgData.Items.AddRange(new ToolStripItem[] { 药品系数调整ToolStripMenuItem });
+            cmsOpterDurgData.Name = "cmsOpterDurgData";
+            cmsOpterDurgData.Size = new Size(174, 30);
+            // 
+            // 药品系数调整ToolStripMenuItem
+            // 
+            药品系数调整ToolStripMenuItem.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            药品系数调整ToolStripMenuItem.Name = "药品系数调整ToolStripMenuItem";
+            药品系数调整ToolStripMenuItem.Size = new Size(173, 26);
+            药品系数调整ToolStripMenuItem.Text = "药品系数调整";
+            // 
+            // cmsDurgExcelOpter
+            // 
+            cmsDurgExcelOpter.BackColor = Color.FromArgb(243, 249, 255);
+            cmsDurgExcelOpter.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cmsDurgExcelOpter.Items.AddRange(new ToolStripItem[] { 药品数据导出ToolStripMenuItem, 药品数据导入ToolStripMenuItem, 匹配数据导入ToolStripMenuItem });
+            cmsDurgExcelOpter.Name = "cmsDurgExcelOpter";
+            cmsDurgExcelOpter.Size = new Size(177, 82);
+            // 
+            // 药品数据导出ToolStripMenuItem
+            // 
+            药品数据导出ToolStripMenuItem.Name = "药品数据导出ToolStripMenuItem";
+            药品数据导出ToolStripMenuItem.Size = new Size(176, 26);
+            药品数据导出ToolStripMenuItem.Text = "药品数据导出";
+            药品数据导出ToolStripMenuItem.Click += 药品数据导出ToolStripMenuItem_Click;
+            // 
+            // 药品数据导入ToolStripMenuItem
+            // 
+            药品数据导入ToolStripMenuItem.Name = "药品数据导入ToolStripMenuItem";
+            药品数据导入ToolStripMenuItem.Size = new Size(176, 26);
+            药品数据导入ToolStripMenuItem.Text = "药品数据导入";
+            // 
+            // 匹配数据导入ToolStripMenuItem
+            // 
+            匹配数据导入ToolStripMenuItem.Name = "匹配数据导入ToolStripMenuItem";
+            匹配数据导入ToolStripMenuItem.Size = new Size(176, 26);
+            匹配数据导入ToolStripMenuItem.Text = "匹配数据导入";
+            // 
             // FrmDrugManagement
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1525, 656);
+            ClientSize = new Size(1326, 656);
+            Controls.Add(brnDrugExport);
+            Controls.Add(btnOpterDropDown);
             Controls.Add(uiPage);
             Controls.Add(btnRefc);
             Controls.Add(dgvList);
@@ -243,6 +325,8 @@
             Text = "药品信息";
             Load += FrmDrugManagement_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
+            cmsOpterDurgData.ResumeLayout(false);
+            cmsDurgExcelOpter.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -257,5 +341,13 @@
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UISymbolButton btnRefc;
         private Sunny.UI.UIPagination uiPage;
+        private Sunny.UI.UISymbolLabel btnOpterDropDown;
+        private Sunny.UI.UISymbolLabel brnDrugExport;
+        private Sunny.UI.UIContextMenuStrip cmsOpterDurgData;
+        private ToolStripMenuItem 药品系数调整ToolStripMenuItem;
+        private Sunny.UI.UIContextMenuStrip cmsDurgExcelOpter;
+        private ToolStripMenuItem 药品数据导出ToolStripMenuItem;
+        private ToolStripMenuItem 药品数据导入ToolStripMenuItem;
+        private ToolStripMenuItem 匹配数据导入ToolStripMenuItem;
     }
 }

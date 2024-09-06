@@ -29,8 +29,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         string fileUrl = Application.StartupPath + "\\testbinfile.bin";
         //private List<string> DownLoadPreIdList = new List<string>();
         string selectPreId = "";//选中的处方编号
-
-        DownLoadPreModel downLoadPreModel = new DownLoadPreModel();//已下载处方文件实体
+        private DownLoadPreModel downLoadPreModel { get; set; }//已下载处方文件实体
         public FrmBoxedDevice()
         {
             InitializeComponent();
@@ -48,6 +47,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             downLoadPreModel = BinFileHelper.ReadObjectFromBinaryFile<DownLoadPreModel>(fileUrl);
             if (downLoadPreModel == null || downLoadPreModel.LoadedPreIds.Count <= 0)
             {
+                downLoadPreModel = new DownLoadPreModel();
                 return;
             }
             //获取数据
@@ -100,10 +100,15 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             List<string> preIdList = frmPrescriptionDownLoad.loadPrescriptionIdList;
             if (preIdList != null && preIdList.Count > 0)
             {
+                if (downLoadPreModel==null) 
+                {
+                    downLoadPreModel = new DownLoadPreModel();
+                }
+              
                 foreach (var item in preIdList)
                 {
                     //写入文件
-                    if (downLoadPreModel != null && downLoadPreModel.LoadedPreIds != null && downLoadPreModel.LoadedPreIds.Count > 0)
+                    if (downLoadPreModel.LoadedPreIds != null && downLoadPreModel.LoadedPreIds.Count > 0)
                     {
                         if (!downLoadPreModel.LoadedPreIds.Contains(item))
                         {
@@ -112,11 +117,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                     else 
                     {
+                        downLoadPreModel.LoadedPreIds = new List<string>();
                         downLoadPreModel.LoadedPreIds.Add(item);
-                    }
-                    
+                    } 
                 }
-                downLoadPreModel.LoadedPreIds= downLoadPreModel.LoadedPreIds.Distinct().ToList();
+                
+                downLoadPreModel.LoadedPreIds.AddRange(downLoadPreModel.LoadedPreIds.Distinct().ToList());
                 BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);
                 AddButton();
             }
@@ -143,6 +149,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 if (btn != null)
                 {
                     uiFlowLayoutPanel1.Remove(btn);
+                    selectPreId = "";
                 }
             }
             else
