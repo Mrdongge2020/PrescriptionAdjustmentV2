@@ -3,6 +3,7 @@ using AdjustmentSys.BLL.User;
 using AdjustmentSys.Common.Tool;
 using AdjustmentSys.Models.Drug;
 using AdjustmentSysUI.Forms.Drug;
+using AdjustmentSysUI.Forms.DrugForms;
 using AdjustmentSysUI.Forms.UserForms;
 using AdjustmentSysUI.UITool;
 using NPOI.SS.UserModel;
@@ -52,7 +53,8 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
 
             //创建列
-            int width = 165;
+            int width = 125;
+            int width1 = 165;
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "id", true, false, width, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Code", "颗粒编号", true, true, width, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "名称简称", true, true, width, "");
@@ -70,7 +72,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ListingNumber", "上市编号", true, true, width, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Remark", "备注", true, true, width, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateName", "更新人", true, true, width, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateTime", "更新时间", true, true, width, "yyyy-MM-dd HH:mm:ss");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateTime", "更新时间", true, true, width1, "yyyy-MM-dd HH:mm:ss");
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -112,7 +114,13 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             }
             FrmDrugEdit frmEdit = new FrmDrugEdit(0);
             frmEdit.Text = "新增药品";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            bool isOK = frmEdit.isSuccess;
+            if (isOK)
+            {
+                ShowSuccessTip("新增成功");
+                QueryPageList();
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -131,7 +139,13 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             }
             FrmDrugEdit frmEdit = new FrmDrugEdit(_drugId);
             frmEdit.Text = "编辑药品";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            bool isOK = frmEdit.isSuccess;
+            if (isOK)
+            {
+                ShowSuccessTip("编辑成功");
+                QueryPageList();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -239,6 +253,16 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             brnDrugExport.ShowContextMenuStrip(cmsDurgExcelOpter, 0, brnDrugExport.Height);
         }
 
-       
+        private void 药品数据导入ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmDurgExcelInfoShow frmDurgExcelInfoShow = new FrmDurgExcelInfoShow();
+            frmDurgExcelInfoShow.ShowDialog();
+        }
+
+        private void 匹配数据导入ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmParticleDataMate frmParticleDataMate = new FrmParticleDataMate();
+            frmParticleDataMate.ShowDialog();
+        }
     }
 }

@@ -143,7 +143,7 @@ namespace AdjustmentSys.Common.Tool
                     ICell cell = header.GetCell(i);
                     if (cell != null)
                     {
-                        string cellValue = $"Column{i + 1}_{cell.ToString()}";
+                        string cellValue = $"{cell.ToString()}";
                         if (cellValue != null)
                         {
                             DataColumn col = new DataColumn(cellValue);

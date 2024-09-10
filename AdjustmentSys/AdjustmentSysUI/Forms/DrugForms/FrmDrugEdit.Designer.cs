@@ -63,27 +63,14 @@
             uiLabel16 = new Sunny.UI.UILabel();
             txtHISMC = new Sunny.UI.UITextBox();
             uiLabel15 = new Sunny.UI.UILabel();
-            pnlBtm.SuspendLayout();
+            btnCancel = new Sunny.UI.UISymbolButton();
+            btnOK = new Sunny.UI.UISymbolButton();
+            uiLine1 = new Sunny.UI.UILine();
             SuspendLayout();
-            // 
-            // pnlBtm
-            // 
-            pnlBtm.Location = new Point(1, 581);
-            pnlBtm.Size = new Size(889, 55);
-            // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(761, 12);
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // btnOK
-            // 
-            btnOK.Location = new Point(646, 12);
-            btnOK.Click += btnOK_Click;
             // 
             // txtJC
             // 
-            txtJC.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtJC.Font = new Font("微软雅黑", 10.5F);
             txtJC.Location = new Point(113, 113);
             txtJC.Margin = new Padding(4, 5, 4, 5);
             txtJC.MaxLength = 20;
@@ -98,7 +85,7 @@
             // 
             // uiLabel4
             // 
-            uiLabel4.Font = new Font("宋体", 12F);
+            uiLabel4.Font = new Font("微软雅黑", 10.5F);
             uiLabel4.ForeColor = Color.Red;
             uiLabel4.Location = new Point(9, 113);
             uiLabel4.Name = "uiLabel4";
@@ -109,7 +96,7 @@
             // 
             // uiLabel1
             // 
-            uiLabel1.Font = new Font("宋体", 12F);
+            uiLabel1.Font = new Font("微软雅黑", 10.5F);
             uiLabel1.ForeColor = Color.Red;
             uiLabel1.Location = new Point(9, 52);
             uiLabel1.Name = "uiLabel1";
@@ -123,7 +110,7 @@
             cbCJ.DataSource = null;
             cbCJ.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbCJ.FillColor = Color.White;
-            cbCJ.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            cbCJ.Font = new Font("微软雅黑", 10.5F);
             cbCJ.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbCJ.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbCJ.Location = new Point(113, 52);
@@ -139,7 +126,7 @@
             // 
             // txtQC
             // 
-            txtQC.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtQC.Font = new Font("微软雅黑", 10.5F);
             txtQC.Location = new Point(113, 171);
             txtQC.Margin = new Padding(4, 5, 4, 5);
             txtQC.MaxLength = 50;
@@ -154,7 +141,7 @@
             // 
             // uiLabel5
             // 
-            uiLabel5.Font = new Font("宋体", 12F);
+            uiLabel5.Font = new Font("微软雅黑", 10.5F);
             uiLabel5.ForeColor = Color.Black;
             uiLabel5.Location = new Point(9, 171);
             uiLabel5.Name = "uiLabel5";
@@ -165,10 +152,11 @@
             // 
             // txtKLM
             // 
-            txtKLM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtKLM.DecimalPlaces = 0;
+            txtKLM.Font = new Font("微软雅黑", 10.5F);
             txtKLM.Location = new Point(113, 229);
             txtKLM.Margin = new Padding(4, 5, 4, 5);
-            txtKLM.MaxLength = 20;
+            txtKLM.MaxLength = 6;
             txtKLM.MinimumSize = new Size(1, 16);
             txtKLM.Name = "txtKLM";
             txtKLM.Padding = new Padding(5);
@@ -176,11 +164,12 @@
             txtKLM.Size = new Size(287, 29);
             txtKLM.TabIndex = 50;
             txtKLM.TextAlignment = ContentAlignment.MiddleLeft;
-            txtKLM.Watermark = "请输入颗粒码";
+            txtKLM.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            txtKLM.Watermark = "请输入颗粒码806001";
             // 
             // uiLabel6
             // 
-            uiLabel6.Font = new Font("宋体", 12F);
+            uiLabel6.Font = new Font("微软雅黑", 10.5F);
             uiLabel6.ForeColor = Color.Red;
             uiLabel6.Location = new Point(9, 229);
             uiLabel6.Name = "uiLabel6";
@@ -192,7 +181,7 @@
             // txtMD
             // 
             txtMD.DecimalPlaces = 4;
-            txtMD.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtMD.Font = new Font("微软雅黑", 10.5F);
             txtMD.Location = new Point(113, 282);
             txtMD.Margin = new Padding(4, 5, 4, 5);
             txtMD.MinimumSize = new Size(1, 16);
@@ -208,7 +197,7 @@
             // 
             // uiLabel9
             // 
-            uiLabel9.Font = new Font("宋体", 12F);
+            uiLabel9.Font = new Font("微软雅黑", 10.5F);
             uiLabel9.ForeColor = Color.Red;
             uiLabel9.Location = new Point(9, 282);
             uiLabel9.Name = "uiLabel9";
@@ -220,7 +209,7 @@
             // txtDL
             // 
             txtDL.DecimalPlaces = 4;
-            txtDL.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtDL.Font = new Font("微软雅黑", 10.5F);
             txtDL.Location = new Point(113, 338);
             txtDL.Margin = new Padding(4, 5, 4, 5);
             txtDL.MinimumSize = new Size(1, 16);
@@ -236,7 +225,7 @@
             // 
             // uiLabel11
             // 
-            uiLabel11.Font = new Font("宋体", 12F);
+            uiLabel11.Font = new Font("微软雅黑", 10.5F);
             uiLabel11.ForeColor = Color.Red;
             uiLabel11.Location = new Point(9, 338);
             uiLabel11.Name = "uiLabel11";
@@ -247,7 +236,7 @@
             // 
             // txtHISM
             // 
-            txtHISM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtHISM.Font = new Font("微软雅黑", 10.5F);
             txtHISM.Location = new Point(562, 282);
             txtHISM.Margin = new Padding(4, 5, 4, 5);
             txtHISM.MaxLength = 50;
@@ -262,7 +251,7 @@
             // 
             // uiLabel12
             // 
-            uiLabel12.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel12.Font = new Font("微软雅黑", 10.5F);
             uiLabel12.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel12.Location = new Point(456, 282);
             uiLabel12.Name = "uiLabel12";
@@ -274,7 +263,7 @@
             // txtLSJ
             // 
             txtLSJ.DecimalPlaces = 4;
-            txtLSJ.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtLSJ.Font = new Font("微软雅黑", 10.5F);
             txtLSJ.Location = new Point(562, 52);
             txtLSJ.Margin = new Padding(4, 5, 4, 5);
             txtLSJ.MinimumSize = new Size(1, 16);
@@ -290,7 +279,7 @@
             // 
             // uiLabel2
             // 
-            uiLabel2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel2.Font = new Font("微软雅黑", 10.5F);
             uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new Point(456, 52);
             uiLabel2.Name = "uiLabel2";
@@ -302,7 +291,7 @@
             // txtGHJ
             // 
             txtGHJ.DecimalPlaces = 4;
-            txtGHJ.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtGHJ.Font = new Font("微软雅黑", 10.5F);
             txtGHJ.Location = new Point(562, 113);
             txtGHJ.Margin = new Padding(4, 5, 4, 5);
             txtGHJ.MinimumSize = new Size(1, 16);
@@ -318,7 +307,7 @@
             // 
             // uiLabel3
             // 
-            uiLabel3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel3.Font = new Font("微软雅黑", 10.5F);
             uiLabel3.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel3.Location = new Point(456, 113);
             uiLabel3.Name = "uiLabel3";
@@ -329,7 +318,7 @@
             // 
             // txtJLSX
             // 
-            txtJLSX.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtJLSX.Font = new Font("微软雅黑", 10.5F);
             txtJLSX.Location = new Point(562, 171);
             txtJLSX.Margin = new Padding(4, 5, 4, 5);
             txtJLSX.MinimumSize = new Size(1, 16);
@@ -345,7 +334,7 @@
             // 
             // uiLabel7
             // 
-            uiLabel7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel7.Font = new Font("微软雅黑", 10.5F);
             uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel7.Location = new Point(456, 171);
             uiLabel7.Name = "uiLabel7";
@@ -356,7 +345,7 @@
             // 
             // txtDBZM
             // 
-            txtDBZM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtDBZM.Font = new Font("微软雅黑", 10.5F);
             txtDBZM.Location = new Point(562, 229);
             txtDBZM.Margin = new Padding(4, 5, 4, 5);
             txtDBZM.MaxLength = 20;
@@ -371,7 +360,7 @@
             // 
             // uiLabel8
             // 
-            uiLabel8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel8.Font = new Font("微软雅黑", 10.5F);
             uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel8.Location = new Point(456, 229);
             uiLabel8.Name = "uiLabel8";
@@ -382,8 +371,8 @@
             // 
             // txtSSBH
             // 
-            txtSSBH.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtSSBH.Location = new Point(560, 391);
+            txtSSBH.Font = new Font("微软雅黑", 10.5F);
+            txtSSBH.Location = new Point(560, 394);
             txtSSBH.Margin = new Padding(4, 5, 4, 5);
             txtSSBH.MaxLength = 50;
             txtSSBH.MinimumSize = new Size(1, 16);
@@ -397,9 +386,9 @@
             // 
             // uiLabel10
             // 
-            uiLabel10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel10.Font = new Font("微软雅黑", 10.5F);
             uiLabel10.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new Point(456, 391);
+            uiLabel10.Location = new Point(456, 394);
             uiLabel10.Name = "uiLabel10";
             uiLabel10.Size = new Size(99, 29);
             uiLabel10.TabIndex = 68;
@@ -408,8 +397,8 @@
             // 
             // txtMCQP
             // 
-            txtMCQP.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtMCQP.Location = new Point(113, 411);
+            txtMCQP.Font = new Font("微软雅黑", 10.5F);
+            txtMCQP.Location = new Point(113, 394);
             txtMCQP.Margin = new Padding(4, 5, 4, 5);
             txtMCQP.MaxLength = 500;
             txtMCQP.MinimumSize = new Size(1, 16);
@@ -423,9 +412,9 @@
             // 
             // uiLabel13
             // 
-            uiLabel13.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel13.Font = new Font("微软雅黑", 10.5F);
             uiLabel13.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel13.Location = new Point(9, 411);
+            uiLabel13.Location = new Point(9, 394);
             uiLabel13.Name = "uiLabel13";
             uiLabel13.Size = new Size(99, 29);
             uiLabel13.TabIndex = 70;
@@ -434,8 +423,8 @@
             // 
             // txtMCJP
             // 
-            txtMCJP.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtMCJP.Location = new Point(113, 465);
+            txtMCJP.Font = new Font("微软雅黑", 10.5F);
+            txtMCJP.Location = new Point(113, 453);
             txtMCJP.Margin = new Padding(4, 5, 4, 5);
             txtMCJP.MaxLength = 500;
             txtMCJP.MinimumSize = new Size(1, 16);
@@ -449,9 +438,9 @@
             // 
             // uiLabel14
             // 
-            uiLabel14.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel14.Font = new Font("微软雅黑", 10.5F);
             uiLabel14.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel14.Location = new Point(9, 465);
+            uiLabel14.Location = new Point(9, 453);
             uiLabel14.Name = "uiLabel14";
             uiLabel14.Size = new Size(99, 29);
             uiLabel14.TabIndex = 72;
@@ -461,9 +450,9 @@
             // lblTM
             // 
             lblTM.Enabled = false;
-            lblTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblTM.Font = new Font("微软雅黑", 10.5F);
             lblTM.ForeColor = Color.FromArgb(48, 48, 48);
-            lblTM.Location = new Point(9, 529);
+            lblTM.Location = new Point(9, 520);
             lblTM.Name = "lblTM";
             lblTM.Size = new Size(99, 23);
             lblTM.TabIndex = 74;
@@ -473,8 +462,8 @@
             // txtBZTM
             // 
             txtBZTM.Enabled = false;
-            txtBZTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtBZTM.Location = new Point(113, 523);
+            txtBZTM.Font = new Font("微软雅黑", 10.5F);
+            txtBZTM.Location = new Point(113, 514);
             txtBZTM.Margin = new Padding(4, 5, 4, 5);
             txtBZTM.MinimumSize = new Size(1, 16);
             txtBZTM.Name = "txtBZTM";
@@ -488,8 +477,8 @@
             // btnSB
             // 
             btnSB.Enabled = false;
-            btnSB.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSB.Location = new Point(430, 523);
+            btnSB.Font = new Font("微软雅黑", 10.5F);
+            btnSB.Location = new Point(430, 514);
             btnSB.MinimumSize = new Size(1, 1);
             btnSB.Name = "btnSB";
             btnSB.Size = new Size(96, 29);
@@ -500,8 +489,8 @@
             // 
             // txtBZ
             // 
-            txtBZ.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtBZ.Location = new Point(562, 465);
+            txtBZ.Font = new Font("微软雅黑", 10.5F);
+            txtBZ.Location = new Point(562, 452);
             txtBZ.Margin = new Padding(4, 5, 4, 5);
             txtBZ.MaxLength = 200;
             txtBZ.MinimumSize = new Size(1, 16);
@@ -516,9 +505,9 @@
             // 
             // uiLabel16
             // 
-            uiLabel16.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel16.Font = new Font("微软雅黑", 10.5F);
             uiLabel16.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new Point(456, 465);
+            uiLabel16.Location = new Point(456, 452);
             uiLabel16.Name = "uiLabel16";
             uiLabel16.Size = new Size(99, 29);
             uiLabel16.TabIndex = 77;
@@ -527,7 +516,7 @@
             // 
             // txtHISMC
             // 
-            txtHISMC.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtHISMC.Font = new Font("微软雅黑", 10.5F);
             txtHISMC.Location = new Point(562, 336);
             txtHISMC.Margin = new Padding(4, 5, 4, 5);
             txtHISMC.MaxLength = 50;
@@ -542,19 +531,59 @@
             // 
             // uiLabel15
             // 
-            uiLabel15.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel15.Font = new Font("微软雅黑", 10.5F);
             uiLabel15.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel15.Location = new Point(456, 336);
             uiLabel15.Name = "uiLabel15";
             uiLabel15.Size = new Size(99, 29);
             uiLabel15.TabIndex = 83;
-            uiLabel15.Text = "HI名称：";
+            uiLabel15.Text = "HIS名称：";
             uiLabel15.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("微软雅黑", 12F);
+            btnCancel.Location = new Point(720, 595);
+            btnCancel.MinimumSize = new Size(1, 1);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(85, 35);
+            btnCancel.Symbol = 361453;
+            btnCancel.TabIndex = 87;
+            btnCancel.TabStop = false;
+            btnCancel.Text = "取 消";
+            btnCancel.TipsFont = new Font("微软雅黑", 9F);
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnOK
+            // 
+            btnOK.Font = new Font("微软雅黑", 12F);
+            btnOK.Location = new Point(551, 595);
+            btnOK.MinimumSize = new Size(1, 1);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(85, 35);
+            btnOK.TabIndex = 86;
+            btnOK.Text = "提 交";
+            btnOK.TipsFont = new Font("微软雅黑", 9F);
+            btnOK.Click += btnOK_Click;
+            // 
+            // uiLine1
+            // 
+            uiLine1.BackColor = Color.Transparent;
+            uiLine1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLine1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLine1.Location = new Point(3, 560);
+            uiLine1.MinimumSize = new Size(1, 1);
+            uiLine1.Name = "uiLine1";
+            uiLine1.Size = new Size(885, 29);
+            uiLine1.TabIndex = 85;
             // 
             // FrmDrugEdit
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(891, 639);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            Controls.Add(uiLine1);
             Controls.Add(txtHISMC);
             Controls.Add(uiLabel15);
             Controls.Add(txtBZ);
@@ -590,46 +619,12 @@
             Controls.Add(txtJC);
             Controls.Add(uiLabel4);
             Controls.Add(uiLabel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmDrugEdit";
             Text = "新增药品";
+            TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
-            Controls.SetChildIndex(pnlBtm, 0);
-            Controls.SetChildIndex(uiLabel1, 0);
-            Controls.SetChildIndex(uiLabel4, 0);
-            Controls.SetChildIndex(txtJC, 0);
-            Controls.SetChildIndex(cbCJ, 0);
-            Controls.SetChildIndex(uiLabel5, 0);
-            Controls.SetChildIndex(txtQC, 0);
-            Controls.SetChildIndex(uiLabel6, 0);
-            Controls.SetChildIndex(txtKLM, 0);
-            Controls.SetChildIndex(uiLabel9, 0);
-            Controls.SetChildIndex(txtMD, 0);
-            Controls.SetChildIndex(uiLabel11, 0);
-            Controls.SetChildIndex(txtDL, 0);
-            Controls.SetChildIndex(uiLabel12, 0);
-            Controls.SetChildIndex(txtHISM, 0);
-            Controls.SetChildIndex(uiLabel2, 0);
-            Controls.SetChildIndex(txtLSJ, 0);
-            Controls.SetChildIndex(uiLabel3, 0);
-            Controls.SetChildIndex(txtGHJ, 0);
-            Controls.SetChildIndex(uiLabel7, 0);
-            Controls.SetChildIndex(txtJLSX, 0);
-            Controls.SetChildIndex(uiLabel8, 0);
-            Controls.SetChildIndex(txtDBZM, 0);
-            Controls.SetChildIndex(uiLabel10, 0);
-            Controls.SetChildIndex(txtSSBH, 0);
-            Controls.SetChildIndex(uiLabel13, 0);
-            Controls.SetChildIndex(txtMCQP, 0);
-            Controls.SetChildIndex(uiLabel14, 0);
-            Controls.SetChildIndex(txtMCJP, 0);
-            Controls.SetChildIndex(lblTM, 0);
-            Controls.SetChildIndex(txtBZTM, 0);
-            Controls.SetChildIndex(btnSB, 0);
-            Controls.SetChildIndex(uiLabel16, 0);
-            Controls.SetChildIndex(txtBZ, 0);
-            Controls.SetChildIndex(uiLabel15, 0);
-            Controls.SetChildIndex(txtHISMC, 0);
-            pnlBtm.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -669,5 +664,8 @@
         private Sunny.UI.UILabel uiLabel16;
         private Sunny.UI.UITextBox txtHISMC;
         private Sunny.UI.UILabel uiLabel15;
+        private Sunny.UI.UISymbolButton btnCancel;
+        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UILine uiLine1;
     }
 }

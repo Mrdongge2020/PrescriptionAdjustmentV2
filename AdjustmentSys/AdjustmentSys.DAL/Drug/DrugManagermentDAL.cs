@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AdjustmentSys.DAL.Drug
 {
@@ -27,7 +28,6 @@ namespace AdjustmentSys.DAL.Drug
         {
             string error = "";
             ParticlesInfo particlesInfo = new ParticlesInfo();
-            ParticlesInfoExtend particlesInfoExtend = new ParticlesInfoExtend();
 
             #region 逻辑校验
             if (drugInfo.ID != default(int))//编辑
@@ -39,8 +39,7 @@ namespace AdjustmentSys.DAL.Drug
                 }
 
                 particlesInfo = _eFCoreContext.ParticlesInfos.FirstOrDefault(x => x.ID == drugInfo.ID);
-                particlesInfoExtend = _eFCoreContext.ParticlesInfoExtends.FirstOrDefault(x => x.ParticlesID == drugInfo.ID);
-                if (particlesInfo == null || particlesInfoExtend == null)
+                if (particlesInfo == null)
                 {
                     return "未找到要编辑的药品信息，请刷新后再试";
                 }
@@ -70,16 +69,16 @@ namespace AdjustmentSys.DAL.Drug
             particlesInfo.UpdateName = SysLoginUser._currentUser.UserName;
 
             //赋值字典详情
-            particlesInfoExtend.HisCode = drugInfo.HisCode;
-            particlesInfoExtend.HisName = drugInfo.HisName;
-            particlesInfoExtend.Density = drugInfo.Density;
+            particlesInfo.HisCode = drugInfo.HisCode;
+            particlesInfo.HisName = drugInfo.HisName;
+            particlesInfo.Density = drugInfo.Density;
             var dc = _eFCoreContext.ManufacturerInfos.FirstOrDefault(x => x.ID == drugInfo.ManufacturerId)?.DensityCoefficient;
-            particlesInfoExtend.DensityCoefficient = dc.HasValue?dc.Value:1;
-            particlesInfoExtend.Equivalent = drugInfo.Equivalent;
-            particlesInfoExtend.DoseLimit = drugInfo.DoseLimit;
-            particlesInfoExtend.WholesalePrice = drugInfo.WholesalePrice;
-            particlesInfoExtend.RetailPrice = drugInfo.RetailPrice;
-            particlesInfoExtend.PackageNumber = drugInfo.PackageNumber;
+            particlesInfo.DensityCoefficient = dc.HasValue?dc.Value:1;
+            particlesInfo.Equivalent = drugInfo.Equivalent;
+            particlesInfo.DoseLimit = drugInfo.DoseLimit;
+            particlesInfo.WholesalePrice = drugInfo.WholesalePrice;
+            particlesInfo.RetailPrice = drugInfo.RetailPrice;
+            particlesInfo.PackageNumber = drugInfo.PackageNumber;
             //particlesInfoExtend.BatchNumber = drugInfo.BatchNumber;
             //particlesInfoExtend.VaildUntil = drugInfo.VaildUntil;
            
@@ -92,7 +91,6 @@ namespace AdjustmentSys.DAL.Drug
                     if (drugInfo.ID != default(int))
                     {
                         _eFCoreContext.ParticlesInfos.Update(particlesInfo);
-                        _eFCoreContext.ParticlesInfoExtends.Update(particlesInfoExtend);
                     }
                     else 
                     {
@@ -104,8 +102,6 @@ namespace AdjustmentSys.DAL.Drug
 
                         _eFCoreContext.ParticlesInfos.Add(particlesInfo);
                         _eFCoreContext.SaveChanges();
-                        particlesInfoExtend.ParticlesID = particlesInfo.ID;
-                        _eFCoreContext.ParticlesInfoExtends.Add(particlesInfoExtend);
                     }
 
                     _eFCoreContext.SaveChanges();
@@ -168,7 +164,6 @@ namespace AdjustmentSys.DAL.Drug
         public ParticlesInfoEditModel GetDrugInfo(int id)
         {
             var model = (from a in _eFCoreContext.ParticlesInfos
-                         join b in _eFCoreContext.ParticlesInfoExtends on a.ID equals b.ParticlesID
                          where a.ID == id
                          select new ParticlesInfoEditModel()
                          {
@@ -181,16 +176,16 @@ namespace AdjustmentSys.DAL.Drug
                              ListingNumber = a.ListingNumber,
                              ManufacturerId = a.ManufacturerId,
                              Remark = a.Remark,
-                             HisCode=b.HisCode,
-                             HisName=b.HisName,
-                             Density=b.Density,
-                             Equivalent=b.Equivalent,
-                             DoseLimit=b.DoseLimit,
-                             PackageNumber=b.PackageNumber,
+                             HisCode=a.HisCode,
+                             HisName=a.HisName,
+                             Density=a.Density,
+                             Equivalent=a.Equivalent,
+                             DoseLimit=a.DoseLimit,
+                             PackageNumber=a.PackageNumber,
                              //BatchNumber=b.BatchNumber,
                              //VaildUntil=b.VaildUntil,
-                             RetailPrice=b.RetailPrice,
-                             WholesalePrice=b.WholesalePrice
+                             RetailPrice=a.RetailPrice,
+                             WholesalePrice=a.WholesalePrice
                          }).FirstOrDefault();
             return model;
         }
@@ -208,7 +203,7 @@ namespace AdjustmentSys.DAL.Drug
                 .Where(x => 1==1);
 
             //关键字条件
-            if (!String.IsNullOrEmpty(keywords))
+            if (!string.IsNullOrEmpty(keywords))
             {
                 where = where.Where(x => (x.NameSimplifiedPinyin.Contains(keywords.ToUpper()) || x.Name.Contains(keywords) || x.FullName.Contains(keywords)));
             }
@@ -231,9 +226,6 @@ namespace AdjustmentSys.DAL.Drug
 
             //获取厂家
             var manufacturers = _eFCoreContext.ManufacturerInfos.AsNoTracking().ToList();
-            List<int> ids = list.Select(x => x.ID).ToList();
-
-            var extend= _eFCoreContext.ParticlesInfoExtends.AsNoTracking().Where(x=>ids.Contains(x.ParticlesID)).ToList();
 
             list.ForEach(item => {
                 var model = new ParticlesPageListModel();
@@ -251,25 +243,15 @@ namespace AdjustmentSys.DAL.Drug
                 {
                     model.ManufacturerName = manufacturers.FirstOrDefault(x => x.ID == item.ManufacturerId)?.Name;
                 }
-
-                //扩展信息赋值
-                var currentExtend = extend.FirstOrDefault(x => x.ParticlesID == item.ID);
-                if (currentExtend!=null) 
-                {
-                    model.Density = currentExtend.Density;
-                    model.Equivalent = currentExtend.Equivalent;
-                    model.DoseLimit = currentExtend.DoseLimit;
-                    model.WholesalePrice = currentExtend.WholesalePrice;
-                    model.RetailPrice = currentExtend.RetailPrice;
-                    model.PackageNumber = currentExtend.PackageNumber;
-                    model.HisCode = currentExtend.HisCode;
-                    model.HisName = currentExtend.HisName;
-                    //model.BatchNumber = currentExtend.BatchNumber;
-                    //model.VaildUntil = currentExtend.VaildUntil;
-                }
-                
-              
-                
+                model.Density = item.Density;
+                model.Equivalent = item.Equivalent;
+                model.DoseLimit = item.DoseLimit;
+                model.WholesalePrice = item.WholesalePrice;
+                model.RetailPrice = item.RetailPrice;
+                model.PackageNumber = item.PackageNumber;
+                model.HisCode = item.HisCode;
+                model.HisName = item.HisName;
+                   
                 resultList.Add(model);
             });
 
@@ -301,19 +283,74 @@ namespace AdjustmentSys.DAL.Drug
                                     c.Name as ManufacturerName,
                                     a.ListingNumber,
                                     a.Remark,
-                                    b.HisCode,
-                                    b.HisName,
-                                    b.Density,
-                                    b.Equivalent,
-                                    b.DoseLimit,
-                                    b.PackageNumber,
-                                    b.RetailPrice,
-                                    b.WholesalePrice
+                                    a.HisCode,
+                                    a.HisName,
+                                    a.Density,
+                                    a.Equivalent,
+                                    a.DoseLimit,
+                                    a.PackageNumber,
+                                    a.RetailPrice,
+                                    a.WholesalePrice
                             from ParticlesInfo as a
-                            join ParticlesInfoExtend as b on a.ID=b.ParticlesID
                             left join ManufacturerInfo as c on a.ManufacturerId=c.ID
                             order by a.NameSimplifiedPinyin ";
             return DBHelper.ExecuteQuery<ParticlesExportModel>(sql);
+        }
+
+        /// <summary>
+        /// 获取最大的颗粒ID
+        /// </summary>
+        /// <returns></returns>
+        public int Maxid() 
+        {
+            return _eFCoreContext.ParticlesInfos.Max(x => x.ID);
+        }
+
+        public List<ParticlesInfo> GetAllParticlesInfos() 
+        {
+            return _eFCoreContext.ParticlesInfos.ToList();
+        }
+        /// <summary>
+        /// 批量保存颗粒信息
+        /// </summary>
+        public string ImportPars(List<ParticlesInfo> particlesInfoList) 
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.ParticlesInfos.AddRange(particlesInfoList);
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                   return e.Message;
+                }
+            }
+        }
+
+        public string UpdateImportPars(List<ParticlesInfo> particlesInfoList)
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.ParticlesInfos.UpdateRange(particlesInfoList);
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                    return e.Message;
+                }
+            }
         }
     }
 }

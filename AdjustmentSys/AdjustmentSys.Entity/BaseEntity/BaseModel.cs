@@ -17,6 +17,7 @@ namespace AdjustmentSys.Entity.BaseEntity
         /// ID主键
         /// </summary>
         [Column("ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Required]
         public int ID { get; set; }

@@ -18,11 +18,12 @@ using System.Xml.Linq;
 
 namespace AdjustmentSysUI.Forms.Drug
 {
-    public partial class FrmDrugEdit : UIEditForm
+    public partial class FrmDrugEdit : UIForm
     {
         DrugManagermentBLL _drugManagermentBLL = new DrugManagermentBLL();
         ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
         private int _drugId;
+        public bool isSuccess = false;
         public FrmDrugEdit(int drugId)
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace AdjustmentSysUI.Forms.Drug
                     cbCJ.SelectedValue = drugModel.ManufacturerId;
                     txtJC.Text = drugModel.Name;
                     txtQC.Text = drugModel.FullName;
-                    txtKLM.Text = drugModel.Code;
+                    txtKLM.Text = drugModel.Code.ToString();
                     txtMD.Text = drugModel.Density.ToString();
                     txtDL.Text = drugModel.Equivalent.ToString();
                     txtMCJP.Text = drugModel.NameSimplifiedPinyin;
@@ -114,7 +115,7 @@ namespace AdjustmentSysUI.Forms.Drug
             particlesInfo.ManufacturerId = int.Parse(cbCJ.SelectedValue.ToString());
             particlesInfo.Name = txtJC.Text?.Trim();
             particlesInfo.FullName = txtQC.Text?.Trim();
-            particlesInfo.Code = txtKLM.Text?.Trim();
+            particlesInfo.Code = int.Parse(txtKLM.Text?.Trim());
             particlesInfo.Density = float.Parse(txtMD.Text?.Trim());
             particlesInfo.Equivalent = float.Parse(txtDL.Text?.Trim());
             particlesInfo.NameSimplifiedPinyin = txtMCJP.Text?.Trim();
@@ -133,7 +134,8 @@ namespace AdjustmentSysUI.Forms.Drug
             string msg = _drugManagermentBLL.AddOrEditDrugInfo(particlesInfo);
             if (msg == "")
             {
-                ShowSuccessTip((_drugId > 0 ? "编辑" : "新增") + "成功");
+                isSuccess = true;
+                //ShowSuccessTip((_drugId > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else
@@ -158,6 +160,12 @@ namespace AdjustmentSysUI.Forms.Drug
             if (string.IsNullOrEmpty(txtKLM.Text))
             {
                 ShowWarningDialog("异常提示", "颗粒码不能为空");
+                txtKLM.Focus();
+                return false;
+            }
+            if (txtKLM.Text.Length!=6 || !int.TryParse(txtKLM.Text,out int w))
+            {
+                ShowWarningDialog("异常提示", "颗粒码只能是6位正整数");
                 txtKLM.Focus();
                 return false;
             }

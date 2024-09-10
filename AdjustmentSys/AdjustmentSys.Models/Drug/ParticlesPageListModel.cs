@@ -21,7 +21,7 @@ namespace AdjustmentSys.Models.Drug
         /// <summary>
         /// 编号
         /// </summary>
-        public string Code { get; set; }
+        public int Code { get; set; }
         /// <summary>
         /// 名称简称
         /// </summary>

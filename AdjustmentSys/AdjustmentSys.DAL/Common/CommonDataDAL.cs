@@ -22,9 +22,8 @@ namespace AdjustmentSys.DAL.Common
         public  List<ParticlesInfoEditModel> GetCommonParticles(List<int> ids)
         {
             List<ParticlesInfoEditModel> result = new List<ParticlesInfoEditModel>();
-            string sql = @" select a.ID,a.Name,a.FullName,a.Code,a.NameFullPinyin,a.NameSimplifiedPinyin,a.ManufacturerId,a.ListingNumber,a.Remark,b.HisCode,b.HisName,b.Density,b.Equivalent,b.DoseLimit,b.PackageNumber,b.WholesalePrice,b.RetailPrice
-                        from ParticlesInfo as a
-                        left join ParticlesInfoExtend as b on a.ID=b.ParticlesID ";
+            string sql = @" select a.ID,a.Name,a.FullName,a.Code,a.NameFullPinyin,a.NameSimplifiedPinyin,a.ManufacturerId,a.ListingNumber,a.Remark,a.HisCode,a.HisName,a.Density,a.Equivalent,a.DoseLimit,a.PackageNumber,a.WholesalePrice,a.RetailPrice
+                        from ParticlesInfo as a ";
             if (ids != null && ids.Count > 0) 
             {
                 sql += " where a.ID in ("+string.Join(',', ids) +") ";
@@ -79,5 +78,13 @@ namespace AdjustmentSys.DAL.Common
             return list;
         }
 
+        /// <summary>
+        /// 获取所有厂家主信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ManufacturerInfo> GetManufacturerInfos()
+        {
+            return _eFCoreContext.ManufacturerInfos.ToList();
+        }
     }
 }

@@ -57,5 +57,14 @@ namespace AdjustmentSys.BLL.Common
         {
             return _commonDataDAL.GetAllDataPrescriptionDetails(preIds);
         }
+
+        /// <summary>
+        /// 获取所有厂家主信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ManufacturerInfo> GetManufacturerInfos() 
+        { 
+            return _commonDataDAL.GetManufacturerInfos();
+        }
     }
 }

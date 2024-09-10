@@ -16,7 +16,7 @@ namespace AdjustmentSys.Models.Drug
         /// 药品编码
         /// </summary>
         [Title(Titile = "药品编码")]
-        public string Code { get; set; }
+        public int Code { get; set; }
         /// <summary>
         /// 药品简称
         /// </summary>   
@@ -123,7 +123,7 @@ namespace AdjustmentSys.Models.Drug
         /// 药品编码
         /// </summary>
         [Title(Titile = "药品编码")]
-        public string Code { get; set; }
+        public int Code { get; set; }
         /// <summary>
         /// 药品简称
         /// </summary>   

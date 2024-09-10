@@ -33,7 +33,7 @@ namespace AdjustmentSys.Entity
         /// </summary>
         [Column("Code")]
         [MaxLength(20)]
-        public string Code { get; set; }
+        public int Code { get; set; }
         /// <summary>
         /// 名称简称全拼
         /// </summary>
@@ -63,6 +63,59 @@ namespace AdjustmentSys.Entity
         [Column("Remark")]
         [MaxLength(200)]
         public string? Remark { get; set; }
-        
+
+        /// <summary>
+        /// His码
+        /// </summary>
+        [Column("HisCode")]
+        [MaxLength(50)]
+        public string HisCode { get; set; }
+        /// <summary>
+        /// HIS名称
+        /// </summary>
+        [Column("HisName")]
+        [MaxLength(50)]
+        public string? HisName { get; set; }
+        /// <summary>
+        /// 颗粒密度
+        /// </summary>
+        [Column("Density")]
+        [Description("颗粒密度")]
+        public float Density { get; set; }
+        /// <summary>
+        /// 密度系数
+        /// </summary>
+        [Column("DensityCoefficient")]
+        public float? DensityCoefficient { get; set; }
+        /// <summary>
+        /// 颗粒当量
+        /// </summary>
+        [Column("Equivalent")]
+        [Description("颗粒当量")]
+        public float Equivalent { get; set; }
+        /// <summary>
+        /// 剂量上限
+        /// </summary>
+        [Column("DoseLimit")]
+        [MaxLength(50)]
+        public float? DoseLimit { get; set; }
+        /// <summary>
+        /// 大包装码
+        /// </summary>
+        [Column("PackageNumber")]
+        [MaxLength(20)]
+        public string? PackageNumber { get; set; }
+
+        /// <summary>
+        /// 批发价
+        /// </summary>
+        [Column("WholesalePrice")]
+        public decimal? WholesalePrice { get; set; }
+        /// <summary>
+        /// 零售价
+        /// </summary>
+        [Column("RetailPrice")]
+        public decimal? RetailPrice { get; set; }
+
     }
 }

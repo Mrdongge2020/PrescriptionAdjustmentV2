@@ -4,6 +4,7 @@ using AdjustmentSys.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdjustmentSys.EFCore.Migrations
 {
     [DbContext(typeof(EFCoreContext))]
-    partial class EFCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240909012112_MigrateDb017")]
+    partial class MigrateDb017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2047,46 +2050,12 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnName("CreateTime")
                         .HasComment("创建时间");
 
-                    b.Property<float>("Density")
-                        .HasColumnType("real")
-                        .HasColumnName("Density")
-                        .HasComment("颗粒密度");
-
-                    b.Property<float?>("DensityCoefficient")
-                        .HasColumnType("real")
-                        .HasColumnName("DensityCoefficient")
-                        .HasComment("密度系数");
-
-                    b.Property<float?>("DoseLimit")
-                        .HasMaxLength(50)
-                        .HasColumnType("real")
-                        .HasColumnName("DoseLimit")
-                        .HasComment("剂量上限");
-
-                    b.Property<float>("Equivalent")
-                        .HasColumnType("real")
-                        .HasColumnName("Equivalent")
-                        .HasComment("颗粒当量");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("FullName")
                         .HasComment("名称全称");
-
-                    b.Property<string>("HisCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("HisCode")
-                        .HasComment("His码");
-
-                    b.Property<string>("HisName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("HisName")
-                        .HasComment("HIS名称");
 
                     b.Property<string>("ListingNumber")
                         .HasMaxLength(50)
@@ -2120,22 +2089,11 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnName("NameSimplifiedPinyin")
                         .HasComment("名称简称首字母拼音");
 
-                    b.Property<string>("PackageNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("PackageNumber")
-                        .HasComment("大包装码");
-
                     b.Property<string>("Remark")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Remark")
                         .HasComment("备注");
-
-                    b.Property<decimal?>("RetailPrice")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("RetailPrice")
-                        .HasComment("零售价");
 
                     b.Property<int?>("UpdateBy")
                         .HasColumnType("int")
@@ -2153,6 +2111,74 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnName("UpdateTime")
                         .HasComment("更新时间");
 
+                    b.HasKey("ID");
+
+                    b.ToTable("ParticlesInfo", t =>
+                        {
+                            t.HasComment("颗粒信息表");
+                        });
+                });
+
+            modelBuilder.Entity("AdjustmentSys.Entity.ParticlesInfoExtend", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID")
+                        .HasComment("ID主键");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<float>("Density")
+                        .HasColumnType("real")
+                        .HasColumnName("Density")
+                        .HasComment("颗粒密度");
+
+                    b.Property<float?>("DensityCoefficient")
+                        .HasColumnType("real")
+                        .HasColumnName("DensityCoefficient")
+                        .HasComment("密度系数");
+
+                    b.Property<float?>("DoseLimit")
+                        .HasMaxLength(50)
+                        .HasColumnType("real")
+                        .HasColumnName("DoseLimit")
+                        .HasComment("剂量上限");
+
+                    b.Property<float>("Equivalent")
+                        .HasColumnType("real")
+                        .HasColumnName("Equivalent")
+                        .HasComment("颗粒当量");
+
+                    b.Property<string>("HisCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("HisCode")
+                        .HasComment("His码");
+
+                    b.Property<string>("HisName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("HisName")
+                        .HasComment("HIS名称");
+
+                    b.Property<string>("PackageNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("PackageNumber")
+                        .HasComment("大包装码");
+
+                    b.Property<int>("ParticlesID")
+                        .HasColumnType("int")
+                        .HasColumnName("ParticlesID")
+                        .HasComment("颗粒id");
+
+                    b.Property<decimal?>("RetailPrice")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("RetailPrice")
+                        .HasComment("零售价");
+
                     b.Property<decimal?>("WholesalePrice")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("WholesalePrice")
@@ -2160,9 +2186,9 @@ namespace AdjustmentSys.EFCore.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ParticlesInfo", t =>
+                    b.ToTable("ParticlesInfoExtend", t =>
                         {
-                            t.HasComment("颗粒信息表");
+                            t.HasComment("颗粒详情信息");
                         });
                 });
 

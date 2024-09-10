@@ -125,10 +125,6 @@ namespace AdjustmentSys.EFCore
         /// 颗粒字典信息
         /// </summary>
         public DbSet<ParticlesInfo> ParticlesInfos { get; set; }
-        /// <summary>
-        /// 颗粒字典详情信息
-        /// </summary>
-        public DbSet<ParticlesInfoExtend> ParticlesInfoExtends { get; set; }
 
         /// <summary>
         /// 颗粒相融规则
