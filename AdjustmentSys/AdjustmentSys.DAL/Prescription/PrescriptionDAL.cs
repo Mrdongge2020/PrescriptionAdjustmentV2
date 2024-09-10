@@ -259,7 +259,7 @@ namespace AdjustmentSys.DAL.Prescription
             string sql = $@"select a.ID
                                   ,b.Name as ParName
                                   ,b.Code as ParCode
-                                  ,c.DoseLimit
+                                  ,b.DoseLimit
                                   ,ParticleOrder
                                   ,ParticlesNameHIS
                                   ,ParticlesCodeHIS
@@ -271,9 +271,8 @@ namespace AdjustmentSys.DAL.Prescription
                                   ,Price
                             from {tableName} as a
                             left join ParticlesInfo as b on  a.ParticlesID=b.ID 
-                            left join ParticlesInfoExtend as c on a.ParticlesID=c.ParticlesID
                             where a.PrescriptionID='{prescriptionID}'
-                            order by ParticleOrder asc ";
+                            order by a.ParticleOrder asc ";
 
             List<PrescriptionDetailModel> result = DBHelper.ExecuteQuery<PrescriptionDetailModel>(sql);
             if (result==null) 
@@ -325,10 +324,9 @@ namespace AdjustmentSys.DAL.Prescription
         /// <returns></returns>
         public ParticlesInfoModel GetParticlesInfo(int parId) 
         {
-            string sql = $@" select a.ID,a.Name as ParName,HisCode,a.Code,b.Equivalent,DoseLimit,RetailPrice
-                        from ParticlesInfo as a
-                        left join ParticlesInfoExtend as b on a.ID=b.ParticlesID
-                        where a.ID={parId} ";
+            string sql = $@" select ID,Name as ParName,HisCode,Code,Equivalent,DoseLimit,RetailPrice
+                        from ParticlesInfo 
+                        where ID={parId} ";
             ParticlesInfoModel particlesInfoModel= DBHelper.ExecuteQueryOne<ParticlesInfoModel>(sql);
             if (particlesInfoModel == null)
             {
@@ -547,9 +545,9 @@ namespace AdjustmentSys.DAL.Prescription
 	                                 a.ID,
 	                                 b.Name as ParName,
 							         b.Code as ParCode,
-							         c.DoseLimit,
-							         c.HisName as ParticlesNameHIS,
-							         c.HisCode as ParticlesCodeHIS,
+							         b.DoseLimit,
+							         b.HisName as ParticlesNameHIS,
+							         b.HisCode as ParticlesCodeHIS,
 							         a.ParticlesID,
 	                                 a.DoseHerb,
 	                                 a.Equivalent,
@@ -557,7 +555,6 @@ namespace AdjustmentSys.DAL.Prescription
 	                                 a.Price
                              from AgreementPrescriptionDetail as a
                              left join ParticlesInfo as b on a.ParticlesId=b.ID  
-							 left join ParticlesInfoExtend as c on b.ID=c.ParticlesID
                              where  a.AgreementPrescriptionId={agreementPrescriptionId} ";
 
             return DBHelper.ExecuteQuery<PrescriptionDetailModel>(sql);

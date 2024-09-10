@@ -581,7 +581,7 @@
             // btnOK
             // 
             btnOK.Enabled = false;
-            btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Font = new Font("微软雅黑", 12F);
             btnOK.Location = new Point(1106, 468);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
@@ -594,7 +594,7 @@
             // btnSayOK
             // 
             btnSayOK.Enabled = false;
-            btnSayOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSayOK.Font = new Font("微软雅黑", 12F);
             btnSayOK.Location = new Point(1106, 513);
             btnSayOK.MinimumSize = new Size(1, 1);
             btnSayOK.Name = "btnSayOK";
@@ -606,7 +606,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Font = new Font("微软雅黑", 12F);
             btnCancel.Location = new Point(1106, 557);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";

@@ -29,7 +29,7 @@ namespace AdjustmentSys.Models.Prescription
         /// <summary>
         /// 药品编码
         /// </summary>
-        public string Code { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
         /// 当量

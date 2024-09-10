@@ -28,7 +28,7 @@ namespace AdjustmentSysUI.Forms
             //TestFile();
             InitializeComponent();
             int pageIndex = 100;
-            TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 362718, 28, pageIndex);
+            TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
 
             pageIndex = 200;
@@ -61,7 +61,7 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmAgreementPrescriptionManager(), ++pageIndex));
 
             pageIndex = 700;
-            parent = navMenuMainLeft.CreateNode("系统设置", 361788, 28, pageIndex);
+            parent = navMenuMainLeft.CreateNode("系统设置", 363449, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSystemParameter(), ++pageIndex));
 
             //登录用户信息

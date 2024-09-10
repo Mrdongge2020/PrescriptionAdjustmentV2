@@ -287,6 +287,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             rectangle,
             dgvList.RowHeadersDefaultCellStyle.ForeColor,
             TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+            dgvList.RowHeadersDefaultCellStyle.Padding = new Padding(dgvList.RowHeadersWidth);// 去掉行头三角号
         }
     }
 }

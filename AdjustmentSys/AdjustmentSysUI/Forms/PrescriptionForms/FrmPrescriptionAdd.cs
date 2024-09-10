@@ -437,6 +437,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             rectangle,
             dgvDurgList.RowHeadersDefaultCellStyle.ForeColor,
             TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+            dgvDurgList.RowHeadersDefaultCellStyle.Padding = new Padding(dgvDurgList.RowHeadersWidth);// 去掉行头三角号
         }
 
         private void btnSavePre_Click(object sender, EventArgs e)

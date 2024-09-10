@@ -15,7 +15,7 @@ namespace AdjustmentSys.Models.MedicineCabinet
         /// <summary>
         /// 颗粒编码
         /// </summary>
-        public string ParticleCode { get; set; }
+        public int ParticleCode { get; set; }
 
         /// <summary>
         /// 效期至
