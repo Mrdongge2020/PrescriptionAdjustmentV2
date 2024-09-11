@@ -156,7 +156,8 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvList.ColumnHeadersHeight = 32;
+            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.ContextMenuStrip = cmsRightKeyMenu;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = Color.Transparent;
@@ -227,33 +228,33 @@
             cmsOpterData.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsOpterData.Items.AddRange(new ToolStripItem[] { 上药ToolStripMenuItem, 余量调整ToolStripMenuItem, 库存设置ToolStripMenuItem, 有效期查询ToolStripMenuItem });
             cmsOpterData.Name = "cmsOpterData";
-            cmsOpterData.Size = new Size(181, 130);
+            cmsOpterData.Size = new Size(161, 108);
             // 
             // 上药ToolStripMenuItem
             // 
             上药ToolStripMenuItem.Name = "上药ToolStripMenuItem";
-            上药ToolStripMenuItem.Size = new Size(180, 26);
+            上药ToolStripMenuItem.Size = new Size(160, 26);
             上药ToolStripMenuItem.Text = "上药";
             上药ToolStripMenuItem.Click += 上药ToolStripMenuItem_Click;
             // 
             // 余量调整ToolStripMenuItem
             // 
             余量调整ToolStripMenuItem.Name = "余量调整ToolStripMenuItem";
-            余量调整ToolStripMenuItem.Size = new Size(180, 26);
+            余量调整ToolStripMenuItem.Size = new Size(160, 26);
             余量调整ToolStripMenuItem.Text = "余量调整";
             余量调整ToolStripMenuItem.Click += 余量调整ToolStripMenuItem_Click;
             // 
             // 库存设置ToolStripMenuItem
             // 
             库存设置ToolStripMenuItem.Name = "库存设置ToolStripMenuItem";
-            库存设置ToolStripMenuItem.Size = new Size(180, 26);
+            库存设置ToolStripMenuItem.Size = new Size(160, 26);
             库存设置ToolStripMenuItem.Text = "库存设置";
             库存设置ToolStripMenuItem.Click += 库存设置ToolStripMenuItem_Click;
             // 
             // 有效期查询ToolStripMenuItem
             // 
             有效期查询ToolStripMenuItem.Name = "有效期查询ToolStripMenuItem";
-            有效期查询ToolStripMenuItem.Size = new Size(180, 26);
+            有效期查询ToolStripMenuItem.Size = new Size(160, 26);
             有效期查询ToolStripMenuItem.Text = "查看有效期";
             有效期查询ToolStripMenuItem.Click += 有效期查询ToolStripMenuItem_Click;
             // 
@@ -269,25 +270,29 @@
             // 
             导出颗粒余量Excel文件ToolStripMenuItem.Name = "导出颗粒余量Excel文件ToolStripMenuItem";
             导出颗粒余量Excel文件ToolStripMenuItem.Size = new Size(256, 26);
-            导出颗粒余量Excel文件ToolStripMenuItem.Text = "导出颗粒余量(Excel文件)";
+            导出颗粒余量Excel文件ToolStripMenuItem.Text = "导出颗粒库存(Excel文件)";
+            导出颗粒余量Excel文件ToolStripMenuItem.Click += 导出颗粒余量Excel文件ToolStripMenuItem_Click;
             // 
             // 导出颗粒位置Excel文件ToolStripMenuItem
             // 
             导出颗粒位置Excel文件ToolStripMenuItem.Name = "导出颗粒位置Excel文件ToolStripMenuItem";
             导出颗粒位置Excel文件ToolStripMenuItem.Size = new Size(256, 26);
             导出颗粒位置Excel文件ToolStripMenuItem.Text = "导出颗粒位置(Excel文件)";
+            导出颗粒位置Excel文件ToolStripMenuItem.Click += 导出颗粒位置Excel文件ToolStripMenuItem_Click;
             // 
             // 导入颗粒余量Excel文件ToolStripMenuItem
             // 
             导入颗粒余量Excel文件ToolStripMenuItem.Name = "导入颗粒余量Excel文件ToolStripMenuItem";
             导入颗粒余量Excel文件ToolStripMenuItem.Size = new Size(256, 26);
-            导入颗粒余量Excel文件ToolStripMenuItem.Text = "导入颗粒余量(Excel文件)";
+            导入颗粒余量Excel文件ToolStripMenuItem.Text = "导入颗粒库存(Excel文件)";
+            导入颗粒余量Excel文件ToolStripMenuItem.Click += 导入颗粒余量Excel文件ToolStripMenuItem_Click;
             // 
             // 导入颗粒位置Excel文件ToolStripMenuItem
             // 
             导入颗粒位置Excel文件ToolStripMenuItem.Name = "导入颗粒位置Excel文件ToolStripMenuItem";
             导入颗粒位置Excel文件ToolStripMenuItem.Size = new Size(256, 26);
             导入颗粒位置Excel文件ToolStripMenuItem.Text = "导入颗粒位置(Excel文件)";
+            导入颗粒位置Excel文件ToolStripMenuItem.Click += 导入颗粒位置Excel文件ToolStripMenuItem_Click;
             // 
             // FrmMedicineCabinetManage
             // 

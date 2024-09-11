@@ -204,43 +204,8 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
                 ShowWarningDialog("导出提示", "要导出的药品信息不存在");
                 return;
             }
-            ExportParticles(exportDatas.ToList<object>());
-        }
-
-        private void ExportParticles(List<object>? list)
-        {
-            //组装生成工作簿参数
-            List<ExcelDataResource> excelDataResources = new List<ExcelDataResource>()
-            {
-                new ExcelDataResource ()
-                {
-                    SheetName="药品信息",
-                    TitleIndex=1,
-                    SheetDataResource=list
-                }
-            };
-
-            //生成工作簿
-            IWorkbook workbook1 = ExcelOperationHelper.DataToHSSFWorkbook(excelDataResources);
-
-            //导出操作
-            SaveFileDialog objSaveFileDialog = new SaveFileDialog();
-            objSaveFileDialog.Filter = @"Excel (*.xls)|*.xls";//@"Excel2007文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls";
-            objSaveFileDialog.Title = "请选择保存位置";
-            objSaveFileDialog.FileName = "药品信息" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (objSaveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    //导出excel文件，提示文件地址
-                    string exportMsg = ExcelOperationHelper.ExportWorkbookToLocal(workbook1, objSaveFileDialog.FileName);
-                    MessageBox.Show(exportMsg, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"导出失败:<{ex.Message}>", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            ExcelOpterUI excelOpterUI = new ExcelOpterUI();
+            excelOpterUI.ExportSinglePage(exportDatas.ToList<object>(), "药品字典信息");
         }
 
         private void btnOpterDropDown_Click(object sender, EventArgs e)

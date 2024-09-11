@@ -138,5 +138,59 @@ namespace AdjustmentSys.DAL.MedicineCabinet
             }
            return  DBHelper.ExecuteNonQuery(sql);
         }
+
+        /// <summary>
+        /// 获取颗粒位置导出信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticlesPositionExcelModel> GetParticlesPosition() 
+        {
+            string sql = @" select a.MedicineCabinetId,b.Code,b.Name as ParName,a.CoordinateX,a.CoordinateY
+                            from MedicineCabinetDetail as a
+                            left join ParticlesInfo as b on a.ParticlesID=b.ID
+                            left join MedicineCabinetInfo as c on c.ID=a.MedicineCabinetId
+                            where  c.Code='"+SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode+"'"+
+                            "order by a.CoordinateX,a.CoordinateY ";
+            return DBHelper.ExecuteQuery<ParticlesPositionExcelModel>(sql);
+        }
+
+        /// <summary>
+        /// 获取颗粒库存导出信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticlesStockExcelModel> GetParticlesStock()
+        {
+            string sql = @" select a.MedicineCabinetId,a.ParticlesID,b.Code,b.Name as ParName,a.Stock 
+                            from MedicineCabinetDetail as a
+                            left join ParticlesInfo as b on a.ParticlesID=b.ID
+                            left join MedicineCabinetInfo as c on c.ID=a.MedicineCabinetId
+                            where a.ParticlesID is not null and a.ParticlesID>0 and c.Code='"+SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode+"' ";
+            return DBHelper.ExecuteQuery<ParticlesStockExcelModel>(sql);
+        }
+
+        /// <summary>
+        /// 批量更新药柜详情信息
+        /// </summary>
+        /// <param name="medicineCabinetDetailList"></param>
+        /// <returns></returns>
+        public string UpdateRangeCabinetDetails(List<MedicineCabinetDetail> medicineCabinetDetailList)
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.MedicineCabinetDetails.UpdateRange(medicineCabinetDetailList);
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                    return e.Message;
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.Common.Tool;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSysUI.UITool;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NPOI.POIFS.FileSystem;
 using NPOI.SS.Formula.Functions;
@@ -24,6 +26,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
     {
         DrugManagermentBLL _drugManagermentBLL = new DrugManagermentBLL();
         List<ErrorParticlesExportModel> ErrorParticlesExportList = new List<ErrorParticlesExportModel>();
+        ExcelOpterUI excelOpterUI = new ExcelOpterUI();
         public FrmDurgExcelInfoShow()
         {
             InitializeComponent();
@@ -31,83 +34,21 @@ namespace AdjustmentSysUI.Forms.DrugForms
         }
         private void btnOpenExcel_Click(object sender, EventArgs e)
         {
-            ErrorParticlesExportList.Clear();
-            OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.Title = "选择要打开的Excel源文件.";
-            string FilePath = "";
-            OpenFile.Filter = @"Excel Files (*.xls, *.xlsx, *.xlsm)|*.xls;*.xlsx;*.xlsm";
-            if (OpenFile.ShowDialog() == DialogResult.OK)
+            if (ErrorParticlesExportList != null && ErrorParticlesExportList.Count > 0)
             {
-                FilePath = OpenFile.FileName;
-            }
-            else
-            {
-                return;
+                ErrorParticlesExportList.Clear();
             }
 
-            IWorkbook wb;
-            using (FileStream file = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            ErrorParticlesExportList = excelOpterUI.GetExcelData<ErrorParticlesExportModel>();
+            dgvList.DataSource = ErrorParticlesExportList;
+            if (ErrorParticlesExportList!=null && ErrorParticlesExportList.Count>0)
             {
-                wb = WorkbookFactory.Create(file);
+                btnCheckData.Enabled = true;
             }
-            //将excel数据读取到datatable
-            List<DataTable> dataTables = ExcelOperationHelper.ToExcelDateTable(wb);
-            if (dataTables != null && dataTables.Count > 0)
+            else 
             {
-                #region 转换excel数据
-
-                foreach (DataRow row in dataTables[0].Rows)
-                {
-                    ErrorParticlesExportModel errorParticlesExportModel = new ErrorParticlesExportModel();
-                    Type type = typeof(ErrorParticlesExportModel);
-                    foreach (PropertyInfo propertyInfo in type.GetProperties())
-                    {
-                        // 获取属性上的特定特性
-                        TitleAttribute titleAttribute = propertyInfo.GetCustomAttribute<TitleAttribute>();
-                        string cellValue = "";
-                        if (titleAttribute != null && dataTables[0].Columns.Contains(titleAttribute.Titile))
-                        {
-                            cellValue = row[titleAttribute.Titile].ToString();
-
-                        }
-                        if (propertyInfo != null)
-                        {
-                            if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
-                            {
-                                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !int.TryParse(cellValue, out int number) ? 0 : Convert.ToInt32(cellValue));
-                            }
-                            else if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
-                            {
-                                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !decimal.TryParse(cellValue, out decimal number) ? 0 : Convert.ToDecimal(cellValue));
-                            }
-                            else if (propertyInfo.PropertyType == typeof(float) || propertyInfo.PropertyType == typeof(float?))
-                            {
-                                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !float.TryParse(cellValue, out float number) ? 0 : float.Parse(cellValue));
-                            }
-                            else if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
-                            {
-                                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !DateTime.TryParse(cellValue, out DateTime dt) ? default(DateTime) : Convert.ToDateTime(cellValue));
-                            }
-                            else
-                            {
-                                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) ? null : cellValue.ToString().Trim());
-                            }
-                        }
-                    }
-                    ErrorParticlesExportList.Add(errorParticlesExportModel);
-                }
-                #endregion
-
-                dgvList.DataSource = ErrorParticlesExportList;
-                if (ErrorParticlesExportList.Any())
-                {
-                    btnCheckData.Enabled = true;
-                }
-            }
-            else
-            {
-                dgvList.DataSource = null;
                 btnCheckData.Enabled = false;
+                ShowWarningDialog("导入提示", "未找到合规的药品信息。");
             }
 
             btnConfimImport.Enabled = false;
@@ -145,44 +86,6 @@ namespace AdjustmentSysUI.Forms.DrugForms
                 ShowWarningDialog("校验提示", "要校验的药品信息不存在");
                 return;
             }
-
-            //List<ErrorParticlesExportModel> excelDatas = new List<ErrorParticlesExportModel>();
-            //foreach (DataGridViewRow row in dgvList.Rows)
-            //{
-            //    ErrorParticlesExportModel errorParticlesExportModel = new ErrorParticlesExportModel();
-
-            //    Type type = typeof(ErrorParticlesExportModel);
-            //    foreach (DataGridViewCell cell in row.Cells)
-            //    {
-            //        var cellValue = cell.Value.ToString();
-            //        PropertyInfo propertyInfo = type.GetProperty(cell.OwningColumn.Name);
-            //        if (propertyInfo != null) 
-            //        {
-            //            if (propertyInfo.PropertyType == typeof(int) || propertyInfo.PropertyType == typeof(int?))
-            //            {
-            //                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !int.TryParse(cellValue, out int number)? 0 : Convert.ToInt32(cellValue));
-            //            }
-            //            else if (propertyInfo.PropertyType == typeof(decimal) || propertyInfo.PropertyType == typeof(decimal?))
-            //            {
-            //                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !decimal.TryParse(cellValue, out decimal number) ? 0 : Convert.ToDecimal(cellValue));
-            //            }
-            //            else if (propertyInfo.PropertyType == typeof(float) || propertyInfo.PropertyType == typeof(float?))
-            //            {
-            //                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !float.TryParse(cellValue, out float number) ? 0 :float.Parse(cellValue));
-            //            }
-            //            else if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
-            //            {
-            //                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) || !DateTime.TryParse(cellValue, out DateTime dt) ? default(DateTime) : Convert.ToDateTime(cellValue));
-            //            }
-            //            else
-            //            {
-            //                propertyInfo.SetValue(errorParticlesExportModel, string.IsNullOrEmpty(cellValue) ? null : cellValue.ToString().Trim());
-            //            }
-            //        }
-            //    }
-
-            //    excelDatas.Add(errorParticlesExportModel);
-            //}
             ErrorParticlesExportList = _drugManagermentBLL.CheckAllParticlesImport(ErrorParticlesExportList);
 
             if (ErrorParticlesExportList == null || ErrorParticlesExportList.Count == 0)
@@ -208,43 +111,12 @@ namespace AdjustmentSysUI.Forms.DrugForms
         private void btnLoadErroeData_Click(object sender, EventArgs e)
         {
             var exportDatas= ErrorParticlesExportList.Where(x => x.IsPassed != "通过").ToList();
-            if (!exportDatas.Any()) 
+            if (exportDatas==null || !exportDatas.Any()) 
             {
                 ShowWarningDialog("导出提示", "要导出的异常药品信息不存在");
                 return;
             }
-            //组装生成工作簿参数
-            List<ExcelDataResource> excelDataResources = new List<ExcelDataResource>()
-            {
-                new ExcelDataResource ()
-                {
-                    SheetName="异常药品信息",
-                    TitleIndex=1,
-                    SheetDataResource=exportDatas.ToList<object>()
-                }
-            };
-
-            //生成工作簿
-            IWorkbook workbook1 = ExcelOperationHelper.DataToHSSFWorkbook(excelDataResources);
-
-            //导出操作
-            SaveFileDialog objSaveFileDialog = new SaveFileDialog();
-            objSaveFileDialog.Filter = @"Excel (*.xls)|*.xls";//@"Excel2007文件(*.xlsx)|*.xlsx|Excel2003文件(*.xls)|*.xls";
-            objSaveFileDialog.Title = "请选择保存位置";
-            objSaveFileDialog.FileName = "异常药品信息" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (objSaveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    //导出excel文件，提示文件地址
-                    string exportMsg = ExcelOperationHelper.ExportWorkbookToLocal(workbook1, objSaveFileDialog.FileName);
-                    MessageBox.Show(exportMsg, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"导出失败:<{ex.Message}>", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            excelOpterUI.ExportSinglePage(exportDatas.ToList<object>(), "异常药品信息");
         }
     }
 }

@@ -80,6 +80,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvList.ColumnHeadersHeight = 32;
+            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.Columns.AddRange(new DataGridViewColumn[] { Code, ParName, FullName, NameSimplifiedPinyin, NameFullPinyin, ManufacturerId, ManufacturerName, HisCode, HisName, Density, Equivalent, DoseLimit, PackageNumber, WholesalePrice, RetailPrice, ListingNumber, Remark });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;

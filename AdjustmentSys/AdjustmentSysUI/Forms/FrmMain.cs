@@ -66,6 +66,7 @@ namespace AdjustmentSysUI.Forms
 
             //登录用户信息
             lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;
+        
         }
 
         private void timerRight_Tick(object sender, EventArgs e)

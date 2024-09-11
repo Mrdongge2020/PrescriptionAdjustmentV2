@@ -3,6 +3,7 @@ using AdjustmentSys.BLL.MedicineCabinet;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSysUI.UITool;
 using Microsoft.Identity.Client.NativeInterop;
 using Microsoft.VisualBasic.Devices;
 using Sunny.UI;
@@ -390,6 +391,44 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             FrmStockSet frmStockSet = new FrmStockSet();
             frmStockSet.ShowDialog();
+        }
+
+        private void 导出颗粒位置Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var positionInfos = _medicineCabinetDrugManageBLL.GetParticlesPosition();
+            if (positionInfos == null || positionInfos.Count <= 0)
+            {
+                ShowWarningDialog("需要导出的颗粒位置信息不存在");
+                return;
+            }
+
+            ExcelOpterUI excelOpterUI = new ExcelOpterUI();
+            excelOpterUI.ExportSinglePage(positionInfos.ToList<object>(), "药柜颗粒位置");
+        }
+
+        private void 导出颗粒余量Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var stockInfos = _medicineCabinetDrugManageBLL.GetParticlesStock();
+            if (stockInfos == null || stockInfos.Count <= 0)
+            {
+                ShowWarningDialog("需要导出的颗粒库存信息不存在");
+                return;
+            }
+
+            ExcelOpterUI excelOpterUI = new ExcelOpterUI();
+            excelOpterUI.ExportSinglePage(stockInfos.ToList<object>(), "药柜颗粒库存");
+        }
+
+        private void 导入颗粒余量Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMedicineCabinetParticImport frmMedicineCabinetParticImport = new FrmMedicineCabinetParticImport(1);
+            frmMedicineCabinetParticImport.ShowDialog();
+        }
+
+        private void 导入颗粒位置Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMedicineCabinetParticImport frmMedicineCabinetParticImport = new FrmMedicineCabinetParticImport(2);
+            frmMedicineCabinetParticImport.ShowDialog();
         }
     }
 }

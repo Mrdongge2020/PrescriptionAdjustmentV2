@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.Common.Tool;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSysUI.UITool;
 using NPOI.SS.UserModel;
 using Sunny.UI;
 using System;
@@ -18,6 +19,8 @@ namespace AdjustmentSysUI.Forms.DrugForms
     public partial class FrmParticleDataMate : UIForm
     {
         DrugManagermentBLL _drugManagermentBLL = new DrugManagermentBLL();
+        List<ParticlesMateModel> particlesMateList = new List<ParticlesMateModel>();
+        ExcelOpterUI excelOpterUI = new ExcelOpterUI();
         public FrmParticleDataMate()
         {
             InitializeComponent();
@@ -25,51 +28,20 @@ namespace AdjustmentSysUI.Forms.DrugForms
 
         private void btnOpenExcel_Click(object sender, EventArgs e)
         {
-            OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.Title = "选择要打开的Excel源文件.";
-            string FilePath = "";
-            OpenFile.Filter = @"Excel Files (*.xls, *.xlsx, *.xlsm)|*.xls;*.xlsx;*.xlsm";
-            if (OpenFile.ShowDialog() == DialogResult.OK)
+            if (particlesMateList!=null && particlesMateList.Count>0)
             {
-                FilePath = OpenFile.FileName;
+                particlesMateList.Clear();
+            }
+            particlesMateList = excelOpterUI.GetExcelData<ParticlesMateModel>();
+            dgvList.DataSource = particlesMateList;
+            if (particlesMateList!=null && particlesMateList.Count>0)
+            {
+                btnConfimImport.Enabled = true;
             }
             else
             {
-                return;
-            }
-
-            IWorkbook wb;
-            using (FileStream file = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                wb = WorkbookFactory.Create(file);
-            }
-
-            List<DataTable> dataTables = ExcelOperationHelper.ToExcelDateTable(wb);
-            if (dataTables != null && dataTables.Count > 0)
-            {
-                List<ParticlesMateModel> particlesMateList = new List<ParticlesMateModel>();
-                foreach (DataRow row in dataTables[0].Rows) 
-                {
-                    ParticlesMateModel particlesMateModel = new ParticlesMateModel();
-                    particlesMateModel.ParName = row["药品简称"].ToString();
-                    particlesMateModel.HisCode = row["HIS编码"].ToString(); 
-                    particlesMateModel.ManufacturerName = row["厂家名称"].ToString();
-                    particlesMateModel.Density = float.TryParse(row["密度"].ToString(), out float i) ? i : 0;
-                    particlesMateModel.Equivalent = float.TryParse(row["当量"].ToString(), out float j) ? j : 0; 
-                    particlesMateModel.PackageNumber = row["包装码"].ToString();
-                    particlesMateList.Add(particlesMateModel);
-                }
-               
-                dgvList.DataSource = particlesMateList;
-                if (particlesMateList!=null && particlesMateList.Count>0) 
-                { 
-                    btnConfimImport.Enabled = true;
-                }
-            }
-            else
-            {
-                dgvList.DataSource = null;
                 btnConfimImport.Enabled = false;
+                ShowWarningDialog("导入提示", "未找到合规的药品匹配信息。");
             }
         }
 
@@ -106,27 +78,15 @@ namespace AdjustmentSysUI.Forms.DrugForms
                 ShowWarningDialog("导入提示", "请先选择要匹配的字段");
                 return;
             }
-            if (!ShowAskDialog("匹配提示", $"确定要根据药品简称匹配[{string.Join(",", fieldstrings)}]数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!ShowAskDialog("匹配提示", $"确定要根据药品简称匹配已选中的字段数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
-            List<ParticlesMateModel> particlesMateList = new List<ParticlesMateModel>();
-            foreach (DataGridViewRow row in dgvList.Rows)
-            {
-                ParticlesMateModel particlesMateModel = new ParticlesMateModel();
-                particlesMateModel.ParName=row.Cells["ParName"].Value.ToString();
-                particlesMateModel.HisCode = row.Cells["HisCode"].Value.ToString();
-                particlesMateModel.ManufacturerName = row.Cells["ManufacturerName"].Value.ToString();
-                particlesMateModel.Density =float.TryParse(row.Cells["Density"].Value.ToString(),out float i)?i:0;
-                particlesMateModel.Equivalent = float.TryParse(row.Cells["Equivalent"].Value.ToString(), out float j) ? j : 0;
-                particlesMateModel.PackageNumber = row.Cells["PackageNumber"].Value.ToString();
-                particlesMateList.Add(particlesMateModel);
-            }
+            
             var msg= _drugManagermentBLL.MateParticlesImport(particlesMateList, fieldstrings);
             if (msg=="") 
             {
                 ShowSuccessTip("导入数据成功");
-                //dgvList.DataSource = null;
                 btnConfimImport.Enabled = false;
                 uiCheckBoxGroup1.UnSelectAll();
             }
@@ -135,7 +95,5 @@ namespace AdjustmentSysUI.Forms.DrugForms
                 ShowErrorDialog("导入数据失败,原因:" + msg);
             }
         }
-
-       
     }
 }
