@@ -308,8 +308,7 @@
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Symbol = 361451;
-            Text = "药柜管理";
+            Text = "药柜管理>>药柜颗粒管理";
             TitleFillColor = Color.FromArgb(80, 160, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmMedicineCabinetManage_Load;

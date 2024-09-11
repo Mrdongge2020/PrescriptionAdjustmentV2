@@ -169,8 +169,8 @@
             Name = "FrmDevice";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Symbol = 558167;
-            Text = "设备信息";
+            Text = "设备管理>>设备信息管理";
+            TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmDevice_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);

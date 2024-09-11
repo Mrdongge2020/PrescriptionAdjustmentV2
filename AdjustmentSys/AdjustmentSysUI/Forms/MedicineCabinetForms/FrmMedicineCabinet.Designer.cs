@@ -169,8 +169,8 @@
             Name = "FrmMedicineCabinet";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Symbol = 358756;
-            Text = "药柜信息";
+            Text = "药柜管理>>药柜信息管理";
+            TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmMedicineCabinet_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);

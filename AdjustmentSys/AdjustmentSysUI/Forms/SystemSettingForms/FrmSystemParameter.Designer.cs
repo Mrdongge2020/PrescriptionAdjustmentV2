@@ -269,7 +269,7 @@
             Name = "FrmSystemParameter";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "系统参数";
+            Text = "系统设置>>系统参数设置";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmSystemParameter_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();

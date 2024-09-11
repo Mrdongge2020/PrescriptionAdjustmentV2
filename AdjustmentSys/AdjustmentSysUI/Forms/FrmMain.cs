@@ -63,6 +63,8 @@ namespace AdjustmentSysUI.Forms
             pageIndex = 700;
             parent = navMenuMainLeft.CreateNode("系统设置", 363449, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSystemParameter(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex));
+            
 
             //登录用户信息
             lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;

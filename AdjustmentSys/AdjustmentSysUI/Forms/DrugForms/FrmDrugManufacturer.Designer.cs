@@ -933,8 +933,7 @@
             Padding = new Padding(0, 35, 0, 0);
             RectColor = Color.DodgerBlue;
             ShowTitle = true;
-            Symbol = 358586;
-            Text = "药品厂家";
+            Text = "药品管理>>药品厂家管理";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmDrugManufacturer_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();

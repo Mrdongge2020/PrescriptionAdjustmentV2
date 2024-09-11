@@ -169,32 +169,32 @@
             cmsDownLoad.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsDownLoad.Items.AddRange(new ToolStripItem[] { 核对处方ToolStripMenuItem, 复位处方ToolStripMenuItem, 开始调剂ToolStripMenuItem, 终止调剂ToolStripMenuItem });
             cmsDownLoad.Name = "cmsDownLoad";
-            cmsDownLoad.Size = new Size(181, 130);
+            cmsDownLoad.Size = new Size(145, 108);
             // 
             // 核对处方ToolStripMenuItem
             // 
             核对处方ToolStripMenuItem.Name = "核对处方ToolStripMenuItem";
-            核对处方ToolStripMenuItem.Size = new Size(180, 26);
+            核对处方ToolStripMenuItem.Size = new Size(144, 26);
             核对处方ToolStripMenuItem.Text = "核对处方";
             核对处方ToolStripMenuItem.Click += 核对处方ToolStripMenuItem_Click;
             // 
             // 复位处方ToolStripMenuItem
             // 
             复位处方ToolStripMenuItem.Name = "复位处方ToolStripMenuItem";
-            复位处方ToolStripMenuItem.Size = new Size(180, 26);
+            复位处方ToolStripMenuItem.Size = new Size(144, 26);
             复位处方ToolStripMenuItem.Text = "复位处方";
             复位处方ToolStripMenuItem.Click += 复位处方ToolStripMenuItem_Click;
             // 
             // 开始调剂ToolStripMenuItem
             // 
             开始调剂ToolStripMenuItem.Name = "开始调剂ToolStripMenuItem";
-            开始调剂ToolStripMenuItem.Size = new Size(180, 26);
+            开始调剂ToolStripMenuItem.Size = new Size(144, 26);
             开始调剂ToolStripMenuItem.Text = "开始调剂";
             // 
             // 终止调剂ToolStripMenuItem
             // 
             终止调剂ToolStripMenuItem.Name = "终止调剂ToolStripMenuItem";
-            终止调剂ToolStripMenuItem.Size = new Size(180, 26);
+            终止调剂ToolStripMenuItem.Size = new Size(144, 26);
             终止调剂ToolStripMenuItem.Text = "终止调剂";
             // 
             // panel1
@@ -1364,7 +1364,7 @@
             Name = "FrmBoxedDevice";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "处方调剂";
+            Text = "调剂管理>>处方调剂";
             TitleFillColor = Color.FromArgb(80, 160, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmBoxedDevice_Load;
