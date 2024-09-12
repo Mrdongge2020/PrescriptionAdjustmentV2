@@ -332,7 +332,11 @@ namespace AdjustmentSys.DAL.Drug
                 }
             }
         }
-
+        /// <summary>
+        /// 批量更新药品信息
+        /// </summary>
+        /// <param name="particlesInfoList"></param>
+        /// <returns></returns>
         public string UpdateImportPars(List<ParticlesInfo> particlesInfoList)
         {
             using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
@@ -351,6 +355,39 @@ namespace AdjustmentSys.DAL.Drug
                     return e.Message;
                 }
             }
+        }
+
+        /// <summary>
+        /// 根据名称或厂家id获取颗粒信息
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="manId">厂家id</param>
+        /// <returns></returns>
+        public List<DensityCoefficientSetModel> GetParticlesByNameOrManufacturerId(string? name,int? manId) 
+        { 
+            var query= _eFCoreContext.ParticlesInfos.AsNoTracking()
+                .Where(x => 1 == 1); ;
+            if (!string.IsNullOrEmpty(name)) 
+            {
+                query= query.Where(x => x.Name.Contains(name) || x.NameSimplifiedPinyin.Contains(name.ToUpper()));
+            }
+            if (manId.HasValue) 
+            {
+                query = query.Where(x=>x.ManufacturerId==manId.Value);
+            }
+
+            var dataList = query.Select(x=>new DensityCoefficientSetModel() 
+            {
+                ID = x.ID,
+                ParName = x.Name,
+                Code=x.Code,
+                ManufacturerID = x.ManufacturerId,
+                DensityCoefficient = x.DensityCoefficient,
+                Density=x.Density,
+            
+            }).ToList();
+
+            return dataList;
         }
     }
 }

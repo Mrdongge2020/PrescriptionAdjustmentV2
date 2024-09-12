@@ -229,5 +229,10 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             FrmParticleDataMate frmParticleDataMate = new FrmParticleDataMate();
             frmParticleDataMate.ShowDialog();
         }
+
+        private void 药品系数调整ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -409,5 +409,16 @@ namespace AdjustmentSys.BLL.Drug
             }
             return msg;
         }
+
+        /// <summary>
+        /// 根据名称或厂家id获取颗粒信息
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="manId">厂家id</param>
+        /// <returns></returns>
+        public List<DensityCoefficientSetModel> GetParticlesByNameOrManufacturerId(string? name, int? manId)
+        {
+            return drugManagermentDAL.GetParticlesByNameOrManufacturerId(name, manId);
+        }
     }
 }

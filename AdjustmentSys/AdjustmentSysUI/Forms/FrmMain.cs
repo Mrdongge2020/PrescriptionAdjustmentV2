@@ -50,6 +50,8 @@ namespace AdjustmentSysUI.Forms
             pageIndex = 400;
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDevice(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDeviceTest(), ++pageIndex));
+            
 
             pageIndex = 500;
             parent = navMenuMainLeft.CreateNode("药柜管理", 358587, 28, pageIndex);

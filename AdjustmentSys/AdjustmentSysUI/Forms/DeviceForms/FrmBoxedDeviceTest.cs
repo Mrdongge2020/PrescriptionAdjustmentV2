@@ -17,7 +17,5 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             InitializeComponent();
         }
-
- 
     }
 }
