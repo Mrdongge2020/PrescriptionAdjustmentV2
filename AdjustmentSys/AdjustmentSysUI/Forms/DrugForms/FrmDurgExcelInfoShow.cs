@@ -41,11 +41,11 @@ namespace AdjustmentSysUI.Forms.DrugForms
 
             ErrorParticlesExportList = excelOpterUI.GetExcelData<ErrorParticlesExportModel>();
             dgvList.DataSource = ErrorParticlesExportList;
-            if (ErrorParticlesExportList!=null && ErrorParticlesExportList.Count>0)
+            if (ErrorParticlesExportList != null && ErrorParticlesExportList.Count > 0)
             {
                 btnCheckData.Enabled = true;
             }
-            else 
+            else
             {
                 btnCheckData.Enabled = false;
                 ShowWarningDialog("导入提示", "未找到合规的药品信息。");
@@ -110,13 +110,23 @@ namespace AdjustmentSysUI.Forms.DrugForms
 
         private void btnLoadErroeData_Click(object sender, EventArgs e)
         {
-            var exportDatas= ErrorParticlesExportList.Where(x => x.IsPassed != "通过").ToList();
-            if (exportDatas==null || !exportDatas.Any()) 
+            var exportDatas = ErrorParticlesExportList.Where(x => x.IsPassed != "通过").ToList();
+            if (exportDatas == null || !exportDatas.Any())
             {
                 ShowWarningDialog("导出提示", "要导出的异常药品信息不存在");
                 return;
             }
             excelOpterUI.ExportSinglePage(exportDatas.ToList<object>(), "异常药品信息");
+        }
+
+        private void lblRuler_Click(object sender, EventArgs e)
+        {
+            string remark = "1.导入前请在药品管理<药品数据导出>导出一个数据模版，并填写正确数据。\r\n" +
+                            "2.异常校验过后，通过校验数据会在窗口列表展示，此类数据可导入；未通过的可以下载到本地后再次导入。\r\n" +
+                            "3.此功能根据药品简称唯一性导入，重复和系统已存在的名称简称将不会被导入。\r\n" +
+                            "4.数字列请正确填写，否则数据会校验不通过不能导入。" +
+                            "5.导入有风险，操作需谨慎。";
+            ShowInfoDialog(remark);
         }
     }
 }

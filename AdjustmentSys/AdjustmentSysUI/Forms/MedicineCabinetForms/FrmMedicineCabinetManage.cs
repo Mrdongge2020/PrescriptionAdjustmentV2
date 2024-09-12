@@ -128,11 +128,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
                     this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
-                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
-                    //Color color = CellStyleSet(item.Stock);
-                    //this.dgvList.ClearCellStyle(rowIndex, columnIndex);
-                    //this.dgvList.SetCellStyle(rowIndex, columnIndex, Color.Red, Color.Yellow);
-                    //this.dgvList[rowIndex, columnIndex].Style = CellStyleSet(item.Stock);
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);                   
                 }
             }
             #endregion
@@ -202,7 +198,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             //设置绑定的字段
             dataGridViewTextBoxColumn.DataPropertyName = "Sort" + meId;
             //设置列宽
-            dataGridViewTextBoxColumn.Width = 45;
+            dataGridViewTextBoxColumn.Width = 55;
 
             //将创建的列添加到DataGridView中
             dgvList.Columns.Add(dataGridViewTextBoxColumn);

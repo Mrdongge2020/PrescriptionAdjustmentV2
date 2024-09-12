@@ -672,6 +672,7 @@
             uiUserControl8.MinimumSize = new Size(1, 1);
             uiUserControl8.Name = "uiUserControl8";
             uiUserControl8.Size = new Size(155, 111);
+            uiUserControl8.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl8.TabIndex = 20;
             uiUserControl8.Text = "uiUserControl1";
             uiUserControl8.TextAlignment = ContentAlignment.MiddleCenter;
@@ -838,6 +839,7 @@
             uiUserControl4.MinimumSize = new Size(1, 1);
             uiUserControl4.Name = "uiUserControl4";
             uiUserControl4.Size = new Size(155, 90);
+            uiUserControl4.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl4.TabIndex = 8;
             uiUserControl4.Text = "uiUserControl1";
             uiUserControl4.TextAlignment = ContentAlignment.MiddleCenter;
@@ -892,6 +894,7 @@
             uiUserControl5.MinimumSize = new Size(1, 1);
             uiUserControl5.Name = "uiUserControl5";
             uiUserControl5.Size = new Size(155, 90);
+            uiUserControl5.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl5.TabIndex = 7;
             uiUserControl5.Text = "uiUserControl1";
             uiUserControl5.TextAlignment = ContentAlignment.MiddleCenter;
@@ -946,6 +949,7 @@
             uiUserControl6.MinimumSize = new Size(1, 1);
             uiUserControl6.Name = "uiUserControl6";
             uiUserControl6.Size = new Size(155, 90);
+            uiUserControl6.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl6.TabIndex = 6;
             uiUserControl6.Text = "uiUserControl6";
             uiUserControl6.TextAlignment = ContentAlignment.MiddleCenter;
@@ -1000,6 +1004,7 @@
             uiUserControl7.MinimumSize = new Size(1, 1);
             uiUserControl7.Name = "uiUserControl7";
             uiUserControl7.Size = new Size(155, 90);
+            uiUserControl7.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl7.TabIndex = 5;
             uiUserControl7.Text = "uiUserControl1";
             uiUserControl7.TextAlignment = ContentAlignment.MiddleCenter;
@@ -1054,6 +1059,7 @@
             uiUserControl3.MinimumSize = new Size(1, 1);
             uiUserControl3.Name = "uiUserControl3";
             uiUserControl3.Size = new Size(155, 90);
+            uiUserControl3.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl3.TabIndex = 3;
             uiUserControl3.Text = "uiUserControl1";
             uiUserControl3.TextAlignment = ContentAlignment.MiddleCenter;
@@ -1108,6 +1114,7 @@
             uiUserControl2.MinimumSize = new Size(1, 1);
             uiUserControl2.Name = "uiUserControl2";
             uiUserControl2.Size = new Size(155, 90);
+            uiUserControl2.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl2.TabIndex = 2;
             uiUserControl2.Text = "uiUserControl1";
             uiUserControl2.TextAlignment = ContentAlignment.MiddleCenter;
@@ -1162,6 +1169,7 @@
             uiUserControl1.MinimumSize = new Size(1, 1);
             uiUserControl1.Name = "uiUserControl1";
             uiUserControl1.Size = new Size(155, 90);
+            uiUserControl1.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl1.TabIndex = 1;
             uiUserControl1.Text = "uiUserControl1";
             uiUserControl1.TextAlignment = ContentAlignment.MiddleCenter;
@@ -1216,6 +1224,7 @@
             UC_Station1.MinimumSize = new Size(1, 1);
             UC_Station1.Name = "UC_Station1";
             UC_Station1.Size = new Size(155, 90);
+            UC_Station1.Style = Sunny.UI.UIStyle.Custom;
             UC_Station1.TabIndex = 0;
             UC_Station1.Text = "uiUserControl1";
             UC_Station1.TextAlignment = ContentAlignment.MiddleCenter;

@@ -36,6 +36,7 @@
             // 
             // menuTreeView
             // 
+            menuTreeView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             menuTreeView.CheckBoxes = true;
             menuTreeView.FillColor = Color.White;
             menuTreeView.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);

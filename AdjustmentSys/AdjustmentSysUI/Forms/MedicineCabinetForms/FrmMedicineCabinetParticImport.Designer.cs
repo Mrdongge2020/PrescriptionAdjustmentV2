@@ -36,6 +36,7 @@
             btnConfimImport = new Sunny.UI.UISymbolButton();
             btnOpenExcel = new Sunny.UI.UISymbolButton();
             dgvList = new Sunny.UI.UIDataGridView();
+            lblRuler = new Sunny.UI.UILinkLabel();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             // 
             btnConfimImport.Enabled = false;
             btnConfimImport.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnConfimImport.Location = new Point(869, 38);
+            btnConfimImport.Location = new Point(809, 38);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
             btnConfimImport.Size = new Size(129, 35);
@@ -118,10 +119,27 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 98;
             // 
+            // lblRuler
+            // 
+            lblRuler.ActiveLinkColor = Color.FromArgb(80, 160, 255);
+            lblRuler.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblRuler.ForeColor = Color.Blue;
+            lblRuler.LinkBehavior = LinkBehavior.AlwaysUnderline;
+            lblRuler.LinkColor = Color.FromArgb(0, 0, 192);
+            lblRuler.Location = new Point(958, 50);
+            lblRuler.Name = "lblRuler";
+            lblRuler.Size = new Size(104, 23);
+            lblRuler.TabIndex = 101;
+            lblRuler.TabStop = true;
+            lblRuler.Text = "查看导入规则";
+            lblRuler.VisitedLinkColor = Color.FromArgb(230, 80, 80);
+            lblRuler.Click += lblRuler_Click;
+            // 
             // FrmMedicineCabinetParticImport
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1073, 570);
+            Controls.Add(lblRuler);
             Controls.Add(btnConfimImport);
             Controls.Add(btnOpenExcel);
             Controls.Add(dgvList);
@@ -141,5 +159,6 @@
         private Sunny.UI.UISymbolButton btnConfimImport;
         private Sunny.UI.UISymbolButton btnOpenExcel;
         private Sunny.UI.UIDataGridView dgvList;
+        private Sunny.UI.UILinkLabel lblRuler;
     }
 }

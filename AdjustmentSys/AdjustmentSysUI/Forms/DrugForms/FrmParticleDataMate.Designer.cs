@@ -62,7 +62,7 @@
             // 
             btnConfimImport.Enabled = false;
             btnConfimImport.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnConfimImport.Location = new Point(1124, 49);
+            btnConfimImport.Location = new Point(1121, 49);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
             btnConfimImport.Size = new Size(129, 35);
@@ -119,7 +119,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(16, 90);
+            dgvList.Location = new Point(3, 90);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(235, 243, 255);
@@ -134,7 +134,7 @@
             dataGridViewCellStyle6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(868, 563);
+            dgvList.Size = new Size(881, 563);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 95;
             // 
@@ -300,7 +300,7 @@
             // FrmParticleDataMate
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1270, 664);
+            ClientSize = new Size(1259, 658);
             Controls.Add(uiGroupBox1);
             Controls.Add(uiCheckBoxGroup1);
             Controls.Add(btnConfimImport);

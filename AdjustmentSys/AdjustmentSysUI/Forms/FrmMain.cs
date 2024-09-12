@@ -9,6 +9,7 @@ using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.Forms.SystemSettingForms;
 using AdjustmentSysUI.Forms.UserForms;
 using Sunny.UI;
+using Sunny.UI.Demo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,12 +64,14 @@ namespace AdjustmentSysUI.Forms
             pageIndex = 700;
             parent = navMenuMainLeft.CreateNode("系统设置", 363449, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSystemParameter(), ++pageIndex));
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex));
-            
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex)); 
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex)); 
+
 
             //登录用户信息
             lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;
-        
+            //主题设置
+            SetTitle();
         }
 
         private void timerRight_Tick(object sender, EventArgs e)
@@ -76,6 +79,15 @@ namespace AdjustmentSysUI.Forms
             this.lbltime.Text = DateTime.Now.DateTimeString();
         }
 
+        private void SetTitle() 
+        {
+            UIStyles.InitColorful(Color.Green, Color.White);
+            UIStyles.DPIScale = true;
+            UIStyles.GlobalFont = true;
+            UIStyles.GlobalFontName = "微软雅黑";
+            UIStyles.GlobalFontScale = 100;
+            UIStyles.SetDPIScale();
+        }
         //private void TestFile() 
         //{
         //    string fileUrl = Application.StartupPath + "\\testbinfile.bin";

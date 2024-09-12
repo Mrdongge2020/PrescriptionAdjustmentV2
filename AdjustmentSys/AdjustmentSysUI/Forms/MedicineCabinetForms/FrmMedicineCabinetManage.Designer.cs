@@ -40,7 +40,6 @@
             ListingParticles = new ToolStripMenuItem();
             RemoveParticles = new ToolStripMenuItem();
             RedRfid = new ToolStripMenuItem();
-            dgvList = new Sunny.UI.UIDataGridView();
             btnOpterDropDown = new Sunny.UI.UISymbolLabel();
             btnExportOpter = new Sunny.UI.UISymbolLabel();
             cmsOpterData = new Sunny.UI.UIContextMenuStrip();
@@ -53,10 +52,11 @@
             导出颗粒位置Excel文件ToolStripMenuItem = new ToolStripMenuItem();
             导入颗粒余量Excel文件ToolStripMenuItem = new ToolStripMenuItem();
             导入颗粒位置Excel文件ToolStripMenuItem = new ToolStripMenuItem();
+            dgvList = new Sunny.UI.UIDataGridView();
             cmsRightKeyMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             cmsOpterData.SuspendLayout();
             cmsExcelOpter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
             // btnRefc
@@ -135,64 +135,6 @@
             RedRfid.Size = new Size(138, 22);
             RedRfid.Text = "写入RFID";
             RedRfid.Click += RedRfid_Click;
-            // 
-            // dgvList
-            // 
-            dgvList.AllowUserToAddRows = false;
-            dgvList.AllowUserToDeleteRows = false;
-            dgvList.AllowUserToResizeColumns = false;
-            dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvList.BackgroundColor = Color.LightGray;
-            dgvList.BorderStyle = BorderStyle.Fixed3D;
-            dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvList.ColumnHeadersHeight = 32;
-            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvList.ContextMenuStrip = cmsRightKeyMenu;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.Transparent;
-            dataGridViewCellStyle3.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvList.EditMode = DataGridViewEditMode.EditOnF2;
-            dgvList.EnableHeadersVisualStyles = false;
-            dgvList.EnterAsTab = true;
-            dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(0, 87);
-            dgvList.Name = "dgvList";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            dgvList.RowTemplate.DefaultCellStyle.BackColor = Color.White;
-            dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1140, 746);
-            dgvList.StripeEvenColor = Color.Empty;
-            dgvList.StripeOddColor = SystemColors.Control;
-            dgvList.Style = Sunny.UI.UIStyle.Custom;
-            dgvList.TabIndex = 2;
-            dgvList.CellEnter += dgvList_CellEnter;
             // 
             // btnOpterDropDown
             // 
@@ -294,17 +236,68 @@
             导入颗粒位置Excel文件ToolStripMenuItem.Text = "导入颗粒位置(Excel文件)";
             导入颗粒位置Excel文件ToolStripMenuItem.Click += 导入颗粒位置Excel文件ToolStripMenuItem_Click;
             // 
+            // dgvList
+            // 
+            dgvList.AllowUserToAddRows = false;
+            dgvList.AllowUserToDeleteRows = false;
+            dgvList.AllowUserToResizeColumns = false;
+            dgvList.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvList.BackgroundColor = Color.White;
+            dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvList.ContextMenuStrip = cmsRightKeyMenu;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvList.EnableHeadersVisualStyles = false;
+            dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.GridColor = Color.FromArgb(80, 160, 255);
+            dgvList.Location = new Point(3, 84);
+            dgvList.Name = "dgvList";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvList.RowHeadersVisible = false;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvList.SelectedIndex = -1;
+            dgvList.Size = new Size(1134, 747);
+            dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
+            dgvList.TabIndex = 36;
+            // 
             // FrmMedicineCabinetManage
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1140, 834);
+            Controls.Add(dgvList);
             Controls.Add(btnExportOpter);
             Controls.Add(btnOpterDropDown);
             Controls.Add(btnRefc);
             Controls.Add(uiLabel1);
             Controls.Add(cbDurg);
-            Controls.Add(dgvList);
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
@@ -313,9 +306,9 @@
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmMedicineCabinetManage_Load;
             cmsRightKeyMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             cmsOpterData.ResumeLayout(false);
             cmsExcelOpter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);
         }
 
@@ -327,7 +320,6 @@
         private ToolStripMenuItem RemoveParticles;
         private ToolStripMenuItem RedRfid;
         private Sunny.UI.UISymbolButton btnRefc;
-        private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UISymbolLabel btnOpterDropDown;
         private Sunny.UI.UISymbolLabel btnExportOpter;
         private Sunny.UI.UIContextMenuStrip cmsOpterData;
@@ -340,5 +332,6 @@
         private ToolStripMenuItem 导出颗粒位置Excel文件ToolStripMenuItem;
         private ToolStripMenuItem 导入颗粒余量Excel文件ToolStripMenuItem;
         private ToolStripMenuItem 导入颗粒位置Excel文件ToolStripMenuItem;
+        private Sunny.UI.UIDataGridView dgvList;
     }
 }

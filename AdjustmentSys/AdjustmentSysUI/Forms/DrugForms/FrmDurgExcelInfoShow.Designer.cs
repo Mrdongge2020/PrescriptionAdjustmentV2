@@ -254,7 +254,7 @@
             // btnOpenExcel
             // 
             btnOpenExcel.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOpenExcel.Location = new Point(3, 51);
+            btnOpenExcel.Location = new Point(18, 51);
             btnOpenExcel.MinimumSize = new Size(1, 1);
             btnOpenExcel.Name = "btnOpenExcel";
             btnOpenExcel.Size = new Size(153, 35);
@@ -332,6 +332,7 @@
             lblRuler.TabStop = true;
             lblRuler.Text = "查看导入规则";
             lblRuler.VisitedLinkColor = Color.FromArgb(230, 80, 80);
+            lblRuler.Click += lblRuler_Click;
             // 
             // FrmDurgExcelInfoShow
             // 
