@@ -112,6 +112,7 @@
             // 
             // dgvList
             // 
+            dgvList.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
             dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -160,6 +161,7 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 33;
             dgvList.CellClick += dgvList_CellClick;
+            dgvList.ColumnHeaderMouseClick += dgvList_ColumnHeaderMouseClick;
             dgvList.RowPostPaint += dgvList_RowPostPaint;
             // 
             // btnAddPre

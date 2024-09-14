@@ -4,6 +4,7 @@ using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,11 +40,22 @@ namespace AdjustmentSys.DAL.Common
         /// <returns></returns>
         public List<MedicineCabinetDetail> GetMedicineCabinetDetails(string code) 
         {
-            List<MedicineCabinetDetail> result = new List<MedicineCabinetDetail>();
-            string sql = $@" select  a.*  from MedicineCabinetDetail as a 
-						     join MedicineCabinetInfo as b on a.MedicineCabinetId=b.ID
-						     where b.Code='{code}' ";
-            result = DBHelper.ExecuteQuery<MedicineCabinetDetail>(sql);
+            //List<MedicineCabinetDetail> result = new List<MedicineCabinetDetail>();
+            // string sql = $@" select  a.*  from MedicineCabinetDetail as a 
+            //join MedicineCabinetInfo as b on a.MedicineCabinetId=b.ID
+            //where b.Code='{code}' ";
+            // result = DBHelper.ExecuteQuery<MedicineCabinetDetail>(sql);
+
+            List<MedicineCabinetDetail> result = (from a in _eFCoreContext.MedicineCabinetDetails
+                                                  join b in _eFCoreContext.MedicineCabinetInfos
+                                                  on a.MedicineCabinetId equals b.ID
+                                                  where b.Code == code
+                                                  select a
+                                                  ).ToList();
+            //var meIds = _eFCoreContext.MedicineCabinetInfos.Where(x => x.Code == code).Select(x => x.ID).ToList();
+            //List<MedicineCabinetDetail> result= _eFCoreContext.MedicineCabinetDetails
+            //    .Where(x=> meIds.Contains(x.MedicineCabinetId)).AsNoTracking()
+            //    .ToList();
             return result;
         }
 

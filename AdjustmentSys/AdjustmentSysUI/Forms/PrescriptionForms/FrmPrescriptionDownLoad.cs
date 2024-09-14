@@ -19,6 +19,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
     {
         PrescriptionBLL _prescriptionBLL = new PrescriptionBLL();
         string selectPreId = "";//处方编号
+        string sortString = " CreateTime desc ";
         public List<string> loadPrescriptionIdList = new List<string>();
         public FrmPrescriptionDownLoad()
         {
@@ -122,7 +123,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             }
 
             int allCount = 0;//总条数
-            var preDatas = _prescriptionBLL.GetPrescriptionPageList(txtPrID.Text, txtPatentName.Text, dtpStart.Value, dtpEnd.Value, source, ProcessStatusEnum.待下载, 1, 10000, out allCount);
+            var preDatas = _prescriptionBLL.GetPrescriptionPageList(txtPrID.Text, txtPatentName.Text, dtpStart.Value, dtpEnd.Value, source, ProcessStatusEnum.待下载, sortString,1, 10000, out allCount);
 
             dgvList.DataSource = preDatas;
 

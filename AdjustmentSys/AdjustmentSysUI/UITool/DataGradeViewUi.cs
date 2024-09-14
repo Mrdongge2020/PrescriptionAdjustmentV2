@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static NPOI.HSSF.Util.HSSFColor;
+using System.Windows.Forms;
 
 namespace AdjustmentSysUI.UITool
 {
@@ -23,7 +25,7 @@ namespace AdjustmentSysUI.UITool
         /// <param name="_width">设置列宽度</param>
         /// <param name="_format">设置列显示数据格式,时间传“yyyy-MM-dd HH:mm:ss”，价格数字传“N2”</param>
         public void InitDgvTextBoxColumn(DataGridView dgv, DataGridViewContentAlignment _alignmeng,
-            string _columnName, string _headerText, bool _readOnly, bool _visible, int _width, string _format)
+            string _columnName, string _headerText, bool _readOnly, bool _visible, int _width, string _format,bool isSort=false)
         {
             //实例化一个DataGridViewTextBoxColumn列
             DataGridViewTextBoxColumn tbc = new DataGridViewTextBoxColumn();
@@ -56,7 +58,16 @@ namespace AdjustmentSysUI.UITool
             {
                 tbc.DefaultCellStyle.Format =_format;
             }
-            
+            if (isSort)
+            {
+                tbc.SortMode = DataGridViewColumnSortMode.Programmatic;
+            }
+            else
+            {
+                tbc.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+
             //将创建的列添加到DataGridView中
             dgv.Columns.Add(tbc);
         }

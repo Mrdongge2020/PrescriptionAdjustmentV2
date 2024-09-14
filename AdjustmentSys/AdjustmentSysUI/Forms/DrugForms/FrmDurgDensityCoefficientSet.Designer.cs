@@ -30,14 +30,15 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             cbCJ = new Sunny.UI.UIComboBox();
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
-            uiDoubleUpDown1 = new Sunny.UI.UIDoubleUpDown();
+            dudNumber = new Sunny.UI.UIDoubleUpDown();
             btnCJXG = new Sunny.UI.UIButton();
             uiLabel3 = new Sunny.UI.UILabel();
             txtName = new Sunny.UI.UITextBox();
@@ -74,6 +75,7 @@
             cbCJ.TabIndex = 48;
             cbCJ.TextAlignment = ContentAlignment.MiddleLeft;
             cbCJ.Watermark = "请选择颗粒厂家";
+            cbCJ.SelectedValueChanged += cbCJ_SelectedValueChanged;
             // 
             // uiLabel1
             // 
@@ -97,18 +99,19 @@
             uiLabel2.Text = "系数调整至";
             uiLabel2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // uiDoubleUpDown1
+            // dudNumber
             // 
-            uiDoubleUpDown1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiDoubleUpDown1.Location = new Point(543, 48);
-            uiDoubleUpDown1.Margin = new Padding(4, 5, 4, 5);
-            uiDoubleUpDown1.MinimumSize = new Size(100, 0);
-            uiDoubleUpDown1.Name = "uiDoubleUpDown1";
-            uiDoubleUpDown1.ShowText = false;
-            uiDoubleUpDown1.Size = new Size(116, 29);
-            uiDoubleUpDown1.TabIndex = 50;
-            uiDoubleUpDown1.Text = "uiDoubleUpDown1";
-            uiDoubleUpDown1.TextAlignment = ContentAlignment.MiddleCenter;
+            dudNumber.DecimalPlaces = 3;
+            dudNumber.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dudNumber.Location = new Point(543, 48);
+            dudNumber.Margin = new Padding(4, 5, 4, 5);
+            dudNumber.MinimumSize = new Size(100, 0);
+            dudNumber.Name = "dudNumber";
+            dudNumber.ShowText = false;
+            dudNumber.Size = new Size(116, 29);
+            dudNumber.TabIndex = 50;
+            dudNumber.Text = "uiDoubleUpDown1";
+            dudNumber.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // btnCJXG
             // 
@@ -120,6 +123,7 @@
             btnCJXG.TabIndex = 51;
             btnCJXG.Text = "批量修改";
             btnCJXG.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCJXG.Click += btnCJXG_Click;
             // 
             // uiLabel3
             // 
@@ -156,6 +160,7 @@
             btnQuery.TabIndex = 54;
             btnQuery.Text = "查 找";
             btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Click += btnQuery_Click;
             // 
             // btnReset
             // 
@@ -167,6 +172,7 @@
             btnReset.TabIndex = 55;
             btnReset.Text = "刷 新";
             btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Click += btnReset_Click;
             // 
             // dgvList
             // 
@@ -189,35 +195,38 @@
             dgvList.ColumnHeadersHeight = 32;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.Columns.AddRange(new DataGridViewColumn[] { CheckCol, ID, Code, ParName, Density, DensityCoefficient, OpterCol });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle5;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
             dgvList.Location = new Point(8, 169);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle5.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
             dataGridViewCellStyle6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dgvList.RowHeadersVisible = false;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.SelectedIndex = -1;
+            dgvList.ShowCellErrors = false;
+            dgvList.ShowEditingIcon = false;
             dgvList.Size = new Size(822, 429);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 56;
+            dgvList.CellContentClick += dgvList_CellContentClick;
             // 
             // CheckCol
             // 
@@ -265,6 +274,8 @@
             // DensityCoefficient
             // 
             DensityCoefficient.DataPropertyName = "DensityCoefficient";
+            dataGridViewCellStyle3.NullValue = null;
+            DensityCoefficient.DefaultCellStyle = dataGridViewCellStyle3;
             DensityCoefficient.HeaderText = "密度系数";
             DensityCoefficient.Name = "DensityCoefficient";
             DensityCoefficient.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -272,9 +283,9 @@
             // 
             // OpterCol
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = "修改";
-            OpterCol.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = "修改";
+            OpterCol.DefaultCellStyle = dataGridViewCellStyle4;
             OpterCol.HeaderText = "操作";
             OpterCol.Name = "OpterCol";
             OpterCol.Width = 136;
@@ -289,6 +300,7 @@
             cbSelectAll.Size = new Size(150, 29);
             cbSelectAll.TabIndex = 57;
             cbSelectAll.Text = "是否全选";
+            cbSelectAll.CheckedChanged += cbSelectAll_CheckedChanged;
             // 
             // uiLabel4
             // 
@@ -313,7 +325,7 @@
             Controls.Add(txtName);
             Controls.Add(uiLabel3);
             Controls.Add(btnCJXG);
-            Controls.Add(uiDoubleUpDown1);
+            Controls.Add(dudNumber);
             Controls.Add(uiLabel2);
             Controls.Add(cbCJ);
             Controls.Add(uiLabel1);
@@ -332,7 +344,7 @@
         private Sunny.UI.UIComboBox cbCJ;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel2;
-        private Sunny.UI.UIDoubleUpDown uiDoubleUpDown1;
+        private Sunny.UI.UIDoubleUpDown dudNumber;
         private Sunny.UI.UIButton btnCJXG;
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UITextBox txtName;

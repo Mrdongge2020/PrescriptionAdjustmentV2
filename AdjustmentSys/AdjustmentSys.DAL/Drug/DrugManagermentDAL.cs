@@ -4,6 +4,7 @@ using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -364,17 +365,19 @@ namespace AdjustmentSys.DAL.Drug
         /// <param name="manId">厂家id</param>
         /// <returns></returns>
         public List<DensityCoefficientSetModel> GetParticlesByNameOrManufacturerId(string? name,int? manId) 
-        { 
-            var query= _eFCoreContext.ParticlesInfos.AsNoTracking()
-                .Where(x => 1 == 1); ;
+        {
+            var query = _eFCoreContext.ParticlesInfos.AsQueryable();
+                
             if (!string.IsNullOrEmpty(name)) 
             {
-                query= query.Where(x => x.Name.Contains(name) || x.NameSimplifiedPinyin.Contains(name.ToUpper()));
+                query= query.Where(x => x.Name.StartsWith(name) || x.NameSimplifiedPinyin.StartsWith(name.ToUpper()));
             }
             if (manId.HasValue) 
             {
                 query = query.Where(x=>x.ManufacturerId==manId.Value);
             }
+
+            query= query.OrderBy(x=>x.NameSimplifiedPinyin);
 
             var dataList = query.Select(x=>new DensityCoefficientSetModel() 
             {
@@ -388,6 +391,43 @@ namespace AdjustmentSys.DAL.Drug
             }).ToList();
 
             return dataList;
+        }
+
+        /// <summary>
+        /// 批量修改颗粒密度系数
+        /// </summary>
+        /// <param name="particlesInfoList">颗粒对象</param>
+        /// <param name="medicineCabinetDetails">药柜详情对象</param>
+        /// <returns></returns>
+        public string UpdateParticlesDensityCoefficient(List<ParticlesInfo> particlesInfoList, List<MedicineCabinetDetail> medicineCabinetDetails) 
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    //取消跟踪实体对象
+                    _eFCoreContext.ChangeTracker.Clear();
+                    _eFCoreContext.ParticlesInfos.UpdateRange(particlesInfoList);
+                    if (medicineCabinetDetails!=null && medicineCabinetDetails.Count>0)
+                    {
+                        //foreach (var entity in medicineCabinetDetails)
+                        //{
+                            
+                        //    _eFCoreContext.Update(entity);
+                        //}
+                        _eFCoreContext.MedicineCabinetDetails.UpdateRange(medicineCabinetDetails);
+                    }
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                    return e.Message;
+                }
+            }
         }
     }
 }

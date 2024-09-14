@@ -232,7 +232,8 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
 
         private void 药品系数调整ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmDurgDensityCoefficientSet frmDurgDensityCoefficientSet = new FrmDurgDensityCoefficientSet();
+            frmDurgDensityCoefficientSet.ShowDialog();
         }
     }
 }

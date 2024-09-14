@@ -84,11 +84,12 @@ namespace AdjustmentSys.DAL.Prescription
         /// <param name="endTime">创建时间结束</param>
         /// <param name="prescriptionSource">处方来源</param>
         /// <param name="processStatus">状态</param>
+        /// <param name="sortString">排序文本</param>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="totalCount">总记录数</param>
         /// <returns></returns>
-        public List<PrescriptionPageListModel> GetPrescriptionPageList(string prescriptionID, string patientName,DateTime? startTime,DateTime? endTime, int? prescriptionSource, ProcessStatusEnum? processStatus, int pageIndex, int pageSize, out int totalCount) 
+        public List<PrescriptionPageListModel> GetPrescriptionPageList(string prescriptionID, string patientName,DateTime? startTime,DateTime? endTime, int? prescriptionSource, ProcessStatusEnum? processStatus,string sortString, int pageIndex, int pageSize, out int totalCount) 
         {
             string tableName = " LocalDataPrescriptionInfo ";
 
@@ -190,7 +191,7 @@ namespace AdjustmentSys.DAL.Prescription
             string sql = $@" {queryFilder}
                              from {tableName}    
                              {sqlWhere}
-                             order by CreateTime desc
+                             order by {sortString}
                              OFFSET {pageSize * (pageIndex - 1)} ROW FETCH NEXT {pageSize} ROWS ONLY
                           ";
             List<PrescriptionPageListModel> result= DBHelper.ExecuteQuery<PrescriptionPageListModel>(sql);

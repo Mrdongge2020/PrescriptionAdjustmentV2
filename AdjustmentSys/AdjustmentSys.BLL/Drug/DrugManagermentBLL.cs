@@ -1,8 +1,10 @@
 ﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.DAL.Drug;
 using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
 using NPinyin;
@@ -419,6 +421,34 @@ namespace AdjustmentSys.BLL.Drug
         public List<DensityCoefficientSetModel> GetParticlesByNameOrManufacturerId(string? name, int? manId)
         {
             return drugManagermentDAL.GetParticlesByNameOrManufacturerId(name, manId);
+        }
+
+        /// <summary>
+        /// 更新药品密度系数
+        /// </summary>
+        /// <param name="parIds">药品id</param>
+        /// <param name="densityCoefficient">密度系数</param>
+        /// <returns></returns>
+        public string UpdateParticlesDensityCoefficient(List<int> parIds, float densityCoefficient) 
+        {
+            CommonDataBLL commonDataBLL = new CommonDataBLL();
+            var allParticles = drugManagermentDAL.GetAllParticlesInfos();
+            var allMedicineCabinetDetails = commonDataBLL.GetMedicineCabinetDetails(SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
+
+            var particles = allParticles.Where(x => parIds.Contains(x.ID)).ToList();
+            var cabinetDetails = allMedicineCabinetDetails.Where(x => x.ParticlesID.HasValue && x.ParticlesID>0 &&  parIds.Contains((int)x.ParticlesID)).ToList();
+            if (particles==null || particles.Count<=0) 
+            {
+                return "未找到要更新密度系数的药品信息.";
+            }
+            particles.ForEach(item => {
+                item.DensityCoefficient = densityCoefficient;
+                });
+            cabinetDetails.ForEach(x => { 
+                x.DensityCoefficient = densityCoefficient;
+            });
+
+            return drugManagermentDAL.UpdateParticlesDensityCoefficient(particles,cabinetDetails);
         }
     }
 }

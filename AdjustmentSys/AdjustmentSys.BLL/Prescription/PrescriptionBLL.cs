@@ -66,9 +66,9 @@ namespace AdjustmentSys.BLL.Prescription
         /// <param name="pageSize">页容量</param>
         /// <param name="totalCount">总记录数</param>
         /// <returns></returns>
-        public List<PrescriptionPageListModel> GetPrescriptionPageList(string prescriptionID, string patientName, DateTime? startTime, DateTime? endTime, int? prescriptionSource, ProcessStatusEnum? processStatus, int pageIndex, int pageSize, out int totalCount) 
+        public List<PrescriptionPageListModel> GetPrescriptionPageList(string prescriptionID, string patientName, DateTime? startTime, DateTime? endTime, int? prescriptionSource, ProcessStatusEnum? processStatus, string sortString, int pageIndex, int pageSize, out int totalCount) 
         { 
-            return prescriptionDAL.GetPrescriptionPageList(prescriptionID,patientName, startTime, endTime, prescriptionSource, processStatus, pageIndex, pageSize, out totalCount);
+            return prescriptionDAL.GetPrescriptionPageList(prescriptionID,patientName, startTime, endTime, prescriptionSource, processStatus,sortString, pageIndex, pageSize, out totalCount);
         }
 
         /// <summary>
