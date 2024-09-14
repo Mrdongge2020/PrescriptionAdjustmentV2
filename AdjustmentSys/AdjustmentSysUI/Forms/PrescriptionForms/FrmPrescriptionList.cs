@@ -339,12 +339,10 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             {
                 if (orderBy == "ASC")
                 {
-                    //pColumn.HeaderCell.SortGlyphDirection = SortOrder.Descending;
                     this.orderBy = "DESC";
                 }
                 else
                 {
-                    //pColumn.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
                     this.orderBy = "ASC";
                 }
             }
