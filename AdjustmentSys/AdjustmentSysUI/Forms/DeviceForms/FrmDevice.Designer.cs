@@ -33,45 +33,12 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            btnRefc = new Sunny.UI.UISymbolButton();
-            btnDelete = new Sunny.UI.UISymbolButton();
             dgvList = new Sunny.UI.UIDataGridView();
             btnAdd = new Sunny.UI.UISymbolButton();
             btnEdit = new Sunny.UI.UISymbolButton();
+            btnSetMyself = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
-            // 
-            // btnRefc
-            // 
-            btnRefc.Cursor = Cursors.Hand;
-            btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(375, 40);
-            btnRefc.MinimumSize = new Size(1, 1);
-            btnRefc.Name = "btnRefc";
-            btnRefc.Radius = 1;
-            btnRefc.Size = new Size(73, 30);
-            btnRefc.Symbol = 61473;
-            btnRefc.SymbolColor = SystemColors.Window;
-            btnRefc.TabIndex = 32;
-            btnRefc.Text = "刷新";
-            btnRefc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Click += btnRefc_Click;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Cursor = Cursors.Hand;
-            btnDelete.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Location = new Point(255, 40);
-            btnDelete.MinimumSize = new Size(1, 1);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Radius = 1;
-            btnDelete.Size = new Size(80, 30);
-            btnDelete.Symbol = 559691;
-            btnDelete.SymbolColor = SystemColors.Window;
-            btnDelete.TabIndex = 31;
-            btnDelete.Text = "删除";
-            btnDelete.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Click += btnDelete_Click;
             // 
             // dgvList
             // 
@@ -102,7 +69,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(9, 76);
+            dgvList.Location = new Point(3, 76);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -120,7 +87,7 @@
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList.Size = new Size(537, 513);
+            dgvList.Size = new Size(1059, 519);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 30;
             dgvList.CellClick += dgvList_CellClick;
@@ -156,16 +123,31 @@
             btnEdit.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnEdit.Click += btnEdit_Click;
             // 
+            // btnSetMyself
+            // 
+            btnSetMyself.Cursor = Cursors.Hand;
+            btnSetMyself.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSetMyself.Location = new Point(265, 40);
+            btnSetMyself.MinimumSize = new Size(1, 1);
+            btnSetMyself.Name = "btnSetMyself";
+            btnSetMyself.Radius = 1;
+            btnSetMyself.Size = new Size(108, 30);
+            btnSetMyself.Symbol = 361445;
+            btnSetMyself.SymbolColor = SystemColors.Window;
+            btnSetMyself.TabIndex = 34;
+            btnSetMyself.Text = "设为本机";
+            btnSetMyself.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSetMyself.Click += btnSetMyself_Click;
+            // 
             // FrmDevice
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1237, 608);
+            ClientSize = new Size(1071, 598);
+            Controls.Add(btnSetMyself);
             Controls.Add(dgvList);
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
-            Controls.Add(btnDelete);
-            Controls.Add(btnRefc);
             Name = "FrmDevice";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
@@ -177,11 +159,9 @@
         }
 
         #endregion
-
-        private Sunny.UI.UISymbolButton btnRefc;
-        private Sunny.UI.UISymbolButton btnDelete;
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UISymbolButton btnAdd;
         private Sunny.UI.UISymbolButton btnEdit;
+        private Sunny.UI.UISymbolButton btnSetMyself;
     }
 }

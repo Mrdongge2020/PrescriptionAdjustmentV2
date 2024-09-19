@@ -1,6 +1,10 @@
 ﻿using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.Machine;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
+using AdjustmentSys.Tool.TCP;
 using AdjustmentSysUI.Forms.DeviceForms;
 using AdjustmentSysUI.Forms.Drug;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
@@ -14,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,6 +29,7 @@ namespace AdjustmentSysUI.Forms
 {
     public partial class FrmMain : UIForm
     {
+        ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
         public FrmMain()
         {
             //TestFile();
@@ -51,7 +57,7 @@ namespace AdjustmentSysUI.Forms
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDeviceTest(), ++pageIndex));
-            
+
 
             pageIndex = 500;
             parent = navMenuMainLeft.CreateNode("药柜管理", 358587, 28, pageIndex);
@@ -66,12 +72,12 @@ namespace AdjustmentSysUI.Forms
             pageIndex = 700;
             parent = navMenuMainLeft.CreateNode("系统设置", 363449, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSystemParameter(), ++pageIndex));
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex)); 
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex)); 
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex));
 
 
             //登录用户信息
-            lblLoginUser.Text ="当前用户:"+ SysLoginUser._currentUser.UserName+" "+SysLoginUser._currentUser.UserLevelName;
+            lblLoginUser.Text = "当前用户:" + SysLoginUser._currentUser.UserName + " " + SysLoginUser._currentUser.UserLevelName;
             //主题设置
             SetTitle();
         }
@@ -81,7 +87,7 @@ namespace AdjustmentSysUI.Forms
             this.lbltime.Text = DateTime.Now.DateTimeString();
         }
 
-        private void SetTitle() 
+        private void SetTitle()
         {
             UIStyles.InitColorful(Color.Green, Color.White);
             UIStyles.DPIScale = true;
@@ -90,14 +96,161 @@ namespace AdjustmentSysUI.Forms
             UIStyles.GlobalFontScale = 100;
             UIStyles.SetDPIScale();
         }
-        //private void TestFile() 
-        //{
-        //    string fileUrl = Application.StartupPath + "\\testbinfile.bin";
-        //    TestFileModel testFileModel = new TestFileModel();
-        //    testFileModel.LoadedPreIds = new List<string>() {"222222","333333" };
-        //    BinFileHelper.WriteObjectToBinaryFile(fileUrl, testFileModel);
 
-        //    var dd = BinFileHelper.ReadObjectFromBinaryFile<TestFileModel>(fileUrl);
-        //}
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            switch (SysDeviceInfo._currentDeviceInfo.DeviceType)
+            {
+                case DeviceTypeEnum.全自动:
+                    {
+                        ModBusTCP_Cliect.ip = "192.168.1.6";
+
+                    }
+                    break;
+                case DeviceTypeEnum.半自动盒装:
+                    {
+                        ModBusTCP_Cliect.ip = "192.168.0.1";
+
+                    }
+                    break;
+                case DeviceTypeEnum.半自动袋装:
+                    {
+                        ModBusTCP_Cliect.ip = "192.168.0.1";
+                    }
+                    break;
+                    //case DeviceTypeEnum.半自动袋装:
+                    //    {
+                    //        ModBusTCP_Cliect.ip = "192.168.0.1";
+                    //    }
+                    //    break;
+
+            }
+            lblDeviceName.Text = $"设备名称：{SysDeviceInfo._currentDeviceInfo.DeviceName}";
+            Thread thread = new Thread(CrossThreadFlush);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        /// <summary>
+        /// 通讯线程
+        /// </summary>
+        private void CrossThreadFlush()
+        {
+            //Form1_Mian.objModBusTCP_Cliect = new ModBusTCP_Cliect();
+            //Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+            //ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
+            SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
+            while (true)
+            {
+                ThreadFunction();
+                //MethodInvoker setstate = new MethodInvoker(Setstate);
+                //Invoke(setstate);
+                Thread.Sleep(1000);
+
+            }
+        }
+
+        private void ThreadFunction()
+        {
+            MachinePublic.ConnectionState = SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus;//Form1_Mian.DeviceConnentionState;
+            if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus)
+            {
+                if (lblDeviceConnectText.Text != "已连接")
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblDeviceConnectText.Text = "已连接";
+                        lblDeviceConnectText.ForeColor = Color.Blue;
+                    }));
+                }
+                //if (Form1_Mian.PLC_Cluettext != "设备已连接")
+                //{
+                //    Form1_Mian.PLC_Cluettext = "设备已连接";
+                //    MethodInvoker MethInvo = new MethodInvoker(UserControladd);
+                //    Invoke(MethInvo);
+                //}
+            }
+            else
+            {
+                if (lblDeviceConnectText.Text != "未连接")
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        lblDeviceConnectText.Text = "未连接";
+                        lblDeviceConnectText.ForeColor = Color.Red;
+                    }));
+                }
+                //Form1_Mian.DeviceConnentionState = false;
+                //if (Form1_Mian.PLC_Cluettext != "未连接到设备")
+                //{
+                //    Form1_Mian.PLC_Cluettext = "未连接到设备";
+                //    MethodInvoker MethInvo = new MethodInvoker(UserControldelete);
+                //    Invoke(MethInvo);
+                //}
+            }
+
+            if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus == false)
+            {
+                modBusTCP_Cliect.Connent();
+                SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
+                //switch (ConfigTB.Checkdive)
+                //{
+                //    case 0:
+                //        {
+                //            Form1_Mian.objModBusTCP_Cliect.Connent();
+                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+                //        }
+                //        break;
+                //    case 1:
+                //        {
+
+                //            Form1_Mian.objModBusTCP_Cliect.Connent();
+                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+
+
+                //        }
+                //        break;
+                //    case 2:
+                //        {
+
+                //            Form1_Mian.objModBusTCP_Cliect.Connent();
+                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+                //        }
+                //        break;
+                //    case 3:
+                //        {
+                //            Form1_Mian.objModBusTCP_Cliect.Connent();
+                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+                //            //  Form1_Mian.DeviceConnentionState = Connect(); 
+                //        }
+                //        break;
+                //}
+            }
+
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bool result = ShowAskDialog( "退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+            if (result)
+            {
+                this.ExitApp();
+            }
+            else
+            {
+                e.Cancel = true;//手动取消事件
+            }
+        }
+        //程序退出
+        private void ExitApp()
+        {
+            Process.GetCurrentProcess().Kill();
+            Application.ExitThread();
+            Application.Exit();
+            Environment.Exit(Environment.ExitCode);
+            this.Dispose();
+            this.Close();
+        }
+
     }
 }

@@ -47,5 +47,14 @@ namespace AdjustmentSys.Models.Device
         /// 创建人名称
         /// </summary>
         public string? CreateName { get; set; }
+        /// <summary>
+        ///设备药柜编号
+        /// </summary>
+        public string? MedicineCabinetCode { get; set; }
+
+        /// <summary>
+        ///是否启用
+        /// </summary>
+        public string IsEnable { get; set; }
     }
 }

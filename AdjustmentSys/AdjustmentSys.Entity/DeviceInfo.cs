@@ -39,6 +39,17 @@ namespace AdjustmentSys.Entity
         [Column("IPAddress")]
         [MaxLength(20)]
         public string? IPAddress { get; set; }
+        /// <summary>
+        ///设备药柜编号
+        /// </summary>
+        [Column("MedicineCabinetCode")]
+        [MaxLength(20)]
+        public string? MedicineCabinetCode { get; set; }
 
+        /// <summary>
+        ///是否启用
+        /// </summary>
+        [Column("IsEnable")]
+        public bool IsEnable { get; set; }
     }
 }

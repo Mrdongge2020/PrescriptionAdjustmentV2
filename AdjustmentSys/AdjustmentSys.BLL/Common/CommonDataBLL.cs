@@ -13,6 +13,15 @@ namespace AdjustmentSys.BLL.Common
     public class CommonDataBLL
     {
         CommonDataDAL _commonDataDAL = new CommonDataDAL();
+
+        /// <summary>
+        /// 获取所有药柜编号
+        /// </summary>
+        public List<string> GetMedicineCabinetCodes() 
+        { 
+            return _commonDataDAL.GetMedicineCabinetCodes();
+        }
+
         /// <summary>
         /// 获取药品字典数据
         /// </summary>

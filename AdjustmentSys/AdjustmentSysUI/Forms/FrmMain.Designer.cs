@@ -34,6 +34,8 @@
             uiTabControl1 = new Sunny.UI.UITabControl();
             timerRight = new System.Windows.Forms.Timer(components);
             pannelBottom = new Sunny.UI.UIPanel();
+            lblDeviceName = new Sunny.UI.UILabel();
+            lblDeviceConnectText = new Sunny.UI.UILabel();
             lbltime = new Sunny.UI.UILabel();
             lblLoginUser = new Sunny.UI.UILabel();
             pannelBottom.SuspendLayout();
@@ -58,7 +60,7 @@
             navMenuMainLeft.ShowLines = false;
             navMenuMainLeft.ShowOneNode = true;
             navMenuMainLeft.ShowPlusMinus = false;
-            navMenuMainLeft.Size = new Size(286, 740);
+            navMenuMainLeft.Size = new Size(286, 564);
             navMenuMainLeft.TabIndex = 2;
             navMenuMainLeft.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
@@ -84,7 +86,7 @@
             uiTabControl1.MainPage = "";
             uiTabControl1.Name = "uiTabControl1";
             uiTabControl1.SelectedIndex = 0;
-            uiTabControl1.Size = new Size(882, 740);
+            uiTabControl1.Size = new Size(882, 564);
             uiTabControl1.SizeMode = TabSizeMode.Fixed;
             uiTabControl1.TabIndex = 4;
             uiTabControl1.TabUnSelectedForeColor = Color.FromArgb(240, 240, 240);
@@ -99,26 +101,54 @@
             // pannelBottom
             // 
             pannelBottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pannelBottom.Controls.Add(lblDeviceName);
+            pannelBottom.Controls.Add(lblDeviceConnectText);
             pannelBottom.Controls.Add(lbltime);
             pannelBottom.Controls.Add(lblLoginUser);
             pannelBottom.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            pannelBottom.Location = new Point(0, 905);
+            pannelBottom.Location = new Point(-2, 730);
             pannelBottom.Margin = new Padding(4, 5, 4, 5);
             pannelBottom.MinimumSize = new Size(1, 1);
             pannelBottom.Name = "pannelBottom";
-            pannelBottom.Size = new Size(1168, 34);
+            pannelBottom.RectColor = Color.FromArgb(128, 128, 255);
+            pannelBottom.Size = new Size(1178, 32);
             pannelBottom.TabIndex = 10;
             pannelBottom.Text = null;
-            pannelBottom.TextAlignment = ContentAlignment.MiddleLeft;
+            pannelBottom.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // lblDeviceName
+            // 
+            lblDeviceName.Anchor = AnchorStyles.Left;
+            lblDeviceName.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblDeviceName.ForeColor = Color.FromArgb(48, 48, 48);
+            lblDeviceName.Location = new Point(159, 3);
+            lblDeviceName.Name = "lblDeviceName";
+            lblDeviceName.Padding = new Padding(0, 0, 10, 0);
+            lblDeviceName.Size = new Size(247, 23);
+            lblDeviceName.TabIndex = 3;
+            lblDeviceName.Text = "设备名称：家施德半自动盒装";
+            lblDeviceName.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblDeviceConnectText
+            // 
+            lblDeviceConnectText.Anchor = AnchorStyles.Left;
+            lblDeviceConnectText.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblDeviceConnectText.ForeColor = Color.FromArgb(48, 48, 48);
+            lblDeviceConnectText.Location = new Point(412, 3);
+            lblDeviceConnectText.Name = "lblDeviceConnectText";
+            lblDeviceConnectText.Size = new Size(68, 23);
+            lblDeviceConnectText.TabIndex = 2;
+            lblDeviceConnectText.Text = "未连接";
+            lblDeviceConnectText.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lbltime
             // 
             lbltime.Anchor = AnchorStyles.Right;
             lbltime.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lbltime.ForeColor = Color.FromArgb(48, 48, 48);
-            lbltime.Location = new Point(872, 1);
+            lbltime.Location = new Point(896, 3);
             lbltime.Name = "lbltime";
-            lbltime.Size = new Size(296, 34);
+            lbltime.Size = new Size(274, 23);
             lbltime.TabIndex = 1;
             lbltime.Text = "时间";
             lbltime.TextAlign = ContentAlignment.MiddleLeft;
@@ -126,11 +156,11 @@
             // lblLoginUser
             // 
             lblLoginUser.Anchor = AnchorStyles.Left;
-            lblLoginUser.Font = new Font("宋体", 12F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            lblLoginUser.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lblLoginUser.ForeColor = Color.FromArgb(48, 48, 48);
-            lblLoginUser.Location = new Point(10, 1);
+            lblLoginUser.Location = new Point(2, 3);
             lblLoginUser.Name = "lblLoginUser";
-            lblLoginUser.Size = new Size(276, 34);
+            lblLoginUser.Size = new Size(126, 23);
             lblLoginUser.TabIndex = 0;
             lblLoginUser.Text = "用户";
             lblLoginUser.TextAlign = ContentAlignment.MiddleLeft;
@@ -138,11 +168,12 @@
             // FrmMain
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1168, 940);
+            ClientSize = new Size(1168, 758);
             Controls.Add(pannelBottom);
             Controls.Add(uiTabControl1);
             Controls.Add(uiNavBar1);
             Controls.Add(navMenuMainLeft);
+            MaximizeBox = false;
             Name = "FrmMain";
             Padding = new Padding(0, 40, 0, 0);
             Text = "颗粒调剂系统";
@@ -150,6 +181,8 @@
             TitleHeight = 40;
             WindowState = FormWindowState.Maximized;
             ZoomScaleRect = new Rectangle(19, 19, 800, 450);
+            FormClosing += FrmMain_FormClosing;
+            Load += FrmMain_Load;
             pannelBottom.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -162,5 +195,7 @@
         private Sunny.UI.UIPanel pannelBottom;
         private Sunny.UI.UILabel lblLoginUser;
         private Sunny.UI.UILabel lbltime;
+        private Sunny.UI.UILabel lblDeviceConnectText;
+        private Sunny.UI.UILabel lblDeviceName;
     }
 }

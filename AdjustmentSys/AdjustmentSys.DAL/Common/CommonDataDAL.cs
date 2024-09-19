@@ -16,6 +16,14 @@ namespace AdjustmentSys.DAL.Common
     public class CommonDataDAL
     {
         private readonly EFCoreContext _eFCoreContext = new EFCoreContext();
+
+        /// <summary>
+        /// 获取所有药柜编号
+        /// </summary>
+        public List<string> GetMedicineCabinetCodes() 
+        { 
+            return _eFCoreContext.MedicineCabinetInfos.OrderBy(x => x.Code).Select(x=>x.Code).Distinct().ToList();
+        }
         /// <summary>
         /// 获取药品字典数据
         /// </summary>

@@ -25,7 +25,7 @@ namespace AdjustmentSys.Models.PublicModel
         /// <summary>
         /// 设备连接状态
         /// </summary>
-        public int DeviceConnectStatus { get; set; }
+        public bool DeviceConnectStatus { get; set; }
         /// <summary>
         /// 药柜code
         /// </summary>

@@ -1,5 +1,9 @@
 ﻿using AdjustmentSys.BLL.Device;
 using AdjustmentSys.BLL.Drug;
+using AdjustmentSys.Entity;
+using AdjustmentSys.Models.PublicModel;
+using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.Forms.Drug;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
@@ -18,6 +22,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 {
     public partial class FrmDevice : UIPage
     {
+        private string ConfigPath = Application.StartupPath + "\\Config.ini";
         private int _Id;
         DeviceBLL _deviceBLL = new DeviceBLL();
         public FrmDevice()
@@ -42,12 +47,14 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
 
             //创建列
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "id", true, false, 1, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceCode", "设备编组", true, true, 20, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "设备名称", true, true, 20, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceTypeText", "设备类型", true, true, 20, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "IPAddress", "IP地址", true, true, 20, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 19, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "id", true, false, 4, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceCode", "设备编组", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "设备名称", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceTypeText", "设备类型", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "MedicineCabinetCode", "药柜编号", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "IsEnable", "是否启用", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "IPAddress", "IP地址", true, true, 14, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 14, "");
 
         }
 
@@ -88,7 +95,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             FrmDeviceEdit frmEdit = new FrmDeviceEdit(0);
             frmEdit.Text = "新增设备";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            var issuccess = frmEdit.isSuccess;
+            if (issuccess)
+            {
+                ShowSuccessTip("新增设备成功");
+                QueryList();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -129,7 +142,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             FrmDeviceEdit frmEdit = new FrmDeviceEdit(_Id);
             frmEdit.Text = "编辑设备";
-            frmEdit.Show();
+            frmEdit.ShowDialog();
+            var issuccess = frmEdit.isSuccess;
+            if (issuccess)
+            {
+                ShowSuccessTip("编辑设备成功");
+                QueryList();
+            }
         }
 
         private void FrmDevice_Load(object sender, EventArgs e)
@@ -137,6 +156,39 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             //清除默认选中的行
             dgvList.ClearSelection();
             _Id = 0;
+        }
+
+        private void btnSetMyself_Click(object sender, EventArgs e)
+        {
+            if (_Id == 0) 
+            {
+                ShowWarningDialog("异常提示", "请先选择要设置为本机设备的设备信息");
+                return;
+            }
+            var device = _deviceBLL.GetDeviceInfo(_Id);
+            if (device == null) 
+            {
+                ShowWarningDialog("异常提示", "设备信息不存在");
+                return;
+            }
+            if (!device.IsEnable)
+            {
+                ShowWarningDialog("异常提示", "设备信息已禁用，不能设为本机，请先启用");
+                return;
+            }
+            
+            //设备信息
+            SysDeviceInfo.currentDeviceInfo.DeviceName = device.Name;
+            SysDeviceInfo.currentDeviceInfo.DeviceId = device.ID;
+            SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
+            SysDeviceInfo.currentDeviceInfo.DeviceType = device.DeviceType;// DeviceTypeEnum.半自动袋装;
+            SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = device.MedicineCabinetCode;
+
+            bool isWriteSuccess= IniFileHelper.WriteIniData("DeviceInfo", "DeviceID", device.ID.ToString(),ConfigPath);
+            if (isWriteSuccess) 
+            {
+                ShowSuccessDialog("设备设为本机成功，请重新登录");
+            }
         }
     }
 }

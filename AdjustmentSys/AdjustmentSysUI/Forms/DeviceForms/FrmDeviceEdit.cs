@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.BLL.Device;
+﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.BLL.Device;
 using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
@@ -19,10 +20,12 @@ using System.Xml.Linq;
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
-    public partial class FrmDeviceEdit : UIEditForm
+    public partial class FrmDeviceEdit : UIForm
     {
         private int _Id;
         DeviceBLL _deviceBLL = new DeviceBLL();
+        CommonDataBLL _commonDataBLL = new CommonDataBLL();
+        public bool isSuccess=false;
         public FrmDeviceEdit(int id)
         {
             InitializeComponent();
@@ -36,12 +39,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             cbLX.Items.Insert(1, "半自动袋装");
             cbLX.Items.Insert(2, "半自动盒装");
             cbLX.Items.Insert(3, "单工位");
+           
             if (_Id == 0)
             {
                 txtSBMC.Text = "";
                 cbLX.SelectedIndex = 1;
                 txtSBBZ.Text = "80000";
                 txtSBIP.Text = "";
+                txtMECode.Text = "20000";
+                rbQY.Checked = true;
+                rbJY.Checked = false;
                 return;
             }
             var device = _deviceBLL.GetDeviceInfo(_Id);
@@ -52,6 +59,17 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 txtSBBZ.Text = device.DeviceCode;
                 txtSBIP.Text = device.IPAddress;
                 cbLX.Enabled= false;
+                txtMECode.Text = device.MedicineCabinetCode;
+                if (device.IsEnable)
+                {
+                    rbQY.Checked = true;
+                    rbJY.Checked = false;
+                }
+                else 
+                {
+                    rbQY.Checked = false;
+                    rbJY.Checked = true;
+                }
             }
         }
 
@@ -72,10 +90,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             deviceInfo.DeviceCode = txtSBBZ.Text;
             deviceInfo.DeviceType =(DeviceTypeEnum)cbLX.SelectedIndex;
             deviceInfo.IPAddress = txtSBIP.Text;
+            deviceInfo.MedicineCabinetCode= txtMECode.Text;
+            deviceInfo.IsEnable=rbQY.Checked?true:false;
             string msg = _deviceBLL.AddOrEditDeviceInfo(deviceInfo);
             if (msg == "")
             {
-                ShowSuccessTip((_Id > 0 ? "编辑" : "新增") + "成功");
+                isSuccess = true;
                 this.Close();
             }
             else
@@ -103,6 +123,32 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 txtSBBZ.Focus();
                 return false;
             }
+            if (!string.IsNullOrEmpty(txtMECode.Text))
+            { 
+                var codes = _commonDataBLL.GetMedicineCabinetCodes();
+                if (codes != null && codes.Count > 0)
+                {
+                    if (!codes.Contains(txtMECode.Text))
+                    {
+                        ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
+                        txtMECode.Focus();
+                        return false;
+                    }
+                }
+                else 
+                {
+                    ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
+                    txtMECode.Focus();
+                    return false;
+                }
+            }
+            else
+            {
+                ShowWarningDialog("异常提示", "药柜编组不能为空");
+                txtMECode.Focus();
+                return false;
+            }
+           
             return true;
         }
     }

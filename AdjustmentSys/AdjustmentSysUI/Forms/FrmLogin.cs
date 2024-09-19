@@ -1,8 +1,10 @@
-﻿using AdjustmentSys.IService;
+﻿using AdjustmentSys.BLL.Device;
+using AdjustmentSys.IService;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Service;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.Forms;
 using AdjustmentSysUI.Forms.UserForms;
 using Sunny.UI;
@@ -22,6 +24,7 @@ namespace AdjustmentSysUI
 {
     public partial class FrmLogin : UILoginForm
     {
+        private string ConfigPath = Application.StartupPath + "\\Config.ini";
         private UserInfoBLL  _userInfoBLL=new UserInfoBLL();
         public FrmLogin()
         {
@@ -29,7 +32,6 @@ namespace AdjustmentSysUI
 
         }
 
- 
         private void FrmLogin_ButtonLoginClick(object sender, System.EventArgs e)
         {
             string name = UserName;
@@ -57,12 +59,43 @@ namespace AdjustmentSysUI
                 SysLoginUser.currentUser.UserLevelName = user.UserLevelName;
                 SysLoginUser.currentUser.UserPhone = user.Phone;
 
-                //设备信息
-                SysDeviceInfo.currentDeviceInfo.DeviceName = "半自动袋装";
-                SysDeviceInfo.currentDeviceInfo.DeviceId = 1;
-                SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = 1;
-                SysDeviceInfo.currentDeviceInfo.DeviceType = DeviceTypeEnum.半自动袋装;
-                SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = "20000";
+                string deviceid= IniFileHelper.ReadIniData("DeviceInfo", "DeviceID", "", ConfigPath);
+                if (deviceid != null)
+                {
+                    DeviceBLL _deviceBLL = new DeviceBLL();
+                    var device = _deviceBLL.GetDeviceInfo(int.Parse(deviceid));
+                    if (device == null)
+                    {
+                        //设备信息
+                        SysDeviceInfo.currentDeviceInfo.DeviceName = "无";
+                        SysDeviceInfo.currentDeviceInfo.DeviceId = 1;
+                        SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
+                        SysDeviceInfo.currentDeviceInfo.DeviceType = DeviceTypeEnum.半自动袋装;
+                        SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = "20000";
+                    }
+                    else 
+                    {
+                        if (!device.IsEnable)
+                        {
+                            ShowWarningDialog("异常提示", "设备信息已禁用，请先启用");
+                        }
+                        //设备信息
+                        SysDeviceInfo.currentDeviceInfo.DeviceName = device.Name;
+                        SysDeviceInfo.currentDeviceInfo.DeviceId = device.ID;
+                        SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
+                        SysDeviceInfo.currentDeviceInfo.DeviceType = device.DeviceType;// DeviceTypeEnum.半自动袋装;
+                        SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = device.MedicineCabinetCode;
+                    }                    
+                }
+                else
+                {
+                    //设备信息
+                    SysDeviceInfo.currentDeviceInfo.DeviceName = "无";
+                    SysDeviceInfo.currentDeviceInfo.DeviceId = 1;
+                    SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
+                    SysDeviceInfo.currentDeviceInfo.DeviceType = DeviceTypeEnum.半自动袋装;
+                    SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = "20000";
+                }
 
                 this.Hide();
                 FrmMain frmMain = new FrmMain();

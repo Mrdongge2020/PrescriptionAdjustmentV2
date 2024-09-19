@@ -43,6 +43,8 @@ namespace AdjustmentSys.DAL.Device
                     device.DeviceType = deviceInfo.DeviceType;
                     device.IPAddress = deviceInfo.IPAddress;
                     device.DeviceCode= deviceInfo.DeviceCode;
+                    device.MedicineCabinetCode = deviceInfo.MedicineCabinetCode;
+                    device.IsEnable = deviceInfo.IsEnable;
                     //可省略
                     _eFCoreContext.DeviceInfos.Update(device);
                 }
@@ -126,7 +128,8 @@ namespace AdjustmentSys.DAL.Device
                 IPAddress=x.IPAddress,
                 CreateName = x.CreateName,
                 CreateTime = x.CreateTime,
-
+                MedicineCabinetCode=x.MedicineCabinetCode,
+                IsEnable=x.IsEnable?"已启用":"已禁用"
             }).ToList();
         }
     }

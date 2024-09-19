@@ -36,23 +36,15 @@
             cbLX = new Sunny.UI.UIComboBox();
             uiLabel2 = new Sunny.UI.UILabel();
             txtSBIP = new Sunny.UI.UIIPTextBox();
-            pnlBtm.SuspendLayout();
+            uiLabel3 = new Sunny.UI.UILabel();
+            txtMECode = new Sunny.UI.UITextBox();
+            uiLabel6 = new Sunny.UI.UILabel();
+            rbQY = new Sunny.UI.UIRadioButton();
+            rbJY = new Sunny.UI.UIRadioButton();
+            btnCancel = new Sunny.UI.UISymbolButton();
+            btnOK = new Sunny.UI.UISymbolButton();
+            uiLine1 = new Sunny.UI.UILine();
             SuspendLayout();
-            // 
-            // pnlBtm
-            // 
-            pnlBtm.Location = new Point(1, 329);
-            pnlBtm.Size = new Size(546, 55);
-            // 
-            // btnCancel
-            // 
-            btnCancel.Location = new Point(418, 12);
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // btnOK
-            // 
-            btnOK.Location = new Point(303, 12);
-            btnOK.Click += btnOK_Click;
             // 
             // uiLabel5
             // 
@@ -144,7 +136,7 @@
             // 
             uiLabel2.Font = new Font("宋体", 12F);
             uiLabel2.ForeColor = Color.Black;
-            uiLabel2.Location = new Point(27, 246);
+            uiLabel2.Location = new Point(27, 303);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(99, 29);
             uiLabel2.TabIndex = 56;
@@ -155,7 +147,7 @@
             // 
             txtSBIP.FillColor2 = Color.FromArgb(235, 243, 255);
             txtSBIP.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtSBIP.Location = new Point(131, 246);
+            txtSBIP.Location = new Point(131, 303);
             txtSBIP.Margin = new Padding(4, 5, 4, 5);
             txtSBIP.MinimumSize = new Size(1, 1);
             txtSBIP.Name = "txtSBIP";
@@ -165,10 +157,116 @@
             txtSBIP.TabIndex = 57;
             txtSBIP.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // uiLabel3
+            // 
+            uiLabel3.Font = new Font("宋体", 12F);
+            uiLabel3.ForeColor = Color.Red;
+            uiLabel3.Location = new Point(27, 248);
+            uiLabel3.Name = "uiLabel3";
+            uiLabel3.Size = new Size(99, 29);
+            uiLabel3.TabIndex = 58;
+            uiLabel3.Text = "药柜编组：";
+            uiLabel3.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // txtMECode
+            // 
+            txtMECode.DoubleValue = 2000D;
+            txtMECode.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtMECode.IntValue = 2000;
+            txtMECode.Location = new Point(131, 246);
+            txtMECode.Margin = new Padding(4, 5, 4, 5);
+            txtMECode.MaxLength = 50;
+            txtMECode.MinimumSize = new Size(1, 16);
+            txtMECode.Name = "txtMECode";
+            txtMECode.Padding = new Padding(5);
+            txtMECode.ShowText = false;
+            txtMECode.Size = new Size(287, 29);
+            txtMECode.TabIndex = 59;
+            txtMECode.Text = "2000";
+            txtMECode.TextAlignment = ContentAlignment.MiddleLeft;
+            txtMECode.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            txtMECode.Watermark = "设备编组";
+            // 
+            // uiLabel6
+            // 
+            uiLabel6.Font = new Font("宋体", 12F);
+            uiLabel6.ForeColor = Color.Black;
+            uiLabel6.Location = new Point(27, 355);
+            uiLabel6.Name = "uiLabel6";
+            uiLabel6.Size = new Size(99, 29);
+            uiLabel6.TabIndex = 60;
+            uiLabel6.Text = "是否启用：";
+            uiLabel6.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // rbQY
+            // 
+            rbQY.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbQY.Location = new Point(141, 355);
+            rbQY.MinimumSize = new Size(1, 1);
+            rbQY.Name = "rbQY";
+            rbQY.Size = new Size(105, 29);
+            rbQY.TabIndex = 61;
+            rbQY.Text = "启用";
+            // 
+            // rbJY
+            // 
+            rbJY.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbJY.Location = new Point(262, 355);
+            rbJY.MinimumSize = new Size(1, 1);
+            rbJY.Name = "rbJY";
+            rbJY.Size = new Size(105, 29);
+            rbJY.TabIndex = 62;
+            rbJY.Text = "禁用";
+            // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Location = new Point(353, 444);
+            btnCancel.MinimumSize = new Size(1, 1);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(85, 35);
+            btnCancel.Symbol = 361453;
+            btnCancel.TabIndex = 65;
+            btnCancel.TabStop = false;
+            btnCancel.Text = "取消";
+            btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnOK
+            // 
+            btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Location = new Point(215, 444);
+            btnOK.MinimumSize = new Size(1, 1);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(85, 35);
+            btnOK.TabIndex = 64;
+            btnOK.Text = "提交";
+            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
+            // 
+            // uiLine1
+            // 
+            uiLine1.BackColor = Color.Transparent;
+            uiLine1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLine1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLine1.Location = new Point(3, 409);
+            uiLine1.MinimumSize = new Size(1, 1);
+            uiLine1.Name = "uiLine1";
+            uiLine1.Size = new Size(498, 29);
+            uiLine1.TabIndex = 63;
+            // 
             // FrmDeviceEdit
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(548, 387);
+            ClientSize = new Size(504, 499);
+            Controls.Add(btnCancel);
+            Controls.Add(btnOK);
+            Controls.Add(uiLine1);
+            Controls.Add(rbJY);
+            Controls.Add(rbQY);
+            Controls.Add(uiLabel6);
+            Controls.Add(txtMECode);
+            Controls.Add(uiLabel3);
             Controls.Add(txtSBIP);
             Controls.Add(uiLabel2);
             Controls.Add(cbLX);
@@ -177,19 +275,11 @@
             Controls.Add(uiLabel5);
             Controls.Add(txtSBMC);
             Controls.Add(uiLabel4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmDeviceEdit";
             Text = "新增设备";
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
-            Controls.SetChildIndex(pnlBtm, 0);
-            Controls.SetChildIndex(uiLabel4, 0);
-            Controls.SetChildIndex(txtSBMC, 0);
-            Controls.SetChildIndex(uiLabel5, 0);
-            Controls.SetChildIndex(uiLabel1, 0);
-            Controls.SetChildIndex(txtSBBZ, 0);
-            Controls.SetChildIndex(cbLX, 0);
-            Controls.SetChildIndex(uiLabel2, 0);
-            Controls.SetChildIndex(txtSBIP, 0);
-            pnlBtm.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -202,5 +292,13 @@
         private Sunny.UI.UIComboBox cbLX;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UIIPTextBox txtSBIP;
+        private Sunny.UI.UILabel uiLabel3;
+        private Sunny.UI.UITextBox txtMECode;
+        private Sunny.UI.UILabel uiLabel6;
+        private Sunny.UI.UIRadioButton rbQY;
+        private Sunny.UI.UIRadioButton rbJY;
+        private Sunny.UI.UISymbolButton btnCancel;
+        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UILine uiLine1;
     }
 }

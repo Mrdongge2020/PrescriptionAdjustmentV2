@@ -1,12 +1,16 @@
 ﻿using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.Prescription;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
+using AdjustmentSys.Tool.TCP;
 using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.Forms.UserControlForms;
 using AdjustmentSysUI.Forms.UserForms;
 using AdjustmentSysUI.UITool;
+using NPOI.SS.UserModel;
 using Sunny.UI;
 using System;
 using System.Collections;
@@ -90,7 +94,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         private void FrmBoxedDevice_Load(object sender, EventArgs e)
         {
             AddButton();
+           
         }
+
+   
 
         private void lblDownLoad_Click(object sender, EventArgs e)
         {
