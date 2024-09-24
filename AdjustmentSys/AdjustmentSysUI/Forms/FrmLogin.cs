@@ -29,7 +29,8 @@ namespace AdjustmentSysUI
         public FrmLogin()
         {
             InitializeComponent();
-
+            UserName = "admin";
+            Password = "111111";
         }
 
         private void FrmLogin_ButtonLoginClick(object sender, System.EventArgs e)

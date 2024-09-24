@@ -5,15 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdjustmentSys.Tool.Enums;
 
 namespace AdjustmentSys.Models.Prescription
 {
-    public class PrescriptionDetailModel
+    public class ConfirmLocalDataPrescriptionDetail
     {
         /// <summary>
-        /// id
+        /// 处方唯一编号
         /// </summary>
-        public int ID { get; set; }
+        public string PrescriptionID { get; set; }
 
         /// <summary>
         /// 颗粒序号
@@ -23,7 +24,7 @@ namespace AdjustmentSys.Models.Prescription
         /// <summary>
         /// HIS颗粒名称
         /// </summary>
-        public string ParticlesNameHIS { get; set; }
+        public string? ParticlesNameHIS { get; set; }
 
         /// <summary>
         /// 颗粒HIS码
@@ -31,14 +32,9 @@ namespace AdjustmentSys.Models.Prescription
         public string ParticlesCodeHIS { get; set; }
 
         /// <summary>
-        /// 我库颗粒id
+        /// 我库颗粒id，默认-1
         /// </summary>
         public int ParticlesID { get; set; }
-        /// <summary>
-        /// 我库颗粒编码
-        /// </summary>
-        public int ParCode { get; set; }
-        
         /// <summary>
         /// 我库颗粒名称
         /// </summary>
@@ -47,11 +43,11 @@ namespace AdjustmentSys.Models.Prescription
         /// <summary>
         /// 颗粒批号
         /// </summary>
-        public string BatchNumber { get; set; }
+        public string? BatchNumber { get; set; }
         /// <summary>
-        /// 颗粒效期
+        /// 有效期至
         /// </summary>
-        public string ValidityTime { get; set; }
+        public string? ValidityTime { get; set; }
 
         /// <summary>
         /// 颗粒饮片剂量
@@ -73,12 +69,24 @@ namespace AdjustmentSys.Models.Prescription
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// 库存
+        /// x
         /// </summary>
-        public float? Stock { get; set; }
+        public int StationX { get; set; } = 0;
         /// <summary>
-        /// 剂量上限
+        /// y
         /// </summary>
-        public float? DoseLimit { get; set; }
+        public int StationY { get; set; } = 0;
+        /// <summary>
+        /// 位置
+        /// </summary>
+        public string StationText { get { return "第" + StationX + "排第" + StationY + "列"; } }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public StationStatusEnum Status { get; set; }
+        /// <summary>
+        /// 状态文本
+        /// </summary>
+        public string StatusText { get { return Status.ToString(); } }
     }
 }

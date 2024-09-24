@@ -35,7 +35,7 @@ namespace AdjustmentSys.BLL.Prescription
         /// <param name="prescriptionDetails">处方详情信息</param>
         /// <param name="preIds">列表已确认的处方编号集合</param>
         /// <returns></returns>
-        public List<CheckPrescriptionResultModel> CheckPrescription(LocalDataPrescriptionInfo localDataPrescriptionInfo, List<PrescriptionDetailModel> prescriptionDetails,List<string> preIds) 
+        public (List<CheckPrescriptionResultModel>, List<ConfirmLocalDataPrescriptionDetail>) CheckPrescription(LocalDataPrescriptionInfo localDataPrescriptionInfo, List<PrescriptionDetailModel> prescriptionDetails,List<string> preIds) 
         {
             List<CheckPrescriptionResultModel> errorList = new List<CheckPrescriptionResultModel>();
             CommonDataBLL commonDataBLL = new CommonDataBLL();
@@ -45,9 +45,35 @@ namespace AdjustmentSys.BLL.Prescription
             List<ParticUsedStockModel> particUsedStockModels=  _prescriptionAdjustmentDAL.GetParticUsedStocks(preIds, prescriptionDetails.Select(x => x.ParticlesID).Distinct().ToList());
             //颗粒相容性规则获取
             var rulerList = commonDataBLL.GetParticleProhibitionRules();
+            //颗粒余量下限
+            float ylxxNum = 0;
+            var ylxxStr = CommonStaticDataBLL.GetSystemParameterValue("KeLiYuLiangXiaXian");
+            if (!string.IsNullOrEmpty(ylxxStr))
+            {
+                ylxxNum = float.TryParse(ylxxStr, out float ylxx) ? ylxx : 0;
+            }
             //颗粒详情数据校验
+            List<ConfirmLocalDataPrescriptionDetail> details= new List<ConfirmLocalDataPrescriptionDetail>();
+            int index = 1;
             foreach (var item in prescriptionDetails)
             {
+                ConfirmLocalDataPrescriptionDetail localDetail = new ConfirmLocalDataPrescriptionDetail() 
+                { 
+                     ParticleOrder = index,
+                     PrescriptionID= localDataPrescriptionInfo.PrescriptionID,
+                     ParticlesID= item.ParticlesID,
+                     ParName= item.ParName,
+                     ParticlesCodeHIS= item.ParticlesCodeHIS,
+                     ParticlesNameHIS= item.ParticlesNameHIS,
+                     BatchNumber= item.BatchNumber,
+                     ValidityTime=item.ValidityTime,
+                     Dose=item.Dose,
+                     Equivalent=item.Equivalent,
+                     DoseHerb = item.DoseHerb,
+                     Price = item.Price,
+                     Status= StationStatusEnum.待放入
+                };
+                index++;
                 #region 剂量上限校验
                 if (item.Dose > item.DoseLimit)
                 {
@@ -73,18 +99,20 @@ namespace AdjustmentSys.BLL.Prescription
                     usedAmount = particUsedStockModels.FirstOrDefault(x => x.ParticId == item.ParticlesID).UsedAmount;
                 }
 
-                var currentCabinetParticles = cabinetDetails.Where(x => x.RFID.ToString().EndsWith(item.ParticlesID.ToString())).OrderByDescending(x=>x.Stock).ToList();
+                var currentCabinetParticles = cabinetDetails.Where(x => x.ParticlesID.ToString().EndsWith(item.ParticlesID.ToString())).OrderByDescending(x=>x.Stock).ToList();
                 if (currentCabinetParticles == null || currentCabinetParticles.Count==0)
                 {
-                    errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>的未在药柜上架!" });
+                    errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>未在药柜上架!" });
                 }
                 else
                 {
                     var maxStock= currentCabinetParticles.Max(x => x.Stock);
-                    if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < 10) //一瓶最大库存不够
+                    if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < ylxxNum) //一瓶最大库存不够
                     {
                         if (currentCabinetParticles.Count == 1)//只有一瓶，直接提示库存不足
                         {
+                            localDetail.StationX = currentCabinetParticles[0].CoordinateX;
+                            localDetail.StationY = currentCabinetParticles[0].CoordinateY;
                             errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>再药柜上余量不足以再调剂此处方!" });
                             //单瓶不足密度系数校验
                             if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
@@ -94,10 +122,38 @@ namespace AdjustmentSys.BLL.Prescription
                         }
                         else //多瓶要拿最大库存前两瓶判断总和是否足够
                         {
+
                             maxStock = currentCabinetParticles[0].Stock + currentCabinetParticles[1].Stock;
-                            if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < 20)
+                            if (maxStock - item.Dose * localDataPrescriptionInfo.Quantity - usedAmount < ylxxNum * 2)
                             {
-                                errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>再药柜上余量不足以再调剂此处方!" });
+                                errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>在药柜上余量不足以再调剂此处方!" });
+                            }
+                            else 
+                            {
+                                localDetail.ParticlesID = (int)currentCabinetParticles[0].ParticlesID;
+                                localDetail.StationX = currentCabinetParticles[0].CoordinateX;
+                                localDetail.StationY = currentCabinetParticles[0].CoordinateY;
+                                localDetail.Dose = (float)currentCabinetParticles[0].Stock - ylxxNum;
+                                localDetail.DoseHerb = localDetail.Dose * localDetail.Equivalent;
+                                ConfirmLocalDataPrescriptionDetail localDetail1 = new ConfirmLocalDataPrescriptionDetail()
+                                {
+                                    ParticleOrder = index,
+                                    PrescriptionID = localDataPrescriptionInfo.PrescriptionID,
+                                    ParticlesID = (int)currentCabinetParticles[1].ParticlesID,
+                                    ParticlesCodeHIS = item.ParticlesCodeHIS,
+                                    ParticlesNameHIS = item.ParticlesNameHIS,
+                                    BatchNumber = currentCabinetParticles[1].BatchNumber,
+                                    ValidityTime = currentCabinetParticles[1].ValidityTime.ToString(),
+                                    Dose = item.Dose- localDetail.Dose,
+                                    Equivalent = item.Equivalent,
+                                    DoseHerb = item.DoseHerb=localDetail.DoseHerb,
+                                    Price = item.Price,
+                                    Status = StationStatusEnum.待放入,
+                                    StationX = currentCabinetParticles[1].CoordinateX,
+                                    StationY = currentCabinetParticles[1].CoordinateY,
+                                };
+                                details.Add(localDetail1);
+                                index++;
                             }
                             //多瓶密度系数校验
                             if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5 || currentCabinetParticles[1].DensityCoefficient > 2 || currentCabinetParticles[1].DensityCoefficient < 0.5)
@@ -108,13 +164,16 @@ namespace AdjustmentSys.BLL.Prescription
                     }
                     else 
                     {
+                        localDetail.StationX = currentCabinetParticles[0].CoordinateX;
+                        localDetail.StationY = currentCabinetParticles[0].CoordinateY;
                         //单瓶充足密度系数校验
                         if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
                         {
                             errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>密度系数为<{currentCabinetParticles[0].DensityCoefficient}>超出限定范围(0.5~2),请重新测试密度值!" });
                         }
                     }
-                    
+
+                    details.Add(localDetail);
                 }
                 #endregion
 
@@ -160,9 +219,9 @@ namespace AdjustmentSys.BLL.Prescription
 
             if (errorList==null || errorList.Count<=0)
             {
-                return null;
+                return (null,details);
             }
-            return errorList.Distinct().ToList();
+            return (errorList.Distinct().ToList(),details);
         }
 
         /// <summary>
@@ -199,6 +258,16 @@ namespace AdjustmentSys.BLL.Prescription
         public bool ReturnPrescription(string prescriptionId) 
         { 
             return _prescriptionAdjustmentDAL.ReturnPrescription(prescriptionId);
+        }
+
+        /// <summary>
+        /// 获取待调剂处方
+        /// </summary>
+        /// <param name="prescriptionId">处方编号</param>
+        /// <returns></returns>
+        public PrescriptionAwaitingAdjustmentModel GetPrescriptionByCode(string prescriptionId) 
+        {
+            return _prescriptionAdjustmentDAL.GetPrescriptionByCode(prescriptionId);
         }
     }
 }

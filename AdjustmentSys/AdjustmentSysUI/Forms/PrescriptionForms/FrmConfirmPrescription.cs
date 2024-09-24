@@ -1,5 +1,6 @@
 ﻿using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.Entity;
+using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.UITool;
@@ -23,6 +24,9 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         private string _preId = "";
         private List<string> _preIds = null;
         List<CheckPrescriptionResultModel> errorList = null;
+        ///List<ConfirmLocalDataPrescriptionDetail> details = new List<ConfirmLocalDataPrescriptionDetail>();
+        ///
+        public PreModel preModel = null;
         private int clickErrorType = 0;//错误列表显示的错误类型
         public bool isConfirmOK = false;//确认是否通过
 
@@ -62,6 +66,18 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             lblCFLY.Text = localDataPrescriptionInfo.PrescriptionSource == 0 ? "HIS系统" : "TMS系统";
             lblDFJG.Text = localDataPrescriptionInfo.UnitPrice.ToString();
             lblCFZJ.Text = localDataPrescriptionInfo.TotalPrice.ToString();
+
+            preModel = new PreModel();
+            preModel.PrescriptionID = localDataPrescriptionInfo.PrescriptionID;
+            preModel.PatientName= localDataPrescriptionInfo.PatientName;
+            preModel.PatientSex = localDataPrescriptionInfo.PatientSex.ToString();
+            preModel.PatientAge = localDataPrescriptionInfo.PatientAge;
+            preModel.Quantity = localDataPrescriptionInfo.Quantity;
+            preModel.TaskFrequency = localDataPrescriptionInfo.TaskFrequency;
+            preModel.DetailedCount = localDataPrescriptionInfo.DetailedCount;
+            preModel.CreateTime = localDataPrescriptionInfo.CreateTime;
+            preModel.UsageMethod = localDataPrescriptionInfo.UsageMethod;
+            preModel.ProcessStatus = localDataPrescriptionInfo.ProcessStatus;
 
             //详情绑定
             dgvList.DataSource = data.Item2;
@@ -115,7 +131,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         }
         private void PreCheck(LocalDataPrescriptionInfo localDataPrescriptionInfo, List<PrescriptionDetailModel> prescriptionDetails)
         {
-            errorList = _prescriptionAdjustmentBLL.CheckPrescription(localDataPrescriptionInfo, prescriptionDetails, _preIds);
+            var result = _prescriptionAdjustmentBLL.CheckPrescription(localDataPrescriptionInfo, prescriptionDetails, _preIds);
+            //校验信息
+            errorList = result.Item1;
+            //处方详情
+            preModel.Details= result.Item2;
+
             if (errorList == null || errorList.Count(x => !x.IsPass) <= 0)
             {
                 lblCheckResult1.Text = "通过";

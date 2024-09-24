@@ -28,18 +28,103 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 {
     public partial class FrmBoxedDevice : UIPage
     {
+        public static MachineBox machineBox = new MachineBox();//设备类
+        public static Int16[] D600 = new Int16[28];
+
+        public FrmBoxedDevice()
+        {
+            InitializeComponent();
+            dgvPreDetail.AutoGenerateColumns = false;
+        }
+        UC_WorkStationButton[] uC_WorkStationButtons = new UC_WorkStationButton[8]; //调剂工位控件
+        private void InitData()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                var btn= FindControlByName<UC_WorkStationButton>($"uC_WorkStationButton{i + 1}");
+                if (btn==null) { continue; }
+                uC_WorkStationButtons[i] = btn;//FindControlByName<UC_WorkStationButton>($"uC_WorkStationButton{i + 1}");//(UC_WorkStationButton)(Controls.Find($"uC_WorkStationButton1[{i + 1}]", true)[0]);
+                uC_WorkStationButtons[i].StationName = $"工位{i + 1}";
+                uC_WorkStationButtons[i].ParticName = "无";
+                uC_WorkStationButtons[i].Status = StationStatusEnum.无;
+                uC_WorkStationButtons[i].ProcessValue = 20;
+                uC_WorkStationButtons[i].SetControlValue();
+            }
+
+            //供盒
+            lblGHZT.Text = "无";
+            lblGHYC.Text = "无";
+            //封口
+            lblFKZT.Text = "无";
+            lblFKYC.Text = "无";
+            //出盒
+            lblCHZT.Text = "无";
+            lblCHYC.Text = "无";
+
+            //称重
+            stationWeightPaticleName.Text = "无";
+            stationWeightStatus.Text = "";
+            stationWeightNumber.Text = "0g";
+            //正在调剂处方信息
+            lblPreId.Text = "无";
+            lblPreParticleNum.Text = "0";
+            lblPreQuantity.Text = "0";
+            lblPreBoxNum.Text = "0";
+            //正在调剂处方详情
+            if (dgvPreDetail.Rows.Count > 0)
+            {
+                dgvPreDetail.Rows.Clear();
+            }
+            //调剂异常信息
+            lbOpterMsg.Items.Clear();
+            //设备异常信息
+        }
+
+        // 通用方法来按名称查找控件
+        private T FindControlByName<T>(string name) where T : Control
+        {
+            // 调用Controls.Find方法查找控件
+            T control = this.Controls.Find(name, true).FirstOrDefault() as T;
+            return control;
+        }
+
+        /// <summary>
+        ///int 位获取
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+
+        public static bool GetBitValue(Int64 value, int index)      //  Bit位判断
+        {
+            if (index > 63) throw new ArgumentOutOfRangeException("index"); //索引出错
+            {
+
+                Int64 val = Value(index);
+                return (value & val) == val;
+            }
+        }
+        public static Int64 Value(int index)
+        {
+            Int64 Newvalue = 1;
+            for (int i = 1; i < index; i++)
+            {
+                Newvalue = Newvalue * 2;
+            }
+
+            return Newvalue;
+        }
+
+
+
         DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
         PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
         string fileUrl = Application.StartupPath + "\\testbinfile.bin";
         //private List<string> DownLoadPreIdList = new List<string>();
         string selectPreId = "";//选中的处方编号
         private DownLoadPreModel downLoadPreModel { get; set; }//已下载处方文件实体
-        public FrmBoxedDevice()
-        {
-            InitializeComponent();
-        }
 
-        
+
         private void AddButton()
         {
             //从文件拿取
@@ -94,10 +179,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         private void FrmBoxedDevice_Load(object sender, EventArgs e)
         {
             AddButton();
-           
+            InitData();
         }
-
-   
 
         private void lblDownLoad_Click(object sender, EventArgs e)
         {
@@ -107,11 +190,11 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             List<string> preIdList = frmPrescriptionDownLoad.loadPrescriptionIdList;
             if (preIdList != null && preIdList.Count > 0)
             {
-                if (downLoadPreModel==null) 
+                if (downLoadPreModel == null)
                 {
                     downLoadPreModel = new DownLoadPreModel();
                 }
-              
+
                 foreach (var item in preIdList)
                 {
                     //写入文件
@@ -122,14 +205,14 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                             downLoadPreModel.LoadedPreIds.Add(item);
                         }
                     }
-                    else 
+                    else
                     {
                         downLoadPreModel.LoadedPreIds = new List<string>();
                         downLoadPreModel.LoadedPreIds.Add(item);
-                    } 
+                    }
                 }
-                
-                downLoadPreModel.LoadedPreIds.AddRange(downLoadPreModel.LoadedPreIds.Distinct().ToList());
+
+                //downLoadPreModel.LoadedPreIds.AddRange(downLoadPreModel.LoadedPreIds.Distinct().ToList());
                 BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);
                 AddButton();
             }
@@ -148,7 +231,11 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 ShowSuccessTip($"处方[{selectPreId}]已成功复位");
                 downLoadPreModel.LoadedPreIds.Remove(selectPreId);
-                downLoadPreModel.LoadedPreIds = downLoadPreModel.LoadedPreIds.Distinct().ToList();
+                //downLoadPreModel.LoadedPreIds = downLoadPreModel.LoadedPreIds.Distinct().ToList();
+                var curCheckPre= downLoadPreModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == selectPreId);
+                if (curCheckPre!=null) {
+                    downLoadPreModel.CheckedPreInfos.Remove(curCheckPre);
+                }
                 //写入文件
                 BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);
 
@@ -185,7 +272,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 return;
             }
             List<string> checkedPreids = _prescriptionAdjustmentBLL.GetConfirmedPrescriptions(downLoadPreModel.LoadedPreIds);
-            if (checkedPreids!=null && checkedPreids.Contains(selectPreId)) 
+            if (checkedPreids != null && checkedPreids.Contains(selectPreId))
             {
                 ShowWarningDialog("异常提示", "该处方已核对，无需再次核对");
                 return;
@@ -194,12 +281,86 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             FrmConfirmPrescription frmConfirmPrescription = new FrmConfirmPrescription(selectPreId, checkedPreids);
             frmConfirmPrescription.ShowDialog();
             bool isPassed = frmConfirmPrescription.isConfirmOK;
-            if (isPassed) 
+            if (isPassed)
             {
                 ShowSuccessTip($"处方[{selectPreId}]核对成功");
                 AddButton();
+                //写入到文件
+                if(downLoadPreModel == null)
+                {
+                    downLoadPreModel = new DownLoadPreModel();
+                }
+
+                //写入文件
+                if (downLoadPreModel.CheckedPreInfos != null && downLoadPreModel.CheckedPreInfos.Count > 0)
+                {
+                    if (!downLoadPreModel.CheckedPreInfos.Any(x=>x.PrescriptionID==frmConfirmPrescription.preModel.PrescriptionID))
+                    {
+                        downLoadPreModel.CheckedPreInfos.Add(frmConfirmPrescription.preModel);
+                    }
+                }
+                else
+                {
+                    downLoadPreModel.CheckedPreInfos = new List<PreModel>();
+                    downLoadPreModel.CheckedPreInfos.Add(frmConfirmPrescription.preModel);
+                }
+
+                BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);
 
             }
+        }
+
+        private void btnSuspend_Click(object sender, EventArgs e)
+        {
+            if (machineBox.Stop)
+            {
+                machineBox.Stop = false;
+                lbOpterMsg.Items.Insert(0, "|设备继续当前动作:|" + DateTime.Now);
+                return;
+            }
+            else
+            {
+
+                machineBox.Stop = true;
+                lbOpterMsg.Items.Insert(0, "|设备已暂停:|" + DateTime.Now);
+                return;
+            }
+        }
+
+        private void btnStartRun_Click(object sender, EventArgs e)
+        {
+            if (selectPreId == "")
+            {
+                ShowWarningDialog("异常提示", "请先选择要调剂的处方");
+                return;
+            }
+
+            if (downLoadPreModel==null) {
+                downLoadPreModel = BinFileHelper.ReadObjectFromBinaryFile<DownLoadPreModel>(fileUrl);
+            }
+            if (downLoadPreModel==null || downLoadPreModel.CheckedPreInfos==null || downLoadPreModel.CheckedPreInfos.Count<=0
+                || !downLoadPreModel.CheckedPreInfos.Any(x=>x.PrescriptionID== selectPreId)) 
+            {
+                ShowWarningDialog("异常提示", "该处方还未核对通过");
+                return;
+            }
+
+            //获取处方信息
+            var prescription = downLoadPreModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == selectPreId);
+            if (prescription.Details == null || prescription.Details.Count<=0) 
+            {
+                ShowWarningDialog("异常提示", "未找到处方颗粒详情信息");
+                return;
+            }
+
+            //正在调剂处方信息
+            lblPreId.Text = prescription.PrescriptionID;
+            lblPreParticleNum.Text = prescription.DetailedCount.ToString();
+            lblPreQuantity.Text = prescription.Quantity.ToString();
+            lblPreBoxNum.Text = "暂无";
+
+            dgvPreDetail.DataSource = prescription.Details;
+
         }
     }
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdjustmentSys.Entity\AdjustmentSys.Entity.csproj" />
     <ProjectReference Include="..\AdjustmentSys.Tool\AdjustmentSys.Tool.csproj" />
   </ItemGroup>
 

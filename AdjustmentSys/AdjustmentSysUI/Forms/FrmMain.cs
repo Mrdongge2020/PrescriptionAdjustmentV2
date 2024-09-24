@@ -37,6 +37,8 @@ namespace AdjustmentSysUI.Forms
             int pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));
+            
 
             pageIndex = 200;
             parent = navMenuMainLeft.CreateNode("系统管理", 362718, 28, pageIndex);
@@ -99,8 +101,10 @@ namespace AdjustmentSysUI.Forms
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            ModBusTCP_Cliect.port = 502;
             switch (SysDeviceInfo._currentDeviceInfo.DeviceType)
             {
+                
                 case DeviceTypeEnum.全自动:
                     {
                         ModBusTCP_Cliect.ip = "192.168.1.6";
@@ -162,13 +166,7 @@ namespace AdjustmentSysUI.Forms
                         lblDeviceConnectText.Text = "已连接";
                         lblDeviceConnectText.ForeColor = Color.Blue;
                     }));
-                }
-                //if (Form1_Mian.PLC_Cluettext != "设备已连接")
-                //{
-                //    Form1_Mian.PLC_Cluettext = "设备已连接";
-                //    MethodInvoker MethInvo = new MethodInvoker(UserControladd);
-                //    Invoke(MethInvo);
-                //}
+                } 
             }
             else
             {
@@ -179,52 +177,13 @@ namespace AdjustmentSysUI.Forms
                         lblDeviceConnectText.Text = "未连接";
                         lblDeviceConnectText.ForeColor = Color.Red;
                     }));
-                }
-                //Form1_Mian.DeviceConnentionState = false;
-                //if (Form1_Mian.PLC_Cluettext != "未连接到设备")
-                //{
-                //    Form1_Mian.PLC_Cluettext = "未连接到设备";
-                //    MethodInvoker MethInvo = new MethodInvoker(UserControldelete);
-                //    Invoke(MethInvo);
-                //}
+                }                
             }
 
             if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus == false)
             {
                 modBusTCP_Cliect.Connent();
-                SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
-                //switch (ConfigTB.Checkdive)
-                //{
-                //    case 0:
-                //        {
-                //            Form1_Mian.objModBusTCP_Cliect.Connent();
-                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
-                //        }
-                //        break;
-                //    case 1:
-                //        {
-
-                //            Form1_Mian.objModBusTCP_Cliect.Connent();
-                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
-
-
-                //        }
-                //        break;
-                //    case 2:
-                //        {
-
-                //            Form1_Mian.objModBusTCP_Cliect.Connent();
-                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
-                //        }
-                //        break;
-                //    case 3:
-                //        {
-                //            Form1_Mian.objModBusTCP_Cliect.Connent();
-                //            Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
-                //            //  Form1_Mian.DeviceConnentionState = Connect(); 
-                //        }
-                //        break;
-                //}
+                SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;     
             }
 
         }

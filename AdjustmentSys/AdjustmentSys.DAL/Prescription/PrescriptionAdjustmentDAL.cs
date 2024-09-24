@@ -162,5 +162,18 @@ namespace AdjustmentSys.DAL.Prescription
 
             return true;
         }
+
+        /// <summary>
+        /// 获取待调剂处方
+        /// </summary>
+        /// <param name="prescriptionId">处方编号</param>
+        /// <returns></returns>
+        public PrescriptionAwaitingAdjustmentModel GetPrescriptionByCode(string prescriptionId) 
+        {
+            PrescriptionAwaitingAdjustmentModel prescriptionAwaitingAdjustmentModel = new PrescriptionAwaitingAdjustmentModel();
+            prescriptionAwaitingAdjustmentModel.PrescriptionInfo = _eFCoreContext.LocalDataPrescriptionInfos.FirstOrDefault(x => x.PrescriptionID == prescriptionId);
+            prescriptionAwaitingAdjustmentModel.PrescriptionDetails = _eFCoreContext.LocalDataPrescriptionDetails.Where(x => x.PrescriptionID == prescriptionId).ToList();
+            return prescriptionAwaitingAdjustmentModel;
+        }
     }
 }

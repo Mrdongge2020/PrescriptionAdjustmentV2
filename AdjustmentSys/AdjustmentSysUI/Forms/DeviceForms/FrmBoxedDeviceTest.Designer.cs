@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             btnTestStart = new Sunny.UI.UISwitch();
             uiGroupBox1 = new Sunny.UI.UIGroupBox();
             btnydkzhl = new Sunny.UI.UIButton();
@@ -82,21 +83,22 @@
             btnDZTSxz = new Sunny.UI.UIButton();
             btnDZTSgh = new Sunny.UI.UIButton();
             uiRadioButtonGroup2 = new Sunny.UI.UIRadioButtonGroup();
-            uiRadioButton27 = new Sunny.UI.UIRadioButton();
-            uiRadioButton24 = new Sunny.UI.UIRadioButton();
-            uiRadioButton25 = new Sunny.UI.UIRadioButton();
-            uiRadioButton22 = new Sunny.UI.UIRadioButton();
-            uiRadioButton23 = new Sunny.UI.UIRadioButton();
-            uiRadioButton20 = new Sunny.UI.UIRadioButton();
-            uiRadioButton21 = new Sunny.UI.UIRadioButton();
-            uiRadioButton19 = new Sunny.UI.UIRadioButton();
-            uiRadioButton18 = new Sunny.UI.UIRadioButton();
-            uiRadioButton17 = new Sunny.UI.UIRadioButton();
-            uiRadioButton16 = new Sunny.UI.UIRadioButton();
-            uiRadioButton15 = new Sunny.UI.UIRadioButton();
-            uiRadioButton14 = new Sunny.UI.UIRadioButton();
-            uiRadioButton13 = new Sunny.UI.UIRadioButton();
-            uiRadioButton9 = new Sunny.UI.UIRadioButton();
+            rbSRZT7 = new Sunny.UI.UIRadioButton();
+            rbSRZT16 = new Sunny.UI.UIRadioButton();
+            rbSRZT15 = new Sunny.UI.UIRadioButton();
+            rbSRZT14 = new Sunny.UI.UIRadioButton();
+            rbSRZT13 = new Sunny.UI.UIRadioButton();
+            rbSRZT12 = new Sunny.UI.UIRadioButton();
+            rbSRZT11 = new Sunny.UI.UIRadioButton();
+            rbSRZT10 = new Sunny.UI.UIRadioButton();
+            rbSRZT9 = new Sunny.UI.UIRadioButton();
+            rbSRZT8 = new Sunny.UI.UIRadioButton();
+            rbSRZT6 = new Sunny.UI.UIRadioButton();
+            rbSRZT5 = new Sunny.UI.UIRadioButton();
+            rbSRZT4 = new Sunny.UI.UIRadioButton();
+            rbSRZT3 = new Sunny.UI.UIRadioButton();
+            rbSRZT2 = new Sunny.UI.UIRadioButton();
+            rbSRZT1 = new Sunny.UI.UIRadioButton();
             uiGroupBox3 = new Sunny.UI.UIGroupBox();
             uiLabel14 = new Sunny.UI.UILabel();
             cbKLMC = new Sunny.UI.UIComboBox();
@@ -114,12 +116,13 @@
             btnLedOpen = new Sunny.UI.UIButton();
             rbDG2 = new Sunny.UI.UIRadioButton();
             rbDG1 = new Sunny.UI.UIRadioButton();
-            lbInfo = new Sunny.UI.UIListBox();
+            lbInfos = new Sunny.UI.UIListBox();
             dgvError = new Sunny.UI.UIDataGridView();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             uiLabel15 = new Sunny.UI.UILabel();
+            timer1 = new System.Windows.Forms.Timer(components);
             uiGroupBox1.SuspendLayout();
             uiRadioButtonGroup1.SuspendLayout();
             uiGroupBox2.SuspendLayout();
@@ -135,9 +138,10 @@
             btnTestStart.Location = new Point(136, 41);
             btnTestStart.MinimumSize = new Size(1, 1);
             btnTestStart.Name = "btnTestStart";
-            btnTestStart.Size = new Size(75, 29);
+            btnTestStart.Size = new Size(67, 29);
             btnTestStart.TabIndex = 0;
             btnTestStart.Text = "uiSwitch1";
+            btnTestStart.ActiveChanging += btnTestStart_ActiveChanging;
             // 
             // uiGroupBox1
             // 
@@ -168,6 +172,7 @@
             btnydkzhl.TabIndex = 7;
             btnydkzhl.Text = "回 零";
             btnydkzhl.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnydkzhl.Click += btnydkzhl_Click;
             // 
             // uiRadioButtonGroup1
             // 
@@ -314,6 +319,7 @@
             btnydkzxr.TabIndex = 6;
             btnydkzxr.Text = "写 入";
             btnydkzxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnydkzxr.Click += btnydkzxr_Click;
             // 
             // uiLabel3
             // 
@@ -336,7 +342,7 @@
             dudydkz.ShowText = false;
             dudydkz.Size = new Size(116, 29);
             dudydkz.TabIndex = 5;
-            dudydkz.Text = "uiDoubleUpDown1";
+            dudydkz.Text = null;
             dudydkz.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel1
@@ -426,6 +432,7 @@
             btnDZTSqbqc.TabIndex = 33;
             btnDZTSqbqc.Text = "全部清除";
             btnDZTSqbqc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSqbqc.Click += btnDZTSqbqc_Click;
             // 
             // btnDZTSsc
             // 
@@ -437,6 +444,7 @@
             btnDZTSsc.TabIndex = 32;
             btnDZTSsc.Text = "输 出";
             btnDZTSsc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSsc.Click += btnDZTSsc_Click;
             // 
             // cbDZTS
             // 
@@ -467,6 +475,7 @@
             btnDZTStmcdxr.TabIndex = 30;
             btnDZTStmcdxr.Text = "写 入";
             btnDZTStmcdxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTStmcdxr.Click += btnDZTStmcdxr_Click;
             // 
             // uiLabel10
             // 
@@ -506,13 +515,14 @@
             // btnDZTSfkmfkwxr
             // 
             btnDZTSfkmfkwxr.Font = new Font("微软雅黑", 10.5F);
-            btnDZTSfkmfkwxr.Location = new Point(777, 90);
+            btnDZTSfkmfkwxr.Location = new Point(781, 90);
             btnDZTSfkmfkwxr.MinimumSize = new Size(1, 1);
             btnDZTSfkmfkwxr.Name = "btnDZTSfkmfkwxr";
             btnDZTSfkmfkwxr.Size = new Size(82, 35);
             btnDZTSfkmfkwxr.TabIndex = 26;
             btnDZTSfkmfkwxr.Text = "写 入";
             btnDZTSfkmfkwxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSfkmfkwxr.Click += btnDZTSfkmfkwxr_Click;
             // 
             // uiLabel8
             // 
@@ -520,7 +530,7 @@
             uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel8.Location = new Point(742, 92);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(29, 31);
+            uiLabel8.Size = new Size(41, 31);
             uiLabel8.TabIndex = 25;
             uiLabel8.Text = "mm";
             uiLabel8.TextAlign = ContentAlignment.MiddleLeft;
@@ -544,7 +554,7 @@
             uiLabel9.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel9.Location = new Point(503, 95);
             uiLabel9.Name = "uiLabel9";
-            uiLabel9.Size = new Size(118, 31);
+            uiLabel9.Size = new Size(101, 31);
             uiLabel9.TabIndex = 23;
             uiLabel9.Text = "封口膜封口位:";
             uiLabel9.TextAlign = ContentAlignment.MiddleLeft;
@@ -552,21 +562,22 @@
             // btnDZTSfkmjcwxr
             // 
             btnDZTSfkmjcwxr.Font = new Font("微软雅黑", 10.5F);
-            btnDZTSfkmjcwxr.Location = new Point(306, 93);
+            btnDZTSfkmjcwxr.Location = new Point(288, 93);
             btnDZTSfkmjcwxr.MinimumSize = new Size(1, 1);
             btnDZTSfkmjcwxr.Name = "btnDZTSfkmjcwxr";
             btnDZTSfkmjcwxr.Size = new Size(82, 35);
             btnDZTSfkmjcwxr.TabIndex = 22;
             btnDZTSfkmjcwxr.Text = "写 入";
             btnDZTSfkmjcwxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSfkmjcwxr.Click += btnDZTSfkmjcwxr_Click;
             // 
             // uiLabel6
             // 
             uiLabel6.Font = new Font("微软雅黑", 10.5F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(271, 95);
+            uiLabel6.Location = new Point(246, 95);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(29, 31);
+            uiLabel6.Size = new Size(36, 31);
             uiLabel6.TabIndex = 21;
             uiLabel6.Text = "mm";
             uiLabel6.TextAlign = ContentAlignment.MiddleLeft;
@@ -574,7 +585,7 @@
             // iudDZTSfkmjcw
             // 
             iudDZTSfkmjcw.Font = new Font("微软雅黑", 10.5F);
-            iudDZTSfkmjcw.Location = new Point(148, 96);
+            iudDZTSfkmjcw.Location = new Point(129, 97);
             iudDZTSfkmjcw.Margin = new Padding(4, 5, 4, 5);
             iudDZTSfkmjcw.MinimumSize = new Size(100, 0);
             iudDZTSfkmjcw.Name = "iudDZTSfkmjcw";
@@ -590,7 +601,7 @@
             uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel7.Location = new Point(21, 95);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(117, 31);
+            uiLabel7.Size = new Size(101, 31);
             uiLabel7.TabIndex = 19;
             uiLabel7.Text = "封口膜检测位:";
             uiLabel7.TextAlign = ContentAlignment.MiddleLeft;
@@ -616,6 +627,7 @@
             btnDZTSfkysxr.TabIndex = 17;
             btnDZTSfkysxr.Text = "写 入";
             btnDZTSfkysxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSfkysxr.Click += btnDZTSfkysxr_Click;
             // 
             // uiLabel4
             // 
@@ -638,7 +650,7 @@
             iudDZTSfkys.ShowText = false;
             iudDZTSfkys.Size = new Size(116, 29);
             iudDZTSfkys.TabIndex = 15;
-            iudDZTSfkys.Text = "uiIntegerUpDown1";
+            iudDZTSfkys.Text = null;
             iudDZTSfkys.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel2
@@ -662,6 +674,7 @@
             btnDZTSbfbqdxy.TabIndex = 13;
             btnDZTSbfbqdxy.Text = "百分比启动下药";
             btnDZTSbfbqdxy.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSbfbqdxy.Click += btnDZTSbfbqdxy_Click;
             // 
             // dudDZTSbfb
             // 
@@ -687,6 +700,7 @@
             btnDZTSch.TabIndex = 11;
             btnDZTSch.Text = "出 盒";
             btnDZTSch.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSch.Click += btnDZTSch_Click;
             // 
             // btnDZTSfk
             // 
@@ -698,6 +712,7 @@
             btnDZTSfk.TabIndex = 10;
             btnDZTSfk.Text = "封 口";
             btnDZTSfk.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSfk.Click += btnDZTSfk_Click;
             // 
             // btnDZTSxz
             // 
@@ -709,6 +724,7 @@
             btnDZTSxz.TabIndex = 9;
             btnDZTSxz.Text = "旋 转";
             btnDZTSxz.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSxz.Click += btnDZTSxz_Click;
             // 
             // btnDZTSgh
             // 
@@ -720,25 +736,27 @@
             btnDZTSgh.TabIndex = 8;
             btnDZTSgh.Text = "供 盒";
             btnDZTSgh.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDZTSgh.Click += btnDZTSgh_Click;
             // 
             // uiRadioButtonGroup2
             // 
             uiRadioButtonGroup2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton27);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton24);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton25);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton22);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton23);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton20);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton21);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton19);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton18);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton17);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton16);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton15);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton14);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton13);
-            uiRadioButtonGroup2.Controls.Add(uiRadioButton9);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT7);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT16);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT15);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT14);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT13);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT12);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT11);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT10);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT9);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT8);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT6);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT5);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT4);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT3);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT2);
+            uiRadioButtonGroup2.Controls.Add(rbSRZT1);
             uiRadioButtonGroup2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiRadioButtonGroup2.Location = new Point(8, 422);
             uiRadioButtonGroup2.Margin = new Padding(4, 5, 4, 5);
@@ -750,155 +768,165 @@
             uiRadioButtonGroup2.Text = "输入状态";
             uiRadioButtonGroup2.TextAlignment = ContentAlignment.MiddleLeft;
             // 
-            // uiRadioButton27
+            // rbSRZT7
             // 
-            uiRadioButton27.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton27.Location = new Point(705, 89);
-            uiRadioButton27.MinimumSize = new Size(1, 1);
-            uiRadioButton27.Name = "uiRadioButton27";
-            uiRadioButton27.Size = new Size(53, 29);
-            uiRadioButton27.TabIndex = 14;
-            uiRadioButton27.Text = "X16";
+            rbSRZT7.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT7.Location = new Point(21, 95);
+            rbSRZT7.MinimumSize = new Size(1, 1);
+            rbSRZT7.Name = "rbSRZT7";
+            rbSRZT7.Size = new Size(53, 29);
+            rbSRZT7.TabIndex = 15;
+            rbSRZT7.Text = "X7";
             // 
-            // uiRadioButton24
+            // rbSRZT16
             // 
-            uiRadioButton24.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton24.Location = new Point(617, 89);
-            uiRadioButton24.MinimumSize = new Size(1, 1);
-            uiRadioButton24.Name = "uiRadioButton24";
-            uiRadioButton24.Size = new Size(53, 29);
-            uiRadioButton24.TabIndex = 13;
-            uiRadioButton24.Text = "X15";
+            rbSRZT16.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT16.Location = new Point(789, 95);
+            rbSRZT16.MinimumSize = new Size(1, 1);
+            rbSRZT16.Name = "rbSRZT16";
+            rbSRZT16.Size = new Size(53, 29);
+            rbSRZT16.TabIndex = 14;
+            rbSRZT16.Text = "X16";
             // 
-            // uiRadioButton25
+            // rbSRZT15
             // 
-            uiRadioButton25.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton25.Location = new Point(533, 89);
-            uiRadioButton25.MinimumSize = new Size(1, 1);
-            uiRadioButton25.Name = "uiRadioButton25";
-            uiRadioButton25.Size = new Size(53, 29);
-            uiRadioButton25.TabIndex = 12;
-            uiRadioButton25.Text = "X14";
+            rbSRZT15.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT15.Location = new Point(701, 95);
+            rbSRZT15.MinimumSize = new Size(1, 1);
+            rbSRZT15.Name = "rbSRZT15";
+            rbSRZT15.Size = new Size(53, 29);
+            rbSRZT15.TabIndex = 13;
+            rbSRZT15.Text = "X15";
             // 
-            // uiRadioButton22
+            // rbSRZT14
             // 
-            uiRadioButton22.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton22.Location = new Point(452, 89);
-            uiRadioButton22.MinimumSize = new Size(1, 1);
-            uiRadioButton22.Name = "uiRadioButton22";
-            uiRadioButton22.Size = new Size(53, 29);
-            uiRadioButton22.TabIndex = 11;
-            uiRadioButton22.Text = "X13";
+            rbSRZT14.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT14.Location = new Point(617, 95);
+            rbSRZT14.MinimumSize = new Size(1, 1);
+            rbSRZT14.Name = "rbSRZT14";
+            rbSRZT14.Size = new Size(53, 29);
+            rbSRZT14.TabIndex = 12;
+            rbSRZT14.Text = "X14";
             // 
-            // uiRadioButton23
+            // rbSRZT13
             // 
-            uiRadioButton23.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton23.Location = new Point(356, 89);
-            uiRadioButton23.MinimumSize = new Size(1, 1);
-            uiRadioButton23.Name = "uiRadioButton23";
-            uiRadioButton23.Size = new Size(53, 29);
-            uiRadioButton23.TabIndex = 10;
-            uiRadioButton23.Text = "X12";
+            rbSRZT13.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT13.Location = new Point(536, 95);
+            rbSRZT13.MinimumSize = new Size(1, 1);
+            rbSRZT13.Name = "rbSRZT13";
+            rbSRZT13.Size = new Size(53, 29);
+            rbSRZT13.TabIndex = 11;
+            rbSRZT13.Text = "X13";
             // 
-            // uiRadioButton20
+            // rbSRZT12
             // 
-            uiRadioButton20.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton20.Location = new Point(287, 89);
-            uiRadioButton20.MinimumSize = new Size(1, 1);
-            uiRadioButton20.Name = "uiRadioButton20";
-            uiRadioButton20.Size = new Size(53, 29);
-            uiRadioButton20.TabIndex = 9;
-            uiRadioButton20.Text = "X11";
+            rbSRZT12.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT12.Location = new Point(425, 95);
+            rbSRZT12.MinimumSize = new Size(1, 1);
+            rbSRZT12.Name = "rbSRZT12";
+            rbSRZT12.Size = new Size(53, 29);
+            rbSRZT12.TabIndex = 10;
+            rbSRZT12.Text = "X12";
             // 
-            // uiRadioButton21
+            // rbSRZT11
             // 
-            uiRadioButton21.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton21.Location = new Point(191, 89);
-            uiRadioButton21.MinimumSize = new Size(1, 1);
-            uiRadioButton21.Name = "uiRadioButton21";
-            uiRadioButton21.Size = new Size(53, 29);
-            uiRadioButton21.TabIndex = 8;
-            uiRadioButton21.Text = "X10";
+            rbSRZT11.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT11.Location = new Point(356, 95);
+            rbSRZT11.MinimumSize = new Size(1, 1);
+            rbSRZT11.Name = "rbSRZT11";
+            rbSRZT11.Size = new Size(53, 29);
+            rbSRZT11.TabIndex = 9;
+            rbSRZT11.Text = "X11";
             // 
-            // uiRadioButton19
+            // rbSRZT10
             // 
-            uiRadioButton19.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton19.Location = new Point(114, 89);
-            uiRadioButton19.MinimumSize = new Size(1, 1);
-            uiRadioButton19.Name = "uiRadioButton19";
-            uiRadioButton19.Size = new Size(53, 29);
-            uiRadioButton19.TabIndex = 7;
-            uiRadioButton19.Text = "X9";
+            rbSRZT10.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT10.Location = new Point(268, 95);
+            rbSRZT10.MinimumSize = new Size(1, 1);
+            rbSRZT10.Name = "rbSRZT10";
+            rbSRZT10.Size = new Size(53, 29);
+            rbSRZT10.TabIndex = 8;
+            rbSRZT10.Text = "X10";
             // 
-            // uiRadioButton18
+            // rbSRZT9
             // 
-            uiRadioButton18.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton18.Location = new Point(18, 89);
-            uiRadioButton18.MinimumSize = new Size(1, 1);
-            uiRadioButton18.Name = "uiRadioButton18";
-            uiRadioButton18.Size = new Size(53, 29);
-            uiRadioButton18.TabIndex = 6;
-            uiRadioButton18.Text = "X8";
+            rbSRZT9.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT9.Location = new Point(191, 95);
+            rbSRZT9.MinimumSize = new Size(1, 1);
+            rbSRZT9.Name = "rbSRZT9";
+            rbSRZT9.Size = new Size(53, 29);
+            rbSRZT9.TabIndex = 7;
+            rbSRZT9.Text = "X9";
             // 
-            // uiRadioButton17
+            // rbSRZT8
             // 
-            uiRadioButton17.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton17.Location = new Point(865, 35);
-            uiRadioButton17.MinimumSize = new Size(1, 1);
-            uiRadioButton17.Name = "uiRadioButton17";
-            uiRadioButton17.Size = new Size(176, 29);
-            uiRadioButton17.TabIndex = 5;
-            uiRadioButton17.Text = "X6(出盒交流原点)";
+            rbSRZT8.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT8.Location = new Point(112, 95);
+            rbSRZT8.MinimumSize = new Size(1, 1);
+            rbSRZT8.Name = "rbSRZT8";
+            rbSRZT8.Size = new Size(53, 29);
+            rbSRZT8.TabIndex = 6;
+            rbSRZT8.Text = "X8";
             // 
-            // uiRadioButton16
+            // rbSRZT6
             // 
-            uiRadioButton16.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton16.Location = new Point(705, 35);
-            uiRadioButton16.MinimumSize = new Size(1, 1);
-            uiRadioButton16.Name = "uiRadioButton16";
-            uiRadioButton16.Size = new Size(141, 29);
-            uiRadioButton16.TabIndex = 4;
-            uiRadioButton16.Text = "X5(出盒检查)";
+            rbSRZT6.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT6.Location = new Point(865, 35);
+            rbSRZT6.MinimumSize = new Size(1, 1);
+            rbSRZT6.Name = "rbSRZT6";
+            rbSRZT6.Size = new Size(176, 29);
+            rbSRZT6.TabIndex = 5;
+            rbSRZT6.Text = "X6(出盒交流原点)";
             // 
-            // uiRadioButton15
+            // rbSRZT5
             // 
-            uiRadioButton15.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton15.Location = new Point(533, 35);
-            uiRadioButton15.MinimumSize = new Size(1, 1);
-            uiRadioButton15.Name = "uiRadioButton15";
-            uiRadioButton15.Size = new Size(149, 29);
-            uiRadioButton15.TabIndex = 3;
-            uiRadioButton15.Text = "X4(下盒检查)";
+            rbSRZT5.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT5.Location = new Point(705, 35);
+            rbSRZT5.MinimumSize = new Size(1, 1);
+            rbSRZT5.Name = "rbSRZT5";
+            rbSRZT5.Size = new Size(141, 29);
+            rbSRZT5.TabIndex = 4;
+            rbSRZT5.Text = "X5(出盒检查)";
             // 
-            // uiRadioButton14
+            // rbSRZT4
             // 
-            uiRadioButton14.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton14.Location = new Point(356, 35);
-            uiRadioButton14.MinimumSize = new Size(1, 1);
-            uiRadioButton14.Name = "uiRadioButton14";
-            uiRadioButton14.Size = new Size(166, 29);
-            uiRadioButton14.TabIndex = 2;
-            uiRadioButton14.Text = "X3(封口膜到位检查)";
+            rbSRZT4.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT4.Location = new Point(533, 35);
+            rbSRZT4.MinimumSize = new Size(1, 1);
+            rbSRZT4.Name = "rbSRZT4";
+            rbSRZT4.Size = new Size(149, 29);
+            rbSRZT4.TabIndex = 3;
+            rbSRZT4.Text = "X4(下盒检查)";
             // 
-            // uiRadioButton13
+            // rbSRZT3
             // 
-            uiRadioButton13.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton13.Location = new Point(191, 35);
-            uiRadioButton13.MinimumSize = new Size(1, 1);
-            uiRadioButton13.Name = "uiRadioButton13";
-            uiRadioButton13.Size = new Size(176, 29);
-            uiRadioButton13.TabIndex = 1;
-            uiRadioButton13.Text = "X2(封口交流下限位)";
+            rbSRZT3.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT3.Location = new Point(356, 35);
+            rbSRZT3.MinimumSize = new Size(1, 1);
+            rbSRZT3.Name = "rbSRZT3";
+            rbSRZT3.Size = new Size(166, 29);
+            rbSRZT3.TabIndex = 2;
+            rbSRZT3.Text = "X3(封口膜到位检查)";
             // 
-            // uiRadioButton9
+            // rbSRZT2
             // 
-            uiRadioButton9.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiRadioButton9.Location = new Point(19, 35);
-            uiRadioButton9.MinimumSize = new Size(1, 1);
-            uiRadioButton9.Name = "uiRadioButton9";
-            uiRadioButton9.Size = new Size(176, 29);
-            uiRadioButton9.TabIndex = 0;
-            uiRadioButton9.Text = "X1(封口交流上限位)";
+            rbSRZT2.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT2.Location = new Point(191, 35);
+            rbSRZT2.MinimumSize = new Size(1, 1);
+            rbSRZT2.Name = "rbSRZT2";
+            rbSRZT2.Size = new Size(176, 29);
+            rbSRZT2.TabIndex = 1;
+            rbSRZT2.Text = "X2(封口交流下限位)";
+            // 
+            // rbSRZT1
+            // 
+            rbSRZT1.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            rbSRZT1.Location = new Point(19, 35);
+            rbSRZT1.MinimumSize = new Size(1, 1);
+            rbSRZT1.Name = "rbSRZT1";
+            rbSRZT1.Size = new Size(176, 29);
+            rbSRZT1.TabIndex = 0;
+            rbSRZT1.Text = "X1(封口交流上限位)";
             // 
             // uiGroupBox3
             // 
@@ -960,6 +988,7 @@
             btnKLMCxr.TabIndex = 26;
             btnKLMCxr.Text = "写 入";
             btnKLMCxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnKLMCxr.Click += btnKLMCxr_Click;
             // 
             // uiLabel13
             // 
@@ -982,6 +1011,7 @@
             btnKLBHxr.TabIndex = 23;
             btnKLBHxr.Text = "写 入";
             btnKLBHxr.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnKLBHxr.Click += btnKLBHxr_Click;
             // 
             // txtKLBH
             // 
@@ -1108,6 +1138,7 @@
             btnLedClose.TabIndex = 35;
             btnLedClose.Text = "关闭灯光";
             btnLedClose.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnLedClose.Click += btnLedClose_Click;
             // 
             // btnLedOpen
             // 
@@ -1119,6 +1150,7 @@
             btnLedOpen.TabIndex = 34;
             btnLedOpen.Text = "打开灯光";
             btnLedOpen.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnLedOpen.Click += btnLedOpen_Click;
             // 
             // rbDG2
             // 
@@ -1140,21 +1172,21 @@
             rbDG1.TabIndex = 8;
             rbDG1.Text = "红灯";
             // 
-            // lbInfo
+            // lbInfos
             // 
-            lbInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            lbInfo.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            lbInfo.HoverColor = Color.FromArgb(155, 200, 255);
-            lbInfo.ItemSelectForeColor = Color.White;
-            lbInfo.Location = new Point(8, 713);
-            lbInfo.Margin = new Padding(4, 5, 4, 5);
-            lbInfo.MinimumSize = new Size(1, 1);
-            lbInfo.Name = "lbInfo";
-            lbInfo.Padding = new Padding(2);
-            lbInfo.ShowText = false;
-            lbInfo.Size = new Size(794, 115);
-            lbInfo.TabIndex = 7;
-            lbInfo.Text = "uiListBox1";
+            lbInfos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            lbInfos.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lbInfos.HoverColor = Color.FromArgb(155, 200, 255);
+            lbInfos.ItemSelectForeColor = Color.White;
+            lbInfos.Location = new Point(8, 713);
+            lbInfos.Margin = new Padding(4, 5, 4, 5);
+            lbInfos.MinimumSize = new Size(1, 1);
+            lbInfos.Name = "lbInfos";
+            lbInfos.Padding = new Padding(2);
+            lbInfos.ShowText = false;
+            lbInfos.Size = new Size(794, 115);
+            lbInfos.TabIndex = 7;
+            lbInfos.Text = "uiListBox1";
             // 
             // dgvError
             // 
@@ -1162,48 +1194,48 @@
             dgvError.AllowUserToDeleteRows = false;
             dgvError.AllowUserToResizeColumns = false;
             dgvError.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
-            dgvError.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvError.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvError.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvError.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvError.BackgroundColor = Color.White;
             dgvError.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvError.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvError.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvError.ColumnHeadersHeight = 32;
             dgvError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvError.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvError.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvError.DefaultCellStyle = dataGridViewCellStyle3;
             dgvError.EnableHeadersVisualStyles = false;
             dgvError.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvError.GridColor = Color.FromArgb(80, 160, 255);
             dgvError.Location = new Point(816, 713);
             dgvError.Name = "dgvError";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle9.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvError.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvError.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvError.RowHeadersVisible = false;
-            dataGridViewCellStyle10.BackColor = Color.White;
-            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvError.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvError.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvError.SelectedIndex = -1;
             dgvError.Size = new Size(586, 115);
             dgvError.StripeOddColor = Color.FromArgb(235, 243, 255);
@@ -1238,6 +1270,10 @@
             uiLabel15.Text = "说明：写入后立即生效";
             uiLabel15.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // FrmBoxedDeviceTest
             // 
             AllowShowTitle = true;
@@ -1245,7 +1281,7 @@
             ClientSize = new Size(1409, 835);
             Controls.Add(uiLabel15);
             Controls.Add(dgvError);
-            Controls.Add(lbInfo);
+            Controls.Add(lbInfos);
             Controls.Add(uiGroupBox4);
             Controls.Add(uiGroupBox3);
             Controls.Add(uiRadioButtonGroup2);
@@ -1257,6 +1293,7 @@
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
             Text = "设备管理>>设备调试";
+            Load += FrmBoxedDeviceTest_Load;
             uiGroupBox1.ResumeLayout(false);
             uiRadioButtonGroup1.ResumeLayout(false);
             uiGroupBox2.ResumeLayout(false);
@@ -1318,21 +1355,21 @@
         private Sunny.UI.UIButton btnDZTSsc;
         private Sunny.UI.UIComboBox cbDZTS;
         private Sunny.UI.UIRadioButtonGroup uiRadioButtonGroup2;
-        private Sunny.UI.UIRadioButton uiRadioButton9;
-        private Sunny.UI.UIRadioButton uiRadioButton18;
-        private Sunny.UI.UIRadioButton uiRadioButton17;
-        private Sunny.UI.UIRadioButton uiRadioButton16;
-        private Sunny.UI.UIRadioButton uiRadioButton15;
-        private Sunny.UI.UIRadioButton uiRadioButton14;
-        private Sunny.UI.UIRadioButton uiRadioButton13;
-        private Sunny.UI.UIRadioButton uiRadioButton27;
-        private Sunny.UI.UIRadioButton uiRadioButton24;
-        private Sunny.UI.UIRadioButton uiRadioButton25;
-        private Sunny.UI.UIRadioButton uiRadioButton22;
-        private Sunny.UI.UIRadioButton uiRadioButton23;
-        private Sunny.UI.UIRadioButton uiRadioButton20;
-        private Sunny.UI.UIRadioButton uiRadioButton21;
-        private Sunny.UI.UIRadioButton uiRadioButton19;
+        private Sunny.UI.UIRadioButton rbSRZT1;
+        private Sunny.UI.UIRadioButton rbSRZT8;
+        private Sunny.UI.UIRadioButton rbSRZT6;
+        private Sunny.UI.UIRadioButton rbSRZT5;
+        private Sunny.UI.UIRadioButton rbSRZT4;
+        private Sunny.UI.UIRadioButton rbSRZT3;
+        private Sunny.UI.UIRadioButton rbSRZT2;
+        private Sunny.UI.UIRadioButton rbSRZT16;
+        private Sunny.UI.UIRadioButton rbSRZT15;
+        private Sunny.UI.UIRadioButton rbSRZT14;
+        private Sunny.UI.UIRadioButton rbSRZT13;
+        private Sunny.UI.UIRadioButton rbSRZT12;
+        private Sunny.UI.UIRadioButton rbSRZT11;
+        private Sunny.UI.UIRadioButton rbSRZT10;
+        private Sunny.UI.UIRadioButton rbSRZT9;
         private Sunny.UI.UIGroupBox uiGroupBox3;
         private Sunny.UI.UIGroupBox uiGroupBox4;
         private Sunny.UI.UIComboBox cbKLMC;
@@ -1349,12 +1386,14 @@
         private Sunny.UI.UIButton btnLedOpen;
         private Sunny.UI.UIRadioButton rbDG2;
         private Sunny.UI.UIRadioButton rbDG1;
-        private Sunny.UI.UIListBox lbInfo;
+        private Sunny.UI.UIListBox lbInfos;
         private Sunny.UI.UIDataGridView dgvError;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private Sunny.UI.UILabel uiLabel14;
         private Sunny.UI.UILabel uiLabel15;
+        private Sunny.UI.UIRadioButton rbSRZT7;
+        private System.Windows.Forms.Timer timer1;
     }
 }

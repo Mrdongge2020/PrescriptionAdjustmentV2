@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AdjustmentSysUI.Forms.SystemSettingForms
 {
@@ -50,6 +51,8 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 {
                     txtName.Text = info.ParameterName;
                     txtDecribe.Text = info.ParameterDescribe;
+                    txtName.ReadOnly = true;
+                    txtDecribe.ReadOnly = true;
                     txtParaValue.Text = info.ParameterValue;
                     cbType.SelectedValue = (int)info.ParameterType;
                 }

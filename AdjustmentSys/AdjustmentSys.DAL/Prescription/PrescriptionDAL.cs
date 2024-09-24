@@ -247,6 +247,7 @@ namespace AdjustmentSys.DAL.Prescription
         public List<PrescriptionDetailModel> GetPrescriptionDetailList(string prescriptionID, ProcessStatusEnum? processStatus,bool isQueryStock=false) 
         {
             string tableName = " LocalDataPrescriptionDetail ";
+            string ValidityTimeStr = " ,a.ValidityTime ";
             if (processStatus.Value == ProcessStatusEnum.完成)
             {
                 tableName = " LocalDataPrescriptionDetailRecord ";
@@ -255,6 +256,7 @@ namespace AdjustmentSys.DAL.Prescription
             else if (processStatus.Value == ProcessStatusEnum.待下载)
             {
                 tableName = " DataPrescriptionDetail ";
+                ValidityTimeStr = "";//待下载没有效期字段
             }
 
             string sql = $@"select a.ID
@@ -270,6 +272,7 @@ namespace AdjustmentSys.DAL.Prescription
                                   ,a.Equivalent
                                   ,Dose
                                   ,Price
+                                 {ValidityTimeStr}
                             from {tableName} as a
                             left join ParticlesInfo as b on  a.ParticlesID=b.ID 
                             where a.PrescriptionID='{prescriptionID}'
