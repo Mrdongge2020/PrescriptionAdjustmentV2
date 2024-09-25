@@ -63,6 +63,7 @@ namespace AdjustmentSys.BLL.Prescription
                      PrescriptionID= localDataPrescriptionInfo.PrescriptionID,
                      ParticlesID= item.ParticlesID,
                      ParName= item.ParName,
+                     ParCode= item.ParCode,
                      ParticlesCodeHIS= item.ParticlesCodeHIS,
                      ParticlesNameHIS= item.ParticlesNameHIS,
                      BatchNumber= item.BatchNumber,
@@ -99,7 +100,7 @@ namespace AdjustmentSys.BLL.Prescription
                     usedAmount = particUsedStockModels.FirstOrDefault(x => x.ParticId == item.ParticlesID).UsedAmount;
                 }
 
-                var currentCabinetParticles = cabinetDetails.Where(x => x.ParticlesID.ToString().EndsWith(item.ParticlesID.ToString())).OrderByDescending(x=>x.Stock).ToList();
+                var currentCabinetParticles = cabinetDetails.Where(x => x.ParticlesID==item.ParticlesID).OrderByDescending(x=>x.Stock).ToList();
                 if (currentCabinetParticles == null || currentCabinetParticles.Count==0)
                 {
                     errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>未在药柜上架!" });
@@ -113,6 +114,7 @@ namespace AdjustmentSys.BLL.Prescription
                         {
                             localDetail.StationX = currentCabinetParticles[0].CoordinateX;
                             localDetail.StationY = currentCabinetParticles[0].CoordinateY;
+                            localDetail.RFID = currentCabinetParticles[0].RFID;
                             errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>再药柜上余量不足以再调剂此处方!" });
                             //单瓶不足密度系数校验
                             if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
@@ -135,11 +137,14 @@ namespace AdjustmentSys.BLL.Prescription
                                 localDetail.StationY = currentCabinetParticles[0].CoordinateY;
                                 localDetail.Dose = (float)currentCabinetParticles[0].Stock - ylxxNum;
                                 localDetail.DoseHerb = localDetail.Dose * localDetail.Equivalent;
+                                localDetail.RFID = currentCabinetParticles[0].RFID;
                                 ConfirmLocalDataPrescriptionDetail localDetail1 = new ConfirmLocalDataPrescriptionDetail()
                                 {
                                     ParticleOrder = index,
                                     PrescriptionID = localDataPrescriptionInfo.PrescriptionID,
                                     ParticlesID = (int)currentCabinetParticles[1].ParticlesID,
+                                    ParName = item.ParName,
+                                    ParCode = item.ParCode,
                                     ParticlesCodeHIS = item.ParticlesCodeHIS,
                                     ParticlesNameHIS = item.ParticlesNameHIS,
                                     BatchNumber = currentCabinetParticles[1].BatchNumber,
@@ -151,6 +156,7 @@ namespace AdjustmentSys.BLL.Prescription
                                     Status = StationStatusEnum.待放入,
                                     StationX = currentCabinetParticles[1].CoordinateX,
                                     StationY = currentCabinetParticles[1].CoordinateY,
+                                    RFID= currentCabinetParticles[1].RFID
                                 };
                                 details.Add(localDetail1);
                                 index++;
@@ -166,6 +172,7 @@ namespace AdjustmentSys.BLL.Prescription
                     {
                         localDetail.StationX = currentCabinetParticles[0].CoordinateX;
                         localDetail.StationY = currentCabinetParticles[0].CoordinateY;
+                        localDetail.RFID = currentCabinetParticles[0].RFID;
                         //单瓶充足密度系数校验
                         if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
                         {

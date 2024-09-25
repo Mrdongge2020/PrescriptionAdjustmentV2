@@ -17,11 +17,15 @@ namespace AdjustmentSys.Entity
     public class MedicineCabinetOperationLogInfo:CreateModel
     {
         /// <summary>
+        /// 颗粒Id
+        /// </summary>
+        [Column("ParticleId")]
+        public int ParticleId { get; set; }
+        /// <summary>
         /// 颗粒编号
         /// </summary>
         [Column("ParticleCode")]
-        [MaxLength(20)]
-        public string ParticleCode { get; set; }
+        public int ParticleCode { get; set; }
         /// <summary>
         /// 颗粒名称
         /// </summary>

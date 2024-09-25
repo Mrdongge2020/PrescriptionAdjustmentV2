@@ -38,7 +38,6 @@ namespace AdjustmentSys.Models.Prescription
         /// 我库颗粒编码
         /// </summary>
         public int ParCode { get; set; }
-        
         /// <summary>
         /// 我库颗粒名称
         /// </summary>

@@ -303,7 +303,7 @@ namespace AdjustmentSys.DAL.Prescription
                     }
                     foreach (var item in result)
                     {
-                        item.Stock = mcdlist.FirstOrDefault(x => x.ParticlesID == item.ParticlesID)?.Stock;
+                        item.Stock = mcdlist.Where(x => x.ParticlesID == item.ParticlesID).Sum(x=>x.Stock);             
                     }
                 }
             }

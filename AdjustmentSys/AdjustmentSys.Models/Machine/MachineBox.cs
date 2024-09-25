@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdjustmentSys.Tool.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -137,13 +138,25 @@ namespace AdjustmentSys.Models.Machine
 
         public Workstate Runstate = new Workstate();
 
-        public enum Workstate { Write, Home, Work, Density, Set, Rest } //等待回零， 回零， 调剂 密度测量中 ,调试模式 ,恢复模式
+        public enum Workstate { 
+            Write,//等待回零
+            Home, //回零
+            Work,//调剂
+            Density,//密度测量中
+            Set,//调试模式
+            Rest//恢复模式
+        } //等待回零， 回零， 调剂 密度测量中 ,调试模式 ,恢复模式
 
         public UInt32 iError; //异常 bit1温湿度未连接；2天平；3RFID未连接 4温控仪表未连接
         public UInt32 iRestError; //复位异常 =5复位该工位已有药盒错误， =6复位下盒失败错误 =12出盒失败错误 =13出盒超时
         public long Error; //异常 bit1温湿度未连接；2天平；3RFID未连接 4温控仪表未连接
         public long RestError; //复位异常 =5复位该工位已有药盒错误， =6复位下盒失败错误 =12出盒失败错误 =13出盒超时
 
+        public DetailM DetailM { get; set; }
+        public DetailgG DetailgG { get; set; }
+        public Mathweight Mathweight { get; set; }
+        public Med Med { get; set; }
+        public ParticlesDetail ParticlesDetail { get; set; }
     }
 
 
@@ -186,7 +199,7 @@ namespace AdjustmentSys.Models.Machine
         public bool StartDeruge; //启动调剂
         public bool Derugeing;
         public bool Derugefinish;//调剂完成；
-        public int Particlesstate; //颗粒状态 =0本处方未包含该药品 =2待调剂状态  =8颗粒余量不足  =10不是该处方药品  =11已有该药品称重信息    =12该药品未称重   4;//工位待取走状态
+        public StationStatusEnum Particlesstate; //颗粒状态 =0本处方未包含该药品 =2待调剂状态  =8颗粒余量不足  =10不是该处方药品  =11已有该药品称重信息    =12该药品未称重   4;//工位待取走状态
         public int Drugestate; //调剂步骤
         public int Steper;// 量仓的千分比
         public Mathweight Mathw;

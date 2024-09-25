@@ -39,7 +39,14 @@ namespace AdjustmentSys.Models.Prescription
         /// 我库颗粒名称
         /// </summary>
         public string ParName { get; set; }
-
+        /// <summary>
+        /// 我库颗粒编号
+        /// </summary>
+        public int ParCode { get; set; }
+        /// <summary>
+        /// rfd
+        /// </summary>
+        public int? RFID { get; set; }
         /// <summary>
         /// 颗粒批号
         /// </summary>
