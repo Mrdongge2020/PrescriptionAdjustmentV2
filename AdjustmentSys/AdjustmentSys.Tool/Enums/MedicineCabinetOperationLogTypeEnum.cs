@@ -21,6 +21,8 @@ namespace AdjustmentSys.Tool.Enums
         [Description("余量校准")]
         余量校准 = 3,
         [Description("余量调整")]
-        余量调整 = 4
+        余量调整 = 4,
+        [Description("添加药品")]
+        添加药品 = 5
     }
 }

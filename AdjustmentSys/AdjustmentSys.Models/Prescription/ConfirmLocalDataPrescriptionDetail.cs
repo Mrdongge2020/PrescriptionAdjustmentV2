@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Entity;
+using System.ComponentModel;
 
 namespace AdjustmentSys.Models.Prescription
 {
@@ -43,10 +45,6 @@ namespace AdjustmentSys.Models.Prescription
         /// 我库颗粒编号
         /// </summary>
         public int ParCode { get; set; }
-        /// <summary>
-        /// rfd
-        /// </summary>
-        public int? RFID { get; set; }
         /// <summary>
         /// 颗粒批号
         /// </summary>
@@ -95,5 +93,26 @@ namespace AdjustmentSys.Models.Prescription
         /// 状态文本
         /// </summary>
         public string StatusText { get { return Status.ToString(); } }
+
+        /// <summary>
+        /// 当前称重量
+        /// </summary>
+        public float CurrentWeightQuantity { get; set; } = 0;
+        /// <summary>
+        /// 颗粒密度
+        /// </summary>
+        public float Density { get; set; }
+        /// <summary>
+        /// 密度系数
+        /// </summary>
+        public float? DensityCoefficient { get; set; }
+        /// <summary>
+        /// 单格剂量
+        /// </summary>
+        public float? NewDose { get; set; }
+        /// <summary>
+        /// 药柜详情
+        /// </summary>
+        public MedicineCabinetDetail MedicineCabinetDetail { get; set; }
     }
 }

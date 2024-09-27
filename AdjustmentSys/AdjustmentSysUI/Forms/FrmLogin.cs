@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.BLL.Device;
+using AdjustmentSys.BLL.MedicineCabinet;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
@@ -53,14 +54,19 @@ namespace AdjustmentSysUI
             {
                 ShowSuccessTip("登录成功");
                 //登录信息
-                IsLogin = true;                
+                #region 登录信息
+                IsLogin = true;
                 SysLoginUser.currentUser.UserId = user.ID;
                 SysLoginUser.currentUser.UserName = name;
                 SysLoginUser.currentUser.UserLevelId = user.UserLevel;
                 SysLoginUser.currentUser.UserLevelName = user.UserLevelName;
                 SysLoginUser.currentUser.UserPhone = user.Phone;
+                #endregion
 
-                string deviceid= IniFileHelper.ReadIniData("DeviceInfo", "DeviceID", "", ConfigPath);
+                #region 设备,药柜信息
+
+                //设备信息
+                string deviceid = IniFileHelper.ReadIniData("DeviceInfo", "DeviceID", "", ConfigPath);
                 if (deviceid != null)
                 {
                     DeviceBLL _deviceBLL = new DeviceBLL();
@@ -74,7 +80,7 @@ namespace AdjustmentSysUI
                         SysDeviceInfo.currentDeviceInfo.DeviceType = DeviceTypeEnum.半自动袋装;
                         SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = "20000";
                     }
-                    else 
+                    else
                     {
                         if (!device.IsEnable)
                         {
@@ -86,17 +92,35 @@ namespace AdjustmentSysUI
                         SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
                         SysDeviceInfo.currentDeviceInfo.DeviceType = device.DeviceType;// DeviceTypeEnum.半自动袋装;
                         SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = device.MedicineCabinetCode;
-                    }                    
+                    }
                 }
                 else
                 {
-                    //设备信息
                     SysDeviceInfo.currentDeviceInfo.DeviceName = "无";
                     SysDeviceInfo.currentDeviceInfo.DeviceId = 1;
                     SysDeviceInfo.currentDeviceInfo.DeviceConnectStatus = false;
                     SysDeviceInfo.currentDeviceInfo.DeviceType = DeviceTypeEnum.半自动袋装;
                     SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = "20000";
                 }
+
+                //药柜信息
+                MedicineCabinetInfoBLL medicineCabinetInfoBLL = new MedicineCabinetInfoBLL();
+                var mcinfos=medicineCabinetInfoBLL.GetCabinetInfoList();
+                if (mcinfos != null && mcinfos.Count > 0)
+                {
+                    SysDeviceInfo.currentDeviceInfo.LargeCabinetCount = mcinfos.Count(x => x.Specifications == "大药柜");
+                    SysDeviceInfo.currentDeviceInfo.SmallCabinetCount = mcinfos.Count(x => x.Specifications == "小药柜");
+                }
+                else 
+                {
+                    SysDeviceInfo.currentDeviceInfo.LargeCabinetCount = 0;
+                    SysDeviceInfo.currentDeviceInfo.SmallCabinetCount = 0;
+                }
+
+
+                #endregion
+
+
 
                 this.Hide();
                 FrmMain frmMain = new FrmMain();

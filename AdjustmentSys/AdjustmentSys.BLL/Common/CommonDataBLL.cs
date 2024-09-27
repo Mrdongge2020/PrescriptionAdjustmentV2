@@ -26,7 +26,7 @@ namespace AdjustmentSys.BLL.Common
         /// 获取药品字典数据
         /// </summary>
         /// <returns></returns>
-        public  List<ParticlesInfoEditModel> GetCommonParticles(List<int> ids = null)
+        public  List<ParticlesInfo> GetCommonParticles(List<int> ids = null)
         { 
             return _commonDataDAL.GetCommonParticles(ids);
         }

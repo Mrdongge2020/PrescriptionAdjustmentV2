@@ -45,6 +45,8 @@ namespace AdjustmentSys.BLL.Prescription
             List<ParticUsedStockModel> particUsedStockModels=  _prescriptionAdjustmentDAL.GetParticUsedStocks(preIds, prescriptionDetails.Select(x => x.ParticlesID).Distinct().ToList());
             //颗粒相容性规则获取
             var rulerList = commonDataBLL.GetParticleProhibitionRules();
+            //获取药品字段数据
+            var particls = commonDataBLL.GetCommonParticles();
             //颗粒余量下限
             float ylxxNum = 0;
             var ylxxStr = CommonStaticDataBLL.GetSystemParameterValue("KeLiYuLiangXiaXian");
@@ -57,6 +59,7 @@ namespace AdjustmentSys.BLL.Prescription
             int index = 1;
             foreach (var item in prescriptionDetails)
             {
+                var currentPar = particls.FirstOrDefault(x => x.ID == item.ParticlesID);
                 ConfirmLocalDataPrescriptionDetail localDetail = new ConfirmLocalDataPrescriptionDetail() 
                 { 
                      ParticleOrder = index,
@@ -67,12 +70,14 @@ namespace AdjustmentSys.BLL.Prescription
                      ParticlesCodeHIS= item.ParticlesCodeHIS,
                      ParticlesNameHIS= item.ParticlesNameHIS,
                      BatchNumber= item.BatchNumber,
-                     ValidityTime=item.ValidityTime,
+                     ValidityTime=item.ValidityTime,                   
                      Dose=item.Dose,
                      Equivalent=item.Equivalent,
                      DoseHerb = item.DoseHerb,
                      Price = item.Price,
-                     Status= StationStatusEnum.待放入
+                     Status= StationStatusEnum.待放入,
+                     Density= currentPar==null? 0 : currentPar.Density,
+                     DensityCoefficient= currentPar == null ? 0 : currentPar.DensityCoefficient
                 };
                 index++;
                 #region 剂量上限校验
@@ -114,7 +119,7 @@ namespace AdjustmentSys.BLL.Prescription
                         {
                             localDetail.StationX = currentCabinetParticles[0].CoordinateX;
                             localDetail.StationY = currentCabinetParticles[0].CoordinateY;
-                            localDetail.RFID = currentCabinetParticles[0].RFID;
+                            localDetail.MedicineCabinetDetail = currentCabinetParticles[0];
                             errorList.Add(new CheckPrescriptionResultModel { ErrorType = 4, ErrorMessage = $"颗粒[{item.ParName}]<{item.ParCode}>再药柜上余量不足以再调剂此处方!" });
                             //单瓶不足密度系数校验
                             if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
@@ -137,7 +142,7 @@ namespace AdjustmentSys.BLL.Prescription
                                 localDetail.StationY = currentCabinetParticles[0].CoordinateY;
                                 localDetail.Dose = (float)currentCabinetParticles[0].Stock - ylxxNum;
                                 localDetail.DoseHerb = localDetail.Dose * localDetail.Equivalent;
-                                localDetail.RFID = currentCabinetParticles[0].RFID;
+                                localDetail.MedicineCabinetDetail = currentCabinetParticles[0];
                                 ConfirmLocalDataPrescriptionDetail localDetail1 = new ConfirmLocalDataPrescriptionDetail()
                                 {
                                     ParticleOrder = index,
@@ -156,7 +161,9 @@ namespace AdjustmentSys.BLL.Prescription
                                     Status = StationStatusEnum.待放入,
                                     StationX = currentCabinetParticles[1].CoordinateX,
                                     StationY = currentCabinetParticles[1].CoordinateY,
-                                    RFID= currentCabinetParticles[1].RFID
+                                    MedicineCabinetDetail = currentCabinetParticles[1],
+                                    Density = currentPar == null ? 0 : currentPar.Density,
+                                    DensityCoefficient = currentPar == null ? 0 : currentPar.DensityCoefficient
                                 };
                                 details.Add(localDetail1);
                                 index++;
@@ -172,7 +179,7 @@ namespace AdjustmentSys.BLL.Prescription
                     {
                         localDetail.StationX = currentCabinetParticles[0].CoordinateX;
                         localDetail.StationY = currentCabinetParticles[0].CoordinateY;
-                        localDetail.RFID = currentCabinetParticles[0].RFID;
+                        localDetail.MedicineCabinetDetail = currentCabinetParticles[0];
                         //单瓶充足密度系数校验
                         if (currentCabinetParticles[0].DensityCoefficient > 2 || currentCabinetParticles[0].DensityCoefficient < 0.5)
                         {
@@ -275,6 +282,27 @@ namespace AdjustmentSys.BLL.Prescription
         public PrescriptionAwaitingAdjustmentModel GetPrescriptionByCode(string prescriptionId) 
         {
             return _prescriptionAdjustmentDAL.GetPrescriptionByCode(prescriptionId);
+        }
+
+        /// <summary>
+        /// 更新药柜信息,并写入日志
+        /// </summary>
+        /// <param name="medicines">药柜信息</param>
+        /// <param name="medicineCabinetOperationLogInfos">日志信息</param>
+        /// <returns></returns>
+        public string UpdateMedicineAndLog(List<MedicineCabinetDetail> medicines, List<MedicineCabinetOperationLogInfo> medicineCabinetOperationLogInfos)
+        {
+            return _prescriptionAdjustmentDAL.UpdateMedicineAndLog(medicines, medicineCabinetOperationLogInfos);
+        }
+
+        /// <summary>
+        /// 更新药柜信息
+        /// </summary>
+        /// <param name="medicine"></param>
+        /// <returns></returns>
+        public string UpdateMedicineCabinetDetail(MedicineCabinetDetail detail) 
+        {
+            return _prescriptionAdjustmentDAL.UpdateMedicineCabinetDetail(detail);
         }
     }
 }

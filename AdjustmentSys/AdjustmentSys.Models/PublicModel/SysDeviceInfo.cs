@@ -30,7 +30,19 @@ namespace AdjustmentSys.Models.PublicModel
         /// 药柜code
         /// </summary>
         public string MedicineCabinetCode { get; set; } = "20000";
+        /// <summary>
+        /// 大药柜数量
+        /// </summary>
+        public int LargeCabinetCount { get; set; }
+        /// <summary>
+        /// 小药柜数量
+        /// </summary>
+        public int SmallCabinetCount { get; set; }
 
+        /// <summary>
+        /// 大药柜数量
+        /// </summary>
+        public int CabinetRowCount { get; set; } = 14;
         /// <summary>
         /// //应用单件模式，保存设备连接信息
         /// </summary>

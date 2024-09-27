@@ -33,6 +33,8 @@ namespace AdjustmentSys.Tool.Enums
         [Description("非处方药品")]
         非处方药品 = 9,
         [Description("该药品未称重")]
-        该药品未称重 = 10
+        该药品未称重 = 10,
+        [Description("该药品已称重")]
+        该药品已称重 = 11
     }
 }

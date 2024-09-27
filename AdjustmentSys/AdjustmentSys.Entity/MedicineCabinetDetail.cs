@@ -64,6 +64,11 @@ namespace AdjustmentSys.Entity
         [Column("TotalErrorAmount")]
         public float? TotalErrorAmount { get; set; }
         /// <summary>
+        /// 上次系数误差量
+        /// </summary>
+        [Column("LastCoefficientErrorAmount")]
+        public float? LastCoefficientErrorAmount { get; set; }
+        /// <summary>
         /// 总共使用数量
         /// </summary>
         [Column("TotalUsedAmount")]

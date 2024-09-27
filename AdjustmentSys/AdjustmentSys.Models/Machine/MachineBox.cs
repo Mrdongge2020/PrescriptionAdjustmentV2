@@ -72,7 +72,7 @@ namespace AdjustmentSys.Models.Machine
         public Int64 MboxEorr;//下盒错误 bit ,1该位置已有药盒， 2下药盒失败,3下盒电机超时         \\d .1该位置已有袋  .2打开袋模失败 .3封边失败 .4封底失败
         public bool Mboxfinsh;//下盒完成
 
-        public int Mboxstep;//下盒步骤
+        //public int Mboxstep;//下盒步骤
 
 
         public bool Seal; //开始封口
@@ -83,7 +83,7 @@ namespace AdjustmentSys.Models.Machine
 
         public bool Sealfinsh;//封口完成
         public Int64 SealEorr;//封口错误bit 1未检测到膜， 2未检测到退膜 ，3封口机上升超时（未收到上限位信号），4封口机下降超时（未收到下限位信号） //D.1未检测到袋子 .2打开袋模失败 .3取袋失败 .4封袋顶封失败
-        public int Sealstep;//封口步骤
+        //public int Sealstep;//封口步骤
 
         public bool Outbox; //开始出盒
         public bool HCOutbox; //开始出盒
@@ -91,7 +91,7 @@ namespace AdjustmentSys.Models.Machine
         public bool Outboxing;//正在出盒
         public Int64 OutEorr;//出盒错误 bit ,1出盒失败， 2出盒电机超时
         public bool Outboxfinsh;//出盒完成
-        public int Outboxstep;//出盒步骤
+        //public int Outboxstep;//出盒步骤
 
 
 

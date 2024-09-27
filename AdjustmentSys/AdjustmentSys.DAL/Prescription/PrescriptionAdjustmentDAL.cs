@@ -175,5 +175,59 @@ namespace AdjustmentSys.DAL.Prescription
             prescriptionAwaitingAdjustmentModel.PrescriptionDetails = _eFCoreContext.LocalDataPrescriptionDetails.Where(x => x.PrescriptionID == prescriptionId).ToList();
             return prescriptionAwaitingAdjustmentModel;
         }
+
+        /// <summary>
+        /// 更新药柜信息
+        /// </summary>
+        /// <param name="medicine"></param>
+        /// <returns></returns>
+        public string UpdateMedicineCabinetDetail(MedicineCabinetDetail medicine) 
+        {
+            try
+            {
+                _eFCoreContext.MedicineCabinetDetails.Update(medicine);
+                _eFCoreContext.SaveChanges(true);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return "";
+        }
+
+        /// <summary>
+        /// 更新药柜信息,并写入日志
+        /// </summary>
+        /// <param name="medicines">药柜信息</param>
+        /// <param name="medicineCabinetOperationLogInfos">日志信息</param>
+        /// <returns></returns>
+        public string UpdateMedicineAndLog(List<MedicineCabinetDetail> medicines, List<MedicineCabinetOperationLogInfo> medicineCabinetOperationLogInfos)
+        {
+            List<MedicineCabinetDetail> mcd = _eFCoreContext.MedicineCabinetDetails.Where(x => x.Stock < 0).ToList();
+            if (mcd!=null && mcd.Count>0) 
+            {
+                mcd.ForEach(item => 
+                { 
+                    item.Stock = 0;
+                });
+            }
+            mcd.AddRange(medicines);
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.MedicineCabinetOperationLogInfos.AddRange(medicineCabinetOperationLogInfos);
+                    _eFCoreContext.MedicineCabinetDetails.UpdateRange(mcd);
+                    _eFCoreContext.SaveChanges(true);
+                }
+                catch (Exception e)
+                {
+                    return "更新颗粒库存失败:"+e.Message;
+                }
+            }
+            
+            return "";
+        }
+
     }
 }

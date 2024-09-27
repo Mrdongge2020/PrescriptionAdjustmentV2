@@ -28,18 +28,26 @@ namespace AdjustmentSys.DAL.Common
         /// 获取药品字典数据
         /// </summary>
         /// <returns></returns>
-        public  List<ParticlesInfoEditModel> GetCommonParticles(List<int> ids)
+        public  List<ParticlesInfo> GetCommonParticles(List<int> ids)
         {
-            List<ParticlesInfoEditModel> result = new List<ParticlesInfoEditModel>();
-            string sql = @" select a.ID,a.Name,a.FullName,a.Code,a.NameFullPinyin,a.NameSimplifiedPinyin,a.ManufacturerId,a.ListingNumber,a.Remark,a.HisCode,a.HisName,a.Density,a.Equivalent,a.DoseLimit,a.PackageNumber,a.WholesalePrice,a.RetailPrice
-                        from ParticlesInfo as a ";
-            if (ids != null && ids.Count > 0) 
+            //List<ParticlesInfoEditModel> result = new List<ParticlesInfoEditModel>();
+            //string sql = @" select a.ID,a.Name,a.FullName,a.Code,a.NameFullPinyin,a.NameSimplifiedPinyin,a.ManufacturerId,a.ListingNumber,a.Remark,a.HisCode,a.HisName,a.Density,a.Equivalent,a.DoseLimit,a.PackageNumber,a.WholesalePrice,a.RetailPrice
+            //            from ParticlesInfo as a ";
+            //if (ids != null && ids.Count > 0) 
+            //{
+            //    sql += " where a.ID in ("+string.Join(',', ids) +") ";
+            //}
+            //result = DBHelper.ExecuteQuery<ParticlesInfoEditModel>(sql);
+
+            if (ids != null && ids.Count > 0)
             {
-                sql += " where a.ID in ("+string.Join(',', ids) +") ";
+                return _eFCoreContext.ParticlesInfos.Where(x => ids.Contains(x.ID)).ToList();
             }
-            result = DBHelper.ExecuteQuery<ParticlesInfoEditModel>(sql);
-            return result;
+           
+            return _eFCoreContext.ParticlesInfos.ToList();
         }
+
+
 
         /// <summary>
         /// 获取药柜详情信息
