@@ -39,9 +39,14 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public int RestError { get; set; }
         /// <summary>
-        /// 回零开关状态
+        /// 出盒检查
+        /// </summary>
+        public bool InX { get; set; }
+        /// <summary>
+        /// 回零开关状态/出盒交流原点
         /// </summary>
         public bool HomeX { get; set; }
+        
         /// <summary>
         /// 回零补偿值
         /// </summary>

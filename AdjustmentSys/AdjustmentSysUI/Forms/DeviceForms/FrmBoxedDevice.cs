@@ -43,7 +43,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         Thread Jxssend;
         ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
         PrescriptionFactory prescriptionFactory = new PrescriptionFactory();
-        private PreModel prescriptionModel = new PreModel();//调剂中的处方
+        public static PreModel prescriptionModel = new PreModel();//调剂中的处方
+        public static BoxedDeviceModel boxedDeviceModel = new BoxedDeviceModel();
         public FrmBoxedDevice()
         {
             InitializeComponent();
@@ -62,7 +63,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         return;
                     }
 
-
                     if (!modBusTCP_Cliect.Write_Intall(200, D200))
                     {
                         SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
@@ -72,7 +72,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     var D250 = modBusTCP_Cliect.Read_Intall(250, 100);
                     if (D250 != null)
                     {
-
                         B250 = D250;
                     }
                     else
@@ -80,7 +79,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
                         return;
                     }
-                    if (machineBox.Runstate == WorkStateEnum.Set)
+                    if (boxedDeviceModel.RunState == WorkStateEnum.Set)
                     {
                         var D400 = modBusTCP_Cliect.Read_Intall(400, 20);
                         if (D400 != null)
@@ -105,7 +104,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
         }
 
-        BoxedDeviceModel boxedDeviceModel = new BoxedDeviceModel();
         private void SetPLC()
         {
             ///上位机写 D200  d201 写动作 ;D202 写位移格数，
@@ -156,10 +154,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             D200[8] = (short)boxedDeviceModel.AdjustmentStations[5].Data1;
             D200[9] = (short)boxedDeviceModel.AdjustmentStations[6].Data1;
             D200[10] = (short)boxedDeviceModel.AdjustmentStations[7].Data1;
-            D200[11] = (short)(machineBox.iRestError >> 16);
-            D200[12] = (short)(machineBox.iRestError & 0xFFFF);
-
-
+            D200[11] = (short)(boxedDeviceModel.RestError >> 16);
+            D200[12] = (short)(boxedDeviceModel.RestError & 0xFFFF);
 
             /////上位机读 d250设备 整机  下药 封口 出盒 供盒完成状态   
             ///d251设备单轴回零完成状态   
@@ -167,78 +163,93 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             ///称重工位状态 D254
             ///异常状态 256 - D257 
             ///rfid数据D258-D277
-            machineBox.Finshstate = DataProcessingTool.ByteCheckU16(B250, 9);//完成状态
-            machineBox.Homefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 1);//整机回零完成
-            machineBox.Zmovefinsh = DataProcessingTool.GetBitValue(machineBox.Finshstate, 2);//位移完成
-            machineBox.Mboxfinsh = DataProcessingTool.GetBitValue(machineBox.Finshstate, 3);//供盒完成
-            machineBox.Sealfinsh = DataProcessingTool.GetBitValue(machineBox.Finshstate, 4);//封口完成
-            machineBox.ParticlesStation[1].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 5);//下药完成
-            machineBox.ParticlesStation[2].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 6);//下药完成
-            machineBox.ParticlesStation[3].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 7);//下药完成
-            machineBox.ParticlesStation[4].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 8);//下药完成
-            machineBox.ParticlesStation[5].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 9);//下药完成
-            machineBox.ParticlesStation[6].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 10);//下药完成
-            machineBox.ParticlesStation[7].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 11);//下药完成
-            machineBox.ParticlesStation[8].Derugefinish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 12);//下药完成
-            machineBox.Outboxfinsh = DataProcessingTool.GetBitValue(machineBox.Finshstate, 13);//出盒完成
+            boxedDeviceModel.AllFishState = DataProcessingTool.ByteCheckU16(B250, 9);//完成状态
+            boxedDeviceModel.HomeExcute = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 1);//整机回零完成
+            boxedDeviceModel.Turntable.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 2);//位移完成
+            boxedDeviceModel.Supplyboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 3);//供盒完成
+            boxedDeviceModel.Sealbox.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 4);//封口完成
+            boxedDeviceModel.AdjustmentStations[0].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 5);//下药完成
+            boxedDeviceModel.AdjustmentStations[1].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 6);//下药完成
+            boxedDeviceModel.AdjustmentStations[2].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 7);//下药完成
+            boxedDeviceModel.AdjustmentStations[3].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 8);//下药完成
+            boxedDeviceModel.AdjustmentStations[4].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 9);//下药完成
+            boxedDeviceModel.AdjustmentStations[5].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 10);//下药完成
+            boxedDeviceModel.AdjustmentStations[6].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 11);//下药完成
+            boxedDeviceModel.AdjustmentStations[7].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 12);//下药完成
+            boxedDeviceModel.Outboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 13);//出盒完成
 
 
-            machineBox.Finshstate1 = DataProcessingTool.ByteCheckU16(B250, 9 + 2);//1完成状态
-            machineBox.TAxisHomefinish[0] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 1);//1#下药回零
-            machineBox.TAxisHomefinish[1] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 2);//2#下药回零
-            machineBox.TAxisHomefinish[2] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 3);//3#下药回零
-            machineBox.TAxisHomefinish[3] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 4);//4#下药回零
-            machineBox.TAxisHomefinish[4] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 5);//5#下药回零
-            machineBox.TAxisHomefinish[5] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 6);//6#下药回零
-            machineBox.TAxisHomefinish[6] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 7);//7#下药回零
-            machineBox.TAxisHomefinish[7] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 8);//8#下药回零
-            machineBox.TAxisHomefinish[8] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 9);//8#下药回零
-            machineBox.TAxisHomefinish[9] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 10);//8#下药回零
-            machineBox.TAxisHomefinish[10] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 11);//8#下药回零
+            boxedDeviceModel.SingleFinshState = DataProcessingTool.ByteCheckU16(B250, 9 + 2);//单个回零完成状态
+            boxedDeviceModel.AdjustmentStations[0].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 1);//1#下药回零完成
+            boxedDeviceModel.AdjustmentStations[1].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 2);//2#下药回零完成
+            boxedDeviceModel.AdjustmentStations[2].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 3);//3#下药回零完成
+            boxedDeviceModel.AdjustmentStations[3].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 4);//4#下药回零完成
+            boxedDeviceModel.AdjustmentStations[4].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 5);//5#下药回零完成
+            boxedDeviceModel.AdjustmentStations[5].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 6);//6#下药回零完成
+            boxedDeviceModel.AdjustmentStations[6].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 7);//7#下药回零完成
+            boxedDeviceModel.AdjustmentStations[7].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 8);//8#下药回零完成
+            boxedDeviceModel.Sealbox.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 9);//9#走膜回零完成
+            boxedDeviceModel.Turntable.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 10);//10#转盘回零完成
+            boxedDeviceModel.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 11);//11#供盒回零完成
             MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
             MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
-            machineBox.iError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257      
-            machineBox.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8); //rfid数据D258-D277
-            machineBox.InX = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
+            boxedDeviceModel.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
+            //异常映射
+            //DataProcessingTool.ReverseBit16(ref boxedDeviceModel.Sealbox.Error, 1, DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError, 0));
+            //DataProcessingTool.ReverseBit16(ref boxedDeviceModel.Sealbox.Error, 2, DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError, 0));
+            //boxedDeviceModel.Sealbox.Error = DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError,0);
+            //machineBox.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8); //rfid数据D258-D277
+            boxedDeviceModel.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8);
+            for (int i = 0; i < 8; i++) 
+            {
+                boxedDeviceModel.AdjustmentStations[i].RfidData = boxedDeviceModel.RFID[i];
+            }
+            boxedDeviceModel.WeighingStation.ReadRfidData= boxedDeviceModel.RFID[8];
+            boxedDeviceModel.InX= DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
+            boxedDeviceModel.Sealbox.InX1= DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 0);
+            boxedDeviceModel.Sealbox.InX2 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 1);
+            boxedDeviceModel.Sealbox.InX3 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 3);
+            boxedDeviceModel.Supplyboxs.InX1 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX,4);
+            boxedDeviceModel.Outboxs.InX = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 5);
+            boxedDeviceModel.Outboxs.HomeX = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 6);
 
 
             ///异常映射
 
             /// 调试模式数据映射
-            /// 
-            if (machineBox.WExcute && !machineBox.WFish)
+            if (boxedDeviceModel.WExcute && !boxedDeviceModel.WFish)
             {
-                modBusTCP_Cliect.Write_Int16((ushort)(400 + machineBox.WDnumber), machineBox.WDate);
-                machineBox.WFish = true;
+                modBusTCP_Cliect.Write_Int16((ushort)(400 + boxedDeviceModel.WDnumber), boxedDeviceModel.WDate);
+                boxedDeviceModel.WFish = true;
             }
-            if (!machineBox.WExcute)
+            if (!boxedDeviceModel.WExcute)
             {
-                machineBox.WFish = false;
+                boxedDeviceModel.WFish = false;
             }
             DataProcessingTool.ReverseBit16(ref D200[0], 15, MachinePublic.WriteRfidExcule);//RFID写
-            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 14);//RFID写入完成
-            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(machineBox.Finshstate, 15);//RFID写入错误
-            if (machineBox.Runstate == WorkStateEnum.Set)
+            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 14);//RFID写入完成
+            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 15);//RFID写入错误
+            if (boxedDeviceModel.RunState == WorkStateEnum.Set)
             {
-                machineBox.WAxisHomeDate[0] = DataProcessingTool.ByteCheck16(B400, 9);
-                machineBox.WAxisHomeDate[1] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 1);
-                machineBox.WAxisHomeDate[2] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 2);
-                machineBox.WAxisHomeDate[3] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 3);
-                machineBox.WAxisHomeDate[4] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 4);
-                machineBox.WAxisHomeDate[5] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 5);
-                machineBox.WAxisHomeDate[6] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 6);
-                machineBox.WAxisHomeDate[7] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 7);
-                machineBox.WAxisHomeDate[8] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 8);
-                machineBox.WAxisHomeDate[9] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 9);
-                machineBox.WAxisHomeDate[10] = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 10);
-                machineBox.SealPosation1 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 11);//封口膜检测位
-                machineBox.SealPosation2 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 12);//封口位
-                machineBox.SealPosation3 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 13);//退膜长度
-                machineBox.SealTimeY = DataProcessingTool.ByteCheckU16(B400, 9 + 2 * 14);//封口延时
+                boxedDeviceModel.AdjustmentStations[0].HomeData = DataProcessingTool.ByteCheck16(B400, 9);
+                boxedDeviceModel.AdjustmentStations[1].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 1);
+                boxedDeviceModel.AdjustmentStations[2].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 2);
+                boxedDeviceModel.AdjustmentStations[3].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 3);
+                boxedDeviceModel.AdjustmentStations[4].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 4);
+                boxedDeviceModel.AdjustmentStations[5].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 5);
+                boxedDeviceModel.AdjustmentStations[6].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 6);
+                boxedDeviceModel.AdjustmentStations[7].HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 7);
+                boxedDeviceModel.Sealbox.HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 8);
+                boxedDeviceModel.Turntable.HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 9);
+                boxedDeviceModel.Supplyboxs.HomeData = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 10);
+                boxedDeviceModel.Sealbox.Data1 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 11);//封口膜检测位
+                boxedDeviceModel.Sealbox.Data2 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 12);//封口位
+                boxedDeviceModel.Sealbox.Data3 = DataProcessingTool.ByteCheck16(B400, 9 + 2 * 13);//退膜长度
+                boxedDeviceModel.Sealbox.SealTime = DataProcessingTool.ByteCheckU16(B400, 9 + 2 * 14);//封口延时
 
 
 
-                D200[13] = machineBox.WoutY;//写输出
+                D200[13] = boxedDeviceModel.WoutY;//写输出
 
                 //   MachinePublic.WriteRFIDdate       
 

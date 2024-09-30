@@ -1040,7 +1040,7 @@
             // 
             // backgroundWorker1
             // 
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+           // backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             // 
             // FrmBoxedDevice
             // 

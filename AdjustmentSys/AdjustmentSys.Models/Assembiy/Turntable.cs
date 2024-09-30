@@ -46,7 +46,7 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         /// 回零补偿值
         /// </summary>
-        public bool HomeData { get; set; }
+        public int HomeData { get; set; }
 
         /// <summary>
         /// 转动格数

@@ -435,7 +435,7 @@ namespace AdjustmentSys.BLL.Prescription
             List<DataPrescriptionDetail> detailList = new List<DataPrescriptionDetail>();
             foreach (var detail in datails)
             {
-                ParticlesInfoEditModel currentParticle = new ParticlesInfoEditModel();
+                ParticlesInfo currentParticle = new ParticlesInfo();
                 if (detail.ParticlesID>0) 
                 {
                     currentParticle=allParticles.FirstOrDefault(x => x.ID == detail.ParticlesID);

@@ -24,13 +24,21 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public bool Finsh { get; set; }
         /// <summary>
-        /// 回零启动
+        /// 步进回零启动
         /// </summary>
         public bool HomeExcute { get; set; }
         /// <summary>
-        /// 回零完成
+        /// 交流回零启动
+        /// </summary>
+        public bool HomeExcute1 { get; set; }
+        /// <summary>
+        /// 步进回零完成
         /// </summary>
         public bool HomeFinsh { get; set; }
+        /// <summary>
+        /// 交流回零完成
+        /// </summary>
+        public bool HomeFinsh1 { get; set; }
         /// <summary>
         /// 异常
         /// </summary>
@@ -56,25 +64,29 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public bool InX3 { get; set; }
         /// <summary>
-        /// 回零补偿值
+        /// 步进回零补偿值
         /// </summary>
         public int HomeData { get; set; }
         /// <summary>
+        /// 交流回零补偿值
+        /// </summary>
+        public int HomeData1 { get; set; }
+        /// <summary>
         /// 封口走膜长度
         /// </summary>
-        public int Data1 { get; set; }
+        public short Data1 { get; set; }
         /// <summary>
         /// 封口退膜长度
         /// </summary>
-        public int Data2 { get; set; }
+        public short Data2 { get; set; }
         /// <summary>
         /// 封口切断后退膜长度
         /// </summary>
-        public int Data3 { get; set; }
+        public short Data3 { get; set; }
         /// <summary>
         /// 封口延时
         /// </summary>
-        public int SealTime { get; set; }
+        public UInt16 SealTime { get; set; }
 
     }
 }

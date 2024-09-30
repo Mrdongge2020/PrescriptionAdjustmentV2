@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace AdjustmentSys.Tool.Enums
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ErrorTypeEnum
     {
+
         
-        None = 0,
-            
     }
 }

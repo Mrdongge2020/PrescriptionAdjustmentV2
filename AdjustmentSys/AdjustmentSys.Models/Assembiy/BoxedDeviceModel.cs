@@ -15,6 +15,14 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public bool HomeExcute { get; set; }
         /// <summary>
+        /// 调剂 供盒 等全部完成状态
+        /// </summary>
+        public UInt16 AllFishState { get; set; }
+        /// <summary>
+        /// 单轴回零完成 等完成状态
+        /// </summary>
+        public UInt16 SingleFinshState { get; set; }
+        /// <summary>
         /// 运行状态
         /// </summary>
         public WorkStateEnum RunState { get; set; }
@@ -50,7 +58,17 @@ namespace AdjustmentSys.Models.Assembiy
         /// 药盒类
         /// </summary>
         public Medbox[] Medboxs { get; set; }
+        public int[] RFID = new int[9];//rfid 数据
 
+        public UInt16 InX ;//输入开关信号 数据
+        public short WoutY;//写输出
+        public bool WExcute;// 写入数据
+        public bool WFish;//写入成功
+        public short WDnumber;//写入的寄存器
+        public short WDate;//写入的数据
 
+        public UInt32 DeviceError; //设备异常 bit1温湿度未连接；2天平；3RFID未连接 4温控仪表未连接
+
+        public UInt32 RestError;
     }
 }

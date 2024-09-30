@@ -12,9 +12,18 @@ namespace AdjustmentSys.Models.Assembiy
     public class WeighingStation
     {
         /// <summary>
-        ///RFID的数据
+        ///写入的RFID的数据
         /// </summary>
-        public int RFIDData { get; set; }
+        public int WriteRfidData { get; set; }
+        /// <summary>
+        ///写入的寄存器
+        /// </summary>
+        public int WriteRegister { get; set; }
+        /// <summary>
+        ///读取的RFID的数据
+        /// </summary>
+        public int ReadRfidData { get; set; }
+       
         /// <summary>
         ///称重重量
         /// </summary>
