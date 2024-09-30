@@ -77,7 +77,8 @@ namespace AdjustmentSys.BLL.Prescription
                      Price = item.Price,
                      Status= StationStatusEnum.待放入,
                      Density= currentPar==null? 0 : currentPar.Density,
-                     DensityCoefficient= currentPar == null ? 0 : currentPar.DensityCoefficient
+                     DensityCoefficient= currentPar == null ? 0 : currentPar.DensityCoefficient,
+                     DoseLimit= currentPar==null? 0 :currentPar.DoseLimit
                 };
                 index++;
                 #region 剂量上限校验
@@ -163,7 +164,8 @@ namespace AdjustmentSys.BLL.Prescription
                                     StationY = currentCabinetParticles[1].CoordinateY,
                                     MedicineCabinetDetail = currentCabinetParticles[1],
                                     Density = currentPar == null ? 0 : currentPar.Density,
-                                    DensityCoefficient = currentPar == null ? 0 : currentPar.DensityCoefficient
+                                    DensityCoefficient = currentPar == null ? 0 : currentPar.DensityCoefficient,
+                                    DoseLimit = currentPar == null ? 0 : currentPar.DoseLimit
                                 };
                                 details.Add(localDetail1);
                                 index++;

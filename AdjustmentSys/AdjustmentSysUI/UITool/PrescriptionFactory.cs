@@ -330,5 +330,206 @@ namespace AdjustmentSysUI.UITool
             //    ParticlesDictionaries.GetData();    //刷新颗粒字典
         }
 
+        #region 本类字段
+        public Int16 BoxType { get; set; }//药盒类型
+
+        public double BoxCellVolume { get; set; }//药盒单格体积
+
+        public int AdjustWay { get; set; }//调剂方式
+        
+        #endregion
+
+        /// <summary>
+        /// 处方相关计算
+        /// </summary>
+        /// <returns>新拆分处方</returns>
+        public PreModel PrescriptionHandles(PreModel prescription)
+        {
+            try
+            {
+                StringBuilder ErrorOut = new StringBuilder("");
+
+                double TotalV = this.PresVolume(Prescription); //获取该处方总体积
+                if (TotalV <= 0)
+                {
+                    MessageBox.Show("检测到数据异常溢出,将终止此处方调剂,请检该处方中颗粒剂量,密度,当量参数是否有为零的.", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+                DataPrescriptionTB NewPrescription = new DataPrescriptionTB();   //新处方主表
+                List<DataPrescriptionTB.DetailStructure> DetailList = new List<DataPrescriptionTB.DetailStructure>();     //新处方明细表
+
+
+                int CalculateCellNumber = Prescription.TaskFrequency * Prescription.Quantity;  //理论总格数=分付次数*付数                
+
+                while (true)
+                {
+                    if ((CalculateCellNumber % this.LidHoleNumber == 0) && (TotalV <= BoxCellVolume * CalculateCellNumber) && (CalculateCellNumber % (Prescription.TaskFrequency * Prescription.Quantity) == 0))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        CalculateCellNumber += 1;
+                    }
+                }
+
+
+                if (CalculateCellNumber % this.LidHoleNumber != 0)  //判断处方格数合法性
+                {
+                    MessageBox.Show("当前处方不符合" + this.LidHoleNumber + "分药盒/袋调剂,余<" + CalculateCellNumber % this.LidHoleNumber + ">.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
+                foreach (DataPrescriptionTB.DetailStructure Det in Prescription.ParticlesDetail)
+                {
+                    DataPrescriptionTB.DetailStructure Detail = new DataPrescriptionTB.DetailStructure();
+                    CabinetStorageInfoTB CabinetParticles = new CabinetStorageInfoTB();
+                    if (Det.Dose < this.DoseLimitDown)  //如果小于最小底限量即取默认值
+                    {
+                        Detail.NewDose = this.DoseLimitDefaultValue;
+                    }
+                    else
+                    {
+                        Detail.NewDose = Convert.ToDouble(Math.Round(((Det.Dose * Prescription.Quantity) / CalculateCellNumber), 2));//根据格数平均剂量
+                    }
+                    CabinetParticles = CabinetParticles.GetCabinetStorageInfo(this.CabinetID, Det.ParticlesID);
+
+                    if (CabinetParticles != null)
+                    {
+                        Detail.CabinetParticles = Det.CabinetParticles;
+                    }
+                    else
+                    {
+                        ErrorOut.AppendLine("【" + Prescription.PatientName + "】的处方中,颗粒:【" + Det.ParticlesName + "】编号:【" + Det.ParticlesID + "】未注册上架,因此无法处理此处方!");
+                    }
+
+                    Detail.PrescriptionID = Det.PrescriptionID;
+                    Detail.Density = Det.Density;
+                    Detail.Dose = Det.Dose;
+                    Detail.DoseHerb = Det.DoseHerb;
+                    Detail.DensityCoefficient = Det.DensityCoefficient;
+                    Detail.DoseLimit = Det.DoseLimit;
+                    Detail.Equivalent = Det.Equivalent;
+                    Detail.ParticlesID = Det.ParticlesID;
+                    Detail.ParticlesNameHIS = Det.ParticlesNameHIS;
+                    Detail.BatchNumber = Det.BatchNumber;
+                    Detail.ParticlesName = Det.ParticlesName;
+                    Detail.ParticlesCodeHIS = Det.ParticlesCodeHIS;
+                    Detail.ParticleOrder = Det.ParticleOrder;
+                    Detail.Price = Det.Price;
+                    DetailList.Add(Detail);
+                }
+                if (ErrorOut.ToString() != "")
+                {
+                    MessageBox.Show(ErrorOut.ToString(), "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+                string BOX = "袋";
+                if (ConfigTB.Checkdive == 0)
+                {
+
+                    BOX = "格";
+                }
+                NewPrescription.BoxNumber = CalculateCellNumber / this.LidHoleNumber; //计算总盒数;
+                NewPrescription.BreakNumber = CalculateCellNumber / (Prescription.Quantity * Prescription.TaskFrequency) - 1;    //计算拆分次数
+                NewPrescription.PrescriptionType = Prescription.PrescriptionType;
+                NewPrescription.CreateTime = Prescription.CreateTime;
+                NewPrescription.CreateName = Prescription.CreateName;
+                NewPrescription.DepartmentName = Prescription.DepartmentName;
+                NewPrescription.DetailedCount = Prescription.DetailedCount;
+                NewPrescription.DoctorName = Prescription.DoctorName;
+                NewPrescription.PatientAge = Prescription.PatientAge;
+                NewPrescription.PatientBirthMonth = Prescription.PatientBirthMonth;
+                NewPrescription.PatientName = Prescription.PatientName;
+                NewPrescription.PatientSex = Prescription.PatientSex;
+                NewPrescription.PatientTel = Prescription.PatientTel;
+                NewPrescription.RegisterID = Prescription.RegisterID;
+                NewPrescription.PaymentType = Prescription.PaymentType;
+                NewPrescription.PrescriptionID = Prescription.PrescriptionID;
+                NewPrescription.UnitPrice = Prescription.UnitPrice;
+                NewPrescription.PrescriptionSource = Prescription.PrescriptionSource;
+                NewPrescription.TotalPrice = Prescription.TotalPrice;
+                NewPrescription.ProcessStatus = Prescription.ProcessStatus;
+                NewPrescription.ImportTime = Prescription.ImportTime;
+                NewPrescription.TaskFrequency = Prescription.TaskFrequency;
+                NewPrescription.ValuationTime = Prescription.ValuationTime;
+                NewPrescription.RegisterID = Prescription.RegisterID;
+                NewPrescription.ValuerName = Prescription.ValuerName;
+                NewPrescription.ValueSn = Prescription.ValueSn;
+                NewPrescription.ParticlesDetail = DetailList;
+                NewPrescription.Remarks = Prescription.Remarks;   //备注HISimport
+                NewPrescription.UsageMethod = Prescription.UsageMethod;
+                NewPrescription.GenerateUseWay = "" + ConfigTB.GenerateUsageMethodPrefix.Trim() + "每日" + DigitalCaseConversion.ConvertInteger(Prescription.TaskFrequency.ToString()) + "" + "次;每次" + DigitalCaseConversion.ConvertInteger(((CalculateCellNumber / (Prescription.Quantity * Prescription.TaskFrequency)).ToString())) + BOX + "";
+                NewPrescription.Quantity = Prescription.Quantity;    //处方付数   
+                NewPrescription.PresLogObj = Prescription.PresLogObj;
+                NewPrescription.BackupField1 = Prescription.BackupField1;
+                NewPrescription.BackupField2 = Prescription.BackupField2;
+                NewPrescription.BackupField3 = Prescription.BackupField3;
+                NewPrescription.Writetime = Prescription.Writetime;
+                return NewPrescription;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:5004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        private double PresVolume(PreModel PresData)     //返回处方总体积
+        {
+            double TotalVolume = 0.0f;
+            foreach (ConfirmLocalDataPrescriptionDetail detail in PresData.Details)
+            {
+                if (ParticlesParamCheck(detail))
+                {                       
+                    float density = (float)Math.Floor((detail.MedicineCabinetDetail.DensityCoefficient.Value * detail.Density) * 1000) / 1000;
+                    if (this.AdjustWay == 0)//调剂方式选择
+                    {
+                        TotalVolume += (detail.Dose / density);//颗粒计量/颗粒密度
+                    }
+                    else
+                    {
+                        TotalVolume += ((detail.DoseHerb / detail.Equivalent) / density);//（饮片计量/当量）/颗粒密度                                                         
+                    }
+                }
+                else
+                {
+                    return -1.1f;
+                }
+            }
+            if (TotalVolume > int.MaxValue)
+            {
+                return -1.1f;
+            }
+            return TotalVolume * PresData.Quantity; //总体积,单位:ml
+        }
+
+        private bool ParticlesParamCheck(ConfirmLocalDataPrescriptionDetail detail)  //颗粒参数检查
+        {
+            if (detail.Density <= 0.1)
+            {
+                MessageBox.Show("颗粒'" + detail.ParName + "'密度<=0.1");
+                return false;
+            }
+            else if (detail.DensityCoefficient <= 0 || detail.MedicineCabinetDetail.DensityCoefficient<=0)
+            {
+                MessageBox.Show("颗粒'" + detail.ParName + "'密度系数<=0.");
+                return false;
+            }
+            else if (detail.Dose <= 0 || detail.DoseHerb <= 0)
+            {
+                MessageBox.Show("颗粒'" + detail.ParName + "'饮片剂量或颗粒剂量<=0.");
+                return false;
+            }
+            else if (detail.DoseLimit <= 0 || detail.Equivalent <= 0)
+            {
+                MessageBox.Show("颗粒'" + detail.ParName + "'剂量上限或当量<=0.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

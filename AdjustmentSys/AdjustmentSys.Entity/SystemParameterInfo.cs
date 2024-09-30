@@ -17,6 +17,11 @@ namespace AdjustmentSys.Entity
     public class SystemParameterInfo:UpdateModel
     {
         /// <summary>
+        /// 设备类型
+        /// </summary>
+        [Column("DeviceType")]
+        public DeviceTypeEnum DeviceType { get; set; }
+        /// <summary>
         /// 系统参数类型
         /// </summary>
         [Column("ParameterType")]

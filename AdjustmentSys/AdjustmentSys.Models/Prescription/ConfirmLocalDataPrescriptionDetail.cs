@@ -68,6 +68,10 @@ namespace AdjustmentSys.Models.Prescription
         /// 颗粒剂量
         /// </summary>
         public float Dose { get; set; }
+        /// <summary>
+        /// 剂量上限
+        /// </summary>
+        public float? DoseLimit { get; set; }
 
         /// <summary>
         /// 药品单价
@@ -103,7 +107,7 @@ namespace AdjustmentSys.Models.Prescription
         /// </summary>
         public float Density { get; set; }
         /// <summary>
-        /// 密度系数
+        /// 颗粒密度系数
         /// </summary>
         public float? DensityCoefficient { get; set; }
         /// <summary>

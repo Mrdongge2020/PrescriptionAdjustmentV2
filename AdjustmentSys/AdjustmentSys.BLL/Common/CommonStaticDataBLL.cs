@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.DAL.Common;
+using AdjustmentSys.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,15 @@ namespace AdjustmentSys.BLL.Common
         public static string GetSystemParameterValue(string parameterName) 
         { 
             return commonStaticDataDAL.GetSystemParameterValue(parameterName);
+        }
+
+        /// <summary>
+        /// 根据参数所属设备类型获取所有参数信息
+        /// </summary>
+        /// <returns></returns>
+        public static List<SystemParameterInfo> GetSystemParameterValue() 
+        { 
+            return commonStaticDataDAL.GetSystemParameterValue();
         }
     }
 }

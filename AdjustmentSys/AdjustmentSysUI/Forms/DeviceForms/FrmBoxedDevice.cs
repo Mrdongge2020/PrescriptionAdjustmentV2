@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Assembiy;
+using AdjustmentSys.BLL.Common;
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
@@ -114,10 +115,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 return;
             }
             DataProcessingTool.ReverseBit16(ref D200[0], 1, boxedDeviceModel.HomeExcute);//整机回零启动
-            if (boxedDeviceModel.RunState!=WorkStateEnum.Write)
+            if (boxedDeviceModel.RunState != WorkStateEnum.Write)
             {
                 DataProcessingTool.ReverseBit16(ref D200[0], 2, boxedDeviceModel.Turntable.Excute);//转盘位移启动
-                if (boxedDeviceModel.RunState !=WorkStateEnum.Rest)
+                if (boxedDeviceModel.RunState != WorkStateEnum.Rest)
                 {
                     DataProcessingTool.ReverseBit16(ref D200[0], 3, boxedDeviceModel.Supplyboxs.Excute);//供盒启动
                     DataProcessingTool.ReverseBit16(ref D200[0], 4, boxedDeviceModel.Sealbox.Excute);//封口启动
@@ -200,16 +201,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             //boxedDeviceModel.Sealbox.Error = DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError,0);
             //machineBox.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8); //rfid数据D258-D277
             boxedDeviceModel.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8);
-            for (int i = 0; i < 8; i++) 
+            for (int i = 0; i < 8; i++)
             {
                 boxedDeviceModel.AdjustmentStations[i].RfidData = boxedDeviceModel.RFID[i];
             }
-            boxedDeviceModel.WeighingStation.ReadRfidData= boxedDeviceModel.RFID[8];
-            boxedDeviceModel.InX= DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
-            boxedDeviceModel.Sealbox.InX1= DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 0);
+            boxedDeviceModel.WeighingStation.ReadRfidData = boxedDeviceModel.RFID[8];
+            boxedDeviceModel.InX = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
+            boxedDeviceModel.Sealbox.InX1 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 0);
             boxedDeviceModel.Sealbox.InX2 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 1);
             boxedDeviceModel.Sealbox.InX3 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 3);
-            boxedDeviceModel.Supplyboxs.InX1 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX,4);
+            boxedDeviceModel.Supplyboxs.InX1 = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 4);
             boxedDeviceModel.Outboxs.InX = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 5);
             boxedDeviceModel.Outboxs.HomeX = DataProcessingTool.GetBitValue(boxedDeviceModel.InX, 6);
 
@@ -302,7 +303,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             //调剂异常信息
             lbOpterMsg.Items.Clear();
             //设备异常信息
-
+            
             try
             {
                 Jxssend = new Thread(Jxs);
@@ -313,6 +314,50 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 ShowErrorDialog(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 系统参数校验
+        /// </summary>
+        /// <returns></returns>
+        private string ParamCheck() 
+        {
+            //设备参数信息
+            var allParams = CommonStaticDataBLL.GetSystemParameterValue();
+            if (allParams == null)
+            {
+                return "未找到该设备调剂参数信息";
+            }
+            string paramStr = allParams.FirstOrDefault(x => x.ParameterName == "YaoHeDanGeTiJi")?.ParameterValue;
+            if (paramStr != null && double.TryParse(paramStr, out double value1))
+            {
+                prescriptionFactory.BoxCellVolume = value1;
+            }
+            else 
+            {
+                return "药盒单格体积参数信息缺失或值无效";
+            }
+            paramStr = allParams.FirstOrDefault(x => x.ParameterName == "YaoHeLeiXing")?.ParameterValue;
+            if (paramStr != null && short.TryParse(paramStr, out short value2))
+            {
+                prescriptionFactory.BoxType = value2;
+            }
+            else 
+            {
+                return "药盒类型参数信息缺失或值无效";
+            }
+
+            paramStr = allParams.FirstOrDefault(x => x.ParameterName == "TiaoJiFangShi")?.ParameterValue;
+            if (paramStr != null && int.TryParse(paramStr, out int value3))
+            {
+                prescriptionFactory.AdjustWay = value3;
+            }
+            else
+            {
+                return "调剂方式参数信息缺失或值无效";
+            }
+
+            return "";
         }
 
         // 通用方法来按名称查找控件
@@ -326,7 +371,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
         PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
         string fileUrl = Application.StartupPath + "\\testbinfile.bin";
-       
+
         string selectPreId = "";//选中的处方编号
         private DownLoadPreModel downLoadPreModel { get; set; }//已下载处方文件实体
 
@@ -540,7 +585,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnSuspend_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -550,6 +595,18 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// <param name="e"></param>
         private void btnStartRun_Click(object sender, EventArgs e)
         {
+            //检查机器可调？
+            if (!CheckDeivce())
+            {
+                return;
+            }
+            //系统参数校验
+            string paramError = ParamCheck();
+            if (paramError!=null) 
+            {
+                ShowWarningDialog("异常提示", paramError);
+                return;
+            }
             if (selectPreId == "")
             {
                 ShowWarningDialog("异常提示", "请先选择要调剂的处方");
@@ -574,8 +631,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 ShowWarningDialog("异常提示", "未找到处方颗粒详情信息");
                 return;
             }
+            //处理处方信息,分盒计算，剂量计算等
 
-            //正在调剂处方信息
+            
+            //加载将要调剂处方信息
             lblPreId.Text = prescriptionModel.PrescriptionID;
             lblPreParticleNum.Text = prescriptionModel.DetailedCount.ToString();
             lblPreQuantity.Text = prescriptionModel.Quantity.ToString();
@@ -585,8 +644,51 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         }
 
-        
+        private bool CheckDeivce()
+        {
+            if (boxedDeviceModel.RunState!= WorkStateEnum.Work)
+            {
+                ShowErrorDialog("异常提示",$"设备正处于{boxedDeviceModel.RunState.ToString()}状态，无法开始立即调剂");
+                return false;
+            }
+            if (DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError, 3))
+            {
+                MessageBox.Show("设备气压不足，无法调剂");
+                return false;
+            }
+            if (DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError, 4))
+            {
+                MessageBox.Show("设备封口温度未达到设定值，无法调剂");
+                return false;
+            }
+            return true;
+            //if (ObjMachine.Runstate == MachineBox.Workstate.Work && newstate.Text == "运行状态：等待调剂 ")
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("设备不处于：等待调剂");
+            //    return false;
+            //}
 
-       
+
+        }
+        /// <summary>
+        /// 设备初始化
+        /// </summary>
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (boxedDeviceModel.RunState == WorkStateEnum.Write)
+            {
+                boxedDeviceModel.RunState = WorkStateEnum.Home;
+                boxedDeviceModel.HomeExcute = true;
+                ShowSuccessTip("|设备正在执行初始化...|");
+            }
+            else
+            {
+                ShowErrorDialog("错误提示", "设备不处于等待初始化状态");
+            }
+        }
     }
 }

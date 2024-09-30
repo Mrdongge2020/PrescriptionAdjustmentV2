@@ -1,4 +1,6 @@
 ﻿using AdjustmentSys.EFCore;
+using AdjustmentSys.Entity;
+using AdjustmentSys.Models.PublicModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,23 @@ namespace AdjustmentSys.DAL.Common
             else 
             { 
                 return valueStr;
+            }
+        }
+
+        /// <summary>
+        /// 根据参数所属设备类型获取所有参数信息
+        /// </summary>
+        /// <returns></returns>
+        public List<SystemParameterInfo> GetSystemParameterValue()
+        {
+            var  allParams = _eFCoreContext.SystemParameterInfos.Where(x=>x.DeviceType==SysDeviceInfo._currentDeviceInfo.DeviceType).ToList();
+            if (allParams!=null && allParams.Count>0)
+            {
+                return allParams;
+            }
+            else
+            {
+                return null;
             }
         }
     }
