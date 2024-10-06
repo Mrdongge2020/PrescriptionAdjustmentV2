@@ -3,6 +3,7 @@ using AdjustmentSys.Entity;
 using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.PublicModel;
+using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.TCP;
 using System;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AdjustmentSysUI.UITool
 {
@@ -336,34 +338,36 @@ namespace AdjustmentSysUI.UITool
         public double BoxCellVolume { get; set; }//药盒单格体积
 
         public int AdjustWay { get; set; }//调剂方式
-        
+
+        public float DoseLimitDown { get; set; }//剂量底限
         #endregion
 
         /// <summary>
         /// 处方相关计算
         /// </summary>
         /// <returns>新拆分处方</returns>
-        public PreModel PrescriptionHandles(PreModel prescription)
+        public PreModel PrescriptionHandles(PreModel prescription,out string errorMsg)
         {
             try
             {
                 StringBuilder ErrorOut = new StringBuilder("");
 
-                double TotalV = this.PresVolume(Prescription); //获取该处方总体积
-                if (TotalV <= 0)
+                double TotalV = this.PresVolume(prescription,out errorMsg); //获取该处方总体积
+                if (errorMsg!="") 
                 {
-                    MessageBox.Show("检测到数据异常溢出,将终止此处方调剂,请检该处方中颗粒剂量,密度,当量参数是否有为零的.", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return null;
                 }
-                DataPrescriptionTB NewPrescription = new DataPrescriptionTB();   //新处方主表
-                List<DataPrescriptionTB.DetailStructure> DetailList = new List<DataPrescriptionTB.DetailStructure>();     //新处方明细表
-
-
-                int CalculateCellNumber = Prescription.TaskFrequency * Prescription.Quantity;  //理论总格数=分付次数*付数                
+                if (TotalV <= 0)
+                {
+                    errorMsg="检测到数据异常溢出,将终止此处方调剂,请检该处方中颗粒剂量,密度,当量参数是否有为零的.";
+                    return null;
+                }
+               
+                int CalculateCellNumber = prescription.TaskFrequency * prescription.Quantity;  //理论总格数=分付次数*付数                
 
                 while (true)
                 {
-                    if ((CalculateCellNumber % this.LidHoleNumber == 0) && (TotalV <= BoxCellVolume * CalculateCellNumber) && (CalculateCellNumber % (Prescription.TaskFrequency * Prescription.Quantity) == 0))
+                    if ((CalculateCellNumber % this.BoxType == 0) && (TotalV <= BoxCellVolume * CalculateCellNumber) && (CalculateCellNumber % (prescription.TaskFrequency * prescription.Quantity) == 0))
                     {
                         break;
                     }
@@ -374,162 +378,103 @@ namespace AdjustmentSysUI.UITool
                 }
 
 
-                if (CalculateCellNumber % this.LidHoleNumber != 0)  //判断处方格数合法性
+                if (CalculateCellNumber % this.BoxType != 0)  //判断处方格数合法性
                 {
-                    MessageBox.Show("当前处方不符合" + this.LidHoleNumber + "分药盒/袋调剂,余<" + CalculateCellNumber % this.LidHoleNumber + ">.", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorMsg="当前处方不符合" + this.BoxType + "分药盒/袋调剂,余<" + CalculateCellNumber % this.BoxType + ">.";
                     return null;
                 }
 
-                foreach (DataPrescriptionTB.DetailStructure Det in Prescription.ParticlesDetail)
+                prescription.Details.ForEach(item => 
                 {
-                    DataPrescriptionTB.DetailStructure Detail = new DataPrescriptionTB.DetailStructure();
-                    CabinetStorageInfoTB CabinetParticles = new CabinetStorageInfoTB();
-                    if (Det.Dose < this.DoseLimitDown)  //如果小于最小底限量即取默认值
+                    if (item.Dose < this.DoseLimitDown)  //如果小于最小底限量即取默认值
                     {
-                        Detail.NewDose = this.DoseLimitDefaultValue;
+                        item.NewDose = this.DoseLimitDown; //this.DoseLimitDefaultValue;
                     }
                     else
                     {
-                        Detail.NewDose = Convert.ToDouble(Math.Round(((Det.Dose * Prescription.Quantity) / CalculateCellNumber), 2));//根据格数平均剂量
+                        item.NewDose = (float)(Math.Round(((item.Dose * prescription.Quantity) / CalculateCellNumber), 2));//根据格数平均剂量
                     }
-                    CabinetParticles = CabinetParticles.GetCabinetStorageInfo(this.CabinetID, Det.ParticlesID);
+                });
 
-                    if (CabinetParticles != null)
-                    {
-                        Detail.CabinetParticles = Det.CabinetParticles;
-                    }
-                    else
-                    {
-                        ErrorOut.AppendLine("【" + Prescription.PatientName + "】的处方中,颗粒:【" + Det.ParticlesName + "】编号:【" + Det.ParticlesID + "】未注册上架,因此无法处理此处方!");
-                    }
-
-                    Detail.PrescriptionID = Det.PrescriptionID;
-                    Detail.Density = Det.Density;
-                    Detail.Dose = Det.Dose;
-                    Detail.DoseHerb = Det.DoseHerb;
-                    Detail.DensityCoefficient = Det.DensityCoefficient;
-                    Detail.DoseLimit = Det.DoseLimit;
-                    Detail.Equivalent = Det.Equivalent;
-                    Detail.ParticlesID = Det.ParticlesID;
-                    Detail.ParticlesNameHIS = Det.ParticlesNameHIS;
-                    Detail.BatchNumber = Det.BatchNumber;
-                    Detail.ParticlesName = Det.ParticlesName;
-                    Detail.ParticlesCodeHIS = Det.ParticlesCodeHIS;
-                    Detail.ParticleOrder = Det.ParticleOrder;
-                    Detail.Price = Det.Price;
-                    DetailList.Add(Detail);
-                }
-                if (ErrorOut.ToString() != "")
+                string unit = "格";
+                if (SysDeviceInfo._currentDeviceInfo.DeviceType == DeviceTypeEnum.半自动袋装)
                 {
-                    MessageBox.Show(ErrorOut.ToString(), "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return null;
+                    unit = "袋";
                 }
-                string BOX = "袋";
-                if (ConfigTB.Checkdive == 0)
-                {
-
-                    BOX = "格";
-                }
-                NewPrescription.BoxNumber = CalculateCellNumber / this.LidHoleNumber; //计算总盒数;
-                NewPrescription.BreakNumber = CalculateCellNumber / (Prescription.Quantity * Prescription.TaskFrequency) - 1;    //计算拆分次数
-                NewPrescription.PrescriptionType = Prescription.PrescriptionType;
-                NewPrescription.CreateTime = Prescription.CreateTime;
-                NewPrescription.CreateName = Prescription.CreateName;
-                NewPrescription.DepartmentName = Prescription.DepartmentName;
-                NewPrescription.DetailedCount = Prescription.DetailedCount;
-                NewPrescription.DoctorName = Prescription.DoctorName;
-                NewPrescription.PatientAge = Prescription.PatientAge;
-                NewPrescription.PatientBirthMonth = Prescription.PatientBirthMonth;
-                NewPrescription.PatientName = Prescription.PatientName;
-                NewPrescription.PatientSex = Prescription.PatientSex;
-                NewPrescription.PatientTel = Prescription.PatientTel;
-                NewPrescription.RegisterID = Prescription.RegisterID;
-                NewPrescription.PaymentType = Prescription.PaymentType;
-                NewPrescription.PrescriptionID = Prescription.PrescriptionID;
-                NewPrescription.UnitPrice = Prescription.UnitPrice;
-                NewPrescription.PrescriptionSource = Prescription.PrescriptionSource;
-                NewPrescription.TotalPrice = Prescription.TotalPrice;
-                NewPrescription.ProcessStatus = Prescription.ProcessStatus;
-                NewPrescription.ImportTime = Prescription.ImportTime;
-                NewPrescription.TaskFrequency = Prescription.TaskFrequency;
-                NewPrescription.ValuationTime = Prescription.ValuationTime;
-                NewPrescription.RegisterID = Prescription.RegisterID;
-                NewPrescription.ValuerName = Prescription.ValuerName;
-                NewPrescription.ValueSn = Prescription.ValueSn;
-                NewPrescription.ParticlesDetail = DetailList;
-                NewPrescription.Remarks = Prescription.Remarks;   //备注HISimport
-                NewPrescription.UsageMethod = Prescription.UsageMethod;
-                NewPrescription.GenerateUseWay = "" + ConfigTB.GenerateUsageMethodPrefix.Trim() + "每日" + DigitalCaseConversion.ConvertInteger(Prescription.TaskFrequency.ToString()) + "" + "次;每次" + DigitalCaseConversion.ConvertInteger(((CalculateCellNumber / (Prescription.Quantity * Prescription.TaskFrequency)).ToString())) + BOX + "";
-                NewPrescription.Quantity = Prescription.Quantity;    //处方付数   
-                NewPrescription.PresLogObj = Prescription.PresLogObj;
-                NewPrescription.BackupField1 = Prescription.BackupField1;
-                NewPrescription.BackupField2 = Prescription.BackupField2;
-                NewPrescription.BackupField3 = Prescription.BackupField3;
-                NewPrescription.Writetime = Prescription.Writetime;
-                return NewPrescription;
+                prescription.BoxNumber = CalculateCellNumber / this.BoxType; //计算总盒数;
+                prescription.BreakNumber = CalculateCellNumber / (prescription.Quantity * prescription.TaskFrequency) - 1;    //计算拆分次数
+                prescription.GenerateUseWay =  "每日" + StringHelper.ConvertInteger(prescription.TaskFrequency.ToString()) + "" + "次;每次" + StringHelper.ConvertInteger(((CalculateCellNumber / (prescription.Quantity * prescription.TaskFrequency)).ToString())) + unit + "";
+               
+                return prescription;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:5004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                errorMsg="出现错误:"+ ex.Message  ;
                 return null;
             }
         }
 
-        private double PresVolume(PreModel PresData)     //返回处方总体积
+        /// <summary>
+        /// 药盒体积和计算
+        /// </summary>
+        /// <param name="PresData">处方信息</param>
+        /// <param name="errorMsg">错误信息</param>
+        /// <returns></returns>
+        private float PresVolume(PreModel PresData,out string errorMsg)     //返回处方总体积
         {
-            double TotalVolume = 0.0f;
+            float TotalVolume = 0;
             foreach (ConfirmLocalDataPrescriptionDetail detail in PresData.Details)
             {
-                if (ParticlesParamCheck(detail))
-                {                       
-                    float density = (float)Math.Floor((detail.MedicineCabinetDetail.DensityCoefficient.Value * detail.Density) * 1000) / 1000;
-                    if (this.AdjustWay == 0)//调剂方式选择
-                    {
-                        TotalVolume += (detail.Dose / density);//颗粒计量/颗粒密度
-                    }
-                    else
-                    {
-                        TotalVolume += ((detail.DoseHerb / detail.Equivalent) / density);//（饮片计量/当量）/颗粒密度                                                         
-                    }
+                errorMsg = ParticlesParamCheck(detail);
+                if (errorMsg!="") 
+                {
+                    return -1;
+                }
+
+                float density = (float)Math.Floor((detail.MedicineCabinetDetail.DensityCoefficient.Value * detail.Density) * 1000) / 1000;
+                if (this.AdjustWay == 0)//调剂方式选择
+                {
+                    TotalVolume += (detail.Dose / density);//颗粒计量/颗粒密度
                 }
                 else
                 {
-                    return -1.1f;
+                    TotalVolume += ((detail.DoseHerb / detail.Equivalent) / density);//（饮片计量/当量）/颗粒密度                                                         
                 }
             }
             if (TotalVolume > int.MaxValue)
             {
-                return -1.1f;
+                errorMsg = $"处方{PresData.PrescriptionID}体积超出限制{int.MaxValue}";
+                return -1;
             }
+            errorMsg = "";
             return TotalVolume * PresData.Quantity; //总体积,单位:ml
         }
 
-        private bool ParticlesParamCheck(ConfirmLocalDataPrescriptionDetail detail)  //颗粒参数检查
+        private string ParticlesParamCheck(ConfirmLocalDataPrescriptionDetail detail)  //颗粒参数检查
         {
+            string errorStr = "";
             if (detail.Density <= 0.1)
             {
-                MessageBox.Show("颗粒'" + detail.ParName + "'密度<=0.1");
-                return false;
+                errorStr="颗粒'" + detail.ParName + "'密度<=0.1";
+                return errorStr;
             }
-            else if (detail.DensityCoefficient <= 0 || detail.MedicineCabinetDetail.DensityCoefficient<=0)
+            if (detail.DensityCoefficient <= 0 || detail.MedicineCabinetDetail.DensityCoefficient<=0)
             {
-                MessageBox.Show("颗粒'" + detail.ParName + "'密度系数<=0.");
-                return false;
+                errorStr="颗粒'" + detail.ParName + "'密度系数<=0.";
+                return errorStr;
             }
-            else if (detail.Dose <= 0 || detail.DoseHerb <= 0)
+            if (detail.Dose <= 0 || detail.DoseHerb <= 0)
             {
-                MessageBox.Show("颗粒'" + detail.ParName + "'饮片剂量或颗粒剂量<=0.");
-                return false;
+                errorStr="颗粒'" + detail.ParName + "'饮片剂量或颗粒剂量<=0.";
+                return errorStr;
             }
-            else if (detail.DoseLimit <= 0 || detail.Equivalent <= 0)
+            if (detail.DoseLimit <= 0 || detail.Equivalent <= 0)
             {
-                MessageBox.Show("颗粒'" + detail.ParName + "'剂量上限或当量<=0.");
-                return false;
+                errorStr="颗粒'" + detail.ParName + "'剂量上限或当量<=0.";
+                return errorStr;
             }
-            else
-            {
-                return true;
-            }
+            
+            return errorStr;
         }
     }
 }

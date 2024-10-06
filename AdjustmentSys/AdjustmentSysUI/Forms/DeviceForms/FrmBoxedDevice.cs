@@ -356,7 +356,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 return "调剂方式参数信息缺失或值无效";
             }
-
+            paramStr = allParams.FirstOrDefault(x => x.ParameterName == "JiLiangDiXian")?.ParameterValue;
+            if (paramStr != null && int.TryParse(paramStr, out int value4))
+            {
+                prescriptionFactory.DoseLimitDown = value4;
+            }
+            else
+            {
+                return "剂量底限参数信息缺失或值无效";
+            }
+            
             return "";
         }
 

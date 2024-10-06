@@ -65,6 +65,20 @@ namespace AdjustmentSys.Models.FileModel
         /// 处方使用方式
         /// </summary>
         public string? UsageMethod { get; set; }
+
+        /// <summary>
+        /// 盒数
+        /// </summary>
+        public int? BoxNumber { get; set; }
+        /// <summary>
+        /// 拆分次数
+        /// </summary>
+        public int? BreakNumber { get; set; }
+        /// <summary>
+        /// 生成的实时使用方式
+        /// </summary>
+        public string GenerateUseWay { get; set; }
+
         /// <summary>
         /// 处方状态
         /// </summary>
