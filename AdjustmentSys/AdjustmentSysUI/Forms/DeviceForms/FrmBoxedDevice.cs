@@ -29,6 +29,10 @@ using System.Windows.Forms;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Assembiy;
 using AdjustmentSys.BLL.Common;
+using AdjustmentSys.Tool;
+using System.CodeDom.Compiler;
+using Azure.Core;
+using NPOI.SS.Formula.Functions;
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
@@ -164,34 +168,34 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             ///称重工位状态 D254
             ///异常状态 256 - D257 
             ///rfid数据D258-D277
-            boxedDeviceModel.AllFishState = DataProcessingTool.ByteCheckU16(B250, 9);//完成状态
-            boxedDeviceModel.HomeExcute = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 1);//整机回零完成
-            boxedDeviceModel.Turntable.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 2);//位移完成
-            boxedDeviceModel.Supplyboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 3);//供盒完成
-            boxedDeviceModel.Sealbox.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 4);//封口完成
-            boxedDeviceModel.AdjustmentStations[0].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 5);//下药完成
-            boxedDeviceModel.AdjustmentStations[1].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 6);//下药完成
-            boxedDeviceModel.AdjustmentStations[2].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 7);//下药完成
-            boxedDeviceModel.AdjustmentStations[3].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 8);//下药完成
-            boxedDeviceModel.AdjustmentStations[4].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 9);//下药完成
-            boxedDeviceModel.AdjustmentStations[5].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 10);//下药完成
-            boxedDeviceModel.AdjustmentStations[6].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 11);//下药完成
-            boxedDeviceModel.AdjustmentStations[7].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 12);//下药完成
-            boxedDeviceModel.Outboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 13);//出盒完成
+            boxedDeviceModel.ExcuteFishState = DataProcessingTool.ByteCheckU16(B250, 9);//完成状态
+            boxedDeviceModel.HomeFish = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 1);//整机回零完成
+            boxedDeviceModel.Turntable.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 2);//位移完成
+            boxedDeviceModel.Supplyboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 3);//供盒完成
+            boxedDeviceModel.Sealbox.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 4);//封口完成
+            boxedDeviceModel.AdjustmentStations[0].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 5);//下药完成
+            boxedDeviceModel.AdjustmentStations[1].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 6);//下药完成
+            boxedDeviceModel.AdjustmentStations[2].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 7);//下药完成
+            boxedDeviceModel.AdjustmentStations[3].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 8);//下药完成
+            boxedDeviceModel.AdjustmentStations[4].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 9);//下药完成
+            boxedDeviceModel.AdjustmentStations[5].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 10);//下药完成
+            boxedDeviceModel.AdjustmentStations[6].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 11);//下药完成
+            boxedDeviceModel.AdjustmentStations[7].Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.ExcuteFishState, 12);//下药完成
+            boxedDeviceModel.Outboxs.Finsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 13);//出盒完成
 
 
-            boxedDeviceModel.SingleFinshState = DataProcessingTool.ByteCheckU16(B250, 9 + 2);//单个回零完成状态
-            boxedDeviceModel.AdjustmentStations[0].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 1);//1#下药回零完成
-            boxedDeviceModel.AdjustmentStations[1].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 2);//2#下药回零完成
-            boxedDeviceModel.AdjustmentStations[2].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 3);//3#下药回零完成
-            boxedDeviceModel.AdjustmentStations[3].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 4);//4#下药回零完成
-            boxedDeviceModel.AdjustmentStations[4].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 5);//5#下药回零完成
-            boxedDeviceModel.AdjustmentStations[5].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 6);//6#下药回零完成
-            boxedDeviceModel.AdjustmentStations[6].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 7);//7#下药回零完成
-            boxedDeviceModel.AdjustmentStations[7].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 8);//8#下药回零完成
-            boxedDeviceModel.Sealbox.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 9);//9#走膜回零完成
-            boxedDeviceModel.Turntable.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 10);//10#转盘回零完成
-            boxedDeviceModel.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.SingleFinshState, 11);//11#供盒回零完成
+            boxedDeviceModel.HomeFishState = DataProcessingTool.ByteCheckU16(B250, 9 + 2);//单个回零完成状态
+            boxedDeviceModel.AdjustmentStations[0].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 1);//1#下药回零完成
+            boxedDeviceModel.AdjustmentStations[1].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 2);//2#下药回零完成
+            boxedDeviceModel.AdjustmentStations[2].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 3);//3#下药回零完成
+            boxedDeviceModel.AdjustmentStations[3].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 4);//4#下药回零完成
+            boxedDeviceModel.AdjustmentStations[4].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 5);//5#下药回零完成
+            boxedDeviceModel.AdjustmentStations[5].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 6);//6#下药回零完成
+            boxedDeviceModel.AdjustmentStations[6].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 7);//7#下药回零完成
+            boxedDeviceModel.AdjustmentStations[7].HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 8);//8#下药回零完成
+            boxedDeviceModel.Sealbox.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 9);//9#走膜回零完成
+            boxedDeviceModel.Turntable.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 10);//10#转盘回零完成
+            boxedDeviceModel.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 11);//11#供盒回零完成
             MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
             MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
             boxedDeviceModel.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
@@ -228,8 +232,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 boxedDeviceModel.WFish = false;
             }
             DataProcessingTool.ReverseBit16(ref D200[0], 15, MachinePublic.WriteRfidExcule);//RFID写
-            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 14);//RFID写入完成
-            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(boxedDeviceModel.AllFishState, 15);//RFID写入错误
+            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 14);//RFID写入完成
+            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(boxedDeviceModel.HomeFishState, 15);//RFID写入错误
             if (boxedDeviceModel.RunState == WorkStateEnum.Set)
             {
                 boxedDeviceModel.AdjustmentStations[0].HomeData = DataProcessingTool.ByteCheck16(B400, 9);
@@ -303,7 +307,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             //调剂异常信息
             lbOpterMsg.Items.Clear();
             //设备异常信息
-            
+
             try
             {
                 Jxssend = new Thread(Jxs);
@@ -320,7 +324,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// 系统参数校验
         /// </summary>
         /// <returns></returns>
-        private string ParamCheck() 
+        private string ParamCheck()
         {
             //设备参数信息
             var allParams = CommonStaticDataBLL.GetSystemParameterValue();
@@ -333,7 +337,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 prescriptionFactory.BoxCellVolume = value1;
             }
-            else 
+            else
             {
                 return "药盒单格体积参数信息缺失或值无效";
             }
@@ -342,7 +346,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 prescriptionFactory.BoxType = value2;
             }
-            else 
+            else
             {
                 return "药盒类型参数信息缺失或值无效";
             }
@@ -365,7 +369,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 return "剂量底限参数信息缺失或值无效";
             }
-            
+
             return "";
         }
 
@@ -611,7 +615,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             //系统参数校验
             string paramError = ParamCheck();
-            if (paramError!=null) 
+            if (paramError != null)
             {
                 ShowWarningDialog("异常提示", paramError);
                 return;
@@ -641,23 +645,34 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 return;
             }
             //处理处方信息,分盒计算，剂量计算等
-
-            
+            string errorMsg = "";
+            prescriptionModel = prescriptionFactory.PrescriptionHandles(prescriptionModel, out errorMsg);
+            if (prescriptionModel == null)
+            {
+                ShowWarningDialog("异常提示", "处方信息检查不通过," + errorMsg);
+                return;
+            }
             //加载将要调剂处方信息
             lblPreId.Text = prescriptionModel.PrescriptionID;
             lblPreParticleNum.Text = prescriptionModel.DetailedCount.ToString();
             lblPreQuantity.Text = prescriptionModel.Quantity.ToString();
-            lblPreBoxNum.Text = "暂无";
+            lblPreBoxNum.Text = prescriptionModel.BoxNumber.ToString();
 
             dgvPreDetail.DataSource = prescriptionModel.Details;
 
+            //亮灯
+
+
         }
 
+        /// <summary>
+        /// 检查设备状态
+        /// </summary>
         private bool CheckDeivce()
         {
-            if (boxedDeviceModel.RunState!= WorkStateEnum.Work)
+            if (boxedDeviceModel.RunState != WorkStateEnum.Work)
             {
-                ShowErrorDialog("异常提示",$"设备正处于{boxedDeviceModel.RunState.ToString()}状态，无法开始立即调剂");
+                ShowErrorDialog("异常提示", $"设备正处于{StringHelper.GetEnumDescription(boxedDeviceModel.RunState)}状态，无法开始立即调剂");
                 return false;
             }
             if (DataProcessingTool.GetBitValue(boxedDeviceModel.DeviceError, 3))
@@ -671,17 +686,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 return false;
             }
             return true;
-            //if (ObjMachine.Runstate == MachineBox.Workstate.Work && newstate.Text == "运行状态：等待调剂 ")
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("设备不处于：等待调剂");
-            //    return false;
-            //}
-
-
         }
         /// <summary>
         /// 设备初始化
@@ -697,6 +701,501 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             else
             {
                 ShowErrorDialog("错误提示", "设备不处于等待初始化状态");
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus)
+            {
+                //Form1_Mian.DeviceConnentionState = ModBusTCP_Cliect.ConnState;
+                AdjustmentSteps();
+                //RFIDstate();
+                //backgroundWorker1.ReportProgress(0, ObjMachine);
+                //Savemachine(ObjMachine);
+
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+
+        /// <summary>
+        /// 调剂步骤逻辑
+        /// </summary>
+        private void AdjustmentSteps() 
+        {
+            switch (boxedDeviceModel.RunState) 
+            {
+                case WorkStateEnum.Home:
+                    if (boxedDeviceModel.HomeFish)
+                    {
+                        boxedDeviceModel.RunState = WorkStateEnum.Work;
+                        boxedDeviceModel.HomeExcute = false;
+                        boxedDeviceModel.HomeFish = false;
+                        //boxedDeviceModel.Turntable.MoveCount = 0;
+                    }
+                    break;
+                case WorkStateEnum.Write:
+                    break;
+                case WorkStateEnum.Work:
+                    AdjustmentStepsWork();
+                    break;
+                case WorkStateEnum.Density:
+                    break;
+                case WorkStateEnum.Set://调试
+                    AdjustmentStepsSet();
+                    break;
+                case WorkStateEnum.Rest://恢复
+                    break;
+            }
+        }
+        /// <summary>
+        /// 调剂逻辑之工作模式
+        /// </summary>
+        private void AdjustmentStepsWork()
+        {
+            #region 回零启动重置
+            if (boxedDeviceModel.Supplyboxs.HomeFinsh && boxedDeviceModel.Supplyboxs.HomeExcute)
+            {
+                boxedDeviceModel.Supplyboxs.HomeExcute = false;
+            }
+            if (boxedDeviceModel.Turntable.HomeFinsh && boxedDeviceModel.Turntable.HomeExcute)
+            {
+                boxedDeviceModel.Turntable.HomeExcute = false;
+            }
+            if (boxedDeviceModel.Sealbox.HomeFinsh && boxedDeviceModel.Sealbox.HomeExcute)
+            {
+                boxedDeviceModel.Sealbox.HomeExcute = false;
+            }
+            if (boxedDeviceModel.Outboxs.HomeFinsh && boxedDeviceModel.Outboxs.HomeExcute)
+            {
+                boxedDeviceModel.Outboxs.HomeExcute = false;
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                if (boxedDeviceModel.AdjustmentStations[i].HomeFinsh && boxedDeviceModel.AdjustmentStations[i].HomeExcute)
+                {
+                    boxedDeviceModel.AdjustmentStations[i].HomeExcute = false;
+                }
+            }
+            #endregion
+
+            if (prescriptionModel==null)
+            {
+                return;
+            }
+            if (boxedDeviceModel.Extend.BoxProportionInPre == 0) 
+            {
+                boxedDeviceModel.Extend.BoxProportionInPre = 100 / prescriptionModel.BoxNumber.Value; //ObjMachine.BoxCount;//每一个盒子的处方占比
+            }
+            if (boxedDeviceModel.Extend.BoxFishCount < prescriptionModel.BoxNumber.Value) //判断是否开始进入调剂流程
+            {
+                boxedDeviceModel.ZmoveNumber = 1;
+            }
+
+            switch (boxedDeviceModel.Extend.WorkStep) 
+            {
+                case 0://转盘位移后执行下盒，下药，封口，出盒等动作
+                    DisplacementExecutionAction();
+                    boxedDeviceModel.Extend.WorkStep = 5;
+                    break;
+                case 5://检查是否空转
+                    {
+                        if (CheckIsHaveHCExcute())//检查是否有下盒，下药，封口，出盒等动作缓存
+                        {
+                            boxedDeviceModel.Extend.WorkStep = 10;
+                        }
+                        else
+                        {
+                            boxedDeviceModel.ZmoveNumber++;
+                            boxedDeviceModel.Extend.CurrentMoveCount++;
+                            //boxedDeviceModel.Extend.MoveCount = boxedDeviceModel.Extend.CanMoveCount % boxedDeviceModel.Extend.MaxBoxCount;               
+                            boxedDeviceModel.Extend.CanMoveCount = CalculateMoveTimes(); //可以位移次数   
+                            if (boxedDeviceModel.Extend.CurrentMoveCount < boxedDeviceModel.Extend.CanMoveCount)
+                            {
+                                boxedDeviceModel.Extend.WorkStep = 0;
+                            }
+                            else
+                            {
+                                boxedDeviceModel.Extend.WorkStep = 10;
+                            }
+                        }
+                    }
+                    break;
+                case 10:
+                    {
+                        if (boxedDeviceModel.ZmoveNumber == 1)
+                        {
+                            boxedDeviceModel.Extend.WorkStep = 15;
+                        }
+                        else
+                        {
+                            boxedDeviceModel.ZmoveNumber = boxedDeviceModel.ZmoveNumber - 1;
+                            boxedDeviceModel.Extend.CurrentMoveCount = boxedDeviceModel.Extend.CurrentMoveCount - 1;
+                            ObjMachine.worksate = 30;
+                        }
+                    }
+                    break;
+                case 15:
+                    {
+                        boxedDeviceModel.Outboxs.Excute = boxedDeviceModel.Outboxs.HCExcute; //写入出盒
+                        boxedDeviceModel.Sealbox.Excute = boxedDeviceModel.Sealbox.HCExcute;//写入封口
+                        boxedDeviceModel.Supplyboxs.Excute = boxedDeviceModel.Supplyboxs.HCExcute; //写入下盒
+                        for (int i = 0; i < 8; i++)
+                        {
+                            boxedDeviceModel.AdjustmentStations[i].Excute = boxedDeviceModel.AdjustmentStations[i].HCExcute;
+                        }
+                        boxedDeviceModel.Extend.WorkStep = 20;
+                    }
+                    break;
+                 case 20:
+                    {
+                        if (CheckStationFishState()) //判断状态完成
+                        {
+                            boxedDeviceModel.Outboxs.HCExcute = false;
+                            boxedDeviceModel.Sealbox.HCExcute = false;
+                            boxedDeviceModel.Supplyboxs.HCExcute = false;
+                            for (int i = 0; i < 8; i++)
+                            {
+                                boxedDeviceModel.AdjustmentStations[i].HCExcute = false;
+                            }
+                            boxedDeviceModel.Extend.WorkStep = 25;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        #region 调剂逻辑方法
+        /// <summary>
+        /// 转盘位移执行动作
+        /// </summary>
+        private void DisplacementExecutionAction()
+        {
+            //转盘位置=当前位移次数+1%16
+            boxedDeviceModel.Extend.WheelPositionIndex = boxedDeviceModel.Extend.CurrentMoveCount+1 % boxedDeviceModel.Extend.MaxBoxCount;
+            
+            //下药， 出盒， 封口  , 下盒。计算
+            for (int i = 0; i < boxedDeviceModel.Extend.MaxBoxCount; i++) //i为工位序号
+            {
+                int stationBoxIndex = boxedDeviceModel.AdjustmentStations[i].ExitBoxIndex;
+                if (stationBoxIndex < 0)
+                {
+                    stationBoxIndex = i;
+                }
+                else 
+                {
+                    stationBoxIndex = 16 - Math.Abs(stationBoxIndex - boxedDeviceModel.Extend.CurrentMoveCount) % 16;   
+                }
+                //计算的工位对应盒子序号赋值
+                boxedDeviceModel.AdjustmentStations[i].ExitBoxIndex = stationBoxIndex;
+                if (i == 13) //下盒
+                {
+                    if (boxedDeviceModel.Extend.BoxSupplyCount < prescriptionModel.BoxNumber.Value && boxedDeviceModel.Medboxs[stationBoxIndex].PrescriptionID == null) //当前下盒数量<处方需要盒数 执行下盒
+                    {
+                        boxedDeviceModel.Supplyboxs.HCboxIndex = stationBoxIndex;
+                        boxedDeviceModel.Supplyboxs.HCExcute = true;
+                    }
+                }
+                if (boxedDeviceModel.Medboxs[stationBoxIndex].ParticlesDetails != null) { continue; }
+                if (i < 8)
+                {
+                    foreach (AdjustmentSys.Models.Assembiy.BoxParticlesDetail detail in boxedDeviceModel.Medboxs[stationBoxIndex].ParticlesDetails)
+                    {
+                        if (boxedDeviceModel.AdjustmentStations[i].Rfid == detail.Rfid && boxedDeviceModel.AdjustmentStations[i].ParticlesState == StationStatusEnum.待调剂 && !detail.Fish)
+                        {
+                            boxedDeviceModel.AdjustmentStations[i].HCExcute = true;
+                        }
+                    }
+                }
+                if (i == 9)//封口
+                {
+                    if (boxedDeviceModel.Medboxs[stationBoxIndex].SealState == false && CheckXiaYaoFish(boxedDeviceModel.Medboxs[stationBoxIndex]))
+                    {
+                        boxedDeviceModel.Sealbox.HCboxIndex = stationBoxIndex;
+                        boxedDeviceModel.Sealbox.HCExcute = true;
+                    }
+                }
+                if (i == 11)//出盒
+                {
+                    if (boxedDeviceModel.Medboxs[stationBoxIndex].OutState == true)
+                    {
+                        boxedDeviceModel.Outboxs.HCboxIndex = stationBoxIndex;
+                        boxedDeviceModel.Outboxs.HCExcute = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 下药完成检查
+        /// </summary>
+        /// <param name="mb">盒子对象</param>
+        /// <returns></returns>
+        private bool CheckXiaYaoFish(Medbox mb)
+        {
+            foreach (AdjustmentSys.Models.Assembiy.ParticlesDetail datai in mb.ParticlesDetails) //下药完成检查
+            {
+                if (!datai.Fish)
+                {
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 判断是否有下药 封口 下盒 动作没有 直接跳过
+        /// </summary>
+        private bool CheckIsHaveHCExcute()
+        {
+            if (boxedDeviceModel.Supplyboxs.HCExcute) //下盒完成检查
+            {
+                return true;
+            }
+            if (boxedDeviceModel.Sealbox.HCExcute) //封口完成检查
+            {
+                return true;
+            }
+            if (boxedDeviceModel.Outboxs.HCExcute) //出盒完成检查
+            {
+                return true;
+            }
+            foreach (AdjustmentStation station in boxedDeviceModel.AdjustmentStations) //下药完成检查
+            {
+                if (station.HCExcute)
+                {
+                   return true;
+                }
+            }
+            
+            return false;
+        }
+
+        /// <summary>
+        /// 计算可以位移次数
+        /// </summary>
+        /// <returns></returns>
+        private int CalculateMoveTimes() //可以位移次数
+        {
+            foreach (Medbox medbox in boxedDeviceModel.Medboxs)
+            {
+                if (medbox.ParticlesDetails == null)
+                {
+                    continue;
+                }
+                foreach (BoxParticlesDetail pd in medbox.ParticlesDetails) 
+                {
+                    if (!pd.Fish)
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            if (boxedDeviceModel.AdjustmentStations[i].Rfid == pd.Rfid && boxedDeviceModel.AdjustmentStations[i].ParticlesState == StationStatusEnum.待调剂)
+                            {
+                                return boxedDeviceModel.Extend.CurrentMoveCount + 1;
+                            }
+                        }
+                    }
+                }
+
+                if (medbox.FinishValue >= prescriptionModel.Details.Count)
+                {
+                    return boxedDeviceModel.Extend.CurrentMoveCount + 1;
+                }
+            }
+            if (boxedDeviceModel.Extend.BoxFishCount == prescriptionModel.BoxNumber)
+            {
+                return boxedDeviceModel.Extend.CurrentMoveCount + 1;
+            }
+            if (boxedDeviceModel.Extend.BoxSupplyCount < prescriptionModel.BoxNumber)
+            {
+                for (int c = 0; c < 16; c++)
+                {
+                    if (boxedDeviceModel.Medboxs[c].ParticlesDetails == null)
+                    {
+                        return boxedDeviceModel.Extend.CurrentMoveCount + 1;
+                    }
+                }
+            }
+
+            return boxedDeviceModel.Extend.CurrentMoveCount;
+        }
+
+        /// <summary>
+        /// 判断所有工位完成状态
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckStationFishState()
+        {
+            if ((boxedDeviceModel.Supplyboxs.Excute && !boxedDeviceModel.Supplyboxs.Finsh)//下盒完成检查
+                || boxedDeviceModel.Sealbox.Excute && !boxedDeviceModel.Sealbox.Finsh //封口完成检查
+                || boxedDeviceModel.Outboxs.Excute && !boxedDeviceModel.Outboxs.Finsh) //出盒完成检查 
+            {
+                return false;
+            }
+            foreach (AdjustmentStation station in boxedDeviceModel.AdjustmentStations) //下药完成检查
+            {
+                if (station.Excute && !station.Finsh)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void WorkStep25()
+        {
+            double Boxbar = 0;//药盒进度                                    
+            if (boxedDeviceModel.Supplyboxs.Excute) //更新药盒供盒信息
+            {
+                Medbox medbox = new Medbox();
+                medbox.PrescriptionID = prescriptionModel.PrescriptionID;
+                medbox.SealState = false;
+                medbox.OutState = false;
+                
+                medbox.ParticlesDetails = prescriptionModel.Details.Select(x=>new BoxParticlesDetail() { Steper=x.Steper, Rfid=x.MedicineCabinetDetail.RFID.Value, Fish=false }).ToList();
+                boxedDeviceModel.Medboxs[boxedDeviceModel.Supplyboxs.HCboxIndex] = medbox;
+                boxedDeviceModel.Extend.BoxSupplyCount++;
+                boxedDeviceModel.Supplyboxs.Excute = false;
+            }
+            for (int i = 1; i < 9; i++) // 更新下药信息 药盒的信息 根据位移次数选择对位信息写入下药	完成状态		
+            {
+                int f = 16 - i;
+                if (f == 0)
+                {
+                    f = 16;
+                }
+                if (boxedDeviceModel.Extend.MoveCount + f > 16)//判断超出18
+                {
+                    f = boxedDeviceModel.Extend.MoveCount + f - 16;
+                }
+                else
+                {
+                    f = boxedDeviceModel.Extend.MoveCount + f;
+
+                }
+
+                if (boxedDeviceModel.Medboxs[f].PrescriptionID != null && (int)boxedDeviceModel.AdjustmentStations[i-1].ParticlesState > (int)StationStatusEnum.待放入) //写出药盒包函要瓶中调剂w完成的状态
+                {
+                    List<BoxParticlesDetail> ST = new List<BoxParticlesDetail>();
+
+                    boxedDeviceModel.Medboxs[f].ParticlesDetails.ForEach(pd => 
+                    {
+                        if (boxedDeviceModel.AdjustmentStations[i - 1].Rfid == pd.Rfid && boxedDeviceModel.AdjustmentStations[i - 1].Finsh) //如果该工位有该药盒信息写入完成状态
+                        {
+                            boxedDeviceModel.AdjustmentStations[i - 1].FishDrugeCount++;
+                            boxedDeviceModel.Medboxs[f].FinishValue++;
+                            pd.Fish = true;
+                        }
+                    });
+                    //foreach (BoxParticlesDetail pd in boxedDeviceModel.Medboxs[f].ParticlesDetails)
+                    //{
+
+                    //    BoxParticlesDetail relust = new BoxParticlesDetail();
+                    //    //relust = tb;
+                    //    if (boxedDeviceModel.AdjustmentStations[i-1].Rfid == pd.Rfid && boxedDeviceModel.AdjustmentStations[i-1].Finsh) //如果该工位有该药盒信息写入完成状态
+                    //    {
+                    //        boxedDeviceModel.AdjustmentStations[i - 1].FishDrugeCount++;
+                    //        boxedDeviceModel.Medboxs[f].FinishValue++;
+                    //        relust.f = true;
+                    //    }
+                    //    ST.Add(relust);
+                    //}
+                    //boxedDeviceModel.Medboxs[f].ParticlesDetails = ST; //刷新药盒调剂的最新状态
+                }
+                boxedDeviceModel.AdjustmentStations[i-1].Bar = (int)(Math.Round((Double)(boxedDeviceModel.AdjustmentStations[i-1].FishDrugeCount / (Double)prescriptionModel.BoxNumber), 3) * 100);
+            }
+            //封口
+            if (boxedDeviceModel.Sealbox.Excute)
+            {
+                boxedDeviceModel.Medboxs[boxedDeviceModel.Sealbox.HCboxIndex].SealState = true;
+                boxedDeviceModel.Sealbox.Excute = false;
+            }
+            //出盒
+            if (boxedDeviceModel.Outboxs.Excute)
+            {
+                boxedDeviceModel.Medboxs[boxedDeviceModel.Outboxs.HCboxIndex].OutState = true;
+                boxedDeviceModel.Outboxs.Excute = false;
+            }
+
+            for (int iv = 1; iv < 9; iv++)
+            {
+                if (boxedDeviceModel.AdjustmentStations[iv-1].Excute)
+                {
+                    if (CheckWeight(ObjMachine.ParticlesStation[iv])) //检查当前余量是否足够调剂使用
+                    {
+                        boxedDeviceModel.AdjustmentStations[iv - 1].ParticlesState = StationStatusEnum.余量不足;
+                    }
+                    boxedDeviceModel.AdjustmentStations[iv - 1].Excute = false;
+                }
+            }
+            for (int d = 1; d < 17; d++)//更新进度条
+            {
+                if (boxedDeviceModel.Medboxs[d].PrescriptionID != null)
+                {
+                    int c = (int)(boxedDeviceModel.Extend.BoxProportionInPre * Math.Round((Double)(boxedDeviceModel.Medboxs[d].FinishValue + 1) / (Double)(prescriptionModel.Details.Count + 3), 3));
+                    Boxbar = c + Boxbar;
+                }
+            }
+            boxedDeviceModel.Extend.ProcessBar = (int)(Boxbar + boxedDeviceModel.Extend.BoxFishCount * boxedDeviceModel.Extend.BoxProportionInPre);
+            ObjMachine.worksate = 20;
+        }
+
+        /// <summary>
+        /// 检查工位药瓶余量是否不足 记录当前扣除的库存量
+        /// </summary>
+        private bool CheckWeight(AdjustmentStation station)
+        {
+            var listParticlesDetais = prescriptionModel.Details.Where(d => (d.MedicineCabinetDetail.RFID == station.Rfid)).FirstOrDefault();
+            if (listParticlesDetais.CurrentWeightQuantity < (listParticlesDetais.NewDose * 2 * (Math.Abs(station.FishDrugeCount - listParticlesDetais.fin) + 1) + 10) && listParticlesDetais.Status != StationStatusEnum.待取走)
+            {
+                //本次扣除库存量= 当前下药次数*每格重量*2 -已经扣除的库存量；
+                double DeductStockWeight = Math.Round(listParticlesDetais.NewDose * 2 * DG.DrugeValue - listParticlesDetais.DeductStockWeight, 2);
+                listParticlesDetais.Status = StationStatusEnum.回零中;
+                listParticlesDetais.DrugeValue = DG.DrugeValue;
+                if (PresHandle.DeductStockStep(ConfigTB.DeviceID, Convert.ToInt32(listParticlesDetais.ParticlesCode), Form1_Mian.UserInfo.UserID, NewPresData, DeductStockWeight)) //提前扣除库存
+                {
+                    listParticlesDetais.DeductStockWeight = listParticlesDetais.DeductStockWeight + DeductStockWeight;
+
+                }
+                return true;
+            }
+            return false;
+
+
+        }
+        #endregion
+
+
+        /// <summary>
+        ///  调剂逻辑之调试模式
+        /// </summary>
+        private void AdjustmentStepsSet() 
+        {
+            if (boxedDeviceModel.Sealbox.Finsh && boxedDeviceModel.Sealbox.Excute)
+            {
+                boxedDeviceModel.Sealbox.Excute = false;
+            }
+            if (boxedDeviceModel.Supplyboxs.Finsh && boxedDeviceModel.Supplyboxs.Excute)
+            {
+                boxedDeviceModel.Supplyboxs.Excute = false;
+            }
+            if (boxedDeviceModel.Turntable.Finsh  && boxedDeviceModel.Turntable.Excute)
+            {
+                boxedDeviceModel.Turntable.Excute = false;
+            }
+            if (boxedDeviceModel.Outboxs.Finsh && boxedDeviceModel.Outboxs.Excute)
+            {
+                boxedDeviceModel.Outboxs.Excute = false;
+            }
+            for (int c = 0; c < 8; c++)
+            {
+                if (boxedDeviceModel.AdjustmentStations[c].Finsh && boxedDeviceModel.AdjustmentStations[c].Excute)
+                {
+                    boxedDeviceModel.AdjustmentStations[c].Excute = false;
+                }
             }
         }
     }

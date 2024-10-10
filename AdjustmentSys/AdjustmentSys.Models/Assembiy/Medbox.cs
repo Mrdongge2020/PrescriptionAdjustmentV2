@@ -20,7 +20,7 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         /// 处方详情
         /// </summary>
-        public List<ParticlesDetail> ParticlesDetails { get; set; }
+        public List<BoxParticlesDetail> ParticlesDetails { get; set; }
         /// <summary>
         ///出盒状态
         /// </summary>
@@ -34,7 +34,7 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public int FinishValue { get; set; }
         /// <summary>
-        /// //药盒进度
+        /// 药盒进度
         /// </summary>
         public int Bar { get; set; }
         /// <summary>
@@ -47,12 +47,12 @@ namespace AdjustmentSys.Models.Assembiy
     /// <summary>
     /// 药盒的颗粒详情
     /// </summary>
-    public class ParticlesDetail
+    public class BoxParticlesDetail
     {
         /// <summary>
-        /// 颗粒码
+        /// 颗粒rfid
         /// </summary>
-        public int ParticlesID { get; set; }
+        public int Rfid { get; set; }
         /// <summary>
         /// 量仓的千分比
         /// </summary>
@@ -60,7 +60,7 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         /// 颗粒完成状态
         /// </summary>
-        public bool Finish { get; set; }
+        public bool Fish { get; set; }
 
     }
     

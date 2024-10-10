@@ -64,17 +64,25 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public string ParticlesName { get; set; }
         /// <summary>
+        /// 颗粒rfid
+        /// </summary>
+        public int Rfid { get; set; }
+        /// <summary>
         ///工位进度
         /// </summary>
         public int Bar { get; set; }
         /// <summary>
         ///完成的调剂次数
         /// </summary>
-        public int DrugeValue { get; set; }
+        public int FishDrugeCount { get; set; }
         /// <summary>
         /// 颗粒状态
         /// </summary>
         public  StationStatusEnum ParticlesState { get; set; }
+        /// <summary>
+        /// 对应盒子序号
+        /// </summary>
+        public int ExitBoxIndex { get; set; } = -1;
         #endregion
 
     }

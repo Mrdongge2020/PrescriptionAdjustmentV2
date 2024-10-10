@@ -1039,6 +1039,10 @@
             preRoundProcess.TabIndex = 9;
             preRoundProcess.Text = "uiRoundProcess1";
             // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            // 
             // FrmBoxedDevice
             // 
             AllowShowTitle = true;

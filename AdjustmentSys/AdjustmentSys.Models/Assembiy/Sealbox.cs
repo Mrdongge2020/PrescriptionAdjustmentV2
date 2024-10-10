@@ -87,6 +87,14 @@ namespace AdjustmentSys.Models.Assembiy
         /// 封口延时
         /// </summary>
         public UInt16 SealTime { get; set; }
+        /// <summary>
+        /// 缓存盒子序号
+        /// </summary>
+        public int HCboxIndex { get; set; }
+        /// <summary>
+        /// 对应盒子序号
+        /// </summary>
+        public int ExitBoxIndex { get; set; } = -1;
 
     }
 }

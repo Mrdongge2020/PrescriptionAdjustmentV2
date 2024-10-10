@@ -51,6 +51,13 @@ namespace AdjustmentSys.Models.Assembiy
         /// 回零补偿值
         /// </summary>
         public bool HomeData { get; set; }
-
+        /// <summary>
+        /// 缓存盒子序号
+        /// </summary>
+        public int HCboxIndex { get; set; }
+        /// <summary>
+        /// 对应盒子序号
+        /// </summary>
+        public int ExitBoxIndex { get; set; } = -1;
     }
 }

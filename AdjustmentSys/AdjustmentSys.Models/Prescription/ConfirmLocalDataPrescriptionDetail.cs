@@ -115,6 +115,10 @@ namespace AdjustmentSys.Models.Prescription
         /// </summary>
         public float? NewDose { get; set; }
         /// <summary>
+        /// 量仓千分比
+        /// </summary>
+        public int Steper { get; set; }
+        /// <summary>
         /// 药柜详情
         /// </summary>
         public MedicineCabinetDetail MedicineCabinetDetail { get; set; }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -95,6 +97,20 @@ namespace AdjustmentSys.Tool
                 ret = ret.Remove(ret.Length - 1, 1);
             return ret;
         }
+        #endregion
+
+        #region 枚举
+        /// <summary>
+        /// 获取枚举描述
+        /// </summary>
+        /// <param name="enumValue"></param>
+        /// <returns></returns>
+        public static string GetEnumDescription(Enum enumValue)
+        {
+            FieldInfo field = enumValue.GetType().GetField(enumValue.ToString());
+            DescriptionAttribute attr = (DescriptionAttribute)field.GetCustomAttribute(typeof(DescriptionAttribute));
+            return attr?.Description ?? enumValue.ToString();
+        } 
         #endregion
     }
 }
