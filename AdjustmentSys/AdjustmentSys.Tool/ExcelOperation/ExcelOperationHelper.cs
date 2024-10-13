@@ -125,57 +125,64 @@ namespace AdjustmentSys.Common.Tool
         public static List<DataTable> ToExcelDateTable(IWorkbook hSSFWorkbook)
         {
             List<DataTable> datatableList = new List<DataTable>();
-            for (int sheetIndex = 0; sheetIndex < hSSFWorkbook.NumberOfSheets; sheetIndex++)
+            try
             {
-                ISheet sheet = hSSFWorkbook.GetSheetAt(sheetIndex);
-                //获取表头 FirstRowNum 第一行索引 0
-                IRow header = sheet.GetRow(sheet.FirstRowNum);//获取第一行
-                if (header == null)
+                for (int sheetIndex = 0; sheetIndex < hSSFWorkbook.NumberOfSheets; sheetIndex++)
                 {
-                    break;
-                }
-                int startRow = 0;//数据的第一行索引
-
-                DataTable dtNpoi = new DataTable();
-                startRow = sheet.FirstRowNum + 1;
-                for (int i = header.FirstCellNum; i < header.LastCellNum; i++)
-                {
-                    ICell cell = header.GetCell(i);
-                    if (cell != null)
+                    ISheet sheet = hSSFWorkbook.GetSheetAt(sheetIndex);
+                    //获取表头 FirstRowNum 第一行索引 0
+                    IRow header = sheet.GetRow(sheet.FirstRowNum);//获取第一行
+                    if (header == null)
                     {
-                        string cellValue = $"{cell.ToString()}";
-                        if (cellValue != null)
+                        break;
+                    }
+                    int startRow = 0;//数据的第一行索引
+
+                    DataTable dtNpoi = new DataTable();
+                    startRow = sheet.FirstRowNum + 1;
+                    for (int i = header.FirstCellNum; i < header.LastCellNum; i++)
+                    {
+                        ICell cell = header.GetCell(i);
+                        if (cell != null)
                         {
-                            DataColumn col = new DataColumn(cellValue);
-                            dtNpoi.Columns.Add(col);
+                            string cellValue = $"{cell.ToString()}";
+                            if (cellValue != null)
+                            {
+                                DataColumn col = new DataColumn(cellValue);
+                                dtNpoi.Columns.Add(col);
+                            }
+                            else
+                            {
+                                DataColumn col = new DataColumn();
+                                dtNpoi.Columns.Add(col);
+                            }
                         }
-                        else
+
+                    }
+                    //数据    LastRowNum 最后一行的索引 如第九行---索引 8
+                    for (int i = startRow; i <= sheet.LastRowNum; i++)
+                    {
+                        IRow row = sheet.GetRow(i);//获取第i行
+                        if (row == null)
                         {
-                            DataColumn col = new DataColumn();
-                            dtNpoi.Columns.Add(col);
+                            continue;
                         }
+                        DataRow dr = dtNpoi.NewRow();
+                        //遍历每行的单元格
+                        for (int j = row.FirstCellNum; j < row.LastCellNum; j++)
+                        {
+                            if (row.GetCell(j) != null)
+                                dr[j] = row.GetCell(j).ToString();
+                        }
+                        dtNpoi.Rows.Add(dr);
                     }
 
+                    datatableList.Add(dtNpoi);
                 }
-                //数据    LastRowNum 最后一行的索引 如第九行---索引 8
-                for (int i = startRow; i <= sheet.LastRowNum; i++)
-                {
-                    IRow row = sheet.GetRow(i);//获取第i行
-                    if (row == null)
-                    {
-                        continue;
-                    }
-                    DataRow dr = dtNpoi.NewRow();
-                    //遍历每行的单元格
-                    for (int j = row.FirstCellNum; j < row.LastCellNum; j++)
-                    {
-                        if (row.GetCell(j) != null)
-                            dr[j] = row.GetCell(j).ToString();
-                    }
-                    dtNpoi.Rows.Add(dr);
-                }
-
-                datatableList.Add(dtNpoi);
+            }
+            catch (Exception)
+            {
+                return null;
             }
             return datatableList;
         }

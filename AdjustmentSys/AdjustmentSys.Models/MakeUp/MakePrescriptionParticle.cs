@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Tool.Enums;
+﻿using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,10 @@ namespace AdjustmentSys.Models.MakeUp
         /// </summary>
         public int ParticlesCode { get; set; }
         /// <summary>
+        /// rfid
+        /// </summary>
+        public int Rfid { get; set; }
+        /// <summary>
         /// 调剂重量
         /// </summary>
         public double Dose { get; set; }
@@ -34,13 +39,13 @@ namespace AdjustmentSys.Models.MakeUp
         /// </summary>
         public int StationY { get; set; }
         /// <summary>
-        /// 
+        /// 位置
         /// </summary>
         public string StationText { get { return "第" + StationX + "排第" + StationY + "列"; } }
         /// <summary>
         /// 完成的下药次数
         /// </summary>
-        public int DrugeValue { get; set; }
+        public int FishDrugeCount { get; set; }
         /// <summary>
         /// 量仓的千分比
         /// </summary>
@@ -52,6 +57,20 @@ namespace AdjustmentSys.Models.MakeUp
         /// <summary>
         /// 颗粒状态  
         /// </summary>
-        public StationStatusEnum state { get; set; }
+        public MakeParticleStatuEnum MakeParticleStatu { get; set; }
+        /// <summary>
+        /// 状态文本
+        /// </summary>
+        public string StatusText { get { return StringHelper.GetEnumDescription(MakeParticleStatu); } }
+
+        /// <summary>
+        /// 当前称重量
+        /// </summary>
+        public float CurrentWeightQuantity { get; set; } = 0;
+
+        /// <summary>
+        /// 单格剂量
+        /// </summary>
+        public float NewDose { get; set; }
     }
 }

@@ -76,9 +76,9 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public int FishDrugeCount { get; set; }
         /// <summary>
-        /// 颗粒状态
+        /// 工位状态
         /// </summary>
-        public  StationStatusEnum ParticlesState { get; set; }
+        public StationStatusEnum StationState { get; set; }
         /// <summary>
         /// 对应盒子序号
         /// </summary>

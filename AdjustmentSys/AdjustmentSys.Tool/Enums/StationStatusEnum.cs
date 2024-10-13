@@ -22,19 +22,17 @@ namespace AdjustmentSys.Tool.Enums
         调剂中 = 3,
         [Description("待取走")]
         待取走 = 4,
+        [Description("调剂完成")]
+        调剂完成 = 5,
         [Description("回零中")]
-        回零中 = 5,
+        回零中 = 6,
         [Description("回零完成")]
-        回零完成 = 6,
-        [Description("被禁用")]
-        被禁用 = 7,
-        [Description("余量不足")]
-        余量不足 = 8,
+        回零完成 = 7,
+        [Description("药品未称重")]
+        药品未称重 = 8,
         [Description("非处方药品")]
         非处方药品 = 9,
-        [Description("该药品未称重")]
-        该药品未称重 = 10,
-        [Description("该药品已称重")]
-        该药品已称重 = 11
+        [Description("药品余量不足")]
+        药品余量不足 = 10
     }
 }

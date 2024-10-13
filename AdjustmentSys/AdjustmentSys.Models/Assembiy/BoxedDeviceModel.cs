@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Tool.Enums;
+﻿using AdjustmentSys.Models.MakeUp;
+using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +83,12 @@ namespace AdjustmentSys.Models.Assembiy
         /// 扩展数据
         /// </summary>
         public BoxedDeviceExtendModel Extend { get; set; }
+
+        /// <summary>
+        /// 处方颗粒显示数据
+        /// </summary>
+        public List<MakePrescriptionParticle> MakePrescriptionParticles { get; set; }
+        
     }
 
     public class BoxedDeviceExtendModel
