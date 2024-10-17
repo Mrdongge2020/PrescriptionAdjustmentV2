@@ -1423,7 +1423,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                                         {
                                             if (CheckWeight(machineBox.ParticlesStation[iv])) //检查当前余量是否足够调剂使用
                                             {
-                                                machineBox.ParticlesStation[iv].Particlesstate = StationStatusEnum.余量不足;
+                                                //machineBox.ParticlesStation[iv].Particlesstate = StationStatusEnum.余量不足;
                                             }
                                             machineBox.ParticlesStation[iv].StartDeruge = false;
                                         }
@@ -1529,7 +1529,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                                                             {
                                                                 Cstate = true;
                                                                 listParticlesDetai.state = 4;    //颗粒设置为调剂完成                                        
-                                                                string error = prescriptionFactory.DeductStock(prescriptionModel, listParticlesDetai.DeductStockWeight); //扣除库存
+                                                                string error = "";//prescriptionFactory.DeductStock(prescriptionModel, listParticlesDetai.DeductStockWeight); //扣除库存
                                                                 if (error != "")
                                                                 {
                                                                     ShowErrorDialog("异常提示", error);
@@ -1843,16 +1843,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 float DeductStockWeight = (float)Math.Round(listParticlesDetais.NewDose * 2 * DG.DrugeValue - listParticlesDetais.DeductStockWeight, 2);
                 listParticlesDetais.state = 5;
                 listParticlesDetais.DrugeValue = DG.DrugeValue;
-                var error = prescriptionFactory.DeductStockStep(prescriptionModel, DeductStockWeight);
-                if (error == "") //提前扣除库存
-                {
-                    listParticlesDetais.DeductStockWeight = listParticlesDetais.DeductStockWeight + DeductStockWeight;
-                    return true;
-                }
-                else
-                {
-                    ShowErrorDialog("异常提示", error);
-                }
+                //var error = prescriptionFactory.DeductStockStep(listParticlesDetais.ArkID, prescriptionModel, DeductStockWeight);
+                //if (error == "") //提前扣除库存
+                //{
+                //    listParticlesDetais.DeductStockWeight = listParticlesDetais.DeductStockWeight + DeductStockWeight;
+                //    return true;
+                //}
+                //else
+                //{
+                //    ShowErrorDialog("异常提示", error);
+                //}
             }
             return false;
         }

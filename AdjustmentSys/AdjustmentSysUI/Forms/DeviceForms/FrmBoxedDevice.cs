@@ -35,6 +35,7 @@ using Azure.Core;
 using NPOI.SS.Formula.Functions;
 using AdjustmentSys.Models.MakeUp;
 using static System.Windows.Forms.AxHost;
+using System.Net.NetworkInformation;
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
@@ -676,7 +677,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 FishDrugeCount=0,
                 Steper=0,
                 Deduct=false,
-                MakeParticleStatu= MakeParticleStatuEnum.待称重,
+                MakeParticleState= MakeParticleStateEnum.待称重,
                 CurrentWeightQuantity=0,
                 NewDose=0
             }).ToList();
@@ -833,7 +834,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         {
                             boxedDeviceModel.ZmoveNumber++;
                             boxedDeviceModel.Extend.CurrentMoveCount++;
-                            //boxedDeviceModel.Extend.CanMoveCount = boxedDeviceModel.Extend.CanMoveCount % boxedDeviceModel.Extend.MaxBoxCount;
+                            boxedDeviceModel.Extend.CanMoveCount1 = boxedDeviceModel.Extend.CanMoveCount % boxedDeviceModel.Extend.MaxBoxCount;
                             boxedDeviceModel.Extend.CanMoveCount = CalculateMoveTimes(); //可以位移次数   
                             if (boxedDeviceModel.Extend.CurrentMoveCount < CalculateMoveTimes())
                             {
@@ -857,7 +858,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         {
                             boxedDeviceModel.ZmoveNumber--;
                             boxedDeviceModel.Extend.CurrentMoveCount--;
-                            ObjMachine.worksate = 30;
+                            boxedDeviceModel.Extend.WorkStep = 40;
                         }
                     }
                     break;
@@ -894,33 +895,120 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         boxedDeviceModel.Extend.WorkStep = 30;
                     }
                     break;
-                case 30:
+                case 30://更新调剂工位当前状态判断出是否全部完成 取走药瓶
                     {
-                        if (boxedDeviceModel.ZmoveNumber == 1)
+                        WorkStep30();
+                        boxedDeviceModel.Extend.WorkStep = 35;
+                    }
+                    break;
+                case 35://判断出盒工位药瓶是否完成， 若完成清除当前药盒的信息
+                    {
+                        //清除下药 清除供盒 清除出盒 清除封口
+                        for (int i=0; i < 8; i++)
                         {
-                            boxedDeviceModel.Extend.WorkStep = 15;
+                            if (boxedDeviceModel.AdjustmentStations[i].Excute == true)
+                            {
+                                boxedDeviceModel.AdjustmentStations[i].Excute = false;
+                            }
+                        }
+                        for (int j = 0; j < 16; j++)
+                        {
+                            if (boxedDeviceModel.Medboxs[j].OutState)
+                            {
+                                boxedDeviceModel.Extend.BoxFishCount++;
+                                boxedDeviceModel.Medboxs[j] = null;
+                            }
+                        }
+                        if (!CheckDrugeRest())
+                        {
+                            boxedDeviceModel.Extend.WorkStep = 40;
+                        }
+                    }
+                    break;
+                case 40:
+                    {
+                        //保存
+                        //Savemachine(ObjMachine);
+
+                        boxedDeviceModel.Extend.WorkStep = 45;
+                    }
+                    break;
+                case 45://可以位移次数计算
+                    {
+                        if (!boxedDeviceModel.Stop && boxedDeviceModel.AxisHomeStep == 0)
+                        {
+                            boxedDeviceModel.Extend.CanMoveCount = CalculateMoveTimes(); //可以位移次数      
+                            boxedDeviceModel.Extend.WorkStep = 50;
+                        }
+                    }
+                    break;
+                case 50://可以位移次数计算
+                    {
+                        boxedDeviceModel.Extend.CanMoveCount1 = boxedDeviceModel.Extend.CanMoveCount % boxedDeviceModel.Extend.MaxBoxCount; 
+                        if (boxedDeviceModel.Extend.CurrentMoveCount < boxedDeviceModel.Extend.CanMoveCount)
+                        {
+                            boxedDeviceModel.Extend.WorkStep = 55;
                         }
                         else
                         {
-                            boxedDeviceModel.ZmoveNumber = boxedDeviceModel.ZmoveNumber - 1;
-                            boxedDeviceModel.Extend.CurrentMoveCount = boxedDeviceModel.Extend.CurrentMoveCount - 1;
-                            ObjMachine.worksate = 30;
+                            boxedDeviceModel.Extend.WorkStep = 45;
                         }
                     }
                     break;
-                case 35:
+                case 55://转盘开始位移
                     {
-                        boxedDeviceModel.Outboxs.Excute = boxedDeviceModel.Outboxs.HCExcute; //写入出盒
-                        boxedDeviceModel.Sealbox.Excute = boxedDeviceModel.Sealbox.HCExcute;//写入封口
-                        boxedDeviceModel.Supplyboxs.Excute = boxedDeviceModel.Supplyboxs.HCExcute; //写入下盒
-                        for (int i = 0; i < 8; i++)
-                        {
-                            boxedDeviceModel.AdjustmentStations[i].Excute = boxedDeviceModel.AdjustmentStations[i].HCExcute;
-                        }
-                        boxedDeviceModel.Extend.WorkStep = 20;
+                        boxedDeviceModel.Turntable.Excute = true;
+                        boxedDeviceModel.Extend.WorkStep = 60;
                     }
                     break;
-                 
+                case 60://转盘位移完成
+                    {
+                        if (boxedDeviceModel.Turntable.Finsh)
+                        {
+                            boxedDeviceModel.ZmoveNumber = 1;
+                            boxedDeviceModel.Turntable.Excute = false;
+                            boxedDeviceModel.Extend.CurrentMoveCount ++;
+                            boxedDeviceModel.Extend.WorkStep = 65;
+                        }
+                    }
+                    break;
+                case 65://判断出盒数量=完成数量 清除当前类
+                    {
+                        //Savemachine(ObjMachine);
+                        if (boxedDeviceModel.Extend.BoxFishCount == prescriptionModel.BoxNumber && prescriptionModel.BoxNumber > 0)
+                        {
+                            this.Invoke(new Action(() => {
+                                //全部完成，弹出药框
+                                Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                                if (existingForm == null)
+                                {
+                                    FrmOutBox frmOutBox = new FrmOutBox(prescriptionModel.PrescriptionID, prescriptionModel.BoxNumber.Value, false, true,boxedDeviceModel.Extend.StartTime);
+                                    frmOutBox.Show();
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            if (boxedDeviceModel.Extend.BoxFishCount % 8 == 0 && boxedDeviceModel.Extend.BoxFishCount > 7 && boxedDeviceModel.Extend.HCBoxFishCount != boxedDeviceModel.Extend.BoxFishCount)
+                            {
+                                this.Invoke(new Action(() => {
+                                    //全部完成，弹出药框
+                                    Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                                    if (existingForm == null)
+                                    {
+                                        FrmOutBox frmOutBox = new FrmOutBox(prescriptionModel.PrescriptionID, prescriptionModel.BoxNumber.Value, false, false,null);
+                                        frmOutBox.Show();
+                                    }
+                                }));
+                               // ObjMachine.worksate = 65;
+                            }
+                            else
+                            {
+                               // ObjMachine.worksate = 1;
+                            }
+                        }
+                    }
+                    break;
             }
         }
 
@@ -960,7 +1048,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     foreach (BoxParticlesDetail detail in boxedDeviceModel.Medboxs[stationBoxIndex].ParticlesDetails)
                     {
-                        if (boxedDeviceModel.AdjustmentStations[i].Rfid == detail.Rfid && boxedDeviceModel.AdjustmentStations[i].ParticlesState == StationStatusEnum.待调剂 && !detail.Fish)
+                        if (boxedDeviceModel.AdjustmentStations[i].Rfid == detail.Rfid && boxedDeviceModel.AdjustmentStations[i].StationState == StationStatusEnum.待调剂 && !detail.Fish)
                         {
                             boxedDeviceModel.AdjustmentStations[i].HCExcute = true;
                         }
@@ -992,9 +1080,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// <returns></returns>
         private bool CheckXiaYaoFish(Medbox mb)
         {
-            foreach (AdjustmentSys.Models.Assembiy.ParticlesDetail datai in mb.ParticlesDetails) //下药完成检查
+            foreach (BoxParticlesDetail detail in mb.ParticlesDetails) //下药完成检查
             {
-                if (!datai.Fish)
+                if (!detail.Fish)
                 {
                     {
                         return false;
@@ -1050,7 +1138,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            if (boxedDeviceModel.AdjustmentStations[i].Rfid == pd.Rfid && boxedDeviceModel.AdjustmentStations[i].ParticlesState == StationStatusEnum.待调剂)
+                            if (boxedDeviceModel.AdjustmentStations[i].Rfid == pd.Rfid && boxedDeviceModel.AdjustmentStations[i].StationState == StationStatusEnum.待调剂)
                             {
                                 return boxedDeviceModel.Extend.CurrentMoveCount + 1;
                             }
@@ -1125,7 +1213,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             for (int i = 0; i < 8; i++) // 更新下药信息 药盒的信息 根据位移次数选择对位信息写入下药	完成状态		
             {
                 int index = boxedDeviceModel.AdjustmentStations[i].ExitBoxIndex;
-                if (boxedDeviceModel.Medboxs[index].PrescriptionID != null && boxedDeviceModel.AdjustmentStations[i].ParticlesState==StationStatusEnum.待调剂) 
+                if (boxedDeviceModel.Medboxs[index].PrescriptionID != null && boxedDeviceModel.AdjustmentStations[i].StationState==StationStatusEnum.待调剂) 
                 {
                     boxedDeviceModel.Medboxs[index].ParticlesDetails.ForEach(pd => 
                     {
@@ -1187,10 +1275,19 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 dxValue = v;
             }
             var particlesDetail = boxedDeviceModel.MakePrescriptionParticles.Where(d => (d.Rfid == station.Rfid)).FirstOrDefault();
-            if (particlesDetail.CurrentWeightQuantity < (float)(particlesDetail.NewDose * 2 * (prescriptionModel.BoxNumber.Value- station.FishDrugeCount))+ dxValue && particlesDetail.MakeParticleStatu!= MakeParticleStatuEnum.调剂完成)
+            if (particlesDetail.CurrentWeightQuantity < (float)(particlesDetail.NewDose * 2 * (prescriptionModel.BoxNumber.Value- station.FishDrugeCount))+ dxValue && particlesDetail.MakeParticleState!= MakeParticleStateEnum.调剂完成)
             {
-                particlesDetail.MakeParticleStatu = MakeParticleStatuEnum.待上药;
-                particlesDetail.FishDrugeCount++;
+                particlesDetail.MakeParticleState = MakeParticleStateEnum.待上药;
+                particlesDetail.FishDrugeCount= station.FishDrugeCount;
+
+                //本次扣除库存量= 当前下药次数*每格重量*2 -已经扣除的库存量；
+                float deductStockWeight = (float)Math.Round(particlesDetail.NewDose * 2 * station.FishDrugeCount - particlesDetail.EarlyDeductionStock, 2);
+
+                string msg = prescriptionFactory.DeductStockStep(particlesDetail.Rfid, prescriptionModel, deductStockWeight);//提前扣除库存
+                if (msg=="") 
+                {
+                    particlesDetail.EarlyDeductionStock += deductStockWeight;
+                }
                 return false;
             }
             return true;
@@ -1216,11 +1313,164 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     if (isHaveParNoComplete) { break; }
                 }
 
-                if (isHaveParNoComplete) 
+                if (!isHaveParNoComplete) 
                 {
+                    continue;
+                }
+                boxedDeviceModel.AdjustmentStations[i].LockState = false;
+                if (isExitBoxFish && boxedDeviceModel.MakePrescriptionParticles.Count!= boxedDeviceModel.Extend.BoxSupplyCount)//  摆瓶最后一轮
+                {
+                    int durgBottleNum = boxedDeviceModel.MakePrescriptionParticles.Count % 8;
+                    int a ;
+                    for (a =1;a < 9; a++) 
+                    {
+                        if (boxedDeviceModel.AdjustmentStations[a - 1].StationState == StationStatusEnum.待调剂)
+                        {
+                            a++;
+                        }
+                        else 
+                        {
+                            break;
+                        }
+                    }
+                    if (a > durgBottleNum)//当前插瓶数量
+                    {
+                        boxedDeviceModel.AdjustmentStations[i].LockState = true;
+                    }
+                    else
+                    {
+
+                        boxedDeviceModel.AdjustmentStations[i].LockState = false;
+                    }
 
                 }
+
+                if (!boxedDeviceModel.AdjustmentStations[i].LockState || boxedDeviceModel.AdjustmentStations[i].FishDrugeCount==prescriptionModel.BoxNumber) 
+                {
+                    boxedDeviceModel.AdjustmentStations[i].StationState = StationStatusEnum.待取走;
+                    var particle= boxedDeviceModel.MakePrescriptionParticles.FirstOrDefault(x => x.Rfid == boxedDeviceModel.AdjustmentStations[i].Rfid);
+                    if (particle==null) { continue; }
+
+                    if (prescriptionModel.BoxNumber == boxedDeviceModel.Extend.BoxSupplyCount)
+                    {
+                        if (particle.MakeParticleState!= MakeParticleStateEnum.调剂完成) 
+                        {
+                            isCloseLed = true;//关闭指示灯
+                            particle.MakeParticleState = MakeParticleStateEnum.调剂完成;    //颗粒设置为调剂完成
+                            //扣除库存，写入日志
+                            prescriptionFactory.DeductStock(particle.Rfid,prescriptionModel, particle.EarlyDeductionStock);
+                        }
+                    }
+                    else 
+                    {
+                        particle.MakeParticleState = MakeParticleStateEnum.待放入;
+                        particle.FishDrugeCount = boxedDeviceModel.AdjustmentStations[i].FishDrugeCount;
+                    }
+                }
             }
+
+            if (isCloseLed)
+            {
+                CloseLED(boxedDeviceModel.MakePrescriptionParticles);
+            }
+        }
+        /// <summary>
+        /// 关闭灯光
+        /// </summary>
+        private void CloseLED(List<MakePrescriptionParticle> particles)
+        {
+            try
+            {
+                for (int i = 0; i < MachinePublic.WD600.Length; i++)
+                {
+                    MachinePublic.WD600[i] = 0;
+                }
+                foreach (MakePrescriptionParticle detail in particles)
+                {
+                    if (detail.MakeParticleState != MakeParticleStateEnum.调剂完成)
+                    {
+                        byte DBit = (byte)((detail.StationX) % 16);
+                        if (DBit == 0)
+                        {
+                            DBit = 16;
+                        }
+                        byte X = (byte)((detail.StationX) / 17);
+                        byte Y = (byte)(Convert.ToByte(detail.StationY - 1) * 3);
+                        byte H = (byte)(Convert.ToInt16(SysDeviceInfo._currentDeviceInfo.CabinetRowCount) - (detail.StationY - 1));
+                        int D = (X + Y);
+                        if (DBit < 17 && D < 42)
+                        {
+                            if (H % 2 == 0)
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+
+                            }
+                            else
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                            }
+                        }
+                    }
+                }
+                int MaxCoordinateX = 48; //灯柜允许最大列
+                int Maxnuber = Convert.ToInt16(SysDeviceInfo._currentDeviceInfo.LargeCabinetCount); //大药柜数量
+                int NowX = 0;
+                if (Maxnuber > 0)
+                {
+                    for (int i = 0; i < Maxnuber; i++)
+                    {
+                        NowX = MachinePublic.WD600[42 + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + i] = 16;
+                        }
+                    }
+                }
+                int Minnuber = Convert.ToInt16(SysDeviceInfo._currentDeviceInfo.SmallCabinetCount); //小药柜数量
+
+                if (Minnuber > 0)
+                {
+                    NowX = Maxnuber * 16;
+                    for (int i = 0; i < Minnuber; i++)
+                    {
+                        {
+                            NowX = D600[42 + Maxnuber + i] + NowX;
+                            if (NowX <= MaxCoordinateX)
+                            {
+                                MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                            }
+                        }
+                    }
+                }
+                MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+                MachinePublic.WD600[50] = 1;
+                boxedDeviceModel.WriteLed = true;
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 检查是否都处于复位状态
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckDrugeRest()
+        {
+            if (boxedDeviceModel.AdjustmentStations.Any(x=>x.Excute || x.Finsh))//下药完成检查
+            {
+                return true;
+            }
+            
+            if (boxedDeviceModel.Supplyboxs.Excute || boxedDeviceModel.Supplyboxs.Finsh//下盒完成检查
+                || boxedDeviceModel.Sealbox.Excute || boxedDeviceModel.Sealbox.Finsh//封口完成检查
+                || boxedDeviceModel.Outboxs.Excute || boxedDeviceModel.Outboxs.Finsh)  //出盒完成检查
+            {
+                return true;
+            }
+
+            return false;
         }
         #endregion
 

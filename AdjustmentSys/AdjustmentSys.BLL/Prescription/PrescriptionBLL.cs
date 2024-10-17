@@ -6,6 +6,7 @@ using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
@@ -273,7 +274,7 @@ namespace AdjustmentSys.BLL.Prescription
             foreach (var item in parinfos)
             {
                 LocalDataPrescriptionInfo localDataPrescriptionInfo = new LocalDataPrescriptionInfo();
-                localDataPrescriptionInfo =CopySimilarProperties<LocalDataPrescriptionInfo, DataPrescription>(localDataPrescriptionInfo,item);
+                localDataPrescriptionInfo = CommFunHelper.CopySimilarProperties<LocalDataPrescriptionInfo, DataPrescription>(localDataPrescriptionInfo,item);
                 if (localDataPrescriptionInfo!=default) 
                 {
                     localDataPrescriptionInfo.DownloadBy = SysLoginUser._currentUser.UserId;
@@ -333,53 +334,7 @@ namespace AdjustmentSys.BLL.Prescription
             }
         }
 
-        public  T CopySimilarProperties<T,S>(T target, S source)
-        {
-            if (source == null)
-                return default;
-
-            var sourceType = typeof(S);
-            var targetType = target.GetType();
-            var sourceProperties = sourceType.GetProperties().Where(p => p.CanRead);
-
-            foreach (var sourceProperty in sourceProperties)
-            {
-                var targetProperty = targetType.GetProperty(sourceProperty.Name);
-                if (!(targetProperty != null && targetProperty.CanWrite)){ continue;}
-                if (targetProperty.Name=="ID") { continue; }
-                var sourceValue = sourceProperty.GetValue(source, null); //sourceProperty.GetValue(targetProperty, null);
-                if (sourceValue != null)
-                {
-                    targetProperty.SetValue(target, sourceValue);
-                }
-                else
-                {
-                    var ptype = targetProperty.PropertyType;
-                    // 设置默认值
-                    if (ptype == typeof(int) || ptype == typeof(int?) || ptype == typeof(double) ||
-                        ptype == typeof(double?) || ptype == typeof(float) || ptype == typeof(float?) ||
-                        ptype == typeof(decimal) || ptype == typeof(decimal?))
-                    {
-                        targetProperty.SetValue(target, 0);
-                    }
-                    else if (ptype == typeof(string))
-                    {
-                        targetProperty.SetValue(target, "");
-                    }
-                    else if (ptype == typeof(DateTime))
-                    {
-                        targetProperty.SetValue(target, DateTime.Now);
-                    }
-                    // ... 其他类型
-                    else
-                    {
-                        // 设置为null或其他默认值
-                        targetProperty.SetValue(target, null);
-                    }
-                }
-            }
-            return target;
-        }
+     
 
 
         /// <summary>

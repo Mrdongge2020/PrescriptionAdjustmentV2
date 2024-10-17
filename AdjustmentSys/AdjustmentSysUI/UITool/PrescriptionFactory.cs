@@ -23,36 +23,39 @@ namespace AdjustmentSysUI.UITool
         /// <summary>
         /// 扣除下药完成颗粒的库存
         /// </summary>  
-        public string DeductStock(PreModel PresData, double DeWeight)
+        public string DeductStock(int rfid,PreModel PresData, double DeWeight)
         {
             List<MedicineCabinetOperationLogInfo> parLogs = new List<MedicineCabinetOperationLogInfo>();
             List<MedicineCabinetDetail> medicineCabinetDetails = new List<MedicineCabinetDetail>();
 
             PresData.Details.ForEach(item =>
             {
-                MedicineCabinetOperationLogInfo parLog = new MedicineCabinetOperationLogInfo();
-                //写扣除日志信息
-                float MinusWeight = (float)(Math.Round((item.Dose * PresData.Quantity), 3) - DeWeight);    //扣除量=(颗粒剂量)*(处方付数)-之前扣除的下药量   
-                float BTotalUsedAmount = (float)((DeWeight / (item.Dose * PresData.Quantity)) * item.MedicineCabinetDetail.CurentAdjustAmount);
-                parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
-                parLog.CreateTime = DateTime.Now;
-                parLog.ParticleCode = item.ParCode;
-                parLog.ParticleId = (int)item.MedicineCabinetDetail?.RFID;
-                parLog.ParticleName = item.ParName + (int)item.MedicineCabinetDetail?.RFID % 10000;
-                parLog.InitialQuantity = (float)item.MedicineCabinetDetail?.Stock;
-                parLog.CurrentWeightQuantity = item.CurrentWeightQuantity;
-                parLog.MedicineCabinetOperationLogType = MedicineCabinetOperationLogTypeEnum.调剂药品;
-                parLog.UsedQuantity = MinusWeight;
-                parLog.AddQuantity = 0;
-                parLog.AdjustmentQuantity = (float)item.MedicineCabinetDetail.CurentAdjustAmount;
-                parLog.OperationLogDecribe = "扣除日志信息";
-                parLogs.Add(parLog);
+                if (item.MedicineCabinetDetail.RFID==rfid) 
+                {
+                    MedicineCabinetOperationLogInfo parLog = new MedicineCabinetOperationLogInfo();
+                    //写扣除日志信息
+                    float MinusWeight = (float)(Math.Round((item.Dose * PresData.Quantity), 3) - DeWeight);    //扣除量=(颗粒剂量)*(处方付数)-之前扣除的下药量   
+                    float BTotalUsedAmount = (float)((DeWeight / (item.Dose * PresData.Quantity)) * item.MedicineCabinetDetail.CurentAdjustAmount);
+                    parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                    parLog.CreateTime = DateTime.Now;
+                    parLog.ParticleCode = item.ParCode;
+                    parLog.ParticleId = (int)item.MedicineCabinetDetail?.RFID;
+                    parLog.ParticleName = item.ParName + (int)item.MedicineCabinetDetail?.RFID % 10000;
+                    parLog.InitialQuantity = (float)item.MedicineCabinetDetail?.Stock;
+                    parLog.CurrentWeightQuantity = item.CurrentWeightQuantity;
+                    parLog.MedicineCabinetOperationLogType = MedicineCabinetOperationLogTypeEnum.调剂药品;
+                    parLog.UsedQuantity = MinusWeight;
+                    parLog.AddQuantity = 0;
+                    parLog.AdjustmentQuantity = (float)item.MedicineCabinetDetail.CurentAdjustAmount;
+                    parLog.OperationLogDecribe = "扣除日志信息";
+                    parLogs.Add(parLog);
 
-                item.MedicineCabinetDetail.Stock = item.MedicineCabinetDetail.Stock - MinusWeight;
-                item.MedicineCabinetDetail.CurentAdjustAmount = (float)BTotalUsedAmount;
-                item.MedicineCabinetDetail.BottleHeadAdjustAmount = item.MedicineCabinetDetail.BottleHeadAdjustAmount + (float)BTotalUsedAmount;
-                item.MedicineCabinetDetail.TotalUsedAmount = item.MedicineCabinetDetail.TotalUsedAmount + (float)MinusWeight;
-                medicineCabinetDetails.Add(item.MedicineCabinetDetail);
+                    item.MedicineCabinetDetail.Stock = item.MedicineCabinetDetail.Stock - MinusWeight;
+                    item.MedicineCabinetDetail.CurentAdjustAmount = (float)BTotalUsedAmount;
+                    item.MedicineCabinetDetail.BottleHeadAdjustAmount = item.MedicineCabinetDetail.BottleHeadAdjustAmount + (float)BTotalUsedAmount;
+                    item.MedicineCabinetDetail.TotalUsedAmount = item.MedicineCabinetDetail.TotalUsedAmount + (float)MinusWeight;
+                    medicineCabinetDetails.Add(item.MedicineCabinetDetail);
+                }
             });
             //扣除库存
             var result = _prescriptionAdjustmentBLL.UpdateMedicineAndLog(medicineCabinetDetails, parLogs);
@@ -63,7 +66,7 @@ namespace AdjustmentSysUI.UITool
         /// <summary>
         /// 提前扣除部分库存
         /// </summary>
-        public string DeductStockStep(PreModel PresData, float DeWeight)
+        public string DeductStockStep(int rfid, PreModel PresData, float DeWeight)
         {
             List<MedicineCabinetOperationLogInfo> parLogs = new List<MedicineCabinetOperationLogInfo>();
             List<MedicineCabinetDetail> medicineCabinetDetails = new List<MedicineCabinetDetail>();

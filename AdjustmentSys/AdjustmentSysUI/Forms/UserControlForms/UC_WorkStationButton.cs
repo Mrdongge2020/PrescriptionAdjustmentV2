@@ -59,16 +59,16 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                 case StationStatusEnum.回零完成:
                     lblStatus.ForeColor = Color.PaleGreen;
                     break;
-                case StationStatusEnum.被禁用:
-                    lblStatus.ForeColor = Color.BlanchedAlmond;
-                    break;
-                case StationStatusEnum.余量不足:
+                //case StationStatusEnum.被禁用:
+                //    lblStatus.ForeColor = Color.BlanchedAlmond;
+                //    break;
+                //case StationStatusEnum.余量不足:
                 case StationStatusEnum.非处方药品:
                     lblStatus.ForeColor = Color.Red;
                     break;
-                case StationStatusEnum.该药品未称重:
-                    lblStatus.ForeColor = Color.WhiteSmoke;
-                    break;
+                //case StationStatusEnum.该药品未称重:
+                //    lblStatus.ForeColor = Color.WhiteSmoke;
+                //    break;
 
             }
         }

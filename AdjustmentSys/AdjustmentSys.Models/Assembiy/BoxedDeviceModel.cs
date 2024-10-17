@@ -23,6 +23,9 @@ namespace AdjustmentSys.Models.Assembiy
         public UInt32 DeviceError; //设备异常 bit1温湿度未连接；2天平；3RFID未连接 4温控仪表未连接
 
         public UInt32 RestError;
+        public bool WriteLed;//写入灯柜
+        public bool Stop; //暂停
+        public int AxisHomeStep;//单轴回零步骤
 
 
         /// <summary>
@@ -110,6 +113,10 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public int CanMoveCount { get; set; }
         /// <summary>
+        /// 可以位移次数转1-16
+        /// </summary>
+        public int CanMoveCount1 { get; set; }
+        /// <summary>
         /// 当前位移次数
         /// </summary>                                  
         public int CurrentMoveCount { get; set; } //当前位移次数
@@ -130,5 +137,14 @@ namespace AdjustmentSys.Models.Assembiy
         /// 处方完成的盒数
         /// </summary>
         public int BoxFishCount { get; set; }
+        /// <summary>
+        /// 处方完成的盒数(缓存)
+        /// </summary>
+        public int HCBoxFishCount { get; set; }
+
+        /// <summary>
+        /// 处方调剂开始时间
+        /// </summary>
+        public DateTime StartTime { get; set; }
     }
 }

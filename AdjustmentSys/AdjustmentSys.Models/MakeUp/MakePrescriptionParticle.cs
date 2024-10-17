@@ -57,11 +57,11 @@ namespace AdjustmentSys.Models.MakeUp
         /// <summary>
         /// 颗粒状态  
         /// </summary>
-        public MakeParticleStatuEnum MakeParticleStatu { get; set; }
+        public MakeParticleStateEnum MakeParticleState { get; set; }
         /// <summary>
         /// 状态文本
         /// </summary>
-        public string StatusText { get { return StringHelper.GetEnumDescription(MakeParticleStatu); } }
+        public string StatusText { get { return StringHelper.GetEnumDescription(MakeParticleState); } }
 
         /// <summary>
         /// 当前称重量
@@ -72,5 +72,9 @@ namespace AdjustmentSys.Models.MakeUp
         /// 单格剂量
         /// </summary>
         public float NewDose { get; set; }
+        /// <summary>
+        /// 提前扣除的库存
+        /// </summary>
+        public float EarlyDeductionStock { get; set; }
     }
 }

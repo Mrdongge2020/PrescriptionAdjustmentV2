@@ -114,5 +114,32 @@ namespace AdjustmentSys.DAL.Common
         {
             return _eFCoreContext.ManufacturerInfos.ToList();
         }
+
+        /// <summary>
+        /// 获取处方信息
+        /// </summary>
+        /// <returns></returns>
+        public (object,object) GetPrescription(int preType,string preId) 
+        {
+            object info=null;
+            object details = null;
+            switch (preType) 
+            { 
+                case 1:
+                    info = _eFCoreContext.DataPrescriptions.FirstOrDefault(x => x.PrescriptionID == preId);
+                    details = _eFCoreContext.DataPrescriptionDetails.Where(x => x.PrescriptionID == preId).ToList();
+                    break;
+                case 2:
+                    info = _eFCoreContext.LocalDataPrescriptionInfos.FirstOrDefault(x => x.PrescriptionID == preId);
+                    details = _eFCoreContext.LocalDataPrescriptionDetails.Where(x => x.PrescriptionID == preId).ToList();
+                    break;
+                case 3:
+                    info = _eFCoreContext.LocalDataPrescriptionInfoRecords.FirstOrDefault(x => x.PrescriptionID == preId);
+                    details = _eFCoreContext.LocalDataPrescriptionDetailRecords.Where(x => x.PrescriptionID == preId).ToList();
+                    break;
+            }
+
+            return (info, details);
+        }
     }
 }

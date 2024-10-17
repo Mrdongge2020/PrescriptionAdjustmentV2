@@ -4,6 +4,8 @@ using AdjustmentSys.DAL.Prescription;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.PublicModel;
+using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections;
@@ -305,6 +307,48 @@ namespace AdjustmentSys.BLL.Prescription
         public string UpdateMedicineCabinetDetail(MedicineCabinetDetail detail) 
         {
             return _prescriptionAdjustmentDAL.UpdateMedicineCabinetDetail(detail);
+        }
+
+        /// <summary>
+        /// 根据插入本地处方记录信息
+        /// </summary>
+        /// <param name="infoRecord"></param>
+        /// <param name="details"></param>
+        /// <returns></returns>
+        public string AddLocalDataPrescriptionInfoRecord(LocalDataPrescriptionInfo infoRecord,List<LocalDataPrescriptionDetail> details,int boxNum,DateTime comtime,int second,string timeStr) 
+        {          
+            //本地处方记录数据
+            LocalDataPrescriptionInfoRecord local = new LocalDataPrescriptionInfoRecord();
+
+            local = CommFunHelper.CopySimilarProperties<LocalDataPrescriptionInfoRecord,LocalDataPrescriptionInfo>(local, infoRecord);
+            if (local != default)
+            {
+                local.AllocateName = SysLoginUser._currentUser.UserName;
+                local.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                local.BoxNumber = boxNum;
+                local.CompleteTime = comtime;
+                local.TimeConsumingSecond =second;
+                local.TimeConsuming = timeStr;
+            }
+
+            List<LocalDataPrescriptionDetailRecord> localDtails = details.Select(x=>new LocalDataPrescriptionDetailRecord() 
+            {
+                PrescriptionID = x.PrescriptionID,
+                ParticleOrder = x.ParticleOrder,
+                ParticlesCodeHIS = x.ParticlesCodeHIS,
+                ParticlesID = x.ParticlesID,
+                ParticlesNameHIS = x.ParticlesNameHIS,
+                ValidityTime=x.ValidityTime,
+                BatchNumber = x.BatchNumber,
+                Dose = x.Dose,
+                DoseHerb = x.DoseHerb,
+                Equivalent = x.Equivalent,
+                Price = x.Price
+            }) .ToList();
+
+           return  _prescriptionAdjustmentDAL.AddLocalPreRecord(local,localDtails, infoRecord.PrescriptionID);
+
+
         }
     }
 }

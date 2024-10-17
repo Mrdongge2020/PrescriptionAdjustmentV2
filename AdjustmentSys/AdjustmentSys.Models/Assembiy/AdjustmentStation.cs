@@ -64,6 +64,10 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public string ParticlesName { get; set; }
         /// <summary>
+        /// 颗粒锁定
+        /// </summary>
+        public bool LockState {get; set; }
+        /// <summary>
         /// 颗粒rfid
         /// </summary>
         public int Rfid { get; set; }

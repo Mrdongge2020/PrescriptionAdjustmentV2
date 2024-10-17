@@ -75,5 +75,14 @@ namespace AdjustmentSys.BLL.Common
         { 
             return _commonDataDAL.GetManufacturerInfos();
         }
+
+        /// <summary>
+        /// 获取处方信息
+        /// </summary>
+        /// <returns></returns>
+        public (object, object) GetPrescription(int preType, string preId) 
+        {
+            return _commonDataDAL.GetPrescription(preType, preId);
+        }
     }
 }

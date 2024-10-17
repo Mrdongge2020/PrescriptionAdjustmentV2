@@ -229,5 +229,33 @@ namespace AdjustmentSys.DAL.Prescription
             return "";
         }
 
+        /// <summary>
+        /// 插入本地处方记录信息
+        /// </summary>
+        /// <param name="local">本地处方记录表</param>
+        /// <param name="localDtails">本地处方记录详情表</param>
+        /// <param name="localPreID">本地处方id</param>
+        /// <returns></returns>
+        public string AddLocalPreRecord(LocalDataPrescriptionInfoRecord local, List<LocalDataPrescriptionDetailRecord> localDtails,string localPreID)
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.LocalDataPrescriptionInfoRecords.Add(local);
+                    _eFCoreContext.LocalDataPrescriptionDetailRecords.AddRange(localDtails);
+                    _eFCoreContext.LocalDataPrescriptionInfos.Where(x => x.PrescriptionID == localPreID).ExecuteDelete();
+                    _eFCoreContext.LocalDataPrescriptionDetails.Where(x => x.PrescriptionID == localPreID).ExecuteDelete();
+                    _eFCoreContext.SaveChanges(true);
+                }
+                catch (Exception e)
+                {
+                    return "插入本地处方记录失败:" + e.Message;
+                }
+            }
+
+            return "";
+        }
+
     }
 }
