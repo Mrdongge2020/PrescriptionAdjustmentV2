@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Models.MakeUp;
+﻿using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.MakeUp;
 using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
@@ -91,7 +92,11 @@ namespace AdjustmentSys.Models.Assembiy
         /// 处方颗粒显示数据
         /// </summary>
         public List<MakePrescriptionParticle> MakePrescriptionParticles { get; set; }
-        
+        /// <summary>
+        /// 调剂中的处方信息
+        /// </summary>
+        public  PreModel PrescriptionInfo = null;//调剂中的处方
+
     }
 
     public class BoxedDeviceExtendModel
@@ -145,6 +150,6 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         /// 处方调剂开始时间
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
     }
 }

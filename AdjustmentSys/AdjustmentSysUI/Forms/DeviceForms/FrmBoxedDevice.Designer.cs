@@ -57,11 +57,6 @@
             btnSuspend = new Sunny.UI.UISymbolLabel();
             btnStartRun = new Sunny.UI.UISymbolLabel();
             dgvPreDetail = new Sunny.UI.UIDataGridView();
-            ParticleOrder = new DataGridViewTextBoxColumn();
-            ParName = new DataGridViewTextBoxColumn();
-            Dose = new DataGridViewTextBoxColumn();
-            StatusText = new DataGridViewTextBoxColumn();
-            StationText = new DataGridViewTextBoxColumn();
             lbOpterMsg = new Sunny.UI.UIListBox();
             uiDataGridView2 = new Sunny.UI.UIDataGridView();
             label1 = new Label();
@@ -108,6 +103,11 @@
             uiLabel37 = new Sunny.UI.UILabel();
             preRoundProcess = new Sunny.UI.UIRoundProcess();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            ParticleOrder = new DataGridViewTextBoxColumn();
+            ParticlesName = new DataGridViewTextBoxColumn();
+            Dose = new DataGridViewTextBoxColumn();
+            StatusText = new DataGridViewTextBoxColumn();
+            StationText = new DataGridViewTextBoxColumn();
             cmsDownLoad.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -343,7 +343,7 @@
             dgvPreDetail.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvPreDetail.ColumnHeadersHeight = 32;
             dgvPreDetail.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvPreDetail.Columns.AddRange(new DataGridViewColumn[] { ParticleOrder, ParName, Dose, StatusText, StationText });
+            dgvPreDetail.Columns.AddRange(new DataGridViewColumn[] { ParticleOrder, ParticlesName, Dose, StatusText, StationText });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
             dataGridViewCellStyle3.Font = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -375,47 +375,6 @@
             dgvPreDetail.SelectedIndex = -1;
             dgvPreDetail.Size = new Size(518, 469);
             dgvPreDetail.TabIndex = 10;
-            // 
-            // ParticleOrder
-            // 
-            ParticleOrder.DataPropertyName = "ParticleOrder";
-            ParticleOrder.FillWeight = 60F;
-            ParticleOrder.HeaderText = "序号";
-            ParticleOrder.Name = "ParticleOrder";
-            ParticleOrder.ReadOnly = true;
-            ParticleOrder.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ParName
-            // 
-            ParName.DataPropertyName = "ParName";
-            ParName.HeaderText = "颗粒名称";
-            ParName.Name = "ParName";
-            ParName.ReadOnly = true;
-            ParName.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Dose
-            // 
-            Dose.DataPropertyName = "Dose";
-            Dose.HeaderText = "颗粒剂量";
-            Dose.Name = "Dose";
-            Dose.ReadOnly = true;
-            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // StatusText
-            // 
-            StatusText.DataPropertyName = "StatusText";
-            StatusText.HeaderText = "状态";
-            StatusText.Name = "StatusText";
-            StatusText.ReadOnly = true;
-            StatusText.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // StationText
-            // 
-            StationText.DataPropertyName = "StationText";
-            StationText.HeaderText = "坐标";
-            StationText.Name = "StationText";
-            StationText.ReadOnly = true;
-            StationText.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // lbOpterMsg
             // 
@@ -1042,6 +1001,48 @@
             // backgroundWorker1
             // 
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
+            // 
+            // ParticleOrder
+            // 
+            ParticleOrder.DataPropertyName = "ParticleOrder";
+            ParticleOrder.FillWeight = 60F;
+            ParticleOrder.HeaderText = "序号";
+            ParticleOrder.Name = "ParticleOrder";
+            ParticleOrder.ReadOnly = true;
+            ParticleOrder.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ParticlesName
+            // 
+            ParticlesName.DataPropertyName = "ParticlesName";
+            ParticlesName.HeaderText = "颗粒名称";
+            ParticlesName.Name = "ParticlesName";
+            ParticlesName.ReadOnly = true;
+            ParticlesName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Dose
+            // 
+            Dose.DataPropertyName = "Dose";
+            Dose.HeaderText = "颗粒剂量";
+            Dose.Name = "Dose";
+            Dose.ReadOnly = true;
+            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // StatusText
+            // 
+            StatusText.DataPropertyName = "StatusText";
+            StatusText.HeaderText = "状态";
+            StatusText.Name = "StatusText";
+            StatusText.ReadOnly = true;
+            StatusText.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // StationText
+            // 
+            StationText.DataPropertyName = "StationText";
+            StationText.HeaderText = "坐标";
+            StationText.Name = "StationText";
+            StationText.ReadOnly = true;
+            StationText.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // FrmBoxedDevice
             // 
@@ -1154,11 +1155,11 @@
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private DataGridViewTextBoxColumn ParticleOrder;
-        private DataGridViewTextBoxColumn ParName;
+        private DataGridViewTextBoxColumn ParticlesName;
         private DataGridViewTextBoxColumn Dose;
         private DataGridViewTextBoxColumn StatusText;
         private DataGridViewTextBoxColumn StationText;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
