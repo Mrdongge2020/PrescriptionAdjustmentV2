@@ -96,6 +96,10 @@ namespace AdjustmentSys.Models.Assembiy
         /// 调剂中的处方信息
         /// </summary>
         public  PreModel PrescriptionInfo = null;//调剂中的处方
+        /// <summary>
+        /// 设备异常
+        /// </summary>
+        public List<DeviceError> DeviceErrors { get; set; }
 
     }
 

@@ -204,11 +204,11 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             deviceMaching.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 11);//11#供盒回零完成
             MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
             MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
-            deviceMaching.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
+
             //异常映射
-            //DataProcessingTool.ReverseBit16(ref deviceMaching.Sealbox.Error, 1, DataProcessingTool.GetBitValue(deviceMaching.DeviceError, 0));
-            //DataProcessingTool.ReverseBit16(ref deviceMaching.Sealbox.Error, 2, DataProcessingTool.GetBitValue(deviceMaching.DeviceError, 0));
-            //deviceMaching.Sealbox.Error = DataProcessingTool.GetBitValue(deviceMaching.DeviceError,0);
+            deviceMaching.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
+            SetError();
+
             //machineBox.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8); //rfid数据D258-D277
             deviceMaching.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8);
             for (int i = 0; i < 8; i++)
@@ -269,6 +269,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
         }
 
+        private void SetError() 
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                if (DataProcessingTool.GetBitValue(deviceMaching.DeviceError, i) && !deviceMaching.DeviceErrors.Any(x=>x.ErrorType==(DeviceErrorEnum)i))
+                {
+                    deviceMaching.DeviceErrors.Add(new DeviceError() { ErrorType= (DeviceErrorEnum)i });
+                }
+            }
+        }
         /// <summary>
         /// 初始化数据
         /// </summary>
@@ -1524,6 +1534,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void FrmRash()
         {
+            if (deviceMaching==null) { return; }
+
             #region 运行状态
             string hcDeviceState = "";
             if (deviceMaching.RunState == WorkStateEnum.Write)
@@ -1587,10 +1599,86 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     row.Cells["ParticlesName"].Value = partic.StatusText;
                     row.DefaultCellStyle.BackColor = color;
                 }
-            } 
+            }
             #endregion
 
+            #region 工位信息
+            for (int i = 0; i < 8; i++)//修改工位状态
+            {
+                //MonterEorr(ObjMachine);//获取设备错误信息
+                if (!string.IsNullOrEmpty(deviceMaching.AdjustmentStations[i].ParticlesName) && deviceMaching.AdjustmentStations[i].ParticlesName != uC_WorkStationButtons[i].ParticName)
+                {
+                    uC_WorkStationButtons[i].ParticName = deviceMaching.AdjustmentStations[i].ParticlesName;
+                }
+                if (string.IsNullOrEmpty(deviceMaching.AdjustmentStations[i].ParticlesName) && uC_WorkStationButtons[i].ParticName != "无")
+                {
+                    uC_WorkStationButtons[i].ParticName = "无";
+                }
+                if (deviceMaching.AdjustmentStations[i].StationState != uC_WorkStationButtons[i].Status)
+                {
+                    uC_WorkStationButtons[i].Status = deviceMaching.AdjustmentStations[i].StationState;
+                }
+                if (deviceMaching.AdjustmentStations[i].Bar < 101 && uC_WorkStationButtons[i].ProcessValue != deviceMaching.AdjustmentStations[i].Bar)
+                {
+                    uC_WorkStationButtons[i].ProcessValue = deviceMaching.AdjustmentStations[i].Bar;
+                }
+            }
 
+            //总进度信息
+            if (deviceMaching.Extend.ProcessBar<101 && preRoundProcess.Value!= deviceMaching.Extend.ProcessBar) 
+            {
+                preRoundProcess.Value = deviceMaching.Extend.ProcessBar;
+
+            }
+            #endregion
+
+            #region 异常信息
+            if (deviceMaching.DeviceErrors!=null && deviceMaching.DeviceErrors.Count>0) 
+            {
+                List<string> strings = new List<string>();
+                if (dgvDeviceError.Rows.Count>0) {
+                    foreach (DataGridViewRow row in dgvDeviceError.Rows)
+                    {
+                        strings.Add(row.Cells["ErrorDecript"].Value.ToString());
+                    }
+                }
+                foreach (DeviceError item in deviceMaching.DeviceErrors)
+                {
+                    if (strings==null || strings.Count<=0  || !strings.Contains(item.ErrorDecript)) 
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        int j = dgvDeviceError.Rows.Add(row);
+                        dgvDeviceError.Rows[j].Cells[0].Value = item.ErrorType;
+                        dgvDeviceError.Rows[j].Cells[1].Value = item.ErrorDecript;
+                    }
+                }
+            }
+            #endregion
+
+            #region 供盒，封口，出盒，称重工位
+            if (deviceMaching.Supplyboxs.Excute)
+            {
+                List<DeviceErrorEnum> xiaHe = new List<DeviceErrorEnum>() { DeviceErrorEnum.下盒位有药盒, DeviceErrorEnum.下盒失败 };
+                if (deviceMaching.DeviceErrors.Any(x => xiaHe.Contains(x.ErrorType)))
+                {
+                    if (lblGHZT.Text != "供盒异常") { lblGHZT.Text = "供盒异常"; }
+                    string errorText = string.Join(",", deviceMaching.DeviceErrors.Where(x => xiaHe.Contains(x.ErrorType)).Select(x => x.ErrorDecript).ToList());
+                    if (lblGHYC.Text != errorText) { lblGHYC.Text = errorText; }
+                }
+                else 
+                {
+                    if (lblGHZT.Text != "正在供盒") { lblGHZT.Text = "正在供盒"; }
+                    if (lblGHYC.Text != "无") { lblGHYC.Text = "无"; }
+                }
+            }
+            else 
+            {
+                if (lblGHZT.Text!="等待供盒") 
+                {
+                    lblGHZT.Text = "等待供盒";
+                }
+            }
+            #endregion
         }
 
         /// <summary>

@@ -44,27 +44,27 @@ namespace AdjustmentSysUI.Forms.UserControlForms
             {
                 case StationStatusEnum.无:
                 case StationStatusEnum.待放入:
-                    lblStatus.ForeColor=Color.Green;
+                    this.fillColor=Color.Green;
                     break;
                 case StationStatusEnum.待调剂:
-                    lblStatus.ForeColor= Color.GreenYellow; 
+                    this.fillColor = Color.GreenYellow; 
                     break;
                 case StationStatusEnum.调剂中:
-                    lblStatus.ForeColor = Color.Orange;
+                    this.fillColor = Color.Orange;
                     break;
                 case StationStatusEnum.待取走:
-                    lblStatus.ForeColor = Color.Olive;
+                    this.fillColor = Color.Olive;
                     break;
                 case StationStatusEnum.回零中:
                 case StationStatusEnum.回零完成:
-                    lblStatus.ForeColor = Color.PaleGreen;
+                    this.fillColor = Color.PaleGreen;
                     break;
                 //case StationStatusEnum.被禁用:
                 //    lblStatus.ForeColor = Color.BlanchedAlmond;
                 //    break;
                 //case StationStatusEnum.余量不足:
                 case StationStatusEnum.非处方药品:
-                    lblStatus.ForeColor = Color.Red;
+                    this.fillColor = Color.Red;
                     break;
                 //case StationStatusEnum.该药品未称重:
                 //    lblStatus.ForeColor = Color.WhiteSmoke;

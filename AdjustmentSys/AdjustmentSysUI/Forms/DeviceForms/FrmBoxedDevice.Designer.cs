@@ -35,9 +35,10 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             uiFlowLayoutPanel1 = new Sunny.UI.UIFlowLayoutPanel();
             cmsDownLoad = new Sunny.UI.UIContextMenuStrip();
             核对处方ToolStripMenuItem = new ToolStripMenuItem();
@@ -57,8 +58,13 @@
             btnSuspend = new Sunny.UI.UISymbolLabel();
             btnStartRun = new Sunny.UI.UISymbolLabel();
             dgvPreDetail = new Sunny.UI.UIDataGridView();
+            ParticleOrder = new DataGridViewTextBoxColumn();
+            ParticlesName = new DataGridViewTextBoxColumn();
+            Dose = new DataGridViewTextBoxColumn();
+            StatusText = new DataGridViewTextBoxColumn();
+            StationText = new DataGridViewTextBoxColumn();
             lbOpterMsg = new Sunny.UI.UIListBox();
-            uiDataGridView2 = new Sunny.UI.UIDataGridView();
+            dgvDeviceError = new Sunny.UI.UIDataGridView();
             label1 = new Label();
             label2 = new Label();
             uiTitlePanel3 = new Sunny.UI.UITitlePanel();
@@ -103,16 +109,14 @@
             uiLabel37 = new Sunny.UI.UILabel();
             preRoundProcess = new Sunny.UI.UIRoundProcess();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ParticleOrder = new DataGridViewTextBoxColumn();
-            ParticlesName = new DataGridViewTextBoxColumn();
-            Dose = new DataGridViewTextBoxColumn();
-            StatusText = new DataGridViewTextBoxColumn();
-            StationText = new DataGridViewTextBoxColumn();
+            ErrorType = new DataGridViewTextBoxColumn();
+            ErrorDecript = new DataGridViewTextBoxColumn();
+            Opter = new DataGridViewButtonColumn();
             cmsDownLoad.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPreDetail).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDeviceError).BeginInit();
             uiTitlePanel3.SuspendLayout();
             uiTitlePanel2.SuspendLayout();
             uiTitlePanel1.SuspendLayout();
@@ -376,6 +380,47 @@
             dgvPreDetail.Size = new Size(518, 469);
             dgvPreDetail.TabIndex = 10;
             // 
+            // ParticleOrder
+            // 
+            ParticleOrder.DataPropertyName = "ParticleOrder";
+            ParticleOrder.FillWeight = 60F;
+            ParticleOrder.HeaderText = "序号";
+            ParticleOrder.Name = "ParticleOrder";
+            ParticleOrder.ReadOnly = true;
+            ParticleOrder.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ParticlesName
+            // 
+            ParticlesName.DataPropertyName = "ParticlesName";
+            ParticlesName.HeaderText = "颗粒名称";
+            ParticlesName.Name = "ParticlesName";
+            ParticlesName.ReadOnly = true;
+            ParticlesName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Dose
+            // 
+            Dose.DataPropertyName = "Dose";
+            Dose.HeaderText = "颗粒剂量";
+            Dose.Name = "Dose";
+            Dose.ReadOnly = true;
+            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // StatusText
+            // 
+            StatusText.DataPropertyName = "StatusText";
+            StatusText.HeaderText = "状态";
+            StatusText.Name = "StatusText";
+            StatusText.ReadOnly = true;
+            StatusText.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // StationText
+            // 
+            StationText.DataPropertyName = "StationText";
+            StationText.HeaderText = "坐标";
+            StationText.Name = "StationText";
+            StationText.ReadOnly = true;
+            StationText.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
             // lbOpterMsg
             // 
             lbOpterMsg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -391,17 +436,17 @@
             lbOpterMsg.TabIndex = 12;
             lbOpterMsg.Text = null;
             // 
-            // uiDataGridView2
+            // dgvDeviceError
             // 
-            uiDataGridView2.AllowUserToAddRows = false;
-            uiDataGridView2.AllowUserToDeleteRows = false;
-            uiDataGridView2.AllowUserToResizeColumns = false;
-            uiDataGridView2.AllowUserToResizeRows = false;
+            dgvDeviceError.AllowUserToAddRows = false;
+            dgvDeviceError.AllowUserToDeleteRows = false;
+            dgvDeviceError.AllowUserToResizeColumns = false;
+            dgvDeviceError.AllowUserToResizeRows = false;
             dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
-            uiDataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
-            uiDataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            uiDataGridView2.BackgroundColor = Color.White;
-            uiDataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvDeviceError.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dgvDeviceError.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvDeviceError.BackgroundColor = Color.White;
+            dgvDeviceError.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
             dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -409,36 +454,38 @@
             dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            uiDataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            uiDataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            uiDataGridView2.DefaultCellStyle = dataGridViewCellStyle8;
-            uiDataGridView2.EnableHeadersVisualStyles = false;
-            uiDataGridView2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiDataGridView2.GridColor = Color.FromArgb(80, 160, 255);
-            uiDataGridView2.Location = new Point(958, 581);
-            uiDataGridView2.Name = "uiDataGridView2";
+            dgvDeviceError.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dgvDeviceError.ColumnHeadersHeight = 32;
+            dgvDeviceError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvDeviceError.Columns.AddRange(new DataGridViewColumn[] { ErrorType, ErrorDecript, Opter });
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
             dataGridViewCellStyle9.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            uiDataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dgvDeviceError.DefaultCellStyle = dataGridViewCellStyle9;
+            dgvDeviceError.EnableHeadersVisualStyles = false;
+            dgvDeviceError.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvDeviceError.GridColor = Color.FromArgb(80, 160, 255);
+            dgvDeviceError.Location = new Point(958, 581);
+            dgvDeviceError.Name = "dgvDeviceError";
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(235, 243, 255);
             dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiDataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            uiDataGridView2.SelectedIndex = -1;
-            uiDataGridView2.Size = new Size(518, 215);
-            uiDataGridView2.StripeOddColor = Color.FromArgb(235, 243, 255);
-            uiDataGridView2.TabIndex = 13;
+            dataGridViewCellStyle10.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle10.SelectionForeColor = Color.White;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            dgvDeviceError.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle11.BackColor = Color.White;
+            dataGridViewCellStyle11.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvDeviceError.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dgvDeviceError.SelectedIndex = -1;
+            dgvDeviceError.Size = new Size(518, 215);
+            dgvDeviceError.StripeOddColor = Color.FromArgb(235, 243, 255);
+            dgvDeviceError.TabIndex = 13;
             // 
             // label1
             // 
@@ -1003,46 +1050,30 @@
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             // 
-            // ParticleOrder
+            // ErrorType
             // 
-            ParticleOrder.DataPropertyName = "ParticleOrder";
-            ParticleOrder.FillWeight = 60F;
-            ParticleOrder.HeaderText = "序号";
-            ParticleOrder.Name = "ParticleOrder";
-            ParticleOrder.ReadOnly = true;
-            ParticleOrder.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ErrorType.DataPropertyName = "ErrorType";
+            ErrorType.HeaderText = "异常类型";
+            ErrorType.Name = "ErrorType";
+            ErrorType.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ErrorType.Visible = false;
             // 
-            // ParticlesName
+            // ErrorDecript
             // 
-            ParticlesName.DataPropertyName = "ParticlesName";
-            ParticlesName.HeaderText = "颗粒名称";
-            ParticlesName.Name = "ParticlesName";
-            ParticlesName.ReadOnly = true;
-            ParticlesName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ErrorDecript.DataPropertyName = "ErrorDecript";
+            ErrorDecript.HeaderText = "异常信息";
+            ErrorDecript.Name = "ErrorDecript";
+            ErrorDecript.ReadOnly = true;
+            ErrorDecript.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ErrorDecript.Width = 375;
             // 
-            // Dose
+            // Opter
             // 
-            Dose.DataPropertyName = "Dose";
-            Dose.HeaderText = "颗粒剂量";
-            Dose.Name = "Dose";
-            Dose.ReadOnly = true;
-            Dose.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // StatusText
-            // 
-            StatusText.DataPropertyName = "StatusText";
-            StatusText.HeaderText = "状态";
-            StatusText.Name = "StatusText";
-            StatusText.ReadOnly = true;
-            StatusText.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // StationText
-            // 
-            StationText.DataPropertyName = "StationText";
-            StationText.HeaderText = "坐标";
-            StationText.Name = "StationText";
-            StationText.ReadOnly = true;
-            StationText.SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.NullValue = "复位";
+            Opter.DefaultCellStyle = dataGridViewCellStyle8;
+            Opter.HeaderText = "操作";
+            Opter.Name = "Opter";
             // 
             // FrmBoxedDevice
             // 
@@ -1055,7 +1086,7 @@
             Controls.Add(uiPanel1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(uiDataGridView2);
+            Controls.Add(dgvDeviceError);
             Controls.Add(lbOpterMsg);
             Controls.Add(dgvPreDetail);
             Controls.Add(panel2);
@@ -1075,7 +1106,7 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPreDetail).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDeviceError).EndInit();
             uiTitlePanel3.ResumeLayout(false);
             uiTitlePanel2.ResumeLayout(false);
             uiTitlePanel1.ResumeLayout(false);
@@ -1095,7 +1126,7 @@
         private Sunny.UI.UISymbolLabel lblDownLoad;
         private Sunny.UI.UIDataGridView dgvPreDetail;
         private Sunny.UI.UIListBox lbOpterMsg;
-        private Sunny.UI.UIDataGridView uiDataGridView2;
+        private Sunny.UI.UIDataGridView dgvDeviceError;
         private Sunny.UI.UISymbolLabel btnStartRun;
         private Sunny.UI.UISymbolLabel btnSuspend;
         private Sunny.UI.UISymbolLabel btnRefresh;
@@ -1161,5 +1192,8 @@
         private DataGridViewTextBoxColumn Dose;
         private DataGridViewTextBoxColumn StatusText;
         private DataGridViewTextBoxColumn StationText;
+        private DataGridViewTextBoxColumn ErrorType;
+        private DataGridViewTextBoxColumn ErrorDecript;
+        private DataGridViewButtonColumn Opter;
     }
 }
