@@ -50,10 +50,6 @@ namespace AdjustmentSys.Models.Assembiy
         /// </summary>
         public int HomeData { get; set; }
         /// <summary>
-        ///RFID的数据
-        /// </summary>
-        public int RfidData { get; set; }
-        /// <summary>
         ///下药脉冲数,转多少
         /// </summary>
         public int Data1 { get; set; }

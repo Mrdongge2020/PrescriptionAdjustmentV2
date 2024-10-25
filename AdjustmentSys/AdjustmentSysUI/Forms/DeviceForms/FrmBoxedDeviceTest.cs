@@ -85,24 +85,24 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 for (int i = 0; i < 11; i++)
                 {
                     if (!Rb[i].Checked) { continue; }
-                    if (i < 8 && !FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[i].HomeExcute)
+                    if (i < 8 && !FrmBoxedDevice.deviceMaching.AdjustmentStations[i].HomeExcute)
                     {
-                            FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[i].HomeExcute = true;
+                            FrmBoxedDevice.deviceMaching.AdjustmentStations[i].HomeExcute = true;
                             lbInfos.Items.Insert(0, Rb[i].Text + "|设备正在执行回原点...|");
                     }
-                    if (i==8 && !FrmBoxedDevice.boxedDeviceModel.Sealbox.HomeExcute) 
+                    if (i==8 && !FrmBoxedDevice.deviceMaching.Sealbox.HomeExcute) 
                     {
-                        FrmBoxedDevice.boxedDeviceModel.Sealbox.HomeExcute = true;
+                        FrmBoxedDevice.deviceMaching.Sealbox.HomeExcute = true;
                         lbInfos.Items.Insert(0, Rb[i].Text + "|设备正在执行回原点...|");
                     }
-                    if (i == 9 && !FrmBoxedDevice.boxedDeviceModel.Turntable.HomeExcute)
+                    if (i == 9 && !FrmBoxedDevice.deviceMaching.Turntable.HomeExcute)
                     {
-                        FrmBoxedDevice.boxedDeviceModel.Turntable.HomeExcute = true;
+                        FrmBoxedDevice.deviceMaching.Turntable.HomeExcute = true;
                         lbInfos.Items.Insert(0, Rb[i].Text + "|设备正在执行回原点...|");
                     }
-                    if (i == 10 && !FrmBoxedDevice.boxedDeviceModel.Supplyboxs.HomeExcute)
+                    if (i == 10 && !FrmBoxedDevice.deviceMaching.Supplyboxs.HomeExcute)
                     {
-                        FrmBoxedDevice.boxedDeviceModel.Supplyboxs.HomeExcute = true;
+                        FrmBoxedDevice.deviceMaching.Supplyboxs.HomeExcute = true;
                         lbInfos.Items.Insert(0, Rb[i].Text + "|设备正在执行回原点...|");
                     }
                 }
@@ -123,9 +123,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     if (Rb[i - 1].Checked)
                     {
-                        FrmBoxedDevice.boxedDeviceModel.WDate = (Int16)dudydkz.Value;
-                        FrmBoxedDevice.boxedDeviceModel.WDnumber = (short)(i - 1);
-                        FrmBoxedDevice.boxedDeviceModel.WExcute = true;
+                        FrmBoxedDevice.deviceMaching.WDate = (Int16)dudydkz.Value;
+                        FrmBoxedDevice.deviceMaching.WDnumber = (short)(i - 1);
+                        FrmBoxedDevice.deviceMaching.WExcute = true;
                         return;
                     }
                 }
@@ -148,19 +148,19 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 uiGroupBox3.Enabled = false;
                 uiGroupBox4.Enabled = false;
                 CheckOpen = false;
-                FrmBoxedDevice.boxedDeviceModel.RunState = WorkStateEnum.Write;
+                FrmBoxedDevice.deviceMaching.RunState = WorkStateEnum.Write;
                 lbInfos.Items.Insert(0, DateTime.Now + "已关闭调试模式");
             }
             else
             {
                 if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus)
                 {
-                    if (FrmBoxedDevice.boxedDeviceModel.RunState == WorkStateEnum.Density)
+                    if (FrmBoxedDevice.deviceMaching.RunState == WorkStateEnum.Density)
                     {
                         lbInfos.Items.Insert(0, DateTime.Now + "设备正在执行密度测量，无法切换到调试模式");
                         return;
                     }
-                    if (FrmBoxedDevice.prescriptionModel== null)
+                    if (FrmBoxedDevice.deviceMaching.PrescriptionInfo== null)
                     {
                         timer1.Start();
                         CheckOpen = true;
@@ -169,15 +169,15 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         uiRadioButtonGroup2.Enabled = true;
                         uiGroupBox3.Enabled = true;
                         uiGroupBox4.Enabled = true;
-                        FrmBoxedDevice.boxedDeviceModel.RunState = WorkStateEnum.Set;
-                        dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].HomeData;
-                        iudDZTSfkmjcw.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data1;
-                        iudDZTSfkmfkw.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data2;
-                        if (FrmBoxedDevice.boxedDeviceModel.Sealbox.Data3 > 0)
+                        FrmBoxedDevice.deviceMaching.RunState = WorkStateEnum.Set;
+                        dudydkz.Value = FrmBoxedDevice.deviceMaching.AdjustmentStations[0].HomeData;
+                        iudDZTSfkmjcw.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data1;
+                        iudDZTSfkmfkw.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data2;
+                        if (FrmBoxedDevice.deviceMaching.Sealbox.Data3 > 0)
                         {
-                            iudDZTStmcd.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data3;
+                            iudDZTStmcd.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data3;
                         }
-                        iudDZTSfkys.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.SealTime;
+                        iudDZTSfkys.Value = FrmBoxedDevice.deviceMaching.Sealbox.SealTime;
                         lbInfos.Items.Insert(0, "已开启调试模式");
                     }
                     else
@@ -196,7 +196,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             for (int i = 0; i < 16; i++)
             {
-                if (DataProcessingTool.GetBitValue(FrmBoxedDevice.boxedDeviceModel.InX, (i + 1)))
+                if (DataProcessingTool.GetBitValue(FrmBoxedDevice.deviceMaching.InX, (i + 1)))
                 {
                     Xb[i].Checked = true;
 
@@ -207,91 +207,91 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 }
                 if (i < 8 && Rb[i].Checked && i != lok)
                 {
-                    dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[i].HomeData;
+                    dudydkz.Value = FrmBoxedDevice.deviceMaching.AdjustmentStations[i].HomeData;
                 }
                 if (i == 8 && Rb[i].Checked && i != lok)
                 {
-                    dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.HomeData;
+                    dudydkz.Value = FrmBoxedDevice.deviceMaching.Sealbox.HomeData;
                 }
                 if (i == 9 && Rb[i].Checked && i != lok)
                 {
-                    dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.Turntable.HomeData;
+                    dudydkz.Value = FrmBoxedDevice.deviceMaching.Turntable.HomeData;
                 }
                 if (i == 10 && Rb[i].Checked && i != lok)
                 {
-                    dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.Supplyboxs.HomeData;
+                    dudydkz.Value = FrmBoxedDevice.deviceMaching.Supplyboxs.HomeData;
                 }
                 lok = i;
             }
-            if (dudydkz.Value == 0 && FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].HomeData != 0)
+            if (dudydkz.Value == 0 && FrmBoxedDevice.deviceMaching.AdjustmentStations[0].HomeData != 0)
             {
-                dudydkz.Value = FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].HomeData;
+                dudydkz.Value = FrmBoxedDevice.deviceMaching.AdjustmentStations[0].HomeData;
             }
-            if (iudDZTSfkmjcw.Value == 0 && FrmBoxedDevice.boxedDeviceModel.Sealbox.Data1 != 0)
+            if (iudDZTSfkmjcw.Value == 0 && FrmBoxedDevice.deviceMaching.Sealbox.Data1 != 0)
             {
-                iudDZTSfkmjcw.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data1;
+                iudDZTSfkmjcw.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data1;
             }
-            if (iudDZTSfkmfkw.Value == 0 && FrmBoxedDevice.boxedDeviceModel.Sealbox.Data2 != 0)
+            if (iudDZTSfkmfkw.Value == 0 && FrmBoxedDevice.deviceMaching.Sealbox.Data2 != 0)
             {
-                iudDZTSfkmfkw.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data2;
+                iudDZTSfkmfkw.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data2;
             }
-            if (iudDZTStmcd.Value == 0 && FrmBoxedDevice.boxedDeviceModel.Sealbox.Data3 != 0)
+            if (iudDZTStmcd.Value == 0 && FrmBoxedDevice.deviceMaching.Sealbox.Data3 != 0)
             {
-                iudDZTStmcd.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.Data3;
+                iudDZTStmcd.Value = FrmBoxedDevice.deviceMaching.Sealbox.Data3;
             }
-            if (iudDZTSfkys.Value == 0 && FrmBoxedDevice.boxedDeviceModel.Sealbox.SealTime != 0)
+            if (iudDZTSfkys.Value == 0 && FrmBoxedDevice.deviceMaching.Sealbox.SealTime != 0)
             {
-                iudDZTSfkys.Value = FrmBoxedDevice.boxedDeviceModel.Sealbox.SealTime;
+                iudDZTSfkys.Value = FrmBoxedDevice.deviceMaching.Sealbox.SealTime;
             }
 
             for (int i = 0; i < 11; i++)
             {
-                if (i<8 && FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[i].HomeFinsh)
+                if (i<8 && FrmBoxedDevice.deviceMaching.AdjustmentStations[i].HomeFinsh)
                 {
-                    FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[i].HomeExcute = false;
+                    FrmBoxedDevice.deviceMaching.AdjustmentStations[i].HomeExcute = false;
                 }
 
-                if (i == 8 && FrmBoxedDevice.boxedDeviceModel.Sealbox.HomeFinsh)
+                if (i == 8 && FrmBoxedDevice.deviceMaching.Sealbox.HomeFinsh)
                 {
-                    FrmBoxedDevice.boxedDeviceModel.Sealbox.HomeExcute=false;
+                    FrmBoxedDevice.deviceMaching.Sealbox.HomeExcute=false;
                 }
-                if (i == 9 && FrmBoxedDevice.boxedDeviceModel.Turntable.HomeFinsh)
+                if (i == 9 && FrmBoxedDevice.deviceMaching.Turntable.HomeFinsh)
                 {
-                    FrmBoxedDevice.boxedDeviceModel.Turntable.HomeExcute = false;
+                    FrmBoxedDevice.deviceMaching.Turntable.HomeExcute = false;
                 }
-                if (i == 10 && FrmBoxedDevice.boxedDeviceModel.Supplyboxs.HomeFinsh)
+                if (i == 10 && FrmBoxedDevice.deviceMaching.Supplyboxs.HomeFinsh)
                 {
-                    FrmBoxedDevice.boxedDeviceModel.Supplyboxs.HomeExcute = false;
+                    FrmBoxedDevice.deviceMaching.Supplyboxs.HomeExcute = false;
                 }
             }
-            if (FrmBoxedDevice.boxedDeviceModel.WFish)
+            if (FrmBoxedDevice.deviceMaching.WFish)
             {
-                FrmBoxedDevice.boxedDeviceModel.WExcute = false;
+                FrmBoxedDevice.deviceMaching.WExcute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|数据写入成功|");
             }
-            if (FrmBoxedDevice.boxedDeviceModel.Sealbox.Excute && FrmBoxedDevice.boxedDeviceModel.Sealbox.Finsh)
+            if (FrmBoxedDevice.deviceMaching.Sealbox.Excute && FrmBoxedDevice.deviceMaching.Sealbox.Finsh)
             {
-                FrmBoxedDevice.boxedDeviceModel.Sealbox.Excute = false;
+                FrmBoxedDevice.deviceMaching.Sealbox.Excute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|封口执行完成|");
             }
-            if (FrmBoxedDevice.boxedDeviceModel.Outboxs.Excute && FrmBoxedDevice.boxedDeviceModel.Outboxs.Finsh)
+            if (FrmBoxedDevice.deviceMaching.Outboxs.Excute && FrmBoxedDevice.deviceMaching.Outboxs.Finsh)
             {
-                FrmBoxedDevice.boxedDeviceModel.Outboxs.Excute = false;
+                FrmBoxedDevice.deviceMaching.Outboxs.Excute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|出盒执行完成");
             }
-            if (FrmBoxedDevice.boxedDeviceModel.Turntable.Excute && FrmBoxedDevice.boxedDeviceModel.Turntable.Finsh)
+            if (FrmBoxedDevice.deviceMaching.Turntable.Excute && FrmBoxedDevice.deviceMaching.Turntable.Finsh)
             {
-                FrmBoxedDevice.boxedDeviceModel.Turntable.Excute = false;
+                FrmBoxedDevice.deviceMaching.Turntable.Excute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|转盘位移完成|");
             }
-            if (FrmBoxedDevice.boxedDeviceModel.Supplyboxs.Excute && FrmBoxedDevice.boxedDeviceModel.Supplyboxs.Finsh)
+            if (FrmBoxedDevice.deviceMaching.Supplyboxs.Excute && FrmBoxedDevice.deviceMaching.Supplyboxs.Finsh)
             {
-                FrmBoxedDevice.boxedDeviceModel.Supplyboxs.Excute = false;
+                FrmBoxedDevice.deviceMaching.Supplyboxs.Excute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|供盒完成|");
             }
-            if (FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0]!=null && FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].Excute && FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].Finsh)
+            if (FrmBoxedDevice.deviceMaching.AdjustmentStations[0]!=null && FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Excute && FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Finsh)
             {
-                FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].Excute = false;
+                FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Excute = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|下药完成|");
             }
 
@@ -312,26 +312,26 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnDZTSgh_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.Supplyboxs.Excute = true;
+            FrmBoxedDevice.deviceMaching.Supplyboxs.Excute = true;
             lbInfos.Items.Insert(0, DateTime.Now + "|下盒操作成功|");
         }
 
         private void btnDZTSxz_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.ZmoveNumber = 1;
-            FrmBoxedDevice.boxedDeviceModel.Turntable.Excute = true;
+            FrmBoxedDevice.deviceMaching.ZmoveNumber = 1;
+            FrmBoxedDevice.deviceMaching.Turntable.Excute = true;
             lbInfos.Items.Insert(0, DateTime.Now + "|位移操作成功|");
         }
 
         private void btnDZTSfk_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.Sealbox.Excute = true;
+            FrmBoxedDevice.deviceMaching.Sealbox.Excute = true;
             lbInfos.Items.Insert(0, DateTime.Now + "|封口操作成功|");
         }
 
         private void btnDZTSch_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.Outboxs.Excute = true;
+            FrmBoxedDevice.deviceMaching.Outboxs.Excute = true;
             lbInfos.Items.Insert(0, DateTime.Now + "|出盒操作成功|");
         }
 
@@ -341,8 +341,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
             if (d != 0)
             {
-                FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].Data1 = d;
-                FrmBoxedDevice.boxedDeviceModel.AdjustmentStations[0].Excute = true;
+                FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Data1 = d;
+                FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Excute = true;
             }
             else
             {
@@ -353,35 +353,35 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnDZTSfkysxr_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.WDate = (Int16)iudDZTSfkys.Value;
-            FrmBoxedDevice.boxedDeviceModel.WDnumber = 14;
-            FrmBoxedDevice.boxedDeviceModel.WExcute = true;
+            FrmBoxedDevice.deviceMaching.WDate = (Int16)iudDZTSfkys.Value;
+            FrmBoxedDevice.deviceMaching.WDnumber = 14;
+            FrmBoxedDevice.deviceMaching.WExcute = true;
         }
 
         private void btnDZTSfkmjcwxr_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.WDate = (Int16)iudDZTSfkmjcw.Value;
-            FrmBoxedDevice.boxedDeviceModel.WDnumber = 11;
-            FrmBoxedDevice.boxedDeviceModel.WExcute = true;
+            FrmBoxedDevice.deviceMaching.WDate = (Int16)iudDZTSfkmjcw.Value;
+            FrmBoxedDevice.deviceMaching.WDnumber = 11;
+            FrmBoxedDevice.deviceMaching.WExcute = true;
         }
 
         private void btnDZTSfkmfkwxr_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.WDate = (Int16)iudDZTSfkmfkw.Value;
-            FrmBoxedDevice.boxedDeviceModel.WDnumber = 12;
-            FrmBoxedDevice.boxedDeviceModel.WExcute = true;
+            FrmBoxedDevice.deviceMaching.WDate = (Int16)iudDZTSfkmfkw.Value;
+            FrmBoxedDevice.deviceMaching.WDnumber = 12;
+            FrmBoxedDevice.deviceMaching.WExcute = true;
         }
 
         private void btnDZTStmcdxr_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.WDate = (Int16)iudDZTStmcd.Value;
-            FrmBoxedDevice.boxedDeviceModel.WDnumber = 13;
-            FrmBoxedDevice.boxedDeviceModel.WExcute = true;
+            FrmBoxedDevice.deviceMaching.WDate = (Int16)iudDZTStmcd.Value;
+            FrmBoxedDevice.deviceMaching.WDnumber = 13;
+            FrmBoxedDevice.deviceMaching.WExcute = true;
         }
 
         private void btnDZTSsc_Click(object sender, EventArgs e)
         {
-            ReverseBit16(ref FrmBoxedDevice.boxedDeviceModel.WoutY, (byte)(cbDZTS.SelectedIndex + 1), true);
+            ReverseBit16(ref FrmBoxedDevice.deviceMaching.WoutY, (byte)(cbDZTS.SelectedIndex + 1), true);
         }
 
         public Int16 ReverseBit16(ref Int16 tag, byte bitIndex, bool trueORFalse)
@@ -406,7 +406,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnDZTSqbqc_Click(object sender, EventArgs e)
         {
-            FrmBoxedDevice.boxedDeviceModel.WoutY = 0;
+            FrmBoxedDevice.deviceMaching.WoutY = 0;
         }
 
         private void btnKLBHxr_Click(object sender, EventArgs e)
@@ -447,7 +447,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 FrmBoxedDevice.D600[i] = 0;
             }
-            // boxedDeviceModel.WriteLED = true;
+            // deviceMaching.WriteLED = true;
             lbInfos.Items.Insert(0, DateTime.Now + "已关闭全部灯光");
         }
     }

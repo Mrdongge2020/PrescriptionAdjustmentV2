@@ -13,8 +13,8 @@ namespace AdjustmentSys.Tool.Enums
         无 = 0,
         [Description("待称重")]
         待称重 = 1,
-        [Description("待放入")]
-        待放入 = 2,
+        [Description("已称重")]
+        已称重 = 2,
         [Description("待调剂")]
         待调剂 = 3,
         [Description("调剂中")]

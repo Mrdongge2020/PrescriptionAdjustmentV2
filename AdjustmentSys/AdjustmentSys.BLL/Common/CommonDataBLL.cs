@@ -2,6 +2,7 @@
 using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSys.Models.PublicModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,26 @@ namespace AdjustmentSys.BLL.Common
         public (object, object) GetPrescription(int preType, string preId) 
         {
             return _commonDataDAL.GetPrescription(preType, preId);
+        }
+
+        /// <summary>
+        /// 根据rfid获取药柜详情数据
+        /// </summary>
+        /// <param name="rfid">rfid</param>
+        public MedicineCabinetDetail GetMedicineCabinetDetail(int rfid) 
+        {
+            return _commonDataDAL.GetMedicineCabinetDetail(rfid, SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
+        }
+
+        /// <summary>
+        /// 根据rfid获取颗粒字典数据
+        /// </summary>
+        /// <param name="rfid">rfid</param>
+        /// <param name="code">药柜编号</param>
+        /// <returns></returns>
+        public ParticlesInfo GetParticlesInfo(int rfid)
+        {
+            return _commonDataDAL.GetParticlesInfo(rfid, SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
         }
     }
 }

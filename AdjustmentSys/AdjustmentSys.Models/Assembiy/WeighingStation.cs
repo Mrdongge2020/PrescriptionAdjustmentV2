@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Tool.Enums;
+﻿using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,21 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         ///称重重量
         /// </summary>
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         /// <summary>
         /// 颗粒名称
         /// </summary>
         public string ParticlesName { get; set; }
         /// <summary>
-        /// 颗粒状态
+        /// 工位状态
         /// </summary>
-        public StationStatusEnum ParticlesState { get; set; }
+        public WeighingStationStatueEnum State { get; set; }
+        /// <summary>
+        /// 工位状态文本
+        /// </summary>
+        public string StateText { get { return StringHelper.GetEnumDescription(this.State); } }
+
 
     }
 }

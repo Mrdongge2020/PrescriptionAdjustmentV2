@@ -23,6 +23,8 @@ namespace AdjustmentSys.Tool.Enums
         [Description("余量调整")]
         余量调整 = 4,
         [Description("添加药品")]
-        添加药品 = 5
+        添加药品 = 5,
+        [Description("异常上药")]
+        异常上药 = 6
     }
 }

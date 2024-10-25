@@ -5,6 +5,7 @@ using AdjustmentSys.Models.Drug;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -140,6 +141,39 @@ namespace AdjustmentSys.DAL.Common
             }
 
             return (info, details);
+        }
+
+        /// <summary>
+        /// 根据rfid获取药柜详情数据
+        /// </summary>
+        /// <param name="rfid">rfid</param>
+        /// <param name="code">药柜编号</param>
+        /// <returns></returns>
+        public MedicineCabinetDetail GetMedicineCabinetDetail(int rfid,string code)
+        {
+           return (from a in _eFCoreContext.MedicineCabinetDetails
+                    join b in _eFCoreContext.MedicineCabinetInfos
+                    on a.MedicineCabinetId equals b.ID
+                    where b.Code == code && a.RFID == rfid
+                    select a
+                    ).FirstOrDefault();
+        }
+        /// <summary>
+        /// 根据rfid获取颗粒字典数据
+        /// </summary>
+        /// <param name="rfid">rfid</param>
+        /// <param name="code">药柜编号</param>
+        /// <returns></returns>
+        public ParticlesInfo GetParticlesInfo(int rfid, string code)
+        {
+            return (from a in _eFCoreContext.MedicineCabinetDetails
+                    join b in _eFCoreContext.MedicineCabinetInfos
+                    on a.MedicineCabinetId equals b.ID
+                    join c in _eFCoreContext.ParticlesInfos
+                    on a.ParticlesID equals c.ID
+                    where b.Code == code && a.RFID == rfid
+                    select c
+                    ).FirstOrDefault();
         }
     }
 }

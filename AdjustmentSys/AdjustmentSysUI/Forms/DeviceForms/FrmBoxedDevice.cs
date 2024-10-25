@@ -37,12 +37,14 @@ using AdjustmentSys.Models.MakeUp;
 using static System.Windows.Forms.AxHost;
 using System.Net.NetworkInformation;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
+using System.Speech.Synthesis;
+
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
     public partial class FrmBoxedDevice : UIPage
     {
-        //public static MachineBox machineBox = new MachineBox();//设备类
         public static Int16[] D600 = new Int16[28];
         public byte[] B400 = new byte[40];
         public Int16[] D200 = new Int16[20];
@@ -54,6 +56,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         PrescriptionFactory prescriptionFactory = new PrescriptionFactory();
         //public static PreModel deviceMaching.PrescriptionInfo = new PreModel();//调剂中的处方
         public static BoxedDeviceModel deviceMaching = new BoxedDeviceModel();
+        CommonDataBLL commonDataBLL = new CommonDataBLL();
 
         List<SystemParameterInfo> systemParameterList = null;
         public FrmBoxedDevice()
@@ -204,6 +207,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             deviceMaching.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 11);//11#供盒回零完成
             MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
             MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
+            deviceMaching.WeighingStation.Weight = MachinePublic.Weight;//  称重工位重量D252 D253
 
             //异常映射
             deviceMaching.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
@@ -213,9 +217,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             deviceMaching.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8);
             for (int i = 0; i < 8; i++)
             {
-                deviceMaching.AdjustmentStations[i].RfidData = deviceMaching.RFID[i];
+                deviceMaching.AdjustmentStations[i].Rfid = deviceMaching.RFID[i];
             }
             deviceMaching.WeighingStation.ReadRfidData = deviceMaching.RFID[8];
+
             deviceMaching.InX = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
             deviceMaching.Sealbox.InX1 = DataProcessingTool.GetBitValue(deviceMaching.InX, 0);
             deviceMaching.Sealbox.InX2 = DataProcessingTool.GetBitValue(deviceMaching.InX, 1);
@@ -1383,7 +1388,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                     else
                     {
-                        particle.MakeParticleState = MakeParticleStateEnum.待放入;
+                        particle.MakeParticleState = MakeParticleStateEnum.已称重;
                         particle.FishDrugeCount = deviceMaching.AdjustmentStations[i].FishDrugeCount;
                     }
                 }
@@ -1524,7 +1529,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 }
             }
         }
-
 
         #region 界面刷新
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -1673,12 +1677,61 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             else 
             {
-                if (lblGHZT.Text!="等待供盒") 
+                if (lblGHZT.Text!="等待供盒") { lblGHZT.Text = "等待供盒";}
+            }
+
+            if (deviceMaching.Sealbox.Excute)
+            {
+                List<DeviceErrorEnum> fengKou = new List<DeviceErrorEnum>() { DeviceErrorEnum.封口交流电机回零超时, DeviceErrorEnum.封口位没药盒, DeviceErrorEnum.封口未达到封口温度, DeviceErrorEnum.封口机膜到位信号异常 };
+                if (deviceMaching.DeviceErrors.Any(x => fengKou.Contains(x.ErrorType)))
                 {
-                    lblGHZT.Text = "等待供盒";
+                    if (lblGHZT.Text != "封口异常") { lblGHZT.Text = "封口异常"; }
+                    string errorText = string.Join(",", deviceMaching.DeviceErrors.Where(x => fengKou.Contains(x.ErrorType)).Select(x => x.ErrorDecript).ToList());
+                    if (lblGHYC.Text != errorText) { lblGHYC.Text = errorText; }
+                }
+                else
+                {
+                    if (lblGHZT.Text != "正在封口") { lblGHZT.Text = "正在封口"; }
+                    if (lblGHYC.Text != "无") { lblGHYC.Text = "无"; }
                 }
             }
+            else
+            {
+                if (lblGHZT.Text != "等待封口"){ lblGHZT.Text = "等待封口"; }
+            }
+
+            if (deviceMaching.Outboxs.Excute)
+            {
+                List<DeviceErrorEnum> chuHe = new List<DeviceErrorEnum>() { DeviceErrorEnum.出盒交流电机回零超时, DeviceErrorEnum.出盒失败, DeviceErrorEnum.出盒电机超时};
+                if (deviceMaching.DeviceErrors.Any(x => chuHe.Contains(x.ErrorType)))
+                {
+                    if (lblGHZT.Text != "出盒异常") { lblGHZT.Text = "出盒异常"; }
+                    string errorText = string.Join(",", deviceMaching.DeviceErrors.Where(x => chuHe.Contains(x.ErrorType)).Select(x => x.ErrorDecript).ToList());
+                    if (lblGHYC.Text != errorText) { lblGHYC.Text = errorText; }
+                }
+                else
+                {
+                    if (lblGHZT.Text != "正在出盒") { lblGHZT.Text = "正在出盒"; }
+                    if (lblGHYC.Text != "无") { lblGHYC.Text = "无"; }
+                }
+            }
+            else
+            {
+                if (lblGHZT.Text != "等待出盒") { lblGHZT.Text = "等待出盒"; }
+            }
+
+            if (deviceMaching.WeighingStation!=null) 
+            {
+                if (stationWeightPaticleName.Text != deviceMaching.WeighingStation.ParticlesName) { stationWeightPaticleName.Text = deviceMaching.WeighingStation.ParticlesName; }
+
+                if (stationWeightStatus.Text != deviceMaching.WeighingStation.StateText) { stationWeightStatus.Text = deviceMaching.WeighingStation.StateText; }
+                
+                if (stationWeightNumber.Text != deviceMaching.WeighingStation.Weight + "g") { stationWeightNumber.Text = deviceMaching.WeighingStation.Weight + "g"; }
+            }
+
             #endregion
+
+
         }
 
         /// <summary>
@@ -1700,7 +1753,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                     break;
 
-                case MakeParticleStateEnum.待放入:
+                case MakeParticleStateEnum.已称重:
                     {
                       color = Color.HotPink;
                     }
@@ -1729,6 +1782,291 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         #endregion
 
+        #region rfid读取
+        private void Rfid() 
+        {
+            MachinePublic.ReadRfidData = deviceMaching.WeighingStation.ReadRfidData;
+
+            #region 下药工位
+            for (int i = 0; i < 8; i++) //RFID数据的获取
+            {
+                if (deviceMaching.AdjustmentStations[i].Rfid == -1) //调剂工位数据清除
+                {
+                    deviceMaching.AdjustmentStations[i] = new AdjustmentStation();
+                }
+                else 
+                {
+                    string pname = "";
+                    if (deviceMaching.PrescriptionInfo == null)
+                    {
+                        deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.无;
+                    }
+                    else 
+                    {
+                        string  name = deviceMaching.MakePrescriptionParticles.FirstOrDefault(x => x.Rfid == deviceMaching.AdjustmentStations[i].Rfid)?.ParticlesName;
+                        if (string.IsNullOrEmpty(name)) 
+                        {
+                            deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.非处方药品;
+                            var partic = commonDataBLL.GetParticlesInfo(deviceMaching.WeighingStation.ReadRfidData);
+                            name = partic.Name;
+                        }
+                    }
+                    deviceMaching.AdjustmentStations[i].ParticlesName = pname;
+                }
+            }
+            #endregion
+
+            #region 称重工位
+            if (!MachinePublic.WeightState && MachinePublic.Weight <200) { return; }
+
+            if (deviceMaching.WeighingStation.ReadRfidData == -1)
+            {
+                deviceMaching.WeighingStation = new WeighingStation();
+                return;
+            }
+
+            //没有处方？如下操作
+            if (deviceMaching.PrescriptionInfo==null)
+            {
+                var partic = commonDataBLL.GetParticlesInfo(deviceMaching.WeighingStation.ReadRfidData);
+                if (partic != null)
+                {
+                    Speak(partic.Name);
+                }
+                else 
+                {
+                    Speak("该药品不存在");
+                }
+                //获取药柜信息，用于亮灯
+                var mcDetailInfo = commonDataBLL.GetMedicineCabinetDetail(deviceMaching.WeighingStation.ReadRfidData);
+                if (mcDetailInfo != null) 
+                {
+                    LEDlight(mcDetailInfo.CoordinateX, mcDetailInfo.CoordinateY);
+                }
+                return;
+            }
+
+            //有处方，如下操作
+            string parName = "";//颗粒名称
+            //处方中查找颗粒,是否存在?
+            var particlesDetail = deviceMaching.MakePrescriptionParticles.FirstOrDefault(d => d.Rfid == deviceMaching.WeighingStation.ReadRfidData);
+
+            if (particlesDetail != null)
+            {
+                parName = particlesDetail.ParticlesName;
+            }
+            else 
+            {
+                var partic = commonDataBLL.GetParticlesInfo(deviceMaching.WeighingStation.ReadRfidData);
+                if (partic != null) { parName = partic.Name; }
+
+                deviceMaching.WeighingStation.State = WeighingStationStatueEnum.非处方药品;
+            }
+            if (string.IsNullOrEmpty(parName))
+            {
+                Speak("该药品不存在");
+                return;
+            }
+            Speak(parName);
+            if (deviceMaching.WeighingStation.State == WeighingStationStatueEnum.非处方药品) 
+            {
+                Speak("非处方药品");
+                return;
+            }
+
+            if (particlesDetail.MakeParticleState != MakeParticleStateEnum.待称重)
+            {
+                Speak("该药品已称重");
+                return;
+            }
+
+            particlesDetail.MakeParticleState = MakeParticleStateEnum.已称重;
+
+            //获取药柜信息
+            var mcDetail1 = commonDataBLL.GetMedicineCabinetDetail(deviceMaching.WeighingStation.ReadRfidData);
+
+            #region 计算当前称重
+            if (mcDetail1 != null)
+            {
+                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(MachinePublic.Weight - mcDetail1.EmptyBottleWeight.Value, 1));
+            }
+            else
+            {
+                var kongPingZhongLiangStr = systemParameterList.FirstOrDefault(x => x.ParameterName == "KongPingZhongLiang")?.ParameterValue;
+                double kongPingZhongLiang = 200;
+                if (string.IsNullOrEmpty(kongPingZhongLiangStr) && double.TryParse(kongPingZhongLiangStr, out double s))
+                {
+                    kongPingZhongLiang = s;
+                }
+                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(MachinePublic.Weight - kongPingZhongLiang, 1));
+            }
+            #endregion
+
+            particlesDetail.CurrentWeightQuantity = (float)deviceMaching.WeighingStation.Weight;
+
+            //数据检查
+            if (!CheckParticlesDetail(ref mcDetail1, particlesDetail))
+            {
+                return;
+            }
+
+
+            #endregion
+        }
+
+
+        /// <summary>
+        /// 放入称重工位数据检查
+        /// </summary>
+        /// <param name="Detai"></param>
+        /// <returns></returns>
+        private bool CheckParticlesDetail(ref MedicineCabinetDetail mcDetail, MakePrescriptionParticle preParticle)
+        {
+            if (mcDetail.Stock - preParticle.CurrentWeightQuantity > 15 || preParticle.CurrentWeightQuantity - mcDetail.Stock > 10) //用量=0 ，误差量
+            {
+                string strMsg = $"检测到颗粒{preParticle.ParticlesName}有未倒入药品操作，是否将库存校准到{preParticle.CurrentWeightQuantity}g?";
+                if (preParticle.CurrentWeightQuantity - mcDetail.Stock > 10) 
+                {
+                    strMsg = $"检测到颗粒{preParticle.ParticlesName}有倒入药品后未更新库存操作，是否库将存校准到{preParticle.CurrentWeightQuantity}g?";
+                }
+                var anster= ShowAskDialog("警告!", strMsg, UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+                if (!anster) { return false; }
+
+                double labAddWeight = Math.Round(preParticle.CurrentWeightQuantity - mcDetail.Stock.Value, 2);//上药量，此时是负数
+
+                MedicineCabinetOperationLogInfo parLog = new MedicineCabinetOperationLogInfo();
+                //写上药日志信息
+                parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                parLog.CreateTime = DateTime.Now;
+                parLog.ParticleCode = preParticle.ParticlesCode;
+                parLog.ParticleId = mcDetail.RFID.Value;
+                parLog.ParticleName = preParticle.ParticlesName;//item.ParName + (int)item.MedicineCabinetDetail?.RFID % 10000;
+                parLog.InitialQuantity = mcDetail.Stock.Value;
+                parLog.CurrentWeightQuantity = preParticle.CurrentWeightQuantity;
+                parLog.MedicineCabinetOperationLogType = MedicineCabinetOperationLogTypeEnum.添加药品;
+                parLog.UsedQuantity = 0;
+                parLog.AddQuantity = (float)labAddWeight;
+                parLog.AdjustmentQuantity = 0;
+                parLog.OperationLogDecribe = strMsg;
+
+                mcDetail.Stock = preParticle.CurrentWeightQuantity;
+
+                //扣除库存
+                var result = _prescriptionAdjustmentBLL.UpdateMedicineAndLog(new List<MedicineCabinetDetail>() { mcDetail }, new List<MedicineCabinetOperationLogInfo>() { parLog });
+                if (result == "")
+                {
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }
+            }
+            //调整范围
+            if (Math.Abs(1 - mcDetail.DensityCoefficient.Value) > 0.2)
+            {
+                ShowInfoDialog("重要提示!", $"当前颗粒偏差较大,请重新测密度或更换瓶头!");
+                return false;
+
+            }
+            //设置当前状态已称重 并将计算步数
+            if (preParticle.CurrentWeightQuantity < preParticle.NewDose * 2)
+            {
+                ShowInfoDialog("警告!", $"颗粒" + preParticle.ParticlesName + "当前重量已经不足以调剂一剂药，无法进行调剂!");
+                return false;
+            }
+            
+            //判断称重量
+            if (preParticle.CurrentWeightQuantity < 10)
+            {
+                ShowInfoDialog("警告!", $"颗粒" + preParticle.ParticlesName + "当前重量已经低于10克，无法进行调剂!");
+                return false;              
+            }
+
+            return true;
+
+        }
+        /// <summary>
+        /// 语音播报
+        /// </summary>
+        /// <param name="message">语音文字</param>
+        private void Speak(string message)
+        {
+            using (var synthesizer = new SpeechSynthesizer())
+            {
+                synthesizer.Speak(message);
+            }
+        }
+
+        /// <summary>
+        /// 药柜等点亮 或熄灭
+        /// </summary>
+        /// <param name="Cab"></param>
+        public static void LEDlight(int x,int y)
+        {
+            for (int i = 0; i < MachinePublic.WD600.Length; i++)
+            {
+                MachinePublic.WD600[i] = 0;
+            }
+
+
+            byte DBit = (byte)((x) % 16);
+            if (DBit == 0)
+            {
+                DBit = 16;
+            }
+            byte X = (byte)((x) / 17);
+            byte Y = (byte)(Convert.ToByte(y - 1) * 3);
+            byte H = (byte)(Convert.ToInt16(14) - (y - 1));
+            int D = (X + Y);
+            if (DBit < 17 && D < 42)
+            {
+                if (H % 2 == 0)
+                {
+                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+
+                }
+                else
+                {
+                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                }
+            }
+
+
+            int MaxCoordinateX = 48; //灯柜允许最大列
+            int Maxnuber = Convert.ToInt16(SysDeviceInfo._currentDeviceInfo.LargeCabinetCount); //大药柜数量
+            int NowX = 0;
+            if (Maxnuber > 0)
+            {
+                for (int i = 0; i < Maxnuber; i++)
+                {
+                    NowX = MachinePublic.WD600[42 + i] + NowX;
+                    if (NowX <= MaxCoordinateX)
+                    {
+                        MachinePublic.WD600[42 + i] = 16;
+                    }
+                }
+            }
+            int Minnuber = Convert.ToInt16(SysDeviceInfo._currentDeviceInfo.SmallCabinetCount); //小药柜数量
+
+            if (Minnuber > 0)
+            {
+                NowX = Maxnuber * 16;
+                for (int i = 0; i < Minnuber; i++)
+                {
+                    {
+                        NowX = MachinePublic.WD600[42 + Maxnuber + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                        }
+                    }
+                }
+            }
+            MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+            MachinePublic.WD600[50] = 1;
+        }
+        #endregion
 
     }
 }
