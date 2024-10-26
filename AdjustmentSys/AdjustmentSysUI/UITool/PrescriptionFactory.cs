@@ -1,11 +1,14 @@
 ﻿using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.MakeUp;
 using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.TCP;
+using AdjustmentSysUI.Forms.DeviceForms;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AdjustmentSysUI.UITool
@@ -20,6 +24,9 @@ namespace AdjustmentSysUI.UITool
     public class PrescriptionFactory
     {
         PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
+
+        UIPage uipage = new UIPage();
+
         /// <summary>
         /// 扣除下药完成颗粒的库存
         /// </summary>  
@@ -108,61 +115,59 @@ namespace AdjustmentSysUI.UITool
         /// </summary>
         /// <param name="Detail"></param>
         /// <returns></returns>
-        public Int16 DataHandles(ref ConfirmLocalDataPrescriptionDetail Detail, float NowWeight, int box) //当前称的重量
+        public Int16 DataHandles(ref MedicineCabinetDetail mcDetail, MakePrescriptionParticle preParticle, int box) //当前称的重量
         {
             try
             {
-                Detail.CurrentWeightQuantity = (float)Math.Round(NowWeight, 2);
+                //Detail.CurrentWeightQuantity = (float)Math.Round(NowWeight, 2);
                 float Dosel = 0;
                 float l = 1;
-                if (Detail.MedicineCabinetDetail==null) { return 0; } //获取药瓶在药柜的最新信息
-                if (NowWeight > 0)//半自动的校准方法
+                if (mcDetail == null) { return 0; } //获取药瓶在药柜的最新信息
+                if (preParticle.CurrentWeightQuantity > 0)//半自动的校准方法
                 {
+                    NCorrectionFactor(ref mcDetail, preParticle.CurrentWeightQuantity);//修改密度系数
 
-
-                    NCorrectionFactor(ref Detail, NowWeight);//修改密度系数
-
-                    float CoefficientTotalUsedAmount = Convert.ToSingle(NowWeight - Detail.MedicineCabinetDetail.Stock + Detail.MedicineCabinetDetail.TotalErrorAmount);//当前重量-库存量+累计误差量
+                    float CoefficientTotalUsedAmount = Convert.ToSingle(preParticle.CurrentWeightQuantity - mcDetail.Stock + mcDetail.TotalErrorAmount);//当前重量-库存量+累计误差量
 
                     if (Math.Abs(CoefficientTotalUsedAmount) > 0.5) //累计误差量大于0.3 做调整
                     {
                         PIDTool PIDTool = new PIDTool();
-                        PIDTool.PID_Int(Detail, CoefficientTotalUsedAmount, box);
+                        PIDTool.PID_Int(preParticle.NewDose, CoefficientTotalUsedAmount, box);
                         l = PIDTool.PID_Realize();//调整瓶头误差系数>1
                     }
                     else
                     {
                         l = 1;
                     }
-                    //  float AmountUse = Convert.ToSingle(NowWeight - Detail.MedicineCabinetDetail.Stock);//当前重量-库存量=误差量
-                    float Dosetow = Convert.ToSingle(Detail.NewDose * 2);       //本次药盒理论下药量
+                    float Dosetow = Convert.ToSingle(preParticle.NewDose * 2);       //本次药盒理论下药量
                     float OnyTotalUsedAmount = Dosetow * l - Dosetow;//本次一个药盒的整量误差调= 本次药盒理论下药量*本次调整系数-本次药盒理论下药量
-                    Detail.MedicineCabinetDetail.CurentAdjustAmount = (float)Math.Round(OnyTotalUsedAmount * box, 2); ////该处方颗粒的的整量误差调
+                    mcDetail.CurentAdjustAmount = (float)Math.Round(OnyTotalUsedAmount * box, 2); ////该处方颗粒的的整量误差调
                     Dosel = Convert.ToSingle(Dosetow + OnyTotalUsedAmount);//理论重量+瓶头调整量=本次下药重量  +(Dosetow-Dosetow * Detail.MedicineCabinetDetail.DensityCoefficient )); //理论重量+瓶头调整量+系数调整量(理论重量- 密度系数*当前重量)
 
                 }
                 else //全自动的校准方法  
                 {
-                    float CoefficientTotalUsedAmount = Detail.MedicineCabinetDetail.TotalErrorAmount.Value - Detail.MedicineCabinetDetail.BottleHeadAdjustAmount.Value; //累计误差量-累计调整量=当前实际误差量
+                    float CoefficientTotalUsedAmount = mcDetail.TotalErrorAmount.Value - mcDetail.BottleHeadAdjustAmount.Value; //累计误差量-累计调整量=当前实际误差量
                     if (Math.Abs(CoefficientTotalUsedAmount) > 3) //累计误差量大于0.5 做调整
                     {
                         PIDTool PIDTool = new PIDTool();
-                        PIDTool.PID_Int(Detail, CoefficientTotalUsedAmount, box);
+                        PIDTool.PID_Int(preParticle.NewDose, CoefficientTotalUsedAmount, box);
                         l = PIDTool.PID_Realize();//调整瓶头误差系数>1
                     }
                     else
                     {
                         l = 1;
                     }
-                    float Dosetow = Convert.ToSingle(Detail.NewDose * 2);       //本次药盒理论下药量
+                    float Dosetow = Convert.ToSingle(preParticle.NewDose * 2);       //本次药盒理论下药量
                     float OnyTotalUsedAmount = Dosetow * l - Dosetow;//本次一个药盒的整量误差调= 本次药盒理论下药量*本次调整系数-本次药盒理论下药量
-                    Detail.MedicineCabinetDetail.CurentAdjustAmount = OnyTotalUsedAmount * box; ////该处方颗粒的的整量误差调
+                    mcDetail.CurentAdjustAmount = OnyTotalUsedAmount * box; ////该处方颗粒的的整量误差调
                     Dosel = Convert.ToSingle(Dosetow + OnyTotalUsedAmount);//理论重量+瓶头调整量=本次下药重量  +(Dosetow-Dosetow * Detail.MedicineCabinetDetail.DensityCoefficient )); //理论重量+瓶头调整量+系数调整量(理论重量- 密度系数*当前重量)
                 }
-                float Density = Convert.ToSingle(Detail.Density * Detail.DensityCoefficient * Detail.MedicineCabinetDetail.DensityCoefficient);//  Detail.MedicineCabinetDetail.DensityCoefficient * Detail.MedicineCabinetDetail.Density;
+                float Density = Convert.ToSingle(preParticle.Density * mcDetail.DensityCoefficient * preParticle.DensityCoefficient);//  Detail.MedicineCabinetDetail.DensityCoefficient * Detail.MedicineCabinetDetail.Density;
                 if (Density == -1)
                 {
-                    MessageBox.Show("未获取到药品密度信息");
+
+                    uipage.ShowErrorTip("未获取到药品密度信息");
                     return 0;
                 }
                 double MaxWeight = (1.005594 * 10.48) * Density;// //计算出最大重量
@@ -247,31 +252,28 @@ namespace AdjustmentSysUI.UITool
             }
         }
 
-
-        public void NCorrectionFactor(ref ConfirmLocalDataPrescriptionDetail Detail, float Nowweight)
+        /// <summary>
+        /// 调整密度系数
+        /// </summary>
+        /// <param name="Detail">药柜颗粒详情信息</param>
+        /// <param name="Nowweight">当前称重</param>
+        public void NCorrectionFactor(ref MedicineCabinetDetail Detail, float Nowweight)
         {
-            float AmountUse = Convert.ToSingle(Nowweight - Detail.MedicineCabinetDetail.Stock + Detail.MedicineCabinetDetail.BottleHeadAdjustAmount);// 当前系数误差量=当前重量-库存量-瓶头累计调整量
-            float XAmountUse = Convert.ToSingle(AmountUse - Detail.MedicineCabinetDetail.LastCoefficientErrorAmount); //误差量
-            //if (Detail.MedicineCabinetDetail.TotalUsedAmount == 0 &&  Detail.MedicineCabinetDetail.Stock- Nowweight>97)
-            //{
-            //    MessageBox.Show("请将上药的颗粒倒入药瓶", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            float AmountUse = Convert.ToSingle(Nowweight - Detail.Stock + Detail.BottleHeadAdjustAmount);// 当前系数误差量=当前重量-库存量-瓶头累计调整量
+            float XAmountUse = Convert.ToSingle(AmountUse - Detail.LastCoefficientErrorAmount); //误差量
 
-            //}
-
-            if (Detail.MedicineCabinetDetail.Stock == 0 || Nowweight < 10 || Detail.MedicineCabinetDetail.TotalUsedAmount < 0.1)
+            if (Detail.Stock == 0 || Nowweight < 10 || Detail.TotalUsedAmount < 0.1)
             {
                 return;
             }
 
-            float TheMedicineAfterUse = Convert.ToSingle(Detail.MedicineCabinetDetail.TotalUsedAmount);
+            float TheMedicineAfterUse = Convert.ToSingle(Detail.TotalUsedAmount);
             if (Math.Abs(XAmountUse) < 0.3 || Math.Abs(AmountUse) < 0.3)//误差>0.3克开始调整 反之不调整
             {
-                //OperateLog.Write_Adjustment(Detail.ParticlesName, Detail.MedicineCabinetDetail.DensityCoefficient.ToString(), AmountUse.ToString(), TheMedicineAfterUse.ToString(), "不调整"); //写日志
-
                 return;
             }
-            float SourceDensityCoefficien = Convert.ToSingle(Detail.MedicineCabinetDetail.DensityCoefficient);
-            float d = Math.Abs((float)(XAmountUse / Detail.MedicineCabinetDetail.TotalUsedAmount)); //调整系数
+            float SourceDensityCoefficien = Convert.ToSingle(Detail.DensityCoefficient);
+            float d = Math.Abs((float)(XAmountUse / Detail.TotalUsedAmount)); //调整系数
             float l = 0;
             double DensityCoefficient; //密度系数;
             double DensityCoefficienadd; //密度系数增加量;
@@ -286,7 +288,7 @@ namespace AdjustmentSysUI.UITool
                 l = 0.01f;
             }
             DensityCoefficienadd = l * SourceDensityCoefficien;  //最新的密度系数=调整百分比*原始密度
-            if (AmountUse - Detail.MedicineCabinetDetail.LastCoefficientErrorAmount < 0) //实际系数误差量多密度减小    反之密度增加
+            if (AmountUse - Detail.LastCoefficientErrorAmount < 0) //实际系数误差量多密度减小    反之密度增加
             {
                 DensityCoefficient = Math.Round(SourceDensityCoefficien + Math.Abs(DensityCoefficienadd), 3);
             }
@@ -297,42 +299,32 @@ namespace AdjustmentSysUI.UITool
             //调整范围
             if (Math.Abs(1 - DensityCoefficient) > 0.2)
             {
-                if (MessageBox.Show("当前颗粒偏差较大,请重新测密度或更换瓶头!<" + DensityCoefficient.ToString() + ">,是否强制修改系数?", "重要提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    if ((Math.Abs(1 - DensityCoefficient)) < 0.3)
-                    {
-                        Detail.MedicineCabinetDetail.LastCoefficientErrorAmount = AmountUse;
-                        Detail.MedicineCabinetDetail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
-                        Detail.MedicineCabinetDetail.TotalUsedAmount = (float)0.01;
-                        _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail.MedicineCabinetDetail);
-                        //OperateLog.Write_Adjustment(Detail.ParticlesName, DensityCoefficient.ToString(), XAmountUse.ToString(), TheMedicineAfterUse.ToString(), "强制调整"); //写日志
+                var anster = uipage.ShowAskDialog("警告!", "当前颗粒偏差较大, 请重新测密度或更换瓶头! < " + DensityCoefficient.ToString() + " >, 是否强制修改系数 ?", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+                if (!anster) { return; }
 
-                    }
-                    else
-                    {
-                        Detail.MedicineCabinetDetail.LastCoefficientErrorAmount = AmountUse;
-                        Detail.MedicineCabinetDetail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
-                        //         this.SetDensity(Detail.ParticlesID, 0);
-                        Detail.MedicineCabinetDetail.TotalUsedAmount = (float)0.01;
-                        _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail.MedicineCabinetDetail);
-                        //OperateLog.Write_Adjustment(Detail.ParticlesName, DensityCoefficient.ToString(), XAmountUse.ToString(), TheMedicineAfterUse.ToString(), "超出限定范围,强制不调整!"); //写日志
-                        MessageBox.Show("当前颗粒偏差较大,该品种参数已清零,请重新测密度!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                if ((Math.Abs(1 - DensityCoefficient)) < 0.3)
+                {
+                    Detail.LastCoefficientErrorAmount = AmountUse;
+                    Detail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
+                    Detail.TotalUsedAmount = (float)0.01;
+                    _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail);
                 }
                 else
                 {
-                    //OperateLog.Write_Adjustment(Detail.ParticlesName, DensityCoefficient.ToString(), XAmountUse.ToString(), TheMedicineAfterUse.ToString(), "超出后修改被取消"); //写日志
+                    Detail.LastCoefficientErrorAmount = AmountUse;
+                    Detail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
+                    Detail.TotalUsedAmount = (float)0.01;
+                    _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail);
+                    uipage.ShowInfoDialog("重要提示!", $"当前颗粒偏差较大,该品种参数已清零,请重新测密度!");
                 }
             }
             else
             {
-                Detail.MedicineCabinetDetail.LastCoefficientErrorAmount = AmountUse;
-                Detail.MedicineCabinetDetail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
-                Detail.MedicineCabinetDetail.TotalUsedAmount = (float)0.01;
-                _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail.MedicineCabinetDetail);
-                //OperateLog.Write_Adjustment(Detail.ParticlesName, DensityCoefficient.ToString(), XAmountUse.ToString(), TheMedicineAfterUse.ToString(), "正常调整"); //写日志               
+                Detail.LastCoefficientErrorAmount = AmountUse;
+                Detail.DensityCoefficient = Convert.ToSingle(DensityCoefficient);
+                Detail.TotalUsedAmount = (float)0.01;
+                _prescriptionAdjustmentBLL.UpdateMedicineCabinetDetail(Detail);
             }
-            //    ParticlesDictionaries.GetData();    //刷新颗粒字典
         }
 
         #region 本类字段

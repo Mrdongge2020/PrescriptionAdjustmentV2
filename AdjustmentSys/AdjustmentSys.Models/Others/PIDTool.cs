@@ -10,7 +10,7 @@ namespace AdjustmentSys.Tool.TCP
     public class PIDTool
     {
         public PID pid = new PID();
-        public void PID_Int(ConfirmLocalDataPrescriptionDetail Detail, float Dweight, int box)
+        public void PID_Int(float NewDose, float Dweight, int box)
         {
             pid.ActualValue = (Math.Abs(Dweight) - 0.3f) * (Math.Abs(Dweight) / Dweight);
             //pid.err_last = (float)Detail.TotalAmountUse;
@@ -18,7 +18,7 @@ namespace AdjustmentSys.Tool.TCP
             pid.Kp = 0.03f;
             pid.Ki = 0.03f;
             pid.Kd = 0.01f;
-            pid.Nowweight = (float)Detail.NewDose * box * 2;
+            pid.Nowweight = NewDose * box * 2;
 
 
         }

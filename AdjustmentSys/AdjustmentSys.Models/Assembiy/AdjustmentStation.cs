@@ -52,7 +52,7 @@ namespace AdjustmentSys.Models.Assembiy
         /// <summary>
         ///下药脉冲数,转多少
         /// </summary>
-        public int Data1 { get; set; }
+        public int Steper { get; set; }
 
         #region Soft
         /// <summary>

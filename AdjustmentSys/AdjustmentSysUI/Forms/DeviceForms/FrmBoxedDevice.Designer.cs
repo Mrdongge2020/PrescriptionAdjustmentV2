@@ -65,6 +65,9 @@
             StationText = new DataGridViewTextBoxColumn();
             lbOpterMsg = new Sunny.UI.UIListBox();
             dgvDeviceError = new Sunny.UI.UIDataGridView();
+            ErrorType = new DataGridViewTextBoxColumn();
+            ErrorDecript = new DataGridViewTextBoxColumn();
+            Opter = new DataGridViewButtonColumn();
             label1 = new Label();
             label2 = new Label();
             uiTitlePanel3 = new Sunny.UI.UITitlePanel();
@@ -109,9 +112,6 @@
             uiLabel37 = new Sunny.UI.UILabel();
             preRoundProcess = new Sunny.UI.UIRoundProcess();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ErrorType = new DataGridViewTextBoxColumn();
-            ErrorDecript = new DataGridViewTextBoxColumn();
-            Opter = new DataGridViewButtonColumn();
             cmsDownLoad.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -445,6 +445,7 @@
             dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
             dgvDeviceError.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvDeviceError.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvDeviceError.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDeviceError.BackgroundColor = Color.White;
             dgvDeviceError.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -486,6 +487,30 @@
             dgvDeviceError.Size = new Size(518, 215);
             dgvDeviceError.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvDeviceError.TabIndex = 13;
+            // 
+            // ErrorType
+            // 
+            ErrorType.DataPropertyName = "ErrorType";
+            ErrorType.HeaderText = "异常类型";
+            ErrorType.Name = "ErrorType";
+            ErrorType.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ErrorType.Visible = false;
+            // 
+            // ErrorDecript
+            // 
+            ErrorDecript.DataPropertyName = "ErrorDecript";
+            ErrorDecript.HeaderText = "异常信息";
+            ErrorDecript.Name = "ErrorDecript";
+            ErrorDecript.ReadOnly = true;
+            ErrorDecript.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Opter
+            // 
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.NullValue = "复位";
+            Opter.DefaultCellStyle = dataGridViewCellStyle8;
+            Opter.HeaderText = "操作";
+            Opter.Name = "Opter";
             // 
             // label1
             // 
@@ -728,12 +753,13 @@
             // 
             // uC_WorkStationButton5
             // 
-            uC_WorkStationButton5.BackColor = Color.Aquamarine;
-            uC_WorkStationButton5.FillColor = Color.Aquamarine;
+            uC_WorkStationButton5.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton5.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton5.Location = new Point(497, 114);
             uC_WorkStationButton5.MinimumSize = new Size(1, 1);
             uC_WorkStationButton5.Name = "uC_WorkStationButton5";
+            uC_WorkStationButton5.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton5.Size = new Size(155, 95);
             uC_WorkStationButton5.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton5.TabIndex = 28;
@@ -742,12 +768,13 @@
             // 
             // uC_WorkStationButton6
             // 
-            uC_WorkStationButton6.BackColor = Color.Aquamarine;
-            uC_WorkStationButton6.FillColor = Color.Aquamarine;
+            uC_WorkStationButton6.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton6.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton6.Location = new Point(334, 114);
             uC_WorkStationButton6.MinimumSize = new Size(1, 1);
             uC_WorkStationButton6.Name = "uC_WorkStationButton6";
+            uC_WorkStationButton6.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Size = new Size(155, 95);
             uC_WorkStationButton6.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton6.TabIndex = 27;
@@ -756,12 +783,13 @@
             // 
             // uC_WorkStationButton7
             // 
-            uC_WorkStationButton7.BackColor = Color.Aquamarine;
-            uC_WorkStationButton7.FillColor = Color.Aquamarine;
+            uC_WorkStationButton7.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton7.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton7.Location = new Point(171, 114);
             uC_WorkStationButton7.MinimumSize = new Size(1, 1);
             uC_WorkStationButton7.Name = "uC_WorkStationButton7";
+            uC_WorkStationButton7.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton7.Size = new Size(155, 95);
             uC_WorkStationButton7.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton7.TabIndex = 26;
@@ -770,12 +798,13 @@
             // 
             // uC_WorkStationButton8
             // 
-            uC_WorkStationButton8.BackColor = Color.Aquamarine;
-            uC_WorkStationButton8.FillColor = Color.Aquamarine;
+            uC_WorkStationButton8.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton8.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton8.Location = new Point(8, 114);
             uC_WorkStationButton8.MinimumSize = new Size(1, 1);
             uC_WorkStationButton8.Name = "uC_WorkStationButton8";
+            uC_WorkStationButton8.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton8.Size = new Size(155, 95);
             uC_WorkStationButton8.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton8.TabIndex = 25;
@@ -784,12 +813,13 @@
             // 
             // uC_WorkStationButton4
             // 
-            uC_WorkStationButton4.BackColor = Color.Aquamarine;
-            uC_WorkStationButton4.FillColor = Color.Aquamarine;
+            uC_WorkStationButton4.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton4.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton4.Location = new Point(497, 13);
             uC_WorkStationButton4.MinimumSize = new Size(1, 1);
             uC_WorkStationButton4.Name = "uC_WorkStationButton4";
+            uC_WorkStationButton4.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton4.Size = new Size(155, 95);
             uC_WorkStationButton4.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton4.TabIndex = 24;
@@ -798,12 +828,13 @@
             // 
             // uC_WorkStationButton3
             // 
-            uC_WorkStationButton3.BackColor = Color.Aquamarine;
-            uC_WorkStationButton3.FillColor = Color.Aquamarine;
+            uC_WorkStationButton3.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton3.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton3.Location = new Point(334, 13);
             uC_WorkStationButton3.MinimumSize = new Size(1, 1);
             uC_WorkStationButton3.Name = "uC_WorkStationButton3";
+            uC_WorkStationButton3.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton3.Size = new Size(155, 95);
             uC_WorkStationButton3.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton3.TabIndex = 23;
@@ -812,12 +843,13 @@
             // 
             // uC_WorkStationButton2
             // 
-            uC_WorkStationButton2.BackColor = Color.Aquamarine;
-            uC_WorkStationButton2.FillColor = Color.Aquamarine;
+            uC_WorkStationButton2.BackColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton2.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton2.Location = new Point(171, 13);
             uC_WorkStationButton2.MinimumSize = new Size(1, 1);
             uC_WorkStationButton2.Name = "uC_WorkStationButton2";
+            uC_WorkStationButton2.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton2.Size = new Size(155, 95);
             uC_WorkStationButton2.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton2.TabIndex = 22;
@@ -826,8 +858,7 @@
             // 
             // uC_WorkStationButton1
             // 
-            uC_WorkStationButton1.BackColor = Color.Aquamarine;
-            uC_WorkStationButton1.FillColor = Color.Aquamarine;
+            uC_WorkStationButton1.BackColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton1.Location = new Point(8, 13);
             uC_WorkStationButton1.MinimumSize = new Size(1, 1);
@@ -848,11 +879,12 @@
             uiUserControl8.Controls.Add(stationWeightPaticleName);
             uiUserControl8.Controls.Add(stationWeightStatus);
             uiUserControl8.Controls.Add(uiLabel46);
-            uiUserControl8.FillColor = Color.Aquamarine;
+            uiUserControl8.FillColor = Color.FromArgb(192, 192, 255);
             uiUserControl8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiUserControl8.Location = new Point(497, 231);
             uiUserControl8.MinimumSize = new Size(1, 1);
             uiUserControl8.Name = "uiUserControl8";
+            uiUserControl8.RectColor = Color.FromArgb(192, 192, 255);
             uiUserControl8.Size = new Size(157, 111);
             uiUserControl8.Style = Sunny.UI.UIStyle.Custom;
             uiUserControl8.TabIndex = 20;
@@ -861,9 +893,9 @@
             // 
             // uiLabel7
             // 
-            uiLabel7.BackColor = Color.Aquamarine;
+            uiLabel7.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel7.Font = new Font("微软雅黑", 10.5F);
-            uiLabel7.ForeColor = Color.Green;
+            uiLabel7.ForeColor = Color.Black;
             uiLabel7.Location = new Point(4, 83);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(46, 23);
@@ -873,9 +905,9 @@
             // 
             // uiLabel4
             // 
-            uiLabel4.BackColor = Color.Aquamarine;
+            uiLabel4.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel4.Font = new Font("微软雅黑", 10.5F);
-            uiLabel4.ForeColor = Color.Green;
+            uiLabel4.ForeColor = Color.Black;
             uiLabel4.Location = new Point(4, 57);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(46, 23);
@@ -885,9 +917,9 @@
             // 
             // uiLabel3
             // 
-            uiLabel3.BackColor = Color.Aquamarine;
+            uiLabel3.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel3.Font = new Font("微软雅黑", 10.5F);
-            uiLabel3.ForeColor = Color.Green;
+            uiLabel3.ForeColor = Color.Black;
             uiLabel3.Location = new Point(3, 30);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(46, 23);
@@ -897,9 +929,9 @@
             // 
             // stationWeightNumber
             // 
-            stationWeightNumber.BackColor = Color.Aquamarine;
+            stationWeightNumber.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightNumber.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            stationWeightNumber.ForeColor = Color.Green;
+            stationWeightNumber.ForeColor = Color.Black;
             stationWeightNumber.ImageAlign = ContentAlignment.MiddleLeft;
             stationWeightNumber.Location = new Point(56, 83);
             stationWeightNumber.Name = "stationWeightNumber";
@@ -910,9 +942,9 @@
             // 
             // stationWeightPaticleName
             // 
-            stationWeightPaticleName.BackColor = Color.Aquamarine;
+            stationWeightPaticleName.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightPaticleName.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            stationWeightPaticleName.ForeColor = Color.Green;
+            stationWeightPaticleName.ForeColor = Color.Black;
             stationWeightPaticleName.ImageAlign = ContentAlignment.MiddleLeft;
             stationWeightPaticleName.Location = new Point(56, 30);
             stationWeightPaticleName.Name = "stationWeightPaticleName";
@@ -923,9 +955,9 @@
             // 
             // stationWeightStatus
             // 
-            stationWeightStatus.BackColor = Color.Aquamarine;
+            stationWeightStatus.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightStatus.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            stationWeightStatus.ForeColor = Color.Green;
+            stationWeightStatus.ForeColor = Color.Black;
             stationWeightStatus.ImageAlign = ContentAlignment.MiddleLeft;
             stationWeightStatus.Location = new Point(56, 57);
             stationWeightStatus.Name = "stationWeightStatus";
@@ -936,7 +968,7 @@
             // 
             // uiLabel46
             // 
-            uiLabel46.BackColor = Color.Aquamarine;
+            uiLabel46.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel46.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel46.ForeColor = Color.Blue;
             uiLabel46.Location = new Point(16, 4);
@@ -1049,31 +1081,6 @@
             // 
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
-            // 
-            // ErrorType
-            // 
-            ErrorType.DataPropertyName = "ErrorType";
-            ErrorType.HeaderText = "异常类型";
-            ErrorType.Name = "ErrorType";
-            ErrorType.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ErrorType.Visible = false;
-            // 
-            // ErrorDecript
-            // 
-            ErrorDecript.DataPropertyName = "ErrorDecript";
-            ErrorDecript.HeaderText = "异常信息";
-            ErrorDecript.Name = "ErrorDecript";
-            ErrorDecript.ReadOnly = true;
-            ErrorDecript.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ErrorDecript.Width = 375;
-            // 
-            // Opter
-            // 
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.NullValue = "复位";
-            Opter.DefaultCellStyle = dataGridViewCellStyle8;
-            Opter.HeaderText = "操作";
-            Opter.Name = "Opter";
             // 
             // FrmBoxedDevice
             // 

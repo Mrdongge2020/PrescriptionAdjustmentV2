@@ -76,5 +76,15 @@ namespace AdjustmentSys.Models.MakeUp
         /// 提前扣除的库存
         /// </summary>
         public float EarlyDeductionStock { get; set; }
+
+        /// <summary>
+        /// 密度（药品字典）
+        /// </summary>
+        public float Density { get; set; }
+        /// <summary>
+        /// 密度系数（药品字典）
+        /// </summary>
+        public float DensityCoefficient { get; set; }
+        
     }
 }

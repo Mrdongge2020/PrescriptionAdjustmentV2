@@ -341,7 +341,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
             if (d != 0)
             {
-                FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Data1 = d;
+                FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Steper = d;
                 FrmBoxedDevice.deviceMaching.AdjustmentStations[0].Excute = true;
             }
             else

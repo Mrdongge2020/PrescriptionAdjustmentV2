@@ -160,14 +160,14 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             DataProcessingTool.ReverseBit16(ref D200[1], 11, deviceMaching.Supplyboxs.HomeExcute);//11#供盒回零
 
             D200[2] = (short)deviceMaching.ZmoveNumber;
-            D200[3] = (short)deviceMaching.AdjustmentStations[0].Data1;
-            D200[4] = (short)deviceMaching.AdjustmentStations[1].Data1;
-            D200[5] = (short)deviceMaching.AdjustmentStations[2].Data1;
-            D200[6] = (short)deviceMaching.AdjustmentStations[3].Data1;
-            D200[7] = (short)deviceMaching.AdjustmentStations[4].Data1;
-            D200[8] = (short)deviceMaching.AdjustmentStations[5].Data1;
-            D200[9] = (short)deviceMaching.AdjustmentStations[6].Data1;
-            D200[10] = (short)deviceMaching.AdjustmentStations[7].Data1;
+            D200[3] = (short)deviceMaching.AdjustmentStations[0].Steper;
+            D200[4] = (short)deviceMaching.AdjustmentStations[1].Steper;
+            D200[5] = (short)deviceMaching.AdjustmentStations[2].Steper;
+            D200[6] = (short)deviceMaching.AdjustmentStations[3].Steper;
+            D200[7] = (short)deviceMaching.AdjustmentStations[4].Steper;
+            D200[8] = (short)deviceMaching.AdjustmentStations[5].Steper;
+            D200[9] = (short)deviceMaching.AdjustmentStations[6].Steper;
+            D200[10] = (short)deviceMaching.AdjustmentStations[7].Steper;
             D200[11] = (short)(deviceMaching.RestError >> 16);
             D200[12] = (short)(deviceMaching.RestError & 0xFFFF);
 
@@ -695,7 +695,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 Deduct = false,
                 MakeParticleState = MakeParticleStateEnum.待称重,
                 CurrentWeightQuantity = 0,
-                NewDose = 0
+                NewDose = 0,
+                Density=x.Density,
+                DensityCoefficient=x.DensityCoefficient.Value
             }).ToList();
 
             dgvPreDetail.DataSource = deviceMaching.MakePrescriptionParticles;
@@ -753,7 +755,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 //RFIDstate();
                 //backgroundWorker1.ReportProgress(0, ObjMachine);
                 //Savemachine(ObjMachine);
-
+                Rfid();
                 System.Threading.Thread.Sleep(50);
             }
         }
@@ -1803,12 +1805,43 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                     else 
                     {
-                        string  name = deviceMaching.MakePrescriptionParticles.FirstOrDefault(x => x.Rfid == deviceMaching.AdjustmentStations[i].Rfid)?.ParticlesName;
-                        if (string.IsNullOrEmpty(name)) 
+                        var  partic = deviceMaching.MakePrescriptionParticles.FirstOrDefault(x => x.Rfid == deviceMaching.AdjustmentStations[i].Rfid);
+                        if (partic == null)
                         {
                             deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.非处方药品;
-                            var partic = commonDataBLL.GetParticlesInfo(deviceMaching.WeighingStation.ReadRfidData);
-                            name = partic.Name;
+                            var partic1 = commonDataBLL.GetParticlesInfo(deviceMaching.WeighingStation.ReadRfidData);
+                            pname = partic1.Name;
+                        }
+                        else 
+                        {
+                            deviceMaching.AdjustmentStations[i].Steper = partic.Steper;
+                            pname = partic.ParticlesName;
+
+                            if (partic.MakeParticleState== MakeParticleStateEnum.已称重) 
+                            {
+                                partic.MakeParticleState = MakeParticleStateEnum.待调剂;
+                                deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.待调剂;
+                            }
+                            if (deviceMaching.AdjustmentStations[i].FishDrugeCount>0 && deviceMaching.AdjustmentStations[i].FishDrugeCount!=deviceMaching.PrescriptionInfo.BoxNumber)
+                            {
+                                if (CheckBoxsDurgFinish(deviceMaching.AdjustmentStations[i].Rfid))
+                                {
+                                    partic.MakeParticleState = MakeParticleStateEnum.待取出;
+                                    deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.待取走;
+                                }
+                                else
+                                {
+                                    partic.MakeParticleState = MakeParticleStateEnum.调剂中;
+                                    deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.调剂中;
+                                }
+                            }
+
+                            if (deviceMaching.AdjustmentStations[i].FishDrugeCount != deviceMaching.PrescriptionInfo.BoxNumber) 
+                            {
+                                partic.MakeParticleState = MakeParticleStateEnum.调剂完成;
+                                deviceMaching.AdjustmentStations[i].StationState = StationStatusEnum.调剂完成;
+                            }
+
                         }
                     }
                     deviceMaching.AdjustmentStations[i].ParticlesName = pname;
@@ -1910,10 +1943,33 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 return;
             }
 
+            int steper =prescriptionFactory.DataHandles(ref mcDetail1, particlesDetail,deviceMaching.PrescriptionInfo.BoxNumber.Value);
+            if (steper==0) { return; }
+
+            particlesDetail.Steper=steper;
+
 
             #endregion
         }
 
+        /// <summary>
+        /// 判断工位颗粒的本次所有药盒颗粒是否调剂完成
+        /// </summary>
+        /// <param name="Station"></param>
+        /// <returns></returns>
+        private bool CheckBoxsDurgFinish(int rfid) //判断工位颗粒的本次所有药盒颗粒是否调剂完成
+        {
+            var boxs= deviceMaching.Medboxs.Where(x => x.PrescriptionID == deviceMaching.PrescriptionInfo.PrescriptionID).ToList();
+            foreach (var item in boxs)
+            {
+                if (item.ParticlesDetails.Any(x=>x.Rfid== rfid && !x.Fish)) 
+                { 
+                    return false;
+                }
+            }
+            
+            return true;
+        }
 
         /// <summary>
         /// 放入称重工位数据检查
