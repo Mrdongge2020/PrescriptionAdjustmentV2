@@ -91,7 +91,7 @@ namespace AdjustmentSysUI.Forms
 
         private void SetTitle()
         {
-            UIStyles.InitColorful(Color.Green, Color.White);
+            UIStyles.InitColorful(Color.DarkGray, Color.White);
             UIStyles.DPIScale = true;
             UIStyles.GlobalFont = true;
             UIStyles.GlobalFontName = "微软雅黑";

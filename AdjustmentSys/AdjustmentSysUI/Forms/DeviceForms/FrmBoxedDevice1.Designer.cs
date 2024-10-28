@@ -57,7 +57,6 @@
             uC_WorkStationButton4 = new UserControlForms.UC_WorkStationButton();
             uC_WorkStationButton3 = new UserControlForms.UC_WorkStationButton();
             uC_WorkStationButton2 = new UserControlForms.UC_WorkStationButton();
-            uC_WorkStationButton1 = new UserControlForms.UC_WorkStationButton();
             uiUserControl8 = new Sunny.UI.UIUserControl();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel4 = new Sunny.UI.UILabel();
@@ -109,6 +108,7 @@
             ParName = new DataGridViewTextBoxColumn();
             ParticleOrder = new DataGridViewTextBoxColumn();
             dgvPreDetail = new Sunny.UI.UIDataGridView();
+            uC_WorkStationButton1 = new UserControlForms.UC_WorkStationButton();
             uiTitlePanel2.SuspendLayout();
             uiTitlePanel1.SuspendLayout();
             uiPanel1.SuspendLayout();
@@ -292,6 +292,7 @@
             uC_WorkStationButton5.Location = new Point(497, 114);
             uC_WorkStationButton5.MinimumSize = new Size(1, 1);
             uC_WorkStationButton5.Name = "uC_WorkStationButton5";
+            uC_WorkStationButton5.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton5.Size = new Size(155, 95);
             uC_WorkStationButton5.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton5.TabIndex = 28;
@@ -306,6 +307,7 @@
             uC_WorkStationButton6.Location = new Point(334, 114);
             uC_WorkStationButton6.MinimumSize = new Size(1, 1);
             uC_WorkStationButton6.Name = "uC_WorkStationButton6";
+            uC_WorkStationButton6.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Size = new Size(155, 95);
             uC_WorkStationButton6.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton6.TabIndex = 27;
@@ -320,6 +322,7 @@
             uC_WorkStationButton7.Location = new Point(171, 114);
             uC_WorkStationButton7.MinimumSize = new Size(1, 1);
             uC_WorkStationButton7.Name = "uC_WorkStationButton7";
+            uC_WorkStationButton7.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton7.Size = new Size(155, 95);
             uC_WorkStationButton7.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton7.TabIndex = 26;
@@ -334,6 +337,7 @@
             uC_WorkStationButton8.Location = new Point(8, 114);
             uC_WorkStationButton8.MinimumSize = new Size(1, 1);
             uC_WorkStationButton8.Name = "uC_WorkStationButton8";
+            uC_WorkStationButton8.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton8.Size = new Size(155, 95);
             uC_WorkStationButton8.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton8.TabIndex = 25;
@@ -348,6 +352,7 @@
             uC_WorkStationButton4.Location = new Point(497, 13);
             uC_WorkStationButton4.MinimumSize = new Size(1, 1);
             uC_WorkStationButton4.Name = "uC_WorkStationButton4";
+            uC_WorkStationButton4.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton4.Size = new Size(155, 95);
             uC_WorkStationButton4.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton4.TabIndex = 24;
@@ -362,6 +367,7 @@
             uC_WorkStationButton3.Location = new Point(334, 13);
             uC_WorkStationButton3.MinimumSize = new Size(1, 1);
             uC_WorkStationButton3.Name = "uC_WorkStationButton3";
+            uC_WorkStationButton3.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton3.Size = new Size(155, 95);
             uC_WorkStationButton3.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton3.TabIndex = 23;
@@ -376,25 +382,12 @@
             uC_WorkStationButton2.Location = new Point(171, 13);
             uC_WorkStationButton2.MinimumSize = new Size(1, 1);
             uC_WorkStationButton2.Name = "uC_WorkStationButton2";
+            uC_WorkStationButton2.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton2.Size = new Size(155, 95);
             uC_WorkStationButton2.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton2.TabIndex = 22;
             uC_WorkStationButton2.Text = "uC_WorkStationButton2";
             uC_WorkStationButton2.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // uC_WorkStationButton1
-            // 
-            uC_WorkStationButton1.BackColor = Color.Aquamarine;
-            uC_WorkStationButton1.FillColor = Color.Aquamarine;
-            uC_WorkStationButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uC_WorkStationButton1.Location = new Point(8, 13);
-            uC_WorkStationButton1.MinimumSize = new Size(1, 1);
-            uC_WorkStationButton1.Name = "uC_WorkStationButton1";
-            uC_WorkStationButton1.Size = new Size(155, 95);
-            uC_WorkStationButton1.Style = Sunny.UI.UIStyle.Custom;
-            uC_WorkStationButton1.TabIndex = 21;
-            uC_WorkStationButton1.Text = "uC_WorkStationButton1";
-            uC_WorkStationButton1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiUserControl8
             // 
@@ -1040,6 +1033,21 @@
             dgvPreDetail.Size = new Size(425, 469);
             dgvPreDetail.TabIndex = 24;
             // 
+            // uC_WorkStationButton1
+            // 
+            uC_WorkStationButton1.BackColor = Color.Aquamarine;
+            uC_WorkStationButton1.FillColor = Color.Aquamarine;
+            uC_WorkStationButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uC_WorkStationButton1.Location = new Point(8, 13);
+            uC_WorkStationButton1.MinimumSize = new Size(1, 1);
+            uC_WorkStationButton1.Name = "uC_WorkStationButton1";
+            uC_WorkStationButton1.RectColor = Color.FromArgb(192, 192, 255);
+            uC_WorkStationButton1.Size = new Size(155, 95);
+            uC_WorkStationButton1.Style = Sunny.UI.UIStyle.Custom;
+            uC_WorkStationButton1.TabIndex = 21;
+            uC_WorkStationButton1.Text = "uC_WorkStationButton1";
+            uC_WorkStationButton1.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
             // FrmBoxedDevice1
             // 
             AllowShowTitle = true;
@@ -1097,7 +1105,6 @@
         private UserControlForms.UC_WorkStationButton uC_WorkStationButton4;
         private UserControlForms.UC_WorkStationButton uC_WorkStationButton3;
         private UserControlForms.UC_WorkStationButton uC_WorkStationButton2;
-        private UserControlForms.UC_WorkStationButton uC_WorkStationButton1;
         private Sunny.UI.UIUserControl uiUserControl8;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel4;
@@ -1149,5 +1156,6 @@
         private DataGridViewTextBoxColumn ParName;
         private DataGridViewTextBoxColumn ParticleOrder;
         private Sunny.UI.UIDataGridView dgvPreDetail;
+        private UserControlForms.UC_WorkStationButton uC_WorkStationButton1;
     }
 }

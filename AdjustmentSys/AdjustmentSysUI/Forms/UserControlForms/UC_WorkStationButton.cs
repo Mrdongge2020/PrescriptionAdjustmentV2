@@ -44,20 +44,20 @@ namespace AdjustmentSysUI.Forms.UserControlForms
             {
                 case StationStatusEnum.无:
                 case StationStatusEnum.待放入:
-                    this.fillColor=Color.Green;
+                    this.lblStatus.ForeColor = Color.Black;
                     break;
                 case StationStatusEnum.待调剂:
-                    this.fillColor = Color.GreenYellow; 
+                    this.lblStatus.ForeColor = Color.Green; 
                     break;
                 case StationStatusEnum.调剂中:
-                    this.fillColor = Color.Orange;
+                    this.lblStatus.ForeColor = Color.Orange;
                     break;
                 case StationStatusEnum.待取走:
-                    this.fillColor = Color.Olive;
+                    this.lblStatus.ForeColor = Color.Yellow;
                     break;
                 case StationStatusEnum.回零中:
                 case StationStatusEnum.回零完成:
-                    this.fillColor = Color.PaleGreen;
+                    this.lblStatus.ForeColor = Color.PaleGreen;
                     break;
                 //case StationStatusEnum.被禁用:
                 //    lblStatus.ForeColor = Color.BlanchedAlmond;

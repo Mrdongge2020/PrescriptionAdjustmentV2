@@ -51,9 +51,9 @@
             // 
             // uiLabel24
             // 
-            uiLabel24.BackColor = Color.Aquamarine;
+            uiLabel24.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel24.Font = new Font("微软雅黑", 10.5F);
-            uiLabel24.ForeColor = Color.Green;
+            uiLabel24.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel24.Location = new Point(3, 36);
             uiLabel24.Name = "uiLabel24";
             uiLabel24.Size = new Size(42, 23);
@@ -63,9 +63,9 @@
             // 
             // uiLabel1
             // 
-            uiLabel1.BackColor = Color.Aquamarine;
+            uiLabel1.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel1.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel1.ForeColor = Color.Green;
+            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new Point(3, 58);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(42, 23);
@@ -75,21 +75,22 @@
             // 
             // lblParticleName
             // 
-            lblParticleName.BackColor = Color.Aquamarine;
+            lblParticleName.BackColor = Color.FromArgb(192, 192, 255);
             lblParticleName.Font = new Font("微软雅黑", 10.5F);
-            lblParticleName.ForeColor = Color.Green;
+            lblParticleName.ForeColor = Color.FromArgb(48, 48, 48);
             lblParticleName.Location = new Point(43, 36);
             lblParticleName.Name = "lblParticleName";
             lblParticleName.Size = new Size(107, 23);
+            lblParticleName.Style = Sunny.UI.UIStyle.Custom;
             lblParticleName.TabIndex = 9;
             lblParticleName.Text = "天江炒王不留行";
             lblParticleName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblStatus
             // 
-            lblStatus.BackColor = Color.Aquamarine;
+            lblStatus.BackColor = Color.FromArgb(192, 192, 255);
             lblStatus.Font = new Font("微软雅黑", 10.5F);
-            lblStatus.ForeColor = Color.Green;
+            lblStatus.ForeColor = Color.FromArgb(48, 48, 48);
             lblStatus.Location = new Point(43, 58);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(107, 23);
@@ -99,13 +100,12 @@
             // 
             // lblStationName
             // 
-            lblStationName.BackColor = Color.Aquamarine;
+            lblStationName.BackColor = Color.FromArgb(192, 192, 255);
             lblStationName.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            lblStationName.ForeColor = Color.Blue;
+            lblStationName.ForeColor = Color.FromArgb(48, 48, 48);
             lblStationName.Location = new Point(43, 6);
             lblStationName.Name = "lblStationName";
             lblStationName.Size = new Size(59, 23);
-            lblStationName.Style = Sunny.UI.UIStyle.Custom;
             lblStationName.TabIndex = 11;
             lblStationName.Text = "工位1";
             lblStationName.TextAlign = ContentAlignment.MiddleCenter;
@@ -113,15 +113,19 @@
             // UC_WorkStationButton
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.FromArgb(192, 192, 255);
             Controls.Add(lblStationName);
             Controls.Add(lblStatus);
             Controls.Add(lblParticleName);
             Controls.Add(uiLabel1);
             Controls.Add(uiLabel24);
             Controls.Add(pbProcess);
-            FillColor = Color.Aquamarine;
+            FillColor = Color.FromArgb(192, 192, 255);
+            ForeColor = Color.FromArgb(192, 192, 255);
             Name = "UC_WorkStationButton";
+            RectColor = Color.FromArgb(192, 192, 255);
             Size = new Size(155, 95);
+            Style = Sunny.UI.UIStyle.Custom;
             ResumeLayout(false);
         }
 
