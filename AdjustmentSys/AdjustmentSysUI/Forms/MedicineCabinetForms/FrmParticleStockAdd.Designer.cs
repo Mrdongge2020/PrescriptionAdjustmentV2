@@ -41,7 +41,7 @@
             label2 = new Label();
             label3 = new Label();
             label6 = new Label();
-            btnSB = new Sunny.UI.UIButton();
+            btnSBTM = new Sunny.UI.UIButton();
             txtBZTM = new Sunny.UI.UITextBox();
             label7 = new Label();
             dtpDQRQ = new Sunny.UI.UIDatePicker();
@@ -51,10 +51,8 @@
             btnOK = new Sunny.UI.UISymbolButton();
             uiLine1 = new Sunny.UI.UILine();
             timerParticleStockAdd = new System.Windows.Forms.Timer(components);
-            label9 = new Label();
-            label10 = new Label();
-            label11 = new Label();
-            label12 = new Label();
+            label13 = new Label();
+            lblBatch = new Sunny.UI.UITextBox();
             SuspendLayout();
             // 
             // lblSYZL
@@ -67,10 +65,10 @@
             lblSYZL.LinkColor = Color.Red;
             lblSYZL.Location = new Point(126, 146);
             lblSYZL.Name = "lblSYZL";
-            lblSYZL.Size = new Size(86, 21);
+            lblSYZL.Size = new Size(19, 21);
             lblSYZL.TabIndex = 47;
             lblSYZL.TabStop = true;
-            lblSYZL.Text = "linkLabel1";
+            lblSYZL.Text = "0";
             // 
             // lblKCYL
             // 
@@ -81,10 +79,10 @@
             lblKCYL.LinkColor = Color.FromArgb(64, 64, 64);
             lblKCYL.Location = new Point(126, 102);
             lblKCYL.Name = "lblKCYL";
-            lblKCYL.Size = new Size(86, 21);
+            lblKCYL.Size = new Size(19, 21);
             lblKCYL.TabIndex = 46;
             lblKCYL.TabStop = true;
-            lblKCYL.Text = "linkLabel1";
+            lblKCYL.Text = "0";
             // 
             // lblParticleName
             // 
@@ -95,10 +93,10 @@
             lblParticleName.LinkColor = Color.FromArgb(64, 64, 64);
             lblParticleName.Location = new Point(126, 57);
             lblParticleName.Name = "lblParticleName";
-            lblParticleName.Size = new Size(86, 21);
+            lblParticleName.Size = new Size(26, 21);
             lblParticleName.TabIndex = 45;
             lblParticleName.TabStop = true;
-            lblParticleName.Text = "linkLabel1";
+            lblParticleName.Text = "无";
             // 
             // lblTZZL
             // 
@@ -109,10 +107,10 @@
             lblTZZL.LinkColor = Color.FromArgb(64, 64, 64);
             lblTZZL.Location = new Point(367, 146);
             lblTZZL.Name = "lblTZZL";
-            lblTZZL.Size = new Size(86, 21);
+            lblTZZL.Size = new Size(19, 21);
             lblTZZL.TabIndex = 51;
             lblTZZL.TabStop = true;
-            lblTZZL.Text = "linkLabel1";
+            lblTZZL.Text = "0";
             // 
             // lblDQCZ
             // 
@@ -123,10 +121,10 @@
             lblDQCZ.LinkColor = Color.FromArgb(64, 64, 64);
             lblDQCZ.Location = new Point(367, 102);
             lblDQCZ.Name = "lblDQCZ";
-            lblDQCZ.Size = new Size(86, 21);
+            lblDQCZ.Size = new Size(19, 21);
             lblDQCZ.TabIndex = 50;
             lblDQCZ.TabStop = true;
-            lblDQCZ.Text = "linkLabel1";
+            lblDQCZ.Text = "0";
             // 
             // label4
             // 
@@ -207,21 +205,21 @@
             label6.TabIndex = 54;
             label6.Text = "颗粒厂家：";
             // 
-            // btnSB
+            // btnSBTM
             // 
-            btnSB.Enabled = false;
-            btnSB.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSB.Location = new Point(471, 229);
-            btnSB.MinimumSize = new Size(1, 1);
-            btnSB.Name = "btnSB";
-            btnSB.Size = new Size(96, 29);
-            btnSB.TabIndex = 79;
-            btnSB.Text = "识别条码";
-            btnSB.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSBTM.Enabled = false;
+            btnSBTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSBTM.Location = new Point(471, 229);
+            btnSBTM.MinimumSize = new Size(1, 1);
+            btnSBTM.Name = "btnSBTM";
+            btnSBTM.Size = new Size(96, 29);
+            btnSBTM.TabIndex = 79;
+            btnSBTM.Text = "识别条码";
+            btnSBTM.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSBTM.Click += btnSBTM_Click;
             // 
             // txtBZTM
             // 
-            txtBZTM.Enabled = false;
             txtBZTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             txtBZTM.Location = new Point(126, 229);
             txtBZTM.Margin = new Padding(4, 5, 4, 5);
@@ -256,7 +254,7 @@
             dtpDQRQ.Name = "dtpDQRQ";
             dtpDQRQ.Padding = new Padding(0, 0, 30, 2);
             dtpDQRQ.ShowToday = true;
-            dtpDQRQ.Size = new Size(150, 29);
+            dtpDQRQ.Size = new Size(112, 29);
             dtpDQRQ.SymbolDropDown = 61555;
             dtpDQRQ.SymbolNormal = 61555;
             dtpDQRQ.SymbolSize = 24;
@@ -270,7 +268,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("微软雅黑", 12F);
-            label8.Location = new Point(24, 277);
+            label8.Location = new Point(24, 281);
             label8.Name = "label8";
             label8.Size = new Size(90, 21);
             label8.TabIndex = 82;
@@ -303,9 +301,11 @@
             btnCancel.TabStop = false;
             btnCancel.Text = "取 消";
             btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
+            btnOK.Enabled = false;
             btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnOK.Location = new Point(305, 470);
             btnOK.MinimumSize = new Size(1, 1);
@@ -314,6 +314,7 @@
             btnOK.TabIndex = 85;
             btnOK.Text = "确定添加";
             btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
             // 
             // uiLine1
             // 
@@ -331,54 +332,36 @@
             timerParticleStockAdd.Interval = 500;
             timerParticleStockAdd.Tick += timerParticleStockAdd_Tick;
             // 
-            // label9
+            // label13
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("微软雅黑", 12F);
-            label9.Location = new Point(218, 102);
-            label9.Name = "label9";
-            label9.Size = new Size(20, 21);
-            label9.TabIndex = 94;
-            label9.Text = "g";
+            label13.AutoSize = true;
+            label13.Font = new Font("微软雅黑", 12F);
+            label13.Location = new Point(303, 281);
+            label13.Name = "label13";
+            label13.Size = new Size(58, 21);
+            label13.TabIndex = 98;
+            label13.Text = "批号：";
             // 
-            // label10
+            // lblBatch
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("微软雅黑", 12F);
-            label10.Location = new Point(218, 146);
-            label10.Name = "label10";
-            label10.Size = new Size(20, 21);
-            label10.TabIndex = 95;
-            label10.Text = "g";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("微软雅黑", 12F);
-            label11.Location = new Point(452, 102);
-            label11.Name = "label11";
-            label11.Size = new Size(20, 21);
-            label11.TabIndex = 96;
-            label11.Text = "g";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("微软雅黑", 12F);
-            label12.Location = new Point(452, 146);
-            label12.Name = "label12";
-            label12.Size = new Size(20, 21);
-            label12.TabIndex = 97;
-            label12.Text = "g";
+            lblBatch.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblBatch.Location = new Point(367, 277);
+            lblBatch.Margin = new Padding(4, 5, 4, 5);
+            lblBatch.MinimumSize = new Size(1, 16);
+            lblBatch.Name = "lblBatch";
+            lblBatch.Padding = new Padding(5);
+            lblBatch.ShowText = false;
+            lblBatch.Size = new Size(200, 29);
+            lblBatch.TabIndex = 99;
+            lblBatch.TextAlignment = ContentAlignment.MiddleLeft;
+            lblBatch.Watermark = "";
             // 
             // FrmParticleStockAdd
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(592, 533);
-            Controls.Add(label12);
-            Controls.Add(label11);
-            Controls.Add(label10);
-            Controls.Add(label9);
+            Controls.Add(lblBatch);
+            Controls.Add(label13);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(uiLine1);
@@ -386,7 +369,7 @@
             Controls.Add(label8);
             Controls.Add(dtpDQRQ);
             Controls.Add(label7);
-            Controls.Add(btnSB);
+            Controls.Add(btnSBTM);
             Controls.Add(txtBZTM);
             Controls.Add(label6);
             Controls.Add(cbCJ);
@@ -406,6 +389,7 @@
             Text = "颗粒库存添加";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
+            FormClosed += FrmParticleStockAdd_FormClosed;
             Load += FrmParticleStockAdd_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -425,7 +409,7 @@
         private Label label2;
         private Label label3;
         private Label label6;
-        private Sunny.UI.UIButton btnSB;
+        private Sunny.UI.UIButton btnSBTM;
         private Sunny.UI.UITextBox txtBZTM;
         private Label label7;
         private Sunny.UI.UIDatePicker dtpDQRQ;
@@ -435,9 +419,7 @@
         private Sunny.UI.UISymbolButton btnOK;
         private Sunny.UI.UILine uiLine1;
         private System.Windows.Forms.Timer timerParticleStockAdd;
-        private Label label9;
-        private Label label10;
-        private Label label11;
-        private Label label12;
+        private Label label13;
+        private Sunny.UI.UITextBox lblBatch;
     }
 }

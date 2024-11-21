@@ -289,6 +289,13 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void btnRefc_Click(object sender, EventArgs e)
         {
+            Refc();
+        }
+        /// <summary>
+        /// 刷新药柜数据
+        /// </summary>
+        private void Refc() 
+        {
             dgvList.Columns.Clear();
             dgvList.Rows.Clear();
             InitData();
@@ -375,6 +382,13 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             FrmParticleStockAdd frmParticleStockAdd = new FrmParticleStockAdd();
             frmParticleStockAdd.ShowDialog();
+            bool isSuccessed = frmParticleStockAdd.isSuccess;
+            if (isSuccessed)
+            {
+                ShowSuccessTip("上药操作成功");
+                Refc();
+            }
+
         }
 
         private void 余量调整ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -387,6 +401,13 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             FrmStockSet frmStockSet = new FrmStockSet();
             frmStockSet.ShowDialog();
+            bool isSuccessed = frmStockSet.isSuccess;
+            if (isSuccessed)
+            {
+                ShowSuccessTip("库存设置操作成功");
+                Refc();
+            }
+
         }
 
         private void 导出颗粒位置Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)

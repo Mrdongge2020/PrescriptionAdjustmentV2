@@ -76,7 +76,14 @@ namespace AdjustmentSys.BLL.Common
         { 
             return _commonDataDAL.GetManufacturerInfos();
         }
-
+        /// <summary>
+        /// 获取所有厂家解析码信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ManufacturerResolutionCode> GetManufacturerCodes(int mid=0) 
+        {
+            return _commonDataDAL.GetManufacturerCodes(mid);
+        }
         /// <summary>
         /// 获取处方信息
         /// </summary>

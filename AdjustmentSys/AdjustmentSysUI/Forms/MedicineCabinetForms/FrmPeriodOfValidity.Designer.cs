@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            label4 = new Label();
-            cbMonth = new Sunny.UI.UIComboBox();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             label1 = new Label();
             dateTimeEnd = new Sunny.UI.UIDatePicker();
             btnQuery = new Sunny.UI.UIButton();
@@ -46,51 +44,21 @@
             uiLabel1 = new Sunny.UI.UILabel();
             cblisDurg = new Sunny.UI.UIComboBox();
             lblCount = new Sunny.UI.UILabel();
+            dateTimeStart = new Sunny.UI.UIDatePicker();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             uiGroupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("微软雅黑", 10.5F);
-            label4.Location = new Point(11, 52);
-            label4.Name = "label4";
-            label4.Size = new Size(79, 20);
-            label4.TabIndex = 59;
-            label4.Text = "到期月份：";
-            label4.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // cbMonth
-            // 
-            cbMonth.DataSource = null;
-            cbMonth.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
-            cbMonth.FillColor = Color.White;
-            cbMonth.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cbMonth.ItemHoverColor = Color.FromArgb(155, 200, 255);
-            cbMonth.Items.AddRange(new object[] { "--请选择--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "18", "24", "30", "36" });
-            cbMonth.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbMonth.Location = new Point(103, 48);
-            cbMonth.Margin = new Padding(4, 5, 4, 5);
-            cbMonth.MinimumSize = new Size(63, 0);
-            cbMonth.Name = "cbMonth";
-            cbMonth.Padding = new Padding(0, 0, 30, 2);
-            cbMonth.Size = new Size(150, 29);
-            cbMonth.SymbolSize = 24;
-            cbMonth.TabIndex = 60;
-            cbMonth.TextAlignment = ContentAlignment.MiddleLeft;
-            cbMonth.Watermark = "";
-            cbMonth.SelectedValueChanged += cbMonth_SelectedValueChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("微软雅黑", 10.5F);
-            label1.Location = new Point(295, 52);
+            label1.Location = new Point(7, 53);
             label1.Name = "label1";
-            label1.Size = new Size(65, 20);
+            label1.Size = new Size(44, 20);
             label1.TabIndex = 61;
-            label1.Text = "效期至：";
+            label1.Text = "效期 :";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // dateTimeEnd
@@ -98,7 +66,7 @@
             dateTimeEnd.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dateTimeEnd.FillColor = Color.White;
             dateTimeEnd.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dateTimeEnd.Location = new Point(371, 48);
+            dateTimeEnd.Location = new Point(251, 49);
             dateTimeEnd.Margin = new Padding(4, 5, 4, 5);
             dateTimeEnd.MaxLength = 10;
             dateTimeEnd.MinimumSize = new Size(63, 0);
@@ -118,7 +86,7 @@
             // btnQuery
             // 
             btnQuery.Font = new Font("微软雅黑", 12F);
-            btnQuery.Location = new Point(555, 48);
+            btnQuery.Location = new Point(426, 49);
             btnQuery.MinimumSize = new Size(1, 1);
             btnQuery.Name = "btnQuery";
             btnQuery.Size = new Size(77, 29);
@@ -133,45 +101,45 @@
             dgvList.AllowUserToDeleteRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.ColumnHeadersHeight = 32;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
             dgvList.Location = new Point(5, 87);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvList.RowHeadersWidth = 80;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvList.SelectedIndex = -1;
             dgvList.ShowEditingIcon = false;
             dgvList.Size = new Size(676, 297);
@@ -285,18 +253,51 @@
             lblCount.Text = "共50条数据";
             lblCount.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // dateTimeStart
+            // 
+            dateTimeStart.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            dateTimeStart.FillColor = Color.White;
+            dateTimeStart.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dateTimeStart.Location = new Point(62, 49);
+            dateTimeStart.Margin = new Padding(4, 5, 4, 5);
+            dateTimeStart.MaxLength = 10;
+            dateTimeStart.MinimumSize = new Size(63, 0);
+            dateTimeStart.Name = "dateTimeStart";
+            dateTimeStart.Padding = new Padding(0, 0, 30, 2);
+            dateTimeStart.ShowToday = true;
+            dateTimeStart.Size = new Size(150, 29);
+            dateTimeStart.SymbolDropDown = 61555;
+            dateTimeStart.SymbolNormal = 61555;
+            dateTimeStart.SymbolSize = 24;
+            dateTimeStart.TabIndex = 87;
+            dateTimeStart.Text = "2024-07-01";
+            dateTimeStart.TextAlignment = ContentAlignment.MiddleLeft;
+            dateTimeStart.Value = new DateTime(2024, 7, 1, 16, 18, 24, 274);
+            dateTimeStart.Watermark = "";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("微软雅黑", 10.5F);
+            label3.Location = new Point(223, 53);
+            label3.Name = "label3";
+            label3.Size = new Size(23, 20);
+            label3.TabIndex = 88;
+            label3.Text = "至";
+            label3.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // FrmPeriodOfValidity
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(687, 516);
+            Controls.Add(label3);
+            Controls.Add(dateTimeStart);
+            Controls.Add(dateTimeEnd);
             Controls.Add(lblCount);
             Controls.Add(uiGroupBox1);
             Controls.Add(dgvList);
             Controls.Add(btnQuery);
-            Controls.Add(dateTimeEnd);
             Controls.Add(label1);
-            Controls.Add(cbMonth);
-            Controls.Add(label4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmPeriodOfValidity";
@@ -311,9 +312,6 @@
         }
 
         #endregion
-
-        private Label label4;
-        private Sunny.UI.UIComboBox cbMonth;
         private Label label1;
         private Sunny.UI.UIDatePicker dateTimeEnd;
         private Sunny.UI.UIButton btnQuery;
@@ -325,5 +323,7 @@
         private Label label2;
         private Sunny.UI.UIButton btnSave;
         private Sunny.UI.UILabel lblCount;
+        private Sunny.UI.UIDatePicker dateTimeStart;
+        private Label label3;
     }
 }

@@ -25,20 +25,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             InitDgvFormat();
         }
 
-        private void cbMonth_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cbMonth.SelectedIndex == 0)
-            {
-                this.dateTimeEnd.Value = DateTime.Now.Date.AddMonths(1);
-            }
-            else
-            {
-                this.dateTimeEnd.Value = DateTime.Now.Date.AddMonths(Convert.ToInt32(cbMonth.SelectedItem));
-            }
-        }
+       
 
         private void FrmPeriodOfValidity_Load(object sender, EventArgs e)
         {
+            dateTimeStart.Value = DateTime.Now.Date;
             dateTimeEnd.Value = DateTime.Now.Date.AddMonths(1);
             var durgDLData = _comboxDataBLL.GetCabinetParticlesComboxData();
             cblisDurg.ValueMember = "Id";
@@ -77,8 +68,9 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void QueryData()
         {
-            DateTime dateTime = dateTimeEnd.Value;
-            var data = _medicineCabinetDrugManageBLL.GetMedicineCabinetValidity(dateTime);
+            DateTime sdateTime = dateTimeStart.Value;
+            DateTime edateTime = dateTimeEnd.Value;
+            var data = _medicineCabinetDrugManageBLL.GetMedicineCabinetValidity(sdateTime,edateTime);
             dgvList.DataSource = data;
             dgvList.TopLeftHeaderCell.Value = "序号("+ data.Count.ToString() + ")";
         }

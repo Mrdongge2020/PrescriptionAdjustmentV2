@@ -61,9 +61,9 @@ namespace AdjustmentSys.BLL.MedicineCabinet
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime dateTime)
+        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime sdateTime, DateTime edateTime)
         { 
-            return medicineCabinetDrugManageDAL.GetMedicineCabinetValidity(dateTime);
+            return medicineCabinetDrugManageDAL.GetMedicineCabinetValidity(sdateTime,edateTime);
         }
 
         /// <summary>
@@ -176,6 +176,18 @@ namespace AdjustmentSys.BLL.MedicineCabinet
             }
             //批量更新
             return medicineCabinetDrugManageDAL.UpdateRangeCabinetDetails(updateMedicineCabinetDetails);
+        }
+
+        /// <summary>
+        /// 添加颗粒库存
+        /// </summary>
+        /// <param name="par">颗粒</param>
+        /// <param name="med">药柜</param>
+        /// <param name="mcol">药柜颗粒操作记录</param>
+        /// <returns></returns>
+        public string AddParticleNum(ParticlesInfo par,MedicineCabinetDetail med, MedicineCabinetOperationLogInfo mcol) 
+        {
+            return medicineCabinetDrugManageDAL.AddParticleNum(par,med,mcol);
         }
     }
 }

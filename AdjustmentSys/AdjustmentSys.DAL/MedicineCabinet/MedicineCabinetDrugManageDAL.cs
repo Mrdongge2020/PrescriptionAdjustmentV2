@@ -100,9 +100,7 @@ namespace AdjustmentSys.DAL.MedicineCabinet
         /// <summary>
         /// 获取颗粒有效期列表
         /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime dateTime)
+        public List<MedicineCabinetValidityModel> GetMedicineCabinetValidity(DateTime sdateTime, DateTime edateTime)
         {
             string sql = $@" SELECT
 			                        c.Code AS ParticleCode,
@@ -112,7 +110,7 @@ namespace AdjustmentSys.DAL.MedicineCabinet
                              FROM MedicineCabinetDetail AS a
                              JOIN MedicineCabinetInfo AS b ON a.MedicineCabinetId= b.ID
                              LEFT JOIN ParticlesInfo AS c ON a.ParticlesID= c.ID 
-                             WHERE a.ParticlesID>0 and  b.Code= '{SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode}' and a.ValidityTime<='{dateTime}'
+                             WHERE a.ParticlesID>0 and  b.Code= '{SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode}' and a.ValidityTime>='{sdateTime}' and a.ValidityTime<='{edateTime}'
                              order by a.ValidityTime asc ";
 
             var datails = DBHelper.ExecuteQuery<MedicineCabinetValidityModel>(sql);
@@ -180,6 +178,45 @@ namespace AdjustmentSys.DAL.MedicineCabinet
                 try
                 {
                     _eFCoreContext.MedicineCabinetDetails.UpdateRange(medicineCabinetDetailList);
+                    _eFCoreContext.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                    return e.Message;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 添加颗粒库存
+        /// </summary>
+        /// <param name="par">颗粒</param>
+        /// <param name="med">药柜</param>
+        /// <param name="mcol">药柜颗粒操作记录</param>
+        /// <returns></returns>
+        public string AddParticleNum(ParticlesInfo par, MedicineCabinetDetail med, MedicineCabinetOperationLogInfo mcol)
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (med!=null)
+                    {
+                        _eFCoreContext.MedicineCabinetDetails.Update(med);
+                    }
+                    if (par!=null)
+                    {
+                        _eFCoreContext.ParticlesInfos.Update(par);
+                    }
+                    if (mcol!=null) 
+                    {
+                        _eFCoreContext.MedicineCabinetOperationLogInfos.Add(mcol);
+                    }
+                    
                     _eFCoreContext.SaveChanges();
 
                     dbContextTransaction.Commit();

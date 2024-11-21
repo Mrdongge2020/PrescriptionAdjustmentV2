@@ -20,8 +20,8 @@ namespace AdjustmentSys.Tool.Enums
         调剂药品 = 2,
         [Description("余量校准")]
         余量校准 = 3,
-        [Description("余量调整")]
-        余量调整 = 4,
+        [Description("库存设置")]
+        库存设置 = 4,
         [Description("添加药品")]
         添加药品 = 5,
         [Description("异常上药")]

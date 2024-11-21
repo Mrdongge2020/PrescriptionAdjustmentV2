@@ -113,8 +113,37 @@ namespace AdjustmentSys.DAL.Common
         /// <returns></returns>
         public List<ManufacturerInfo> GetManufacturerInfos()
         {
-            return _eFCoreContext.ManufacturerInfos.ToList();
+            return _eFCoreContext.ManufacturerInfos.Where(x=>x.IsDelete).ToList();
         }
+
+        /// <summary>
+        /// 获取所有厂家解析码信息
+        /// </summary>
+        /// <returns></returns>
+        public List<ManufacturerResolutionCode> GetManufacturerCodes(int mid)
+        {
+            if (mid == 0)
+            {
+                var data = (from a in _eFCoreContext.ManufacturerResolutionCodes
+                            join b in _eFCoreContext.ManufacturerInfos
+                            on a.ManufacturerId equals b.ID
+                            where b.IsDelete == false
+                            select a).ToList();
+                return data;
+            }
+            else 
+            {
+                var data = (from a in _eFCoreContext.ManufacturerResolutionCodes
+                            join b in _eFCoreContext.ManufacturerInfos
+                            on a.ManufacturerId equals b.ID
+                            where b.IsDelete == false && a.ManufacturerId == mid
+                            select a).ToList();
+                return data;
+            }
+            
+            
+        }
+
 
         /// <summary>
         /// 获取处方信息
