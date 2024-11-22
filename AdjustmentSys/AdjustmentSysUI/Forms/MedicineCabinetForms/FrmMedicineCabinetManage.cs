@@ -395,6 +395,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             FrmAdjustmentOfSurplus frmAdjustmentOfSurplus = new FrmAdjustmentOfSurplus();
             frmAdjustmentOfSurplus.ShowDialog();
+            bool isSuccessed = frmAdjustmentOfSurplus.isSuccess;
+            if (isSuccessed)
+            {
+                ShowSuccessTip("余量校准操作成功");
+                Refc();
+            }
         }
 
         private void 库存设置ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,7 +413,6 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 ShowSuccessTip("库存设置操作成功");
                 Refc();
             }
-
         }
 
         private void 导出颗粒位置Excel文件ToolStripMenuItem_Click(object sender, EventArgs e)

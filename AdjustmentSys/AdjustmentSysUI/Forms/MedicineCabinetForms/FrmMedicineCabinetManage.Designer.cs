@@ -183,7 +183,7 @@
             // 
             余量调整ToolStripMenuItem.Name = "余量调整ToolStripMenuItem";
             余量调整ToolStripMenuItem.Size = new Size(160, 26);
-            余量调整ToolStripMenuItem.Text = "余量调整";
+            余量调整ToolStripMenuItem.Text = "余量校准";
             余量调整ToolStripMenuItem.Click += 余量调整ToolStripMenuItem_Click;
             // 
             // 库存设置ToolStripMenuItem

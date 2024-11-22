@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            components = new System.ComponentModel.Container();
+            lblINFO = new Label();
             label3 = new Label();
             label2 = new Label();
             label4 = new Label();
@@ -40,27 +41,25 @@
             btnCancel = new Sunny.UI.UISymbolButton();
             btnOK = new Sunny.UI.UISymbolButton();
             uiLine1 = new Sunny.UI.UILine();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
-            // label1
+            // lblINFO
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("微软雅黑", 12F);
-            label1.ForeColor = Color.Blue;
-            label1.Location = new Point(22, 60);
-            label1.Name = "label1";
-            label1.Size = new Size(218, 21);
-            label1.TabIndex = 43;
-            label1.Text = "提示：请将药瓶放入称重工位";
+            lblINFO.AutoSize = true;
+            lblINFO.Font = new Font("微软雅黑", 12F);
+            lblINFO.ForeColor = Color.Blue;
+            lblINFO.Location = new Point(72, 60);
+            lblINFO.Name = "lblINFO";
+            lblINFO.Size = new Size(218, 21);
+            lblINFO.TabIndex = 43;
+            lblINFO.Text = "提示：请将药瓶放入称重工位";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("微软雅黑", 12F);
-            label3.Location = new Point(4, 196);
+            label3.Location = new Point(7, 196);
             label3.Name = "label3";
             label3.Size = new Size(122, 21);
             label3.TabIndex = 47;
@@ -70,7 +69,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("微软雅黑", 12F);
-            label2.Location = new Point(36, 152);
+            label2.Location = new Point(39, 152);
             label2.Name = "label2";
             label2.Size = new Size(90, 21);
             label2.TabIndex = 46;
@@ -80,7 +79,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("微软雅黑", 12F);
-            label4.Location = new Point(36, 107);
+            label4.Location = new Point(39, 107);
             label4.Name = "label4";
             label4.Size = new Size(90, 21);
             label4.TabIndex = 45;
@@ -90,7 +89,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("微软雅黑", 12F);
-            label5.Location = new Point(52, 245);
+            label5.Location = new Point(55, 245);
             label5.Name = "label5";
             label5.Size = new Size(74, 21);
             label5.TabIndex = 48;
@@ -100,11 +99,12 @@
             // 
             txtKCYL.DecimalPlaces = 4;
             txtKCYL.Font = new Font("微软雅黑", 12F);
-            txtKCYL.Location = new Point(133, 148);
+            txtKCYL.Location = new Point(136, 148);
             txtKCYL.Margin = new Padding(4, 5, 4, 5);
             txtKCYL.MinimumSize = new Size(1, 16);
             txtKCYL.Name = "txtKCYL";
             txtKCYL.Padding = new Padding(5);
+            txtKCYL.ReadOnly = true;
             txtKCYL.ShowText = false;
             txtKCYL.Size = new Size(220, 29);
             txtKCYL.TabIndex = 54;
@@ -117,11 +117,12 @@
             // 
             txtTPQPZL.DecimalPlaces = 4;
             txtTPQPZL.Font = new Font("微软雅黑", 12F);
-            txtTPQPZL.Location = new Point(133, 192);
+            txtTPQPZL.Location = new Point(136, 192);
             txtTPQPZL.Margin = new Padding(4, 5, 4, 5);
             txtTPQPZL.MinimumSize = new Size(1, 16);
             txtTPQPZL.Name = "txtTPQPZL";
             txtTPQPZL.Padding = new Padding(5);
+            txtTPQPZL.ReadOnly = true;
             txtTPQPZL.ShowText = false;
             txtTPQPZL.Size = new Size(220, 29);
             txtTPQPZL.TabIndex = 55;
@@ -134,11 +135,12 @@
             // 
             txtTZL.DecimalPlaces = 4;
             txtTZL.Font = new Font("微软雅黑", 12F);
-            txtTZL.Location = new Point(133, 241);
+            txtTZL.Location = new Point(136, 241);
             txtTZL.Margin = new Padding(4, 5, 4, 5);
             txtTZL.MinimumSize = new Size(1, 16);
             txtTZL.Name = "txtTZL";
             txtTZL.Padding = new Padding(5);
+            txtTZL.ReadOnly = true;
             txtTZL.ShowText = false;
             txtTZL.Size = new Size(220, 29);
             txtTZL.TabIndex = 56;
@@ -150,7 +152,7 @@
             // txtJC
             // 
             txtJC.Font = new Font("微软雅黑", 12F);
-            txtJC.Location = new Point(133, 99);
+            txtJC.Location = new Point(136, 99);
             txtJC.Margin = new Padding(4, 5, 4, 5);
             txtJC.MaxLength = 20;
             txtJC.MinimumSize = new Size(1, 16);
@@ -166,7 +168,7 @@
             // btnCancel
             // 
             btnCancel.Font = new Font("微软雅黑", 12F);
-            btnCancel.Location = new Point(346, 316);
+            btnCancel.Location = new Point(306, 316);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(100, 35);
@@ -175,17 +177,19 @@
             btnCancel.TabStop = false;
             btnCancel.Text = "取 消";
             btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
             btnOK.Font = new Font("微软雅黑", 12F);
-            btnOK.Location = new Point(180, 316);
+            btnOK.Location = new Point(140, 316);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(100, 35);
             btnOK.TabIndex = 88;
             btnOK.Text = "确定调整";
             btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
             // 
             // uiLine1
             // 
@@ -198,43 +202,14 @@
             uiLine1.Size = new Size(489, 20);
             uiLine1.TabIndex = 87;
             // 
-            // label6
+            // timer1
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("微软雅黑", 12F);
-            label6.Location = new Point(360, 152);
-            label6.Name = "label6";
-            label6.Size = new Size(20, 21);
-            label6.TabIndex = 94;
-            label6.Text = "g";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("微软雅黑", 12F);
-            label7.Location = new Point(360, 196);
-            label7.Name = "label7";
-            label7.Size = new Size(20, 21);
-            label7.TabIndex = 95;
-            label7.Text = "g";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("微软雅黑", 12F);
-            label8.Location = new Point(360, 245);
-            label8.Name = "label8";
-            label8.Size = new Size(20, 21);
-            label8.TabIndex = 96;
-            label8.Text = "g";
+            timer1.Tick += timer1_Tick;
             // 
             // FrmAdjustmentOfSurplus
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(496, 379);
-            Controls.Add(label8);
-            Controls.Add(label7);
-            Controls.Add(label6);
+            ClientSize = new Size(454, 379);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(uiLine1);
@@ -246,21 +221,22 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label4);
-            Controls.Add(label1);
+            Controls.Add(lblINFO);
             Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmAdjustmentOfSurplus";
-            Text = "余量调整";
+            Text = "余量校准";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ZoomScaleRect = new Rectangle(15, 15, 636, 379);
+            FormClosed += FrmAdjustmentOfSurplus_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Label lblINFO;
         private Label label3;
         private Label label2;
         private Label label4;
@@ -272,8 +248,6 @@
         private Sunny.UI.UISymbolButton btnCancel;
         private Sunny.UI.UISymbolButton btnOK;
         private Sunny.UI.UILine uiLine1;
-        private Label label6;
-        private Label label7;
-        private Label label8;
+        private System.Windows.Forms.Timer timer1;
     }
 }
