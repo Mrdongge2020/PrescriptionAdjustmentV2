@@ -1,11 +1,15 @@
 ﻿using AdjustmentSys.BLL.Common;
 using AdjustmentSys.BLL.MedicineCabinet;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSysUI.UITool;
 using Microsoft.Identity.Client.NativeInterop;
 using Microsoft.VisualBasic.Devices;
+using NPOI.XSSF.Model;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;
@@ -19,6 +23,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 {
@@ -128,7 +133,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
                     this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
-                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);                   
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
                 }
             }
             #endregion
@@ -294,7 +299,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         /// <summary>
         /// 刷新药柜数据
         /// </summary>
-        private void Refc() 
+        private void Refc()
         {
             dgvList.Columns.Clear();
             dgvList.Rows.Clear();
@@ -359,9 +364,99 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void RedRfid_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (selectDurgModel == null)
+                {
+                    ShowWarningDialog("写入失败!请选择药柜颗粒信息");
+                    return;
+                }
+                if (!MachinePublic.ConnectionState)
+                {
+                    ShowWarningDialog("写入失败!未连接到设备,无法使用RFID写入功能");
+                    return;
+                }
+                CommonStaticDataBLL commonStaticDataBLL = new CommonStaticDataBLL();
+                var emptyBottleWeightStr = CommonStaticDataBLL.GetSystemParameterValue("KongPingZhongLiang");
+                double emptyBottleWeight = 200;
+                if (double.TryParse(emptyBottleWeightStr, out double w))
+                {
+                    emptyBottleWeight = w;
+                }
+                if (Math.Abs(MachinePublic.Weight - emptyBottleWeight) > 5)  //|当前重量-空瓶重量|<5
+                {
+                    ShowWarningDialog("写入失败!空瓶重量异常， 请确认药瓶是否为空瓶");
+                    return;
+                }
 
+                if (MachinePublic.Weight <= 200 || !MachinePublic.WeightState)
+                {
+                    ShowWarningDialog("写入失败!请等待数称重据稳定后再写入");
+                    return;
+                }
+                MedicineCabinetDrugManageBLL medicineCabinetDrugManageBLL = new MedicineCabinetDrugManageBLL();
+                var mcd = medicineCabinetDrugManageBLL.GetMedicineCabinetDetail(selectDurgModel.ID);
+                if (mcd == null)
+                {
+                    ShowWarningDialog("写入失败!未找到药柜颗粒信息");
+                    return;
+                }
+
+                mcd.EmptyBottleWeight = (float)MachinePublic.Weight;
+                //拼写rfid数据
+                mcd.RFID = CreateRfidNum(mcd.ParticlesID.Value);
+                string msg = medicineCabinetDrugManageBLL.AddParticleNum(null, mcd, null);
+                if (msg == "")
+                {
+                    MachinePublic.WriteRfidData = mcd.RFID.Value;
+                    MachinePublic.WriteRfidExcule = true;
+                    timer1.Interval = 200;
+                    timer1.Start();
+                    //CheckRow();
+                }
+                else 
+                {
+                    ShowWarningDialog("写入失败!"+msg);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowWarningDialog("写入失败!" + ex.Message);
+            }
         }
+        /// <summary>
+        /// 生成rfid数字
+        /// </summary>
+        /// <param name="particId">颗粒id</param>
+        /// <returns>返回rfid编号，如10001，后四位是颗粒id，前1到2位数是种类多瓶序号/returns>
+        private int CreateRfidNum(int particId)
+        {
+            CommonDataBLL commonDataBLL = new CommonDataBLL();
+            var allMedicineCabinetDetails = commonDataBLL.GetMedicineCabinetDetails(SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
+            string rfidString = particId.ToString();
+            while (rfidString.Length < 4)
+            {
+                rfidString = "0" + rfidString;
+            }
 
+            bool isExit = true;
+            int index = 1;
+            while (isExit) 
+            {
+                var str = index + rfidString;
+                if (allMedicineCabinetDetails.Any(x => x.RFID.ToString() == str))
+                {
+                    index++;
+                    continue;
+                }
+                else 
+                {
+                    rfidString= str;
+                    isExit = false;
+                }
+            }
+            return int.Parse(rfidString);
+        }
         private void btnOpterDropDown_Click(object sender, EventArgs e)
         {
             btnOpterDropDown.ShowContextMenuStrip(cmsOpterData, 0, btnOpterDropDown.Height);
@@ -451,6 +546,25 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             FrmMedicineCabinetParticImport frmMedicineCabinetParticImport = new FrmMedicineCabinetParticImport(2);
             frmMedicineCabinetParticImport.ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (MachinePublic.WriteRfidFish)
+            {
+                MachinePublic.WriteRfidExcule = false;
+               ShowSuccessTip("数据写入成功");
+                MachinePublic.WriteRfidFish = false;
+                timer1.Stop();
+
+            }
+            if (MachinePublic.WriteRfidError)
+            {
+                MachinePublic.WriteRfidExcule = false;
+                MachinePublic.WriteRfidError = false;
+                MessageBox.Show("数据写入失败");
+                timer1.Stop();
+            }
         }
     }
 }

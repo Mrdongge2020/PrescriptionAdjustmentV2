@@ -1,6 +1,6 @@
-﻿namespace AdjustmentSysUI.Forms.MedicineCabinetForms
+﻿namespace AdjustmentSysUI.Forms.PrescriptionForms
 {
-    partial class FrmListingParticles
+    partial class FrmUpdateHisCode
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            cblisDurg = new Sunny.UI.UIComboBox();
             uiLabel1 = new Sunny.UI.UILabel();
+            cblisDurg = new Sunny.UI.UIComboBox();
             pnlBtm.SuspendLayout();
             SuspendLayout();
             // 
             // pnlBtm
             // 
-            pnlBtm.Location = new Point(1, 94);
-            pnlBtm.Size = new Size(438, 55);
+            pnlBtm.Location = new Point(1, 98);
+            pnlBtm.Size = new Size(465, 54);
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(310, 12);
+            btnCancel.Location = new Point(337, 12);
             btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(195, 12);
+            btnOK.Location = new Point(222, 12);
             btnOK.Click += btnOK_Click;
+            // 
+            // uiLabel1
+            // 
+            uiLabel1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel1.Location = new Point(4, 55);
+            uiLabel1.Name = "uiLabel1";
+            uiLabel1.Size = new Size(202, 32);
+            uiLabel1.TabIndex = 5;
+            uiLabel1.Text = "请选择要更新HIS码的药品:";
+            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cblisDurg
             // 
@@ -56,7 +67,7 @@
             cblisDurg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cblisDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cblisDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cblisDurg.Location = new Point(175, 50);
+            cblisDurg.Location = new Point(213, 55);
             cblisDurg.Margin = new Padding(4, 5, 4, 5);
             cblisDurg.MinimumSize = new Size(63, 0);
             cblisDurg.Name = "cblisDurg";
@@ -65,29 +76,18 @@
             cblisDurg.ShowFilter = true;
             cblisDurg.Size = new Size(226, 32);
             cblisDurg.SymbolSize = 24;
-            cblisDurg.TabIndex = 2;
+            cblisDurg.TabIndex = 4;
             cblisDurg.TextAlignment = ContentAlignment.MiddleLeft;
             cblisDurg.Watermark = "";
             // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(4, 50);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(164, 32);
-            uiLabel1.TabIndex = 3;
-            uiLabel1.Text = "请选择要上架的颗粒:";
-            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // FrmListingParticles
+            // FrmUpdateHisCode
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(440, 152);
+            ClientSize = new Size(467, 155);
             Controls.Add(uiLabel1);
             Controls.Add(cblisDurg);
-            Name = "FrmListingParticles";
-            Text = "上架颗粒";
+            Name = "FrmUpdateHisCode";
+            Text = "药品HIS码更新";
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
             Controls.SetChildIndex(pnlBtm, 0);
             Controls.SetChildIndex(cblisDurg, 0);
@@ -98,7 +98,7 @@
 
         #endregion
 
-        private Sunny.UI.UIComboBox cblisDurg;
         private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UIComboBox cblisDurg;
     }
 }

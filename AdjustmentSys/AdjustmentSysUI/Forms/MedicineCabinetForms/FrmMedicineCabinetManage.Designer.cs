@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -53,6 +54,7 @@
             导入颗粒余量Excel文件ToolStripMenuItem = new ToolStripMenuItem();
             导入颗粒位置Excel文件ToolStripMenuItem = new ToolStripMenuItem();
             dgvList = new Sunny.UI.UIDataGridView();
+            timer1 = new System.Windows.Forms.Timer(components);
             cmsRightKeyMenu.SuspendLayout();
             cmsOpterData.SuspendLayout();
             cmsExcelOpter.SuspendLayout();
@@ -287,6 +289,10 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 36;
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // FrmMedicineCabinetManage
             // 
             AllowShowTitle = true;
@@ -333,5 +339,6 @@
         private ToolStripMenuItem 导入颗粒余量Excel文件ToolStripMenuItem;
         private ToolStripMenuItem 导入颗粒位置Excel文件ToolStripMenuItem;
         private Sunny.UI.UIDataGridView dgvList;
+        private System.Windows.Forms.Timer timer1;
     }
 }

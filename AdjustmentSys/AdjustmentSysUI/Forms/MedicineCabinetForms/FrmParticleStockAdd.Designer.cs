@@ -207,7 +207,6 @@
             // 
             // btnSBTM
             // 
-            btnSBTM.Enabled = false;
             btnSBTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSBTM.Location = new Point(471, 229);
             btnSBTM.MinimumSize = new Size(1, 1);
@@ -305,7 +304,6 @@
             // 
             // btnOK
             // 
-            btnOK.Enabled = false;
             btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnOK.Location = new Point(305, 470);
             btnOK.MinimumSize = new Size(1, 1);

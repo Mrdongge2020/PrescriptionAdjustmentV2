@@ -429,5 +429,27 @@ namespace AdjustmentSys.DAL.Drug
                 }
             }
         }
+
+        /// <summary>
+        /// 更新药品his信息
+        /// </summary>
+        /// <param name="parid">药品id</param>
+        /// <param name="hiscode">his编号</param>
+        /// <param name="hisname">his名称</param>
+        /// <returns></returns>
+        public string UpdateParticleHisCode(int parid, string hiscode, string hisname)
+        {
+            var par = _eFCoreContext.ParticlesInfos.FirstOrDefault(x => x.ID == parid);
+            if (par == null) 
+            {
+                return "未查找到药品信息";
+            }
+
+            par.HisCode = hiscode;
+            par.HisName = hisname;
+
+            _eFCoreContext.ParticlesInfos.Update(par);
+            return "";
+        }
     }
 }

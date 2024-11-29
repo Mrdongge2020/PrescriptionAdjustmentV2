@@ -450,5 +450,17 @@ namespace AdjustmentSys.BLL.Drug
 
             return drugManagermentDAL.UpdateParticlesDensityCoefficient(particles,cabinetDetails);
         }
+
+        /// <summary>
+        /// 更新药品his信息
+        /// </summary>
+        /// <param name="parid">药品id</param>
+        /// <param name="hiscode">his编号</param>
+        /// <param name="hisname">his名称</param>
+        /// <returns></returns>
+        public string UpdateParticleHisCode(int parid,string hiscode,string hisname) 
+        {
+            return drugManagermentDAL.UpdateParticleHisCode(parid, hiscode,hisname);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AdjustmentSys.BLL.Common;
 using AdjustmentSys.DAL.MedicineCabinet;
 using AdjustmentSys.Entity;
+using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.MedicineCabinet;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -189,5 +191,16 @@ namespace AdjustmentSys.BLL.MedicineCabinet
         {
             return medicineCabinetDrugManageDAL.AddParticleNum(par,med,mcol);
         }
+
+        /// <summary>
+        ///获取药柜详情信息
+        /// </summary>
+        /// <param name="id">id主键</param>
+        /// <returns></returns>
+        public MedicineCabinetDetail GetMedicineCabinetDetail(int id)
+        {
+            return medicineCabinetDrugManageDAL.GetMedicineCabinetDetail(id);
+        }
+
     }
 }

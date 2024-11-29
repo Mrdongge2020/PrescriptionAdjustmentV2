@@ -123,7 +123,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             }
 
             int allCount = 0;//总条数
-            var preDatas = _prescriptionBLL.GetPrescriptionPageList(txtPrID.Text, txtPatentName.Text, dtpStart.Value, dtpEnd.Value, source, ProcessStatusEnum.待下载, sortString,1, 10000, out allCount);
+            var preDatas = _prescriptionBLL.GetPrescriptionPageList(txtPrID.Text, txtPatentName.Text, dtpStart.Value, dtpEnd.Value, source, ProcessStatusEnum.待下载, sortString, 1, 10000, out allCount);
 
             dgvList.DataSource = preDatas;
 
@@ -280,12 +280,34 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             //列头点击不处理
             if (e.RowIndex < 0) { return; }
-            if (dgvList.Rows[e.RowIndex].Selected) 
+            if (dgvList.Rows[e.RowIndex].Selected)
             {
                 dgvList.Rows[e.RowIndex].Selected = false;
                 selectPreId = "";
                 QueryPreDetailList();
-            } 
+            }
+        }
+
+        private void btnUpdateHis_Click(object sender, EventArgs e)
+        {
+            if (dgvPreDetail.SelectedRows.Count<=0) 
+            {
+                ShowWarningDialog("异常提示", "请选择要更新HIS码的药品信息");
+                return;
+            }
+          
+            string code = dgvPreDetail.SelectedRows[0].Cells["ParticlesCodeHIS"].Value.ToString();
+            string name = dgvPreDetail.SelectedRows[0].Cells["ParticlesNameHIS"].Value.ToString();
+            DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
+            dataGradeViewUi.FormClose("FrmUpdateHisCode");
+            FrmUpdateHisCode frmUpdateHisCode = new FrmUpdateHisCode(code,name);
+            frmUpdateHisCode.ShowDialog();
+            string parName = frmUpdateHisCode.ParName;
+            if (parName != "") 
+            {
+                ShowSuccessTip($"更新药品[{parName}]的HIS信息成功");
+                QueryPreDetailList();
+            }
         }
     }
 }

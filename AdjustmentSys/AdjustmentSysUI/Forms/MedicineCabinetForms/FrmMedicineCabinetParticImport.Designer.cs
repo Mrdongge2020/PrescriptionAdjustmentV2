@@ -44,7 +44,7 @@
             // 
             btnConfimImport.Enabled = false;
             btnConfimImport.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnConfimImport.Location = new Point(809, 38);
+            btnConfimImport.Location = new Point(809, 41);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
             btnConfimImport.Size = new Size(129, 35);
@@ -57,7 +57,7 @@
             // btnOpenExcel
             // 
             btnOpenExcel.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOpenExcel.Location = new Point(25, 37);
+            btnOpenExcel.Location = new Point(25, 40);
             btnOpenExcel.MinimumSize = new Size(1, 1);
             btnOpenExcel.Name = "btnOpenExcel";
             btnOpenExcel.Size = new Size(153, 35);
@@ -100,7 +100,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(3, 78);
+            dgvList.Location = new Point(3, 80);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -115,7 +115,7 @@
             dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1067, 489);
+            dgvList.Size = new Size(1067, 487);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 98;
             // 

@@ -229,5 +229,16 @@ namespace AdjustmentSys.DAL.MedicineCabinet
                 }
             }
         }
+
+        /// <summary>
+        ///获取药柜详情信息
+        /// </summary>
+        /// <param name="id">id主键</param>
+        /// <returns></returns>
+        public MedicineCabinetDetail GetMedicineCabinetDetail(int id) 
+        {
+            var mcd= _eFCoreContext.MedicineCabinetDetails.FirstOrDefault(x => x.ID == id);
+            return mcd;
+        }
     }
 }
