@@ -268,10 +268,10 @@ namespace AdjustmentSys.DAL.Prescription
                                   ,ParticlesCodeHIS
                                   ,a.ParticlesID
                                   ,a.BatchNumber
-                                  ,DoseHerb
+                                  ,a.DoseHerb
                                   ,a.Equivalent
-                                  ,Dose
-                                  ,Price
+                                  ,a.Dose
+                                  ,a.Price
                                  {ValidityTimeStr}
                             from {tableName} as a
                             left join ParticlesInfo as b on  a.ParticlesID=b.ID 
@@ -291,7 +291,7 @@ namespace AdjustmentSys.DAL.Prescription
                 {
                     //根据编号获取药柜id
                     List<int> mcids = _eFCoreContext.MedicineCabinetInfos.Where(x => x.Code == code).Select(x => x.ID).ToList();
-                    List<int> parIds= result.Select(x => x.ID).ToList();
+                    List<int> parIds= result.Select(x => x.ID).Distinct().ToList();
                     if (mcids==null)
                     {
                         return result;

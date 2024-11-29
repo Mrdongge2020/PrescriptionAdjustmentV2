@@ -1,5 +1,7 @@
-﻿using AdjustmentSys.BLL.Prescription;
+﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.BLL.User;
+using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
@@ -153,6 +155,23 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         private void QueryPreDetailList()
         {
             var preDetailsDatas = _prescriptionBLL.GetPrescriptionDetailList(selectPreId, ProcessStatusEnum.待下载, true);
+            if (preDetailsDatas!=null && preDetailsDatas.Count>0 && preDetailsDatas.Any(x=>x.ParticlesID<=0)) 
+            {
+                CommonDataBLL commonDataBLL = new CommonDataBLL();
+                var allPartics = commonDataBLL.GetCommonParticles();
+                preDetailsDatas.ForEach(x => {
+                    if (x.ParticlesID<=0) 
+                    {
+                        var curentPar = allPartics.FirstOrDefault(x => x.HisCode == x.HisCode && !string.IsNullOrEmpty(x.HisCode));
+                        if (curentPar != null) 
+                        {
+                            x.ParName= curentPar.Name;
+                            x.ParCode= curentPar.Code;
+                            x.DoseLimit = curentPar.DoseLimit;
+                        }
+                    }
+                });       
+            }
             dgvPreDetail.DataSource = preDetailsDatas;
             dgvPreDetail.ClearSelection();
         }
