@@ -1,8 +1,11 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.MedicineCabinet;
+using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -239,6 +242,70 @@ namespace AdjustmentSys.DAL.MedicineCabinet
         {
             var mcd= _eFCoreContext.MedicineCabinetDetails.FirstOrDefault(x => x.ID == id);
             return mcd;
+        }
+
+        /// <summary>
+        /// 获取药柜颗粒操作日志分页列表
+        /// </summary>
+        public MedicineCabinetOperationLogByPage GetMedicineCabinetOperationLogByPage(MedicineCabinetOperationLogTypeEnum? type, string parName, DateTime? sdate, DateTime? edate, int pageIndex, int pageSize, out int count) 
+        {
+           
+            string whereStr = " where 1=1 ";
+            if (type.HasValue) 
+            {
+                whereStr += $" and MedicineCabinetOperationLogType={type} ";
+            }
+            if (!string.IsNullOrEmpty(parName)) 
+            {
+                whereStr += $" and ParticleName like '{parName}%' ";
+            }
+            if (sdate.HasValue) 
+            {
+                whereStr += $" and CreateTime >= '{sdate.Value.Date}' ";
+            }
+            if (edate.HasValue)
+            {
+                whereStr += $" and CreateTime < '{edate.Value.Date.AddDays(1)}' ";
+            }
+
+            string countSql = " select count(1) from  MedicineCabinetOperationLogInfo " + whereStr;
+            count = Convert.ToInt32(DBHelper.ExecuteScalar(countSql));
+            if (count <= 0)
+            {
+                return null;
+            }
+
+            string sumSql = $@" SELECT 
+                                   sum([UsedQuantity]) as UsedQuantitySum
+                                  ,sum([AddQuantity]) as AddQuantitySum
+                                  ,sum([AdjustmentQuantity]) as AdjustmentQuantitySum
+                             FROM [MedicineCabinetOperationLogInfo]   {whereStr}";
+
+            MedicineCabinetOperationLogByPage model = DBHelper.ExecuteQueryOne<MedicineCabinetOperationLogByPage>(sumSql);
+
+            string pageListSql = $@" SELECT 
+                                   [ParticleCode]
+                                  ,[ParticleName]
+                                  ,[MedicineCabinetOperationLogType]
+                                  ,[DeviceName]
+                                  ,[OperationLogDecribe]
+                                  ,[InitialQuantity]
+                                  ,[CurrentWeightQuantity]
+                                  ,[UsedQuantity]
+                                  ,[AddQuantity]
+                                  ,[AdjustmentQuantity]
+                                  ,[CreateTime]
+                                  ,[CreateName]
+                                  ,[ParticleId]
+                             FROM [AdjustmentSysDB].[dbo].[MedicineCabinetOperationLogInfo] where 1=1 {whereStr}
+                             OFFSET {pageSize * (pageIndex - 1)} ROW FETCH NEXT {pageSize} ROWS ONLY " ;
+
+  
+
+            model.mcParticLogs = DBHelper.ExecuteQuery<McParticLog>(pageListSql);
+
+            return model;
+
         }
     }
 }

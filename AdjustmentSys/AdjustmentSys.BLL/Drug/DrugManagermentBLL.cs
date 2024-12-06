@@ -32,7 +32,6 @@ namespace AdjustmentSys.BLL.Drug
         {
             drugInfo.NameFullPinyin = string.IsNullOrEmpty(drugInfo.NameFullPinyin)? Pinyin.GetPinyin(drugInfo.Name):drugInfo.NameFullPinyin;
             drugInfo.NameSimplifiedPinyin = string.IsNullOrEmpty(drugInfo.NameSimplifiedPinyin) ? Pinyin.GetInitials(drugInfo.Name):drugInfo.NameSimplifiedPinyin;
-            
             return drugManagermentDAL.AddOrEditDrugInfo(drugInfo);
         }
 
@@ -40,7 +39,8 @@ namespace AdjustmentSys.BLL.Drug
         /// 删除药品
         /// </summary>
         public string DeleteDrugInfo(int id)
-        {           
+        {
+            
             return drugManagermentDAL.DeleteDrugInfo(id);
         }
 
@@ -64,6 +64,14 @@ namespace AdjustmentSys.BLL.Drug
         public List<ParticlesPageListModel> GetDrugInfoByPage(string? keywords, int pageIndex, int pageSize, out int count)
         {
             return drugManagermentDAL.GetDrugInfoByPage(keywords,pageIndex,pageSize,out count);
+        }
+
+        /// <summary>
+        /// 获取药品操作记录分页列表数据
+        /// </summary>
+        public List<ParticleOperationLogInfo> GetDurgLogByPage(ParticleOperationLogTypeEnum? type, string parName, DateTime? sdate, DateTime? edate, int pageIndex, int pageSize, out int count) 
+        {
+            return drugManagermentDAL.GetDurgLogByPage(type,parName, sdate, edate, pageIndex, pageSize, out count);
         }
 
         /// <summary>

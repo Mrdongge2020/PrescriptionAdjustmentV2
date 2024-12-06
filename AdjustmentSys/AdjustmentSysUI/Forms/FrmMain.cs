@@ -7,6 +7,7 @@ using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSys.Tool.TCP;
 using AdjustmentSysUI.Forms.DeviceForms;
 using AdjustmentSysUI.Forms.Drug;
+using AdjustmentSysUI.Forms.DrugForms;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
 using AdjustmentSysUI.Forms.Pharmacopoeia;
 using AdjustmentSysUI.Forms.PrescriptionForms;
@@ -54,6 +55,8 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugManagement(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugCompatibilityRuler(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugManufacturer(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugLog(), ++pageIndex));
+            
 
             pageIndex = 400;
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);

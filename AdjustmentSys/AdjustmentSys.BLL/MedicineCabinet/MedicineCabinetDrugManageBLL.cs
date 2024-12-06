@@ -5,6 +5,7 @@ using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.MedicineCabinet;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
 using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
@@ -200,6 +201,14 @@ namespace AdjustmentSys.BLL.MedicineCabinet
         public MedicineCabinetDetail GetMedicineCabinetDetail(int id)
         {
             return medicineCabinetDrugManageDAL.GetMedicineCabinetDetail(id);
+        }
+
+        /// <summary>
+        /// 获取药柜颗粒操作日志分页列表
+        /// </summary>
+        public MedicineCabinetOperationLogByPage GetMedicineCabinetOperationLogByPage(MedicineCabinetOperationLogTypeEnum? type, string parName, DateTime? sdate, DateTime? edate, int pageIndex, int pageSize, out int count)
+        { 
+            return medicineCabinetDrugManageDAL.GetMedicineCabinetOperationLogByPage(type, parName, sdate, edate, pageIndex, pageSize, out count);
         }
 
     }

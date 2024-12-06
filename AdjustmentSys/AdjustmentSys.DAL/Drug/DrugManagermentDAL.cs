@@ -1,8 +1,10 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -82,7 +84,20 @@ namespace AdjustmentSys.DAL.Drug
             particlesInfo.PackageNumber = drugInfo.PackageNumber;
             //particlesInfoExtend.BatchNumber = drugInfo.BatchNumber;
             //particlesInfoExtend.VaildUntil = drugInfo.VaildUntil;
-           
+
+            //日志
+            ParticleOperationLogInfo particleOperationLogInfo = new ParticleOperationLogInfo();
+
+            particleOperationLogInfo.ParticleOperationLogType = particlesInfo.ID != default(int)? ParticleOperationLogTypeEnum.编辑药品: ParticleOperationLogTypeEnum.新增药品;
+            particleOperationLogInfo.OperationLogDecribe = particlesInfo.ID != default(int) ? "编辑药品": "新增药品";
+
+            particleOperationLogInfo.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+            particleOperationLogInfo.ParticleName = particlesInfo.Name;
+
+            particleOperationLogInfo.ParticleCode = particlesInfo.Code.ToString();
+            particleOperationLogInfo.CreateBy = SysLoginUser._currentUser.UserId;
+            particleOperationLogInfo.CreateName = SysLoginUser._currentUser.UserName;
+            particleOperationLogInfo.CreateTime = DateTime.Now;
             #endregion
 
             using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
@@ -102,9 +117,8 @@ namespace AdjustmentSys.DAL.Drug
                         particlesInfo.CreateName = SysLoginUser._currentUser.UserName;
 
                         _eFCoreContext.ParticlesInfos.Add(particlesInfo);
-                        _eFCoreContext.SaveChanges();
                     }
-
+                    _eFCoreContext.ParticleOperationLogInfos.Add(particleOperationLogInfo);
                     _eFCoreContext.SaveChanges();
 
                     dbContextTransaction.Commit();
@@ -134,8 +148,21 @@ namespace AdjustmentSys.DAL.Drug
             {
                 return "要删除的药品已在药柜上架，请下架后再删除";
             }
-            string errorMsg = ""; 
-            
+            string errorMsg = "";
+
+            ParticleOperationLogInfo particleOperationLogInfo = new ParticleOperationLogInfo();
+
+            particleOperationLogInfo.ParticleOperationLogType = ParticleOperationLogTypeEnum.删除药品;
+            particleOperationLogInfo.OperationLogDecribe = "删除药品";
+
+            particleOperationLogInfo.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+            particleOperationLogInfo.ParticleName = drug.Name;
+
+            particleOperationLogInfo.ParticleCode = drug.Code.ToString();
+            particleOperationLogInfo.CreateBy = SysLoginUser._currentUser.UserId;
+            particleOperationLogInfo.CreateName = SysLoginUser._currentUser.UserName;
+            particleOperationLogInfo.CreateTime = DateTime.Now;
+
             using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
             {
                 try
@@ -143,6 +170,7 @@ namespace AdjustmentSys.DAL.Drug
                     _eFCoreContext.ParticleProhibitionRules.Where(x => x.FirstParticlesID == id || x.SecondParticlesID == id).ExecuteDelete();
                     _eFCoreContext.ParticlesInfos.Where(x => x.ID == id).ExecuteDelete();
                     _eFCoreContext.DataPrescriptionDetails.Where(x => x.ParticlesID == id).ExecuteDelete();
+                    _eFCoreContext.ParticleOperationLogInfos.Add(particleOperationLogInfo);
                     _eFCoreContext.SaveChanges();
 
                     dbContextTransaction.Commit();
@@ -259,6 +287,46 @@ namespace AdjustmentSys.DAL.Drug
             return resultList;
         }
 
+        /// <summary>
+        /// 获取药品操作记录分页列表数据
+        /// </summary>
+        public List<ParticleOperationLogInfo> GetDurgLogByPage(ParticleOperationLogTypeEnum? type,string parName,DateTime? sdate,DateTime? edate, int pageIndex, int pageSize, out int count) 
+        {
+            var where = _eFCoreContext.ParticleOperationLogInfos.AsNoTracking()
+                .Where(x => 1 == 1);
+
+            if (type.HasValue) 
+            {
+                where = where.Where(x => (x.ParticleOperationLogType == type));
+            }
+            //药品名称条件
+            if (!string.IsNullOrEmpty(parName))
+            {
+                where = where.Where(x => (x.ParticleName==parName.ToUpper()));
+            }
+            if (sdate.HasValue)
+            {
+                where = where.Where(x => (x.CreateTime>=sdate));
+            }
+            if (edate.HasValue)
+            {
+                where = where.Where(x => (x.CreateTime < edate));
+            }
+            //统计总记录数
+            count = where.Count();
+            if (count == 0)
+            {
+                return null;
+            }
+
+            //结果按照名称简称升序排序
+            where = where.OrderByDescending(x => x.CreateTime);
+
+            //跳过翻页的数量
+            var list = where.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+
+            return list;
+        }
         /// <summary>
         /// 根据厂商id获取解码规则
         /// </summary>
