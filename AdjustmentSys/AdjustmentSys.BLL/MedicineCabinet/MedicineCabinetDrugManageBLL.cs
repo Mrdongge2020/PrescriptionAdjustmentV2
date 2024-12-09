@@ -211,5 +211,13 @@ namespace AdjustmentSys.BLL.MedicineCabinet
             return medicineCabinetDrugManageDAL.GetMedicineCabinetOperationLogByPage(type, parName, sdate, edate, pageIndex, pageSize, out count);
         }
 
+
+        /// <summary>
+        /// 获取药品使用统计数据
+        /// </summary>
+        public List<ParticleUsedStatistics> GetParticleUsedStatistics(string name, DateTime? stime, DateTime? etime) 
+        {
+            return medicineCabinetDrugManageDAL.GetParticleUsedStatistics(name, stime, etime);
+        }
     }
 }

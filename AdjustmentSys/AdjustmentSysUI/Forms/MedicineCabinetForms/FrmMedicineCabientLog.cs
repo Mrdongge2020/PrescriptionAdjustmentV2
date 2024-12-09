@@ -3,6 +3,7 @@ using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.BLL.MedicineCabinet;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -45,9 +46,42 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             cbfp.DataSource = pDatas;
         }
 
+        /// <summary>
+        /// 设置列表
+        /// </summary>
+        private void InitDgvFormat()
+        {
+            //分页列表
+            dgvList.AutoGenerateColumns = false;//不自动生成列
+            dgvList.AllowUserToAddRows = false;//不自动产生最后的新行
+            dgvList.AllowUserToResizeRows = false;
+            dgvList.AllowUserToResizeColumns = false;
+            dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //初始化当前页
+            uiPage.ActivePage = 1;
+            //设置分页控件每页数量
+            uiPage.PageSize = 20;
+            DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
+
+            //创建列
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 0, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParticleCode", "药品编号", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParticleName", "药品名称", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "OperationLogDecribe", "操作类型", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "InitialQuantity", "初始量", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CurrentWeightQuantity", "当前称重量", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UsedQuantity", "使用量", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AddQuantity", "上药量", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "AdjustmentQuantity", "调整量", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "DeviceName", "设备名称", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 15, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, 24, "yyyy-MM-dd HH:mm:ss");
+
+        }
+
         private void btnQuery_Click(object sender, EventArgs e)
         {
-
+            queryPage();
         }
 
         private void queryPage()
@@ -69,11 +103,19 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             //设置分页控件总数
             uiPage.TotalCount = allCount;
 
-            dgvList.DataSource = datas.mcParticLogs;
+            dgvList.DataSource = datas?.mcParticLogs;
 
-            lblNum1.Text= datas.UsedQuantitySum.ToString();
-            lblNum2.Text = datas.AddQuantitySum.ToString();
-            lblNum3.Text = datas.AdjustmentQuantitySum.ToString();
+            lblNum1.Text= datas?.UsedQuantitySum.ToString();
+            lblNum2.Text = datas?.AddQuantitySum.ToString();
+            lblNum3.Text = datas?.AdjustmentQuantitySum.ToString();
+
+            uiDataGridViewFooter1.Clear();
+            uiDataGridViewFooter1["ParticleCode"] = "合计：";
+            uiDataGridViewFooter1["InitialQuantity"] = datas?.mcParticLogs.Sum(x=>x.InitialQuantity).ToString();
+            uiDataGridViewFooter1["CurrentWeightQuantity"] = datas?.mcParticLogs.Sum(x => x.CurrentWeightQuantity).ToString();
+            uiDataGridViewFooter1["UsedQuantity"] = datas?.mcParticLogs.Sum(x => x.UsedQuantity).ToString();
+            uiDataGridViewFooter1["AddQuantity"] = datas?.mcParticLogs.Sum(x => x.AddQuantity).ToString();
+            uiDataGridViewFooter1["AdjustmentQuantity"] = datas?.mcParticLogs?.Sum(x => x.AdjustmentQuantity).ToString();
         }
     }
 }

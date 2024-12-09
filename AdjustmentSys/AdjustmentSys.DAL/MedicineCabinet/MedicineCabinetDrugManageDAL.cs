@@ -6,6 +6,7 @@ using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -306,6 +307,35 @@ namespace AdjustmentSys.DAL.MedicineCabinet
 
             return model;
 
+        }
+
+        /// <summary>
+        /// 获取药品使用统计数据
+        /// </summary>
+        public List<ParticleUsedStatistics> GetParticleUsedStatistics(string name,DateTime? stime,DateTime? etime)
+        {
+            string whereString = " where MedicineCabinetOperationLogType=2 and MedicineCabinetCode='"+SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode+"' ";
+            if (!string.IsNullOrEmpty(name)) 
+            {
+                whereString += " and ParticleName like '" + name + "%'";
+            }
+            if (stime.HasValue)
+            {
+                whereString += $" and CreateTime >= '{stime.Value.Date}' ";
+            }
+            if (etime.HasValue)
+            {
+                whereString += $" and CreateTime < '{etime.Value.Date.AddDays(1)}' ";
+            }
+            string sql = $@" SELECT ParticleName,
+                                    SUM(isnull(UsedQuantity,0)) as UseAmount,
+                                    COUNT(ParticleName) as UseCount
+                            FROM [dbo].[MedicineCabinetOperationLogInfo]
+                            {whereString}
+                            GROUP BY ParticleName
+                            ";
+            var datails = DBHelper.ExecuteQuery<ParticleUsedStatistics>(sql);
+            return datails;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace AdjustmentSysUI.UITool
                     float MinusWeight = (float)(Math.Round((item.Dose * PresData.Quantity), 3) - DeWeight);    //扣除量=(颗粒剂量)*(处方付数)-之前扣除的下药量   
                     float BTotalUsedAmount = (float)((DeWeight / (item.Dose * PresData.Quantity)) * item.MedicineCabinetDetail.CurentAdjustAmount);
                     parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                    parLog.MedicineCabinetCode = SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
                     parLog.CreateTime = DateTime.Now;
                     parLog.ParticleCode = item.ParCode;
                     parLog.ParticleId = (int)item.MedicineCabinetDetail?.RFID;
@@ -85,6 +86,7 @@ namespace AdjustmentSysUI.UITool
                 float MinusWeight = DeWeight;    //扣除量=(颗粒剂量)*(处方付数)    
                 float BTotalUsedAmount = (float)((DeWeight / (item.Dose * PresData.Quantity)) * (item.MedicineCabinetDetail.CurentAdjustAmount));
                 parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                parLog.MedicineCabinetCode = SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
                 parLog.CreateTime = DateTime.Now;
                 parLog.ParticleCode = item.ParCode;
                 parLog.ParticleId = (int)item.MedicineCabinetDetail?.RFID;

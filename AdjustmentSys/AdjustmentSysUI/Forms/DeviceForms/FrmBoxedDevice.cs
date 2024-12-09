@@ -1993,6 +1993,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 MedicineCabinetOperationLogInfo parLog = new MedicineCabinetOperationLogInfo();
                 //写上药日志信息
                 parLog.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+                parLog.MedicineCabinetCode = SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
                 parLog.CreateTime = DateTime.Now;
                 parLog.ParticleCode = preParticle.ParticlesCode;
                 parLog.ParticleId = mcDetail.RFID.Value;

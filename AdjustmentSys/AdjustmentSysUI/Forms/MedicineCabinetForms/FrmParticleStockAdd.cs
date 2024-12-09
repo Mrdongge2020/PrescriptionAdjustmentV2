@@ -295,6 +295,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             loginfo.ParticleName = parinfo.Name + meDetail.RFID.Value % 10000;
             loginfo.MedicineCabinetOperationLogType = MedicineCabinetOperationLogTypeEnum.添加药品;
             loginfo.DeviceName = SysDeviceInfo._currentDeviceInfo.DeviceName;
+            loginfo.MedicineCabinetCode = SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode;
             loginfo.OperationLogDecribe = "药柜颗粒正常上药";
             loginfo.InitialQuantity = float.Parse(lblKCYL.Text);
             loginfo.CurrentWeightQuantity = float.Parse(lblDQCZ.Text);

@@ -44,6 +44,12 @@ namespace AdjustmentSys.Entity
         [MaxLength(20)]
         public string DeviceName { get; set; }
         /// <summary>
+        /// 药柜编号
+        /// </summary>
+        [Column("MedicineCabinetCode")]
+        [MaxLength(20)]
+        public string MedicineCabinetCode { get; set; }
+        /// <summary>
         /// 操作描述
         /// </summary>
         [Column("OperationLogDecribe")]
