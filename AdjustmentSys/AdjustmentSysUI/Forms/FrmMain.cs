@@ -13,6 +13,7 @@ using AdjustmentSysUI.Forms.Pharmacopoeia;
 using AdjustmentSysUI.Forms.PrescriptionForms;
 using AdjustmentSysUI.Forms.SystemSettingForms;
 using AdjustmentSysUI.Forms.UserForms;
+using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using Sunny.UI.Demo;
 using System;
@@ -22,6 +23,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -84,11 +86,14 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex));
 
 
+
             //登录用户信息
             lblLoginUser.Text = "当前用户:" + SysLoginUser._currentUser.UserName + " " + SysLoginUser._currentUser.UserLevelName;
             //主题设置
             SetTitle();
+            
         }
+        
 
         private void timerRight_Tick(object sender, EventArgs e)
         {
@@ -97,12 +102,14 @@ namespace AdjustmentSysUI.Forms
 
         private void SetTitle()
         {
-            UIStyles.InitColorful(Color.DarkGray, Color.White);
+            UIStyles.InitColorful(Color.FromArgb(80, 126, 164), Color.White);
             UIStyles.DPIScale = true;
             UIStyles.GlobalFont = true;
             UIStyles.GlobalFontName = "微软雅黑";
             UIStyles.GlobalFontScale = 100;
             UIStyles.SetDPIScale();
+
+
         }
 
         private void FrmMain_Load(object sender, EventArgs e)

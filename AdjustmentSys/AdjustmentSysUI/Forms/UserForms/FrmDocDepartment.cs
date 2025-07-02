@@ -22,6 +22,7 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             InitializeComponent();
             InitDgvFormat();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

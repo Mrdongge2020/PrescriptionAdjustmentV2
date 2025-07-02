@@ -279,7 +279,11 @@
             Name = "FrmDrugLog";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药品管理>>操作日志";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmDrugLog_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);

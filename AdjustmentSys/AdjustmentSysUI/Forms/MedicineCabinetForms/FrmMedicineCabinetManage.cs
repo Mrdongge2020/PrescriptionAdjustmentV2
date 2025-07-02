@@ -39,8 +39,10 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         int Colindex = 0;
         public FrmMedicineCabinetManage()
         {
+            
             InitializeComponent();
             InitData();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

@@ -21,9 +21,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         MedicineCabinetInfoBLL _medicineCabinetInfoBLL = new MedicineCabinetInfoBLL();
         public FrmMedicineCabinet()
         {
+        
             InitializeComponent();
             InitDgvFormat();
             QueryList();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

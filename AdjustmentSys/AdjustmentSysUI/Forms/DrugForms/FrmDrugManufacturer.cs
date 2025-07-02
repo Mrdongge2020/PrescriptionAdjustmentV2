@@ -28,8 +28,9 @@ namespace AdjustmentSysUI.Forms.Drug
         private ManufacturerInfo _manufacturerInfo = new ManufacturerInfo();
         public FrmDrugManufacturer()
         {
+  
             InitializeComponent();
-           
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

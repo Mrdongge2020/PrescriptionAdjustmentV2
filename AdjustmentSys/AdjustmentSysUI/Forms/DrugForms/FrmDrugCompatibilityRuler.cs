@@ -22,6 +22,7 @@ namespace AdjustmentSysUI.Forms.Drug
             InitializeComponent();
             //设置DataGridView
             InitDgvFormat();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

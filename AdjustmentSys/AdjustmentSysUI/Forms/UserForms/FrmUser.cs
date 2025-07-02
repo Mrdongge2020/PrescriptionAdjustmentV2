@@ -25,8 +25,10 @@ namespace AdjustmentSysUI.Forms.UserForms
         private int checkedUserId = 0;
         public FrmUser()
         {
+            ControlOpterUI.SetTitleStyle(this);
             InitializeComponent();
             InitData();
+  
         }
 
         private void InitData()

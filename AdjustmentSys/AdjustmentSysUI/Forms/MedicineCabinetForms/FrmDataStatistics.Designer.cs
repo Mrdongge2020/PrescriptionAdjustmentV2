@@ -278,7 +278,11 @@
             Name = "FrmDataStatistics";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药柜管理>>数据统计";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             uiGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsedList).EndInit();
             ResumeLayout(false);

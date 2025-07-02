@@ -151,8 +151,12 @@
             Name = "FrmDevice";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "设备管理>>设备信息管理";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmDevice_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);

@@ -58,7 +58,7 @@
             // btnDelete
             // 
             btnDelete.Cursor = Cursors.Hand;
-            btnDelete.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDelete.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnDelete.Location = new Point(216, 89);
             btnDelete.MinimumSize = new Size(1, 1);
             btnDelete.Name = "btnDelete";
@@ -74,7 +74,7 @@
             // btnReset
             // 
             btnReset.Cursor = Cursors.Hand;
-            btnReset.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnReset.Location = new Point(422, 46);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
@@ -88,7 +88,7 @@
             // btnAdd
             // 
             btnAdd.Cursor = Cursors.Hand;
-            btnAdd.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAdd.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnAdd.Location = new Point(6, 89);
             btnAdd.MinimumSize = new Size(1, 1);
             btnAdd.Name = "btnAdd";
@@ -103,7 +103,7 @@
             // btnEdit
             // 
             btnEdit.Cursor = Cursors.Hand;
-            btnEdit.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnEdit.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnEdit.Location = new Point(107, 89);
             btnEdit.MinimumSize = new Size(1, 1);
             btnEdit.Name = "btnEdit";
@@ -119,7 +119,7 @@
             // btnSearch
             // 
             btnSearch.Cursor = Cursors.Hand;
-            btnSearch.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSearch.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSearch.Location = new Point(320, 46);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
@@ -202,7 +202,7 @@
             // btnRefc
             // 
             btnRefc.Cursor = Cursors.Hand;
-            btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnRefc.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnRefc.Location = new Point(320, 89);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
@@ -265,13 +265,13 @@
             cmsOpterDurgData.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsOpterDurgData.Items.AddRange(new ToolStripItem[] { 药品系数调整ToolStripMenuItem });
             cmsOpterDurgData.Name = "cmsOpterDurgData";
-            cmsOpterDurgData.Size = new Size(181, 52);
+            cmsOpterDurgData.Size = new Size(174, 30);
             // 
             // 药品系数调整ToolStripMenuItem
             // 
             药品系数调整ToolStripMenuItem.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             药品系数调整ToolStripMenuItem.Name = "药品系数调整ToolStripMenuItem";
-            药品系数调整ToolStripMenuItem.Size = new Size(180, 26);
+            药品系数调整ToolStripMenuItem.Size = new Size(173, 26);
             药品系数调整ToolStripMenuItem.Text = "药品系数调整";
             药品系数调整ToolStripMenuItem.Click += 药品系数调整ToolStripMenuItem_Click;
             // 
@@ -324,8 +324,12 @@
             Padding = new Padding(0, 35, 0, 0);
             RightToLeft = RightToLeft.No;
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药品管理>>药品信息管理";
+            TitleFillColor = SystemColors.GradientInactiveCaption;
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmDrugManagement_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             cmsOpterDurgData.ResumeLayout(false);

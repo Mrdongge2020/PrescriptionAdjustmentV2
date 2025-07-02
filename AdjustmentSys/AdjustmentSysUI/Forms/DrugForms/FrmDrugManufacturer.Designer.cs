@@ -933,8 +933,12 @@
             Padding = new Padding(0, 35, 0, 0);
             RectColor = Color.DodgerBlue;
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药品管理>>药品厂家管理";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmDrugManufacturer_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             uiGroupBox1.ResumeLayout(false);

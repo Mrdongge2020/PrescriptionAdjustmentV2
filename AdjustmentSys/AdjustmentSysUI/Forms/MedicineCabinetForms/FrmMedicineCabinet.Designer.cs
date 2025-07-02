@@ -169,8 +169,12 @@
             Name = "FrmMedicineCabinet";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药柜管理>>药柜信息管理";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmMedicineCabinet_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);

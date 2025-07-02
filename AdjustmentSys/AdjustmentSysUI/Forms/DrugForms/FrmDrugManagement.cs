@@ -31,6 +31,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             //设置DataGridView
             InitDgvFormat();
             QueryPageList();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

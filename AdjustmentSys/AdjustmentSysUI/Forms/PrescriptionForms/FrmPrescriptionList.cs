@@ -38,8 +38,9 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
         public FrmPrescriptionList()
         {
-            InitializeComponent();
             
+            InitializeComponent();
+            ControlOpterUI.SetTitleStyle(this);
         }
         private void FrmPrescriptionList_Load(object sender, EventArgs e)
         {

@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.BLL.Common;
 using AdjustmentSys.BLL.MedicineCabinet;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         MedicineCabinetDrugManageBLL medicineCabinetDrugManageBLL = new MedicineCabinetDrugManageBLL();
         public FrmDataStatistics()
         {
+            
             InitializeComponent();
             dateTimeStart.Value = DateTime.Now.Date.AddDays(-7);
             dateTimeEnd.Value = DateTime.Now.Date;
@@ -27,6 +29,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             cbfp.ValueMember = "Id";
             cbfp.DisplayMember = "Name";
             cbfp.DataSource = pDatas;
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         private void btnQuery_Click(object sender, EventArgs e)

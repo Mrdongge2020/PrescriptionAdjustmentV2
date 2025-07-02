@@ -20,8 +20,10 @@ namespace AdjustmentSysUI.Forms.DrugForms
     {
         public FrmDrugLog()
         {
+          
             InitializeComponent();
             initData();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         private void initData()

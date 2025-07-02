@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdjustmentSysUI.UITool;
+using System;
 using System.Drawing;
 using System.Drawing.Text;
 
@@ -8,6 +9,7 @@ namespace Sunny.UI.Demo
     {
         public FrmColorful()
         {
+          
             InitializeComponent();
             uiPanel11.FillColor = uiPanel11.RectColor = RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright);
             uiLabel2.Text = "RGB: " + uiPanel11.FillColor.R + ", " + uiPanel11.FillColor.G + ", " + uiPanel11.FillColor.B;
@@ -19,6 +21,7 @@ namespace Sunny.UI.Demo
             }
 
             cbFont.SelectedIndex = cbFont.Items.IndexOf(SystemFonts.DefaultFont.Name);
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         private void uiPanel1_Click(object sender, System.EventArgs e)

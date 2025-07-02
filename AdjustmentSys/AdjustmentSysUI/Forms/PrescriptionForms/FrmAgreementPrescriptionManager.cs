@@ -23,8 +23,10 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         private int selectId = 0;//选择的协定方
         public FrmAgreementPrescriptionManager()
         {
+         
             InitializeComponent();
             InitControl();
+            ControlOpterUI.SetTitleStyle(this);
         }
         private void InitControl()
         {

@@ -27,7 +27,6 @@ namespace AdjustmentSysUI.Forms.UserForms
         public FrmDoctor()
         {
             InitializeComponent();
-
             //科室下拉框
             List<ComboxModel> levelDatas = _comboxDataBLL.GetDoctorDepartmentComboxData();
             cbDepartment.ValueMember = "Id";
@@ -37,7 +36,7 @@ namespace AdjustmentSysUI.Forms.UserForms
 
             //设置DataGridView
             InitDgvFormat();
-
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

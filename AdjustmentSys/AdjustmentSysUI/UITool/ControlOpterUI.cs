@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,13 @@ namespace AdjustmentSysUI.UITool
         //    T control = this.Controls.Find(name, true).FirstOrDefault() as T;
         //    return control;
         //}
+        public static void SetTitleStyle(UIPage uIPage) 
+        {
+            uIPage.Style = UIStyle.Custom;
+            uIPage.Symbol = 361641;
+            uIPage.TitleForeColor = Color.FromArgb(80, 126, 164);
+            uIPage.TitleFillColor = SystemColors.GradientInactiveCaption;
+        }
+         
     }
 }

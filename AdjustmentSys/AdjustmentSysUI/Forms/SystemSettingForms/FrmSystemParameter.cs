@@ -23,9 +23,11 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
         private int selectId;
         public FrmSystemParameter()
         {
+        
             InitializeComponent();
             //列表格式添加
             InitDgvFormat();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         private void InitData()

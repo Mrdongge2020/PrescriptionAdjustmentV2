@@ -27,9 +27,11 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         DeviceBLL _deviceBLL = new DeviceBLL();
         public FrmDevice()
         {
+           
             InitializeComponent();
             InitDgvFormat();
             QueryList();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
 

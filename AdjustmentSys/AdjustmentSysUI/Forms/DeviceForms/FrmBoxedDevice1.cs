@@ -47,6 +47,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             InitializeComponent();
             dgvPreDetail.AutoGenerateColumns = false;
+            ControlOpterUI.SetTitleStyle(this);
         }
         UC_WorkStationButton[] uC_WorkStationButtons = new UC_WorkStationButton[8]; //调剂工位控件
         private void Jxs()

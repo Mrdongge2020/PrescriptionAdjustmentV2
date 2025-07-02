@@ -67,7 +67,7 @@ namespace AdjustmentSysUI
 
                 //设备信息
                 string deviceid = IniFileHelper.ReadIniData("DeviceInfo", "DeviceID", "", ConfigPath);
-                if (deviceid != null)
+                if (!string.IsNullOrEmpty(deviceid))
                 {
                     DeviceBLL _deviceBLL = new DeviceBLL();
                     var device = _deviceBLL.GetDeviceInfo(int.Parse(deviceid));

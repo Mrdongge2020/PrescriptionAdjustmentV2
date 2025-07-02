@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.BLL.Common;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSysUI.UITool;
 using NPOI.POIFS.Properties;
 using Sunny.UI;
 using System;
@@ -20,7 +21,9 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
         private readonly ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
         public FrmMenu()
         {
+         
             InitializeComponent();
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         List<MenuInfo> MenuInfos = new List<MenuInfo>();

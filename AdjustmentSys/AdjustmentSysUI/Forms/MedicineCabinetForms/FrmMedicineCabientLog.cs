@@ -21,6 +21,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
     {
         public FrmMedicineCabientLog()
         {
+          
             InitializeComponent();
 
             var names = Enum.GetNames(typeof(MedicineCabinetOperationLogTypeEnum));
@@ -44,6 +45,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             cbfp.ValueMember = "Id";
             cbfp.DisplayMember = "Name";
             cbfp.DataSource = pDatas;
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         /// <summary>

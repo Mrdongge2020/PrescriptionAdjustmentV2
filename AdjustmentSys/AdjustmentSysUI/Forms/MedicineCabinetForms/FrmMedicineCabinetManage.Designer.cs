@@ -287,6 +287,7 @@
             dgvList.SelectedIndex = -1;
             dgvList.Size = new Size(1134, 747);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
+            dgvList.Style = Sunny.UI.UIStyle.Custom;
             dgvList.TabIndex = 36;
             // 
             // timer1
@@ -307,9 +308,11 @@
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Symbol = 361641;
             Text = "药柜管理>>药柜颗粒管理";
-            TitleFillColor = Color.FromArgb(80, 160, 255);
+            TitleFillColor = Color.FromArgb(243, 249, 255);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmMedicineCabinetManage_Load;
             cmsRightKeyMenu.ResumeLayout(false);
             cmsOpterData.ResumeLayout(false);

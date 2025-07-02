@@ -44,32 +44,46 @@
             // navMenuMainLeft
             // 
             navMenuMainLeft.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            navMenuMainLeft.BorderStyle = BorderStyle.None;
+            navMenuMainLeft.BackColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.BorderStyle = BorderStyle.FixedSingle;
             navMenuMainLeft.DrawMode = TreeViewDrawMode.OwnerDrawAll;
+            navMenuMainLeft.FillColor = Color.FromArgb(80, 126, 164);
             navMenuMainLeft.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            navMenuMainLeft.ForeColor = Color.FromArgb(240, 240, 240);
+            navMenuMainLeft.ForeColor = Color.White;
             navMenuMainLeft.FullRowSelect = true;
-            navMenuMainLeft.Indent = 150;
+            navMenuMainLeft.HoverColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.Indent = 200;
             navMenuMainLeft.ItemHeight = 50;
+            navMenuMainLeft.LineColor = Color.FromArgb(80, 126, 164);
             navMenuMainLeft.Location = new Point(0, 165);
             navMenuMainLeft.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             navMenuMainLeft.Name = "navMenuMainLeft";
-            navMenuMainLeft.ScrollBarColor = Color.FromArgb(240, 240, 240);
-            navMenuMainLeft.ScrollBarHoverColor = Color.FromArgb(240, 240, 240);
-            navMenuMainLeft.ScrollBarPressColor = Color.FromArgb(240, 240, 240);
+            navMenuMainLeft.ScrollBarColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.ScrollBarHoverColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.ScrollBarPressColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.ScrollFillColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.SecondBackColor = Color.FromArgb(80, 126, 164);
+            navMenuMainLeft.SelectedColor = Color.SteelBlue;
+            navMenuMainLeft.SelectedColor2 = Color.SteelBlue;
+            navMenuMainLeft.SelectedForeColor = Color.White;
+            navMenuMainLeft.SelectedHighColor = Color.White;
+            navMenuMainLeft.ShowItemsArrow = false;
             navMenuMainLeft.ShowLines = false;
             navMenuMainLeft.ShowOneNode = true;
             navMenuMainLeft.ShowPlusMinus = false;
+            navMenuMainLeft.ShowRootLines = false;
             navMenuMainLeft.Size = new Size(286, 564);
+            navMenuMainLeft.Style = Sunny.UI.UIStyle.Custom;
             navMenuMainLeft.TabIndex = 2;
             navMenuMainLeft.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
             // uiNavBar1
             // 
-            uiNavBar1.BackColor = Color.FromArgb(240, 240, 240);
+            uiNavBar1.BackColor = Color.FromArgb(243, 249, 255);
             uiNavBar1.Dock = DockStyle.Top;
             uiNavBar1.DropMenuFont = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiNavBar1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiNavBar1.ForeColor = Color.Black;
             uiNavBar1.Location = new Point(0, 40);
             uiNavBar1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             uiNavBar1.Name = "uiNavBar1";
@@ -84,10 +98,12 @@
             uiTabControl1.ItemSize = new Size(0, 1);
             uiTabControl1.Location = new Point(286, 165);
             uiTabControl1.MainPage = "";
+            uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             uiTabControl1.Name = "uiTabControl1";
             uiTabControl1.SelectedIndex = 0;
             uiTabControl1.Size = new Size(882, 564);
             uiTabControl1.SizeMode = TabSizeMode.Fixed;
+            uiTabControl1.TabBackColor = Color.FromArgb(243, 249, 255);
             uiTabControl1.TabIndex = 4;
             uiTabControl1.TabUnSelectedForeColor = Color.FromArgb(240, 240, 240);
             uiTabControl1.TabVisible = false;
@@ -169,14 +185,19 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1168, 758);
+            ControlBox = false;
             Controls.Add(pannelBottom);
             Controls.Add(uiTabControl1);
             Controls.Add(uiNavBar1);
             Controls.Add(navMenuMainLeft);
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmMain";
             Padding = new Padding(0, 40, 0, 0);
+            RectColor = Color.FromArgb(80, 126, 164);
+            Style = Sunny.UI.UIStyle.Custom;
             Text = "颗粒调剂系统";
+            TitleColor = Color.FromArgb(80, 126, 164);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             TitleHeight = 40;
             WindowState = FormWindowState.Maximized;

@@ -1292,7 +1292,11 @@
             Name = "FrmBoxedDeviceTest";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "设备管理>>设备调试";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmBoxedDeviceTest_Load;
             uiGroupBox1.ResumeLayout(false);
             uiRadioButtonGroup1.ResumeLayout(false);

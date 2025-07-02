@@ -371,7 +371,11 @@
             Name = "FrmMedicineCabientLog";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Symbol = 361641;
             Text = "药柜管理>>操作日志";
+            TitleFillColor = Color.FromArgb(243, 249, 255);
+            TitleForeColor = Color.FromArgb(80, 126, 164);
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -5,6 +5,7 @@ using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.TCP;
+using AdjustmentSysUI.UITool;
 using NPOI.SS.UserModel;
 using Sunny.UI;
 using System;
@@ -32,6 +33,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         public FrmBoxedDeviceTest()
         {
+      
             InitializeComponent();
             uiGroupBox1.Enabled = false;
             uiGroupBox2.Enabled = false;
@@ -44,6 +46,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             cbKLMC.DisplayMember = "Name";
             cbKLMC.DataSource = pDatas;
             cbKLMC.SelectedIndex = -1;
+            ControlOpterUI.SetTitleStyle(this);
         }
         private void FrmBoxedDeviceTest_Load(object sender, EventArgs e)
         {
