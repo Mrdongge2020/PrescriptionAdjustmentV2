@@ -41,7 +41,7 @@ namespace AdjustmentSysUI.Forms
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));
-            
+
 
             pageIndex = 200;
             parent = navMenuMainLeft.CreateNode("系统管理", 362718, 28, pageIndex);
@@ -58,7 +58,7 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugCompatibilityRuler(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugManufacturer(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDrugLog(), ++pageIndex));
-            
+
 
             pageIndex = 400;
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);
@@ -86,18 +86,18 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex));
 
 
-
             //登录用户信息
-            lblLoginUser.Text = "当前用户:" + SysLoginUser._currentUser.UserName + " " + SysLoginUser._currentUser.UserLevelName;
+            lblLoginUser.Text = "用户:" + SysLoginUser._currentUser.UserName + " " + SysLoginUser._currentUser.UserLevelName;
             //主题设置
             SetTitle();
-            
+
+            timerRight.Start();
         }
-        
+
 
         private void timerRight_Tick(object sender, EventArgs e)
         {
-            this.lbltime.Text = DateTime.Now.DateTimeString();
+            //this.lbltime.Text = DateTime.Now.DateTimeString();
         }
 
         private void SetTitle()
@@ -108,8 +108,6 @@ namespace AdjustmentSysUI.Forms
             UIStyles.GlobalFontName = "微软雅黑";
             UIStyles.GlobalFontScale = 100;
             UIStyles.SetDPIScale();
-
-
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -117,7 +115,7 @@ namespace AdjustmentSysUI.Forms
             ModBusTCP_Cliect.port = 502;
             switch (SysDeviceInfo._currentDeviceInfo.DeviceType)
             {
-                
+
                 case DeviceTypeEnum.全自动:
                     {
                         ModBusTCP_Cliect.ip = "192.168.1.6";
@@ -179,7 +177,7 @@ namespace AdjustmentSysUI.Forms
                         lblDeviceConnectText.Text = "已连接";
                         lblDeviceConnectText.ForeColor = Color.Blue;
                     }));
-                } 
+                }
             }
             else
             {
@@ -190,20 +188,20 @@ namespace AdjustmentSysUI.Forms
                         lblDeviceConnectText.Text = "未连接";
                         lblDeviceConnectText.ForeColor = Color.Red;
                     }));
-                }                
+                }
             }
 
             if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus == false)
             {
                 modBusTCP_Cliect.Connent();
-                SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;     
+                SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus = ModBusTCP_Cliect.ConnState;
             }
 
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool result = ShowAskDialog( "退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+            bool result = ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
             if (result)
             {
                 this.ExitApp();
@@ -224,5 +222,19 @@ namespace AdjustmentSysUI.Forms
             this.Close();
         }
 
+        private void lblCloseSys_Click(object sender, EventArgs e)
+        {
+            bool result = ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+            if (result)
+            {
+                this.ExitApp();
+            }
+            //else
+            //{
+            //    e.Cancel = true;//手动取消事件
+            //}
+        }
+
+       
     }
 }

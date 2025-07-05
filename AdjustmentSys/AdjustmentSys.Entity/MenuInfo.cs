@@ -13,23 +13,35 @@ namespace AdjustmentSys.Entity
     /// 系统菜单表
     /// </summary>
     [Table("MenuInfo")]
-    public class MenuInfo:CreateModel
+    public class MenuInfo:BaseModel
     {
         /// <summary>
         /// 菜单名称
         /// </summary>
-        [Column("MenuName")]
+        [Column("Name")]
         [MaxLength(20)]
-        public string MenuName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 菜单等级,1,2
         /// </summary>
-        [Column("MenuName")]
+        [Column("Level")]
         public int Level { get; set; }
         /// <summary>
         /// 父级菜单id
         /// </summary>
-        [Column("MenuName")]
+        [Column("ParentId")]
         public int ParentId { get; set; }
+        /// <summary>
+        /// 父级菜单控件名称
+        /// </summary>
+        [Column("ParentName")]
+        [MaxLength(20)]
+        public string ParentName { get; set; }
+        /// <summary>
+        /// 控件名称
+        /// </summary>
+        [Column("ObjName")]
+        [MaxLength(20)]
+        public string ObjName { get; set; }
     }
 }

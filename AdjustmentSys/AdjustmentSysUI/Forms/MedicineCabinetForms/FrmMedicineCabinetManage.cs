@@ -94,6 +94,8 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     dataGridViewTextBoxColumn.ReadOnly = true;
                     //设置是否可见
                     dataGridViewTextBoxColumn.Visible = true;
+                    //设置不可排序
+                    dataGridViewTextBoxColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                     //设置绑定的字段
                     dataGridViewTextBoxColumn.DataPropertyName = item.ID + "" + i;
                     //设置列宽

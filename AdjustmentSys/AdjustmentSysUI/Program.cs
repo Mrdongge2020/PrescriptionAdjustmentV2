@@ -1,3 +1,4 @@
+using AdjustmentSys.Tool.FileOpter;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdjustmentSysUI
@@ -23,7 +24,7 @@ namespace AdjustmentSysUI
             Application.SetCompatibleTextRenderingDefault(false);
             //var service = new ServiceCollection();
             //ConfigureServices(service);
-
+            OperateLog.FileCheck();
             ApplicationConfiguration.Initialize();
             Application.Run(new FrmLogin());
         }

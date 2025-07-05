@@ -171,6 +171,18 @@ namespace AdjustmentSys.EFCore
         /// </summary>
         public DbSet<SystemParameterInfo> SystemParameterInfos { get; set; }
 
+        /// <summary>
+        /// 菜单表
+        /// </summary>
+        public DbSet<MenuInfo> MenuInfos { get; set; }
+        /// <summary>
+        /// 角色菜单权限表
+        /// </summary>
+        public DbSet<PermissionInfo> PermissionInfos { get; set; }
+        /// <summary>
+        /// 系统配置表
+        /// </summary>
+        public DbSet<ConfigInfo> ConfigInfos { get; set; }
 
         public static string GetEntityComment(string typeName, string? fieldName = null, List<string>? baseTypeNames = null)
         {

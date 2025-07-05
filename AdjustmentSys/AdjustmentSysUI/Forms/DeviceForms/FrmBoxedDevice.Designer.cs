@@ -186,7 +186,7 @@
             // lblDownLoad
             // 
             lblDownLoad.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            lblDownLoad.Location = new Point(3, 3);
+            lblDownLoad.Location = new Point(2, 3);
             lblDownLoad.MinimumSize = new Size(1, 1);
             lblDownLoad.Name = "lblDownLoad";
             lblDownLoad.RectSize = 2;
@@ -754,7 +754,6 @@
             // uC_WorkStationButton1
             // 
             uC_WorkStationButton1.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton1.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton1.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton1.Location = new Point(9, 11);
@@ -770,7 +769,6 @@
             // uC_WorkStationButton5
             // 
             uC_WorkStationButton5.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton5.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton5.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton5.Location = new Point(496, 112);
@@ -785,14 +783,10 @@
             // 
             // uC_WorkStationButton6
             // 
-            uC_WorkStationButton6.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton6.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uC_WorkStationButton6.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Location = new Point(333, 112);
             uC_WorkStationButton6.MinimumSize = new Size(1, 1);
             uC_WorkStationButton6.Name = "uC_WorkStationButton6";
-            uC_WorkStationButton6.RectColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton6.Size = new Size(155, 95);
             uC_WorkStationButton6.Style = Sunny.UI.UIStyle.Custom;
             uC_WorkStationButton6.TabIndex = 35;
@@ -802,7 +796,6 @@
             // uC_WorkStationButton7
             // 
             uC_WorkStationButton7.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton7.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton7.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton7.Location = new Point(170, 112);
@@ -818,7 +811,6 @@
             // uC_WorkStationButton8
             // 
             uC_WorkStationButton8.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton8.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton8.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton8.Location = new Point(7, 112);
@@ -834,7 +826,6 @@
             // uC_WorkStationButton4
             // 
             uC_WorkStationButton4.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton4.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton4.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton4.Location = new Point(496, 11);
@@ -850,7 +841,6 @@
             // uC_WorkStationButton3
             // 
             uC_WorkStationButton3.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton3.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton3.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton3.Location = new Point(333, 11);
@@ -866,7 +856,6 @@
             // uC_WorkStationButton2
             // 
             uC_WorkStationButton2.BackColor = Color.FromArgb(192, 192, 255);
-            uC_WorkStationButton2.FillColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uC_WorkStationButton2.ForeColor = Color.FromArgb(192, 192, 255);
             uC_WorkStationButton2.Location = new Point(170, 11);
@@ -889,7 +878,6 @@
             uiUserControl8.Controls.Add(stationWeightPaticleName);
             uiUserControl8.Controls.Add(stationWeightStatus);
             uiUserControl8.Controls.Add(uiLabel46);
-            uiUserControl8.FillColor = Color.FromArgb(192, 192, 255);
             uiUserControl8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiUserControl8.Location = new Point(497, 231);
             uiUserControl8.MinimumSize = new Size(1, 1);
@@ -903,7 +891,6 @@
             // 
             // uiLabel7
             // 
-            uiLabel7.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel7.Font = new Font("微软雅黑", 10.5F);
             uiLabel7.ForeColor = Color.Black;
             uiLabel7.Location = new Point(4, 83);
@@ -915,7 +902,6 @@
             // 
             // uiLabel4
             // 
-            uiLabel4.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel4.Font = new Font("微软雅黑", 10.5F);
             uiLabel4.ForeColor = Color.Black;
             uiLabel4.Location = new Point(4, 57);
@@ -927,7 +913,6 @@
             // 
             // uiLabel3
             // 
-            uiLabel3.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel3.Font = new Font("微软雅黑", 10.5F);
             uiLabel3.ForeColor = Color.Black;
             uiLabel3.Location = new Point(3, 30);
@@ -939,7 +924,6 @@
             // 
             // stationWeightNumber
             // 
-            stationWeightNumber.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightNumber.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             stationWeightNumber.ForeColor = Color.Black;
             stationWeightNumber.ImageAlign = ContentAlignment.MiddleLeft;
@@ -952,7 +936,6 @@
             // 
             // stationWeightPaticleName
             // 
-            stationWeightPaticleName.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightPaticleName.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             stationWeightPaticleName.ForeColor = Color.Black;
             stationWeightPaticleName.ImageAlign = ContentAlignment.MiddleLeft;
@@ -965,7 +948,6 @@
             // 
             // stationWeightStatus
             // 
-            stationWeightStatus.BackColor = Color.FromArgb(192, 192, 255);
             stationWeightStatus.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             stationWeightStatus.ForeColor = Color.Black;
             stationWeightStatus.ImageAlign = ContentAlignment.MiddleLeft;
@@ -978,7 +960,6 @@
             // 
             // uiLabel46
             // 
-            uiLabel46.BackColor = Color.FromArgb(192, 192, 255);
             uiLabel46.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel46.ForeColor = Color.Blue;
             uiLabel46.Location = new Point(16, 4);

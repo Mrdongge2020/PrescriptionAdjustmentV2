@@ -51,7 +51,7 @@
             // 
             // uiLabel24
             // 
-            uiLabel24.BackColor = Color.FromArgb(192, 192, 255);
+            uiLabel24.BackColor = Color.Transparent;
             uiLabel24.Font = new Font("微软雅黑", 10.5F);
             uiLabel24.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel24.Location = new Point(3, 36);
@@ -63,7 +63,7 @@
             // 
             // uiLabel1
             // 
-            uiLabel1.BackColor = Color.FromArgb(192, 192, 255);
+            uiLabel1.BackColor = Color.Transparent;
             uiLabel1.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new Point(3, 58);
@@ -75,7 +75,7 @@
             // 
             // lblParticleName
             // 
-            lblParticleName.BackColor = Color.FromArgb(192, 192, 255);
+            lblParticleName.BackColor = Color.Transparent;
             lblParticleName.Font = new Font("微软雅黑", 10.5F);
             lblParticleName.ForeColor = Color.FromArgb(48, 48, 48);
             lblParticleName.Location = new Point(43, 36);
@@ -88,7 +88,7 @@
             // 
             // lblStatus
             // 
-            lblStatus.BackColor = Color.FromArgb(192, 192, 255);
+            lblStatus.BackColor = Color.Transparent;
             lblStatus.Font = new Font("微软雅黑", 10.5F);
             lblStatus.ForeColor = Color.FromArgb(48, 48, 48);
             lblStatus.Location = new Point(43, 58);
@@ -100,7 +100,7 @@
             // 
             // lblStationName
             // 
-            lblStationName.BackColor = Color.FromArgb(192, 192, 255);
+            lblStationName.BackColor = Color.Transparent;
             lblStationName.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lblStationName.ForeColor = Color.FromArgb(48, 48, 48);
             lblStationName.Location = new Point(43, 6);
@@ -120,7 +120,6 @@
             Controls.Add(uiLabel1);
             Controls.Add(uiLabel24);
             Controls.Add(pbProcess);
-            FillColor = Color.FromArgb(192, 192, 255);
             ForeColor = Color.FromArgb(192, 192, 255);
             Name = "UC_WorkStationButton";
             RectColor = Color.FromArgb(192, 192, 255);

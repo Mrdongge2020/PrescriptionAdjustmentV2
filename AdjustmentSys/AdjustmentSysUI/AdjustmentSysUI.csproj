@@ -51,4 +51,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Icons\" />
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+
 </Project>
