@@ -1,8 +1,11 @@
-﻿using AdjustmentSys.EFCore;
+﻿using AdjustmentSys.DAL.Common;
+using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.SystemSetting;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -98,6 +101,38 @@ namespace AdjustmentSys.DAL.SystemSetting
                 error= e.Message;
             }
             return error;
+        }
+
+
+        /// <summary>
+        /// 修改配置config的值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="datavalue">值</param>
+        /// <returns></returns>
+        public string UpdateConfigValue(string name,string datavalue) 
+        {
+            string error = "";
+            try
+            {
+                var config = _eFCoreContext.ConfigInfos.FirstOrDefault(x => x.Name == name && x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId);
+                if (config != null)
+                {
+                    config.DataValue = datavalue;
+                    _eFCoreContext.ConfigInfos.Update(config);
+                    _eFCoreContext.SaveChanges();
+                }
+                OperateLog.WriteLog(LogTypeEnum.用户操作, $"{SysLoginUser.currentUser.UserName}修改配置表的【{config.ChineseName}】值为【{datavalue}】");
+                _eFCoreContext.SaveChanges();
+                return error;
+            }
+            catch (Exception e)
+            {
+                OperateLog.WriteLog(LogTypeEnum.数据库, $"{SysLoginUser.currentUser.UserName}修改配置表的【{name}】值为【{datavalue}】出错，原因："+e.Message);
+                error = e.Message;
+            }
+            return error;
+            
         }
     }
 }

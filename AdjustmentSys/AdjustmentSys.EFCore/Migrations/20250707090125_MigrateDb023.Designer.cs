@@ -4,6 +4,7 @@ using AdjustmentSys.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdjustmentSys.EFCore.Migrations
 {
     [DbContext(typeof(EFCoreContext))]
-    partial class EFCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20250707090125_MigrateDb023")]
+    partial class MigrateDb023
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,16 +137,6 @@ namespace AdjustmentSys.EFCore.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("ChineseName")
                         .HasComment("中文名称");
-
-                    b.Property<double?>("DataValuMax")
-                        .HasColumnType("float")
-                        .HasColumnName("DataValuMax")
-                        .HasComment("最大值");
-
-                    b.Property<double?>("DataValuMin")
-                        .HasColumnType("float")
-                        .HasColumnName("DataValuMin")
-                        .HasComment("最小值");
 
                     b.Property<string>("DataValue")
                         .IsRequired()
@@ -1984,22 +1977,22 @@ namespace AdjustmentSys.EFCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("Name")
                         .HasComment("菜单名称");
 
                     b.Property<string>("ObjName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("ObjName")
                         .HasComment("控件名称");
 
                     b.Property<string>("ParentName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("ParentName")
                         .HasComment("父级菜单控件名称");
 

@@ -24,12 +24,13 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
         SysPermissionBLL _sysPermissionBLL = new SysPermissionBLL();
         public FrmMenu()
         {
-         
+
             InitializeComponent();
             ControlOpterUI.SetTitleStyle(this);
         }
 
-        List<MenuInfo> menuInfos = new List<MenuInfo>();
+        int selectValue=1;
+
         private void BindTree()
         {
 
@@ -45,6 +46,10 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
             //创建根节点
             this.menuTreeView.Nodes.Clear();//清空节点
+            if (selectValue <= 0)
+            {
+                return;
+            }
             TreeNode rootNode = new TreeNode();
             rootNode.Text = "系统全域";
             rootNode.Tag = 0;
@@ -52,27 +57,23 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             this.menuTreeView.Nodes.Add(rootNode);
 
             var menuInfos = _sysPermissionBLL.GetAllMenuInfos();
-            if (menuInfos == null) 
+            if (menuInfos == null)
             {
                 return;
             }
 
-            var permissions = _sysPermissionBLL.GetPermissionInfosByLevelID(SysLoginUser.currentUser.UserLevelId);
+            var permissions = _sysPermissionBLL.GetPermissionInfosByLevelID(selectValue);
 
-
-
-            CreateChildNode(rootNode, 0, permissions);
+            CreateChildNode(rootNode, menuInfos[0].ParentName, permissions, menuInfos);
 
             //this.menuTreeView.Nodes[0].Expand();//展开一级菜单
             this.menuTreeView.ExpandAll();//展开所有菜单
         }
 
-        private void CreateChildNode(System.Windows.Forms.TreeNode parentNode, int parentId,List<PermissionInfo> permissions)
+        private void CreateChildNode(System.Windows.Forms.TreeNode parentNode, string parentName, List<PermissionInfo> permissions, List<MenuInfo> menuinfos)
         {
             //找到该节点下的子项（父节点值等于该节点编号）
-            var nodes = from list in menuInfos
-                        where list.ParentId.Equals(parentId)
-                        select list;
+            var nodes = menuinfos.Where(x => x.ParentName == parentName).ToList();
             //创建该节点子节点
             foreach (var item in nodes)
             {
@@ -81,7 +82,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 node.Tag = item.Level;
                 node.Name = item.ID.ToString();
                 ////此处可根据节点的parentId来设置图标
-                if (item.ParentId == 0)
+                if (item.ParentName == "")
                 {
                     node.ImageIndex = 1;
                 }
@@ -90,25 +91,77 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                     node.ImageIndex = 2;
                 }
                 //设置是否选中
-                if (SysLoginUser.currentUser.UserLevelId==1 || permissions.Any(x=>x.MenuID==item.ID))
-                { 
+                if (selectValue == 1 || permissions.Any(x => x.MenuID == item.ID && x.LevelID==selectValue))
+                {
                     node.Checked = true;
+                }
+                else 
+                {
+                    node.Checked = false;
                 }
                 //父节点添加子节点
                 parentNode.Nodes.Add(node);
                 //调用自身：递归
-                CreateChildNode(node, item.ID, permissions);
+                CreateChildNode(node, item.ObjName, permissions, menuinfos);
             }
         }
 
         private void FrmMenu_Load(object sender, EventArgs e)
         {
-            List<ComboxModel> levelDatas = _comboxDataBLL.GetUserLevelComboxData();
-            cbLevel.ValueMember = "Id";
-            cbLevel.DisplayMember = "Name";
-            cbLevel.DataSource = levelDatas;
-            cbLevel.SelectedIndex = -1;
+            dgvList.AutoGenerateColumns = false;//不自动生成列
+            dgvList.AllowUserToAddRows = false;//不自动产生最后的新行
+            dgvList.AllowUserToResizeRows = false;
+            dgvList.AllowUserToResizeColumns = false;
+            dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
+            //创建列
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "角色ID", true, true, 10, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Name", "角色名称", true, true, 10, "");
 
+            this.dgvList.DataSource = _comboxDataBLL.GetUserLevelComboxData();
+        }
+
+        private void menuTreeView_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            var node = e.Node;
+            if (selectValue<=1 || node.Tag.ToString() == "0")
+            {
+                return;
+            }
+           
+
+            int menuId = Convert.ToInt32(node.Name);
+            string resMsg = "";
+            if (node.Checked)
+            {
+                resMsg = _sysPermissionBLL.OpterPermission(selectValue, menuId, true);
+            }
+            else
+            {
+                resMsg = _sysPermissionBLL.OpterPermission(selectValue, menuId, false);
+            }
+
+            if (resMsg == "")
+            {
+                ShowSuccessTip("操作成功");
+            }
+            else
+            {
+                ShowErrorDialog("操作失败" + resMsg);
+            }
+
+        }
+
+
+
+        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //列头点击不处理
+            if (e.RowIndex < 0) { return; }
+
+            selectValue = Convert.ToInt32(this.dgvList.Rows[e.RowIndex].Cells["ID"].Value);
+
+            lblJSName.Text = this.dgvList.Rows[e.RowIndex].Cells["Name"].Value.ToString();
 
             BindTree();
         }

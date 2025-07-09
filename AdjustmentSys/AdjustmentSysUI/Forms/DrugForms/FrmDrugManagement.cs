@@ -209,16 +209,6 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             excelOpterUI.ExportSinglePage(exportDatas.ToList<object>(), "药品字典信息");
         }
 
-        private void btnOpterDropDown_Click(object sender, EventArgs e)
-        {
-            btnOpterDropDown.ShowContextMenuStrip(cmsOpterDurgData, 0, btnOpterDropDown.Height);
-        }
-
-        private void brnDrugExport_Click(object sender, EventArgs e)
-        {
-            brnDrugExport.ShowContextMenuStrip(cmsDurgExcelOpter, 0, brnDrugExport.Height);
-        }
-
         private void 药品数据导入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmDurgExcelInfoShow frmDurgExcelInfoShow = new FrmDurgExcelInfoShow();
@@ -235,6 +225,16 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         {
             FrmDurgDensityCoefficientSet frmDurgDensityCoefficientSet = new FrmDurgDensityCoefficientSet();
             frmDurgDensityCoefficientSet.ShowDialog();
+        }
+
+        private void btnOpterDurg_Click(object sender, EventArgs e)
+        {
+            btnOpterDurg.ShowContextMenuStrip(cmsOpterDurgData, 0, btnOpterDurg.Height);
+        }
+
+        private void brnDrugExport_Click(object sender, EventArgs e)
+        {
+            btnDrugExport.ShowContextMenuStrip(cmsDurgExcelOpter, 0, btnDrugExport.Height);
         }
     }
 }

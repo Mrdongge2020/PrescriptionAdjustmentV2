@@ -19,29 +19,30 @@ namespace AdjustmentSys.Entity
         /// 菜单名称
         /// </summary>
         [Column("Name")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Name { get; set; }
+        /// <summary>
+        /// 控件名称
+        /// </summary>
+        [Column("ObjName")]
+        [MaxLength(50)]
+        public string ObjName { get; set; }
         /// <summary>
         /// 菜单等级,1,2
         /// </summary>
         [Column("Level")]
         public int Level { get; set; }
-        /// <summary>
-        /// 父级菜单id
-        /// </summary>
-        [Column("ParentId")]
-        public int ParentId { get; set; }
+        // /// <summary>
+        // /// 父级菜单id
+        // /// </summary>
+        /////[Column("ParentId")]
+        //public int ParentId { get; set; }
         /// <summary>
         /// 父级菜单控件名称
         /// </summary>
         [Column("ParentName")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string ParentName { get; set; }
-        /// <summary>
-        /// 控件名称
-        /// </summary>
-        [Column("ObjName")]
-        [MaxLength(20)]
-        public string ObjName { get; set; }
+        
     }
 }

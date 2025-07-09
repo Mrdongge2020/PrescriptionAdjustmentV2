@@ -50,5 +50,16 @@ namespace AdjustmentSys.BLL.SystemSetting
             systemParameterInfo.UpdateTime = DateTime.Now;
             return systemParameterDAL.AddOrEditSystemParameterInfo(systemParameterInfo);
         }
+
+        /// <summary>
+        /// 修改配置config的值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="datavalue">值</param>
+        /// <returns></returns>
+        public string UpdateConfigValue(string name, string datavalue)
+        { 
+            return systemParameterDAL.UpdateConfigValue(name, datavalue);
+        }
     }
 }

@@ -404,7 +404,7 @@ namespace Sunny.UI.Demo
             Controls.Add(uiPanel4);
             Controls.Add(uiPanel2);
             Controls.Add(uiPanel1);
-            Name = "FColorful";
+            Name = "FrmColorful";
             Padding = new Padding(0, 35, 0, 0);
             PageIndex = 999;
             ShowTitle = true;

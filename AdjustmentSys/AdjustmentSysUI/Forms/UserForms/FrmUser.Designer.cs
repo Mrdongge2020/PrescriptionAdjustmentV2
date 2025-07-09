@@ -49,13 +49,13 @@
             // 
             txtUserKey.Cursor = Cursors.IBeam;
             txtUserKey.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtUserKey.Location = new Point(13, 53);
+            txtUserKey.Location = new Point(13, 49);
             txtUserKey.Margin = new Padding(4, 5, 4, 5);
             txtUserKey.MinimumSize = new Size(1, 16);
             txtUserKey.Name = "txtUserKey";
             txtUserKey.Padding = new Padding(5);
             txtUserKey.ShowText = false;
-            txtUserKey.Size = new Size(265, 30);
+            txtUserKey.Size = new Size(307, 30);
             txtUserKey.TabIndex = 0;
             txtUserKey.TextAlignment = ContentAlignment.MiddleLeft;
             txtUserKey.TouchPressClick = true;
@@ -65,13 +65,14 @@
             // 
             btnSearch.Cursor = Cursors.Hand;
             btnSearch.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSearch.Location = new Point(502, 53);
+            btnSearch.Location = new Point(560, 47);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(72, 33);
+            btnSearch.Radius = 10;
+            btnSearch.Size = new Size(90, 35);
             btnSearch.Symbol = 61442;
             btnSearch.TabIndex = 1;
-            btnSearch.Text = "查询";
+            btnSearch.Text = "查 询";
             btnSearch.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSearch.Click += btnSearch_Click;
             // 
@@ -79,15 +80,15 @@
             // 
             btnEditUser.Cursor = Cursors.Hand;
             btnEditUser.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEditUser.Location = new Point(114, 102);
+            btnEditUser.Location = new Point(121, 93);
             btnEditUser.MinimumSize = new Size(1, 1);
             btnEditUser.Name = "btnEditUser";
-            btnEditUser.Radius = 1;
-            btnEditUser.Size = new Size(70, 30);
-            btnEditUser.Symbol = 361741;
+            btnEditUser.Radius = 10;
+            btnEditUser.Size = new Size(90, 35);
+            btnEditUser.Symbol = 61508;
             btnEditUser.SymbolColor = SystemColors.Window;
             btnEditUser.TabIndex = 2;
-            btnEditUser.Text = "修改";
+            btnEditUser.Text = "修 改";
             btnEditUser.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnEditUser.Click += btnEditUser_Click;
             // 
@@ -95,14 +96,14 @@
             // 
             btnAddUser.Cursor = Cursors.Hand;
             btnAddUser.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAddUser.Location = new Point(13, 102);
+            btnAddUser.Location = new Point(13, 93);
             btnAddUser.MinimumSize = new Size(1, 1);
             btnAddUser.Name = "btnAddUser";
-            btnAddUser.Radius = 1;
-            btnAddUser.Size = new Size(70, 30);
-            btnAddUser.Symbol = 362211;
+            btnAddUser.Radius = 10;
+            btnAddUser.Size = new Size(90, 35);
+            btnAddUser.Symbol = 557672;
             btnAddUser.TabIndex = 3;
-            btnAddUser.Text = "新增";
+            btnAddUser.Text = "新 增";
             btnAddUser.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnAddUser.Click += btnAddUser_Click;
             // 
@@ -166,6 +167,7 @@
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
+            uiPage.Radius = 10;
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
             uiPage.Size = new Size(1085, 39);
@@ -181,13 +183,14 @@
             cbUserState.FillColor = Color.White;
             cbUserState.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cbUserState.ItemHoverColor = Color.FromArgb(155, 200, 255);
+            cbUserState.Items.AddRange(new object[] { "全部", "启用", "禁用" });
             cbUserState.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbUserState.Location = new Point(311, 53);
+            cbUserState.Location = new Point(328, 50);
             cbUserState.Margin = new Padding(4, 5, 4, 5);
             cbUserState.MinimumSize = new Size(63, 0);
             cbUserState.Name = "cbUserState";
             cbUserState.Padding = new Padding(0, 0, 30, 2);
-            cbUserState.Size = new Size(144, 29);
+            cbUserState.Size = new Size(182, 30);
             cbUserState.SymbolSize = 24;
             cbUserState.TabIndex = 7;
             cbUserState.TextAlignment = ContentAlignment.MiddleCenter;
@@ -197,13 +200,14 @@
             // 
             btnReset.Cursor = Cursors.Hand;
             btnReset.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Location = new Point(631, 53);
+            btnReset.Location = new Point(677, 47);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(72, 33);
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
             btnReset.Symbol = 561695;
             btnReset.TabIndex = 8;
-            btnReset.Text = "重置";
+            btnReset.Text = "重 置";
             btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnReset.Click += btnReset_Click;
             // 
@@ -211,15 +215,15 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(230, 102);
+            btnRefc.Location = new Point(230, 93);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
-            btnRefc.Radius = 1;
-            btnRefc.Size = new Size(70, 30);
+            btnRefc.Radius = 10;
+            btnRefc.Size = new Size(90, 35);
             btnRefc.Symbol = 61473;
             btnRefc.SymbolColor = SystemColors.Window;
             btnRefc.TabIndex = 28;
-            btnRefc.Text = "刷新";
+            btnRefc.Text = "刷 新";
             btnRefc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnRefc.Click += btnRefc_Click;
             // 

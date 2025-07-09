@@ -44,6 +44,17 @@ namespace AdjustmentSys.Entity
         public string DataValueType { get; set; }
 
         /// <summary>
+        /// 最小值
+        /// </summary>
+        [Column("DataValuMin")]
+        public double? DataValuMin { get; set; }
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        [Column("DataValuMax")]
+        public double? DataValuMax { get; set; }
+
+        /// <summary>
         /// 设备id
         /// </summary>
         [Column("DeviceId")]

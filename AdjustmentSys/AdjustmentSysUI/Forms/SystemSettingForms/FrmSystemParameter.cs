@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.BLL.SystemSetting;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Tool.Enums;
@@ -19,35 +20,16 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
     public partial class FrmSystemParameter : UIPage
     {
         SystemParameterBLL systemParameterBLL = new SystemParameterBLL();
-        DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
-        private int selectId;
+
         public FrmSystemParameter()
         {
-        
+
             InitializeComponent();
-            //列表格式添加
-            InitDgvFormat();
             ControlOpterUI.SetTitleStyle(this);
         }
 
-        private void InitData()
-        {
-            var cbItemList = new List<ComboxModel> {
-                new ComboxModel(){ Id=-1,Name="全部"},
-                new ComboxModel(){ Id=0,Name="功能设置"},
-                new ComboxModel(){ Id=1,Name="打印设置"},
-            };
-
-            cbType.ValueMember = "Id";
-            cbType.DisplayMember = "Name";
-            cbType.DataSource = cbItemList;
-            cbType.SelectedValue = -1;
-
-            
-        }
-
         /// <summary>
-        /// 设置dgv格式
+        /// 加载数据
         /// </summary>
         private void InitDgvFormat()
         {
@@ -57,114 +39,149 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             dgvList.AllowUserToResizeRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //初始化当前页
-            uiPage.ActivePage = 1;
-            //设置分页控件每页数量
-            uiPage.PageSize = 20;
 
-            //创建列
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 1, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParameterName", "参数名称", true, true, 8, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParameterDescribe", "参数描述", true, true, 6, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParameterValue", "参数值", true, true, 8, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParameterTypeText", "参数类型", true, true, 8, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateName", "创建人", true, true, 8, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "CreateTime", "创建时间", true, true, 10, "yyyy-MM-dd HH:mm:ss");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateName", "更新人", true, true, 8, "");
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "UpdateTime", "更新时间", true, true, 10, "yyyy-MM-dd HH:mm:ss");
+            dgvList1.AutoGenerateColumns = false;//不自动生成列
+            dgvList1.AllowUserToAddRows = false;//不自动产生最后的新行
+            dgvList1.AllowUserToResizeRows = false;
+            dgvList1.AllowUserToResizeColumns = false;
+            dgvList1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            foreach (var item in ConfigTB.ConfigInfos)
+            {
+                DataGridViewRow Result = new DataGridViewRow();
+                if (item.DataValueType == "bool")
+                {
+
+                    Result.CreateCells(dgvList);
+                    Result.Cells[0].Value = item.DataValue.Trim() == "1" ? true : false;
+                    Result.Cells[1].Value = item.ChineseName;
+                    Result.Cells[2].Value = item.Name;
+                    dgvList.Rows.Add(Result);
+                }
+                else
+                {
+                    Result.CreateCells(dgvList1);
+                    Result.Cells[0].Value = item.ChineseName;
+                    Result.Cells[1].Value = item.DataValue;
+                    Result.Cells[2].Value = "保存";
+                    Result.Cells[3].Value = item.Name;
+                    dgvList1.Rows.Add(Result);
+                }
+            }
         }
 
-        /// <summary>
-        /// 查询分页信息
-        /// </summary>
-        public void QueryList()
+        private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string? decribe = txtDeciibe.Text?.Trim();
-            ParameterTypeEnum? parameterType = null;
-            if (cbType.SelectedValue != null && cbType.SelectedValue.ToString() == "-1")
+            if (e.RowIndex == -1) { return; }
+            //获取DataGridView中CheckBox的Cell
+            DataGridViewCheckBoxCell dgvCheck = (DataGridViewCheckBoxCell)(this.dgvList.Rows[this.dgvList.CurrentCell.RowIndex].Cells[0]);
+
+            //获取被选中列的相关信息
+
+            string name = dgvList.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+
+            //根据单击时，Cell的值进行处理。EditedFormattedValue和Value均可以
+
+            //若单击时，CheckBox没有被勾上
+            string error = "";
+            if (Convert.ToBoolean(dgvCheck.EditedFormattedValue))
             {
-                parameterType = null;
+                error = systemParameterBLL.UpdateConfigValue(name, "1");
+                if (error == "")
+                {
+                    dgvList.Rows[e.RowIndex].Cells[0].Value = true;
+                    ShowSuccessTip("启用成功");
+                }
+            }
+            //若单击时，CheckBox已经被勾上
+            else
+            {
+                error = systemParameterBLL.UpdateConfigValue(name, "0");
+                if (error == "")
+                {
+                    dgvList.Rows[e.RowIndex].Cells[0].Value = false;
+                    ShowSuccessTip("禁用成功");
+                }
+            }
+            if (error != "")
+            {
+                ShowErrorDialog("操作出现异常，原因:" + error);
+                return;
             }
 
-            int allCount = 0;//总条数
-            var datas = systemParameterBLL.GetSystemParameterByPage(parameterType, decribe, uiPage.ActivePage, uiPage.PageSize, out allCount);
-            //设置分页控件总数
-            uiPage.TotalCount = allCount;
-
-            dgvList.DataSource = datas;
-
-            //清除默认选中的行
-            dgvList.ClearSelection();
-            selectId = 0;
+            ConfigTB.SetConfigData();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void dgvList1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            uiPage.ActivePage = 1;
-            QueryList();
+            if (e.RowIndex == -1) { return; }
+            string buttonText = this.dgvList1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+            if (buttonText == "保存")
+            {
+
+                string name = dgvList1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string data = dgvList1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string msg = DataCheck(name, data);
+                if (msg == "")
+                {
+                    string error = systemParameterBLL.UpdateConfigValue(name, data);
+                    if (error == "")
+                    {
+                        ShowSuccessTip("保存成功");
+                        ConfigTB.SetConfigData();
+                    }
+                    else
+                    {
+                        ShowErrorDialog("保存失败，原因:" + error);
+                    }
+                }
+                else
+                {
+                    ShowErrorDialog("保存失败，原因:" + msg);
+                }
+
+            }
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
+        private string DataCheck(string name, string dvalue)
         {
-            cbType.SelectedValue = -1;
-            txtDeciibe.Text = string.Empty;
-            uiPage.ActivePage = 1;
-            QueryList();
-        }
-
-        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //列头点击不处理
-            if (e.RowIndex < 0) { return; }
-
-            selectId = Convert.ToInt32(this.dgvList.Rows[e.RowIndex].Cells["ID"].Value);
+            var config = ConfigTB.ConfigInfos.FirstOrDefault(x => x.Name == name);
+            if (config == null)
+            {
+                return "未找到改配置信息";
+            }
+            //根据特性中的默认值给属性赋值
+            if (config.DataValueType == "int")
+            {
+                if (!int.TryParse(dvalue, out int value1))
+                {
+                    return "该数据只能是整数数字类型";
+                }
+                if (config.DataValuMin != config.DataValuMax && (value1 < config.DataValuMin || value1 > config.DataValuMax))
+                {
+                    return $"该数据只能是介于[{config.DataValuMin}]~[{config.DataValuMax}]的整数数字";
+                }
+            }
+            else if (config.DataValueType == "double" || config.DataValueType == "float")
+            {
+                if (!int.TryParse(dvalue, out int value1))
+                {
+                    return "该数据只能是数字类型";
+                }
+                if (config.DataValuMin != config.DataValuMax && (value1 < config.DataValuMin || value1 > config.DataValuMax))
+                {
+                    return $"该数据只能是介于[{config.DataValuMin}]~[{config.DataValuMax}]的数字";
+                }
+            }
+            return "";
         }
 
         private void FrmSystemParameter_Load(object sender, EventArgs e)
         {
-            InitData();
-            QueryList();
-        }
-
-        private void uiPage_PageChanged(object sender, object pagingSource, int pageIndex, int count)
-        {
-            QueryList();
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            dataGradeViewUi.FormClose("FrmSystemParameterEdit");
-            FrmSystemParameterEdit frmSystemParameterEdit = new FrmSystemParameterEdit(0);
-            frmSystemParameterEdit.Text = "新增系统参数";
-            frmSystemParameterEdit.ShowDialog();
-            bool isok = frmSystemParameterEdit.isSuccess;
-            if (isok)
-            {
-                ShowSuccessTip("新增系统参数成功");
-                uiPage.ActivePage = 1;
-                QueryList();
-            }
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (selectId<1) 
-            {
-                ShowWarningDialog("异常提示", "请选中一行要编辑的系统参数");
-                return;
-            }
-
-            dataGradeViewUi.FormClose("FrmSystemParameterEdit");
-            FrmSystemParameterEdit frmSystemParameterEdit = new FrmSystemParameterEdit(selectId);
-            frmSystemParameterEdit.Text = "编辑系统参数";
-            frmSystemParameterEdit.ShowDialog();
-            bool isok = frmSystemParameterEdit.isSuccess;
-            if (isok)
-            {
-                ShowSuccessTip("编辑系统参数");
-                uiPage.ActivePage = 1;
-                QueryList();
-            }
+            InitDgvFormat();
         }
     }
 }

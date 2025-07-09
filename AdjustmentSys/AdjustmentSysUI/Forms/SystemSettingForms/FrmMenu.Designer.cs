@@ -28,94 +28,151 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             menuTreeView = new Sunny.UI.UITreeView();
-            cbLevel = new Sunny.UI.UIComboBox();
             uiLabel7 = new Sunny.UI.UILabel();
-            btnOK = new Sunny.UI.UISymbolButton();
+            dgvList = new Sunny.UI.UIDataGridView();
+            uiLabel1 = new Sunny.UI.UILabel();
+            lblJSName = new Sunny.UI.UILabel();
+            ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
             // menuTreeView
             // 
-            menuTreeView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            menuTreeView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             menuTreeView.CheckBoxes = true;
             menuTreeView.FillColor = Color.White;
             menuTreeView.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            menuTreeView.Location = new Point(4, 88);
+            menuTreeView.Location = new Point(468, 70);
             menuTreeView.Margin = new Padding(4, 5, 4, 5);
             menuTreeView.MinimumSize = new Size(1, 1);
             menuTreeView.Name = "menuTreeView";
             menuTreeView.ScrollBarStyleInherited = false;
             menuTreeView.ShowText = false;
-            menuTreeView.Size = new Size(411, 661);
+            menuTreeView.Size = new Size(591, 661);
             menuTreeView.TabIndex = 0;
             menuTreeView.Text = "uiTreeView1";
             menuTreeView.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // cbLevel
-            // 
-            cbLevel.DataSource = null;
-            cbLevel.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
-            cbLevel.FillColor = Color.White;
-            cbLevel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cbLevel.ItemHoverColor = Color.FromArgb(155, 200, 255);
-            cbLevel.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbLevel.Location = new Point(106, 48);
-            cbLevel.Margin = new Padding(4, 5, 4, 5);
-            cbLevel.MinimumSize = new Size(63, 0);
-            cbLevel.Name = "cbLevel";
-            cbLevel.Padding = new Padding(0, 0, 30, 2);
-            cbLevel.Size = new Size(188, 29);
-            cbLevel.SymbolSize = 24;
-            cbLevel.TabIndex = 16;
-            cbLevel.TextAlignment = ContentAlignment.MiddleLeft;
-            cbLevel.Watermark = "请选择权限等级";
+            menuTreeView.AfterCheck += menuTreeView_AfterCheck;
             // 
             // uiLabel7
             // 
             uiLabel7.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = Color.Black;
-            uiLabel7.Location = new Point(14, 51);
+            uiLabel7.Location = new Point(14, 41);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(81, 23);
             uiLabel7.TabIndex = 17;
-            uiLabel7.Text = "权限等级：";
+            uiLabel7.Text = "系统角色：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnOK
+            // dgvList
             // 
-            btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOK.Location = new Point(318, 45);
-            btnOK.MinimumSize = new Size(1, 1);
-            btnOK.Name = "btnOK";
-            btnOK.Size = new Size(85, 32);
-            btnOK.TabIndex = 35;
-            btnOK.Text = "保 存";
-            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvList.BackgroundColor = Color.White;
+            dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvList.ColumnHeadersHeight = 32;
+            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvList.EnableHeadersVisualStyles = false;
+            dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.GridColor = Color.FromArgb(80, 160, 255);
+            dgvList.Location = new Point(14, 71);
+            dgvList.Name = "dgvList";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvList.RowHeadersVisible = false;
+            dgvList.RowHeadersWidth = 51;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvList.RowTemplate.Height = 27;
+            dgvList.SelectedIndex = -1;
+            dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvList.Size = new Size(436, 221);
+            dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
+            dgvList.TabIndex = 36;
+            dgvList.CellClick += dgvList_CellClick;
+            // 
+            // uiLabel1
+            // 
+            uiLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            uiLabel1.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel1.ForeColor = Color.Black;
+            uiLabel1.Location = new Point(471, 41);
+            uiLabel1.Name = "uiLabel1";
+            uiLabel1.Size = new Size(81, 23);
+            uiLabel1.TabIndex = 37;
+            uiLabel1.Text = "角色权限：";
+            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblJSName
+            // 
+            lblJSName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblJSName.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblJSName.ForeColor = Color.Blue;
+            lblJSName.Location = new Point(101, 41);
+            lblJSName.Name = "lblJSName";
+            lblJSName.Size = new Size(81, 23);
+            lblJSName.TabIndex = 38;
+            lblJSName.Text = "无";
+            lblJSName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FrmMenu
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1131, 755);
-            Controls.Add(btnOK);
+            Controls.Add(lblJSName);
+            Controls.Add(uiLabel1);
+            Controls.Add(dgvList);
             Controls.Add(uiLabel7);
-            Controls.Add(cbLevel);
             Controls.Add(menuTreeView);
             Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Name = "FrmMenu";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "系统设置>>系统权限设置";
+            Text = "系统设置>>角色权限设置";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmMenu_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Sunny.UI.UITreeView menuTreeView;
-        private Sunny.UI.UIComboBox cbLevel;
         private Sunny.UI.UILabel uiLabel7;
-        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UIDataGridView dgvList;
+        private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UILabel lblJSName;
     }
 }

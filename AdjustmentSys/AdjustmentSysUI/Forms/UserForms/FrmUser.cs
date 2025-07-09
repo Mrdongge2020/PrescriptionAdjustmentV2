@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Entity;
+﻿using AdjustmentSys.BLL.SystemSetting;
+using AdjustmentSys.Entity;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.User;
@@ -22,13 +23,15 @@ namespace AdjustmentSysUI.Forms.UserForms
     public partial class FrmUser : UIPage
     {
         private readonly UserInfoBLL _userInfoBLL = new UserInfoBLL();
+        SysPermissionBLL _sysPermissionBLL = new SysPermissionBLL();
         private int checkedUserId = 0;
         public FrmUser()
         {
-            ControlOpterUI.SetTitleStyle(this);
             InitializeComponent();
-            InitData();
-  
+            //列表格式添加
+            InitDgvFormat();
+            cbUserState.Text = "全部";
+            ControlOpterUI.SetTitleStyle(this);
         }
 
         private void InitData()
@@ -44,16 +47,18 @@ namespace AdjustmentSysUI.Forms.UserForms
             cbUserState.DataSource = cbItemList;
             cbUserState.SelectedIndex = -1;
 
-            //列表格式添加
-            InitDgvFormat();
+            
         }
+
+        
         /// <summary>
         /// 重置按钮点击事件
         /// </summary>
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtUserKey.Text = string.Empty;
-            cbUserState.SelectedIndex = -1;
+            cbUserState.Text="全部";
+            QueryUserList();
         }
 
         //添加用户点击事件
@@ -117,11 +122,11 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             string? keywordstr = txtUserKey.Text?.Trim();
             bool? state = null;
-            if (cbUserState.SelectedValue != null && cbUserState.SelectedValue.ToString() == "0")
+            if (cbUserState.Text == "启用")
             {
                 state = true;
             }
-            else if (cbUserState.SelectedValue != null && cbUserState.SelectedValue.ToString() == "1")
+            else if (cbUserState.Text == "禁用")
             {
                 state = false;
             }

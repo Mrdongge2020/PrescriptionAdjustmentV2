@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             btnDelete = new Sunny.UI.UISymbolButton();
             btnReset = new Sunny.UI.UISymbolButton();
             btnAdd = new Sunny.UI.UISymbolButton();
@@ -42,14 +42,14 @@
             dgvList = new Sunny.UI.UIDataGridView();
             btnRefc = new Sunny.UI.UISymbolButton();
             uiPage = new Sunny.UI.UIPagination();
-            btnOpterDropDown = new Sunny.UI.UISymbolLabel();
-            brnDrugExport = new Sunny.UI.UISymbolLabel();
             cmsOpterDurgData = new Sunny.UI.UIContextMenuStrip();
-            药品系数调整ToolStripMenuItem = new ToolStripMenuItem();
+            药品系数调整 = new ToolStripMenuItem();
             cmsDurgExcelOpter = new Sunny.UI.UIContextMenuStrip();
-            药品数据导出ToolStripMenuItem = new ToolStripMenuItem();
-            药品数据导入ToolStripMenuItem = new ToolStripMenuItem();
-            匹配数据导入ToolStripMenuItem = new ToolStripMenuItem();
+            药品数据导出 = new ToolStripMenuItem();
+            药品数据导入 = new ToolStripMenuItem();
+            匹配数据导入 = new ToolStripMenuItem();
+            btnOpterDurg = new Sunny.UI.UISymbolButton();
+            btnDrugExport = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             cmsOpterDurgData.SuspendLayout();
             cmsDurgExcelOpter.SuspendLayout();
@@ -59,15 +59,15 @@
             // 
             btnDelete.Cursor = Cursors.Hand;
             btnDelete.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Location = new Point(216, 89);
+            btnDelete.Location = new Point(216, 90);
             btnDelete.MinimumSize = new Size(1, 1);
             btnDelete.Name = "btnDelete";
-            btnDelete.Radius = 1;
-            btnDelete.Size = new Size(70, 30);
+            btnDelete.Radius = 10;
+            btnDelete.Size = new Size(90, 35);
             btnDelete.Symbol = 559691;
             btnDelete.SymbolColor = SystemColors.Window;
             btnDelete.TabIndex = 26;
-            btnDelete.Text = "删除";
+            btnDelete.Text = "删 除";
             btnDelete.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnDelete.Click += btnDelete_Click;
             // 
@@ -78,10 +78,11 @@
             btnReset.Location = new Point(422, 46);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(72, 33);
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
             btnReset.Symbol = 561695;
             btnReset.TabIndex = 25;
-            btnReset.Text = "重置";
+            btnReset.Text = "重 置";
             btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnReset.Click += btnReset_Click;
             // 
@@ -89,14 +90,14 @@
             // 
             btnAdd.Cursor = Cursors.Hand;
             btnAdd.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAdd.Location = new Point(6, 89);
+            btnAdd.Location = new Point(6, 90);
             btnAdd.MinimumSize = new Size(1, 1);
             btnAdd.Name = "btnAdd";
-            btnAdd.Radius = 1;
-            btnAdd.Size = new Size(70, 30);
-            btnAdd.Symbol = 362211;
+            btnAdd.Radius = 10;
+            btnAdd.Size = new Size(90, 35);
+            btnAdd.Symbol = 557672;
             btnAdd.TabIndex = 22;
-            btnAdd.Text = "新增";
+            btnAdd.Text = "新 增";
             btnAdd.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnAdd.Click += btnAdd_Click;
             // 
@@ -104,15 +105,15 @@
             // 
             btnEdit.Cursor = Cursors.Hand;
             btnEdit.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEdit.Location = new Point(107, 89);
+            btnEdit.Location = new Point(107, 90);
             btnEdit.MinimumSize = new Size(1, 1);
             btnEdit.Name = "btnEdit";
-            btnEdit.Radius = 1;
-            btnEdit.Size = new Size(70, 30);
-            btnEdit.Symbol = 361741;
+            btnEdit.Radius = 10;
+            btnEdit.Size = new Size(90, 35);
+            btnEdit.Symbol = 61508;
             btnEdit.SymbolColor = SystemColors.Window;
             btnEdit.TabIndex = 21;
-            btnEdit.Text = "修改";
+            btnEdit.Text = "修 改";
             btnEdit.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnEdit.Click += btnEdit_Click;
             // 
@@ -123,10 +124,11 @@
             btnSearch.Location = new Point(320, 46);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(72, 33);
+            btnSearch.Radius = 10;
+            btnSearch.Size = new Size(90, 35);
             btnSearch.Symbol = 61442;
             btnSearch.TabIndex = 20;
-            btnSearch.Text = "查询";
+            btnSearch.Text = "查 询";
             btnSearch.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSearch.Click += btnSearch_Click;
             // 
@@ -148,52 +150,52 @@
             // 
             // dgvList
             // 
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.ColumnHeadersHeight = 32;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(5, 125);
+            dgvList.Location = new Point(5, 134);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvList.RowHeadersVisible = false;
             dgvList.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvList.Size = new Size(1317, 476);
+            dgvList.Size = new Size(1317, 467);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 27;
             dgvList.ZoomScaleDisabled = true;
@@ -203,15 +205,15 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(320, 89);
+            btnRefc.Location = new Point(320, 90);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
-            btnRefc.Radius = 1;
-            btnRefc.Size = new Size(70, 30);
+            btnRefc.Radius = 10;
+            btnRefc.Size = new Size(90, 35);
             btnRefc.Symbol = 61473;
             btnRefc.SymbolColor = SystemColors.Window;
             btnRefc.TabIndex = 30;
-            btnRefc.Text = "刷新";
+            btnRefc.Text = "刷 新";
             btnRefc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnRefc.Click += btnRefc_Click;
             // 
@@ -223,6 +225,7 @@
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
+            uiPage.Radius = 10;
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
             uiPage.Size = new Size(591, 46);
@@ -231,86 +234,92 @@
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;
             uiPage.PageChanged += uiPage_PageChanged;
             // 
-            // btnOpterDropDown
-            // 
-            btnOpterDropDown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnOpterDropDown.Font = new Font("微软雅黑", 12F);
-            btnOpterDropDown.Location = new Point(991, 84);
-            btnOpterDropDown.MinimumSize = new Size(1, 1);
-            btnOpterDropDown.Name = "btnOpterDropDown";
-            btnOpterDropDown.Size = new Size(151, 35);
-            btnOpterDropDown.Symbol = 560112;
-            btnOpterDropDown.SymbolColor = Color.Blue;
-            btnOpterDropDown.TabIndex = 35;
-            btnOpterDropDown.Text = "操作药品数据";
-            btnOpterDropDown.Click += btnOpterDropDown_Click;
-            // 
-            // brnDrugExport
-            // 
-            brnDrugExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            brnDrugExport.Font = new Font("微软雅黑", 12F);
-            brnDrugExport.Location = new Point(1163, 84);
-            brnDrugExport.MinimumSize = new Size(1, 1);
-            brnDrugExport.Name = "brnDrugExport";
-            brnDrugExport.Size = new Size(151, 35);
-            brnDrugExport.Symbol = 560112;
-            brnDrugExport.SymbolColor = Color.Blue;
-            brnDrugExport.TabIndex = 36;
-            brnDrugExport.Text = "导入导出药品数据";
-            brnDrugExport.Click += brnDrugExport_Click;
-            // 
             // cmsOpterDurgData
             // 
             cmsOpterDurgData.BackColor = Color.FromArgb(243, 249, 255);
             cmsOpterDurgData.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cmsOpterDurgData.Items.AddRange(new ToolStripItem[] { 药品系数调整ToolStripMenuItem });
+            cmsOpterDurgData.Items.AddRange(new ToolStripItem[] { 药品系数调整 });
             cmsOpterDurgData.Name = "cmsOpterDurgData";
             cmsOpterDurgData.Size = new Size(174, 30);
             // 
-            // 药品系数调整ToolStripMenuItem
+            // 药品系数调整
             // 
-            药品系数调整ToolStripMenuItem.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            药品系数调整ToolStripMenuItem.Name = "药品系数调整ToolStripMenuItem";
-            药品系数调整ToolStripMenuItem.Size = new Size(173, 26);
-            药品系数调整ToolStripMenuItem.Text = "药品系数调整";
-            药品系数调整ToolStripMenuItem.Click += 药品系数调整ToolStripMenuItem_Click;
+            药品系数调整.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            药品系数调整.Name = "药品系数调整";
+            药品系数调整.Size = new Size(173, 26);
+            药品系数调整.Text = "药品系数调整";
+            药品系数调整.Click += 药品系数调整ToolStripMenuItem_Click;
             // 
             // cmsDurgExcelOpter
             // 
             cmsDurgExcelOpter.BackColor = Color.FromArgb(243, 249, 255);
             cmsDurgExcelOpter.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cmsDurgExcelOpter.Items.AddRange(new ToolStripItem[] { 药品数据导出ToolStripMenuItem, 药品数据导入ToolStripMenuItem, 匹配数据导入ToolStripMenuItem });
+            cmsDurgExcelOpter.Items.AddRange(new ToolStripItem[] { 药品数据导出, 药品数据导入, 匹配数据导入 });
             cmsDurgExcelOpter.Name = "cmsDurgExcelOpter";
             cmsDurgExcelOpter.Size = new Size(177, 82);
             // 
-            // 药品数据导出ToolStripMenuItem
+            // 药品数据导出
             // 
-            药品数据导出ToolStripMenuItem.Name = "药品数据导出ToolStripMenuItem";
-            药品数据导出ToolStripMenuItem.Size = new Size(176, 26);
-            药品数据导出ToolStripMenuItem.Text = "药品数据导出";
-            药品数据导出ToolStripMenuItem.Click += 药品数据导出ToolStripMenuItem_Click;
+            药品数据导出.Name = "药品数据导出";
+            药品数据导出.Size = new Size(176, 26);
+            药品数据导出.Text = "药品数据导出";
+            药品数据导出.Click += 药品数据导出ToolStripMenuItem_Click;
             // 
-            // 药品数据导入ToolStripMenuItem
+            // 药品数据导入
             // 
-            药品数据导入ToolStripMenuItem.Name = "药品数据导入ToolStripMenuItem";
-            药品数据导入ToolStripMenuItem.Size = new Size(176, 26);
-            药品数据导入ToolStripMenuItem.Text = "药品数据导入";
-            药品数据导入ToolStripMenuItem.Click += 药品数据导入ToolStripMenuItem_Click;
+            药品数据导入.Name = "药品数据导入";
+            药品数据导入.Size = new Size(176, 26);
+            药品数据导入.Text = "药品数据导入";
+            药品数据导入.Click += 药品数据导入ToolStripMenuItem_Click;
             // 
-            // 匹配数据导入ToolStripMenuItem
+            // 匹配数据导入
             // 
-            匹配数据导入ToolStripMenuItem.Name = "匹配数据导入ToolStripMenuItem";
-            匹配数据导入ToolStripMenuItem.Size = new Size(176, 26);
-            匹配数据导入ToolStripMenuItem.Text = "匹配数据导入";
-            匹配数据导入ToolStripMenuItem.Click += 匹配数据导入ToolStripMenuItem_Click;
+            匹配数据导入.Name = "匹配数据导入";
+            匹配数据导入.Size = new Size(176, 26);
+            匹配数据导入.Text = "匹配数据导入";
+            匹配数据导入.Click += 匹配数据导入ToolStripMenuItem_Click;
+            // 
+            // btnOpterDurg
+            // 
+            btnOpterDurg.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOpterDurg.ContextMenuStrip = cmsOpterDurgData;
+            btnOpterDurg.Cursor = Cursors.Hand;
+            btnOpterDurg.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOpterDurg.Location = new Point(922, 90);
+            btnOpterDurg.MinimumSize = new Size(1, 1);
+            btnOpterDurg.Name = "btnOpterDurg";
+            btnOpterDurg.Radius = 10;
+            btnOpterDurg.Size = new Size(180, 35);
+            btnOpterDurg.Symbol = 560112;
+            btnOpterDurg.TabIndex = 37;
+            btnOpterDurg.Text = "操作药品数据";
+            btnOpterDurg.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOpterDurg.Click += btnOpterDurg_Click;
+            // 
+            // btnDrugExport
+            // 
+            btnDrugExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDrugExport.ContextMenuStrip = cmsDurgExcelOpter;
+            btnDrugExport.Cursor = Cursors.Hand;
+            btnDrugExport.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDrugExport.Location = new Point(1123, 90);
+            btnDrugExport.MinimumSize = new Size(1, 1);
+            btnDrugExport.Name = "btnDrugExport";
+            btnDrugExport.Radius = 10;
+            btnDrugExport.Size = new Size(180, 35);
+            btnDrugExport.Symbol = 560112;
+            btnDrugExport.TabIndex = 38;
+            btnDrugExport.Text = "导入导出药品数据";
+            btnDrugExport.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnDrugExport.Click += brnDrugExport_Click;
             // 
             // FrmDrugManagement
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1326, 656);
-            Controls.Add(brnDrugExport);
-            Controls.Add(btnOpterDropDown);
+            Controls.Add(btnDrugExport);
+            Controls.Add(btnOpterDurg);
             Controls.Add(uiPage);
             Controls.Add(btnRefc);
             Controls.Add(dgvList);
@@ -348,13 +357,13 @@
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UISymbolButton btnRefc;
         private Sunny.UI.UIPagination uiPage;
-        private Sunny.UI.UISymbolLabel btnOpterDropDown;
-        private Sunny.UI.UISymbolLabel brnDrugExport;
         private Sunny.UI.UIContextMenuStrip cmsOpterDurgData;
-        private ToolStripMenuItem 药品系数调整ToolStripMenuItem;
+        private ToolStripMenuItem 药品系数调整;
         private Sunny.UI.UIContextMenuStrip cmsDurgExcelOpter;
-        private ToolStripMenuItem 药品数据导出ToolStripMenuItem;
-        private ToolStripMenuItem 药品数据导入ToolStripMenuItem;
-        private ToolStripMenuItem 匹配数据导入ToolStripMenuItem;
+        private ToolStripMenuItem 药品数据导出;
+        private ToolStripMenuItem 药品数据导入;
+        private ToolStripMenuItem 匹配数据导入;
+        private Sunny.UI.UISymbolButton btnOpterDurg;
+        private Sunny.UI.UISymbolButton btnDrugExport;
     }
 }

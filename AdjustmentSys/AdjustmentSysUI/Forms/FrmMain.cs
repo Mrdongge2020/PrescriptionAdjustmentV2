@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Models.FileModel;
+﻿using AdjustmentSys.DAL.Common;
+using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
@@ -37,6 +38,9 @@ namespace AdjustmentSysUI.Forms
         {
             //TestFile();
             InitializeComponent();
+
+            ConfigTB configTB = new ConfigTB();
+            ConfigTB.SetConfigData();
             int pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));

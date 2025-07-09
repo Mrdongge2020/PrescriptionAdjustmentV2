@@ -39,7 +39,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         int Colindex = 0;
         public FrmMedicineCabinetManage()
         {
-            
+
             InitializeComponent();
             InitData();
             ControlOpterUI.SetTitleStyle(this);
@@ -418,9 +418,9 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     timer1.Start();
                     //CheckRow();
                 }
-                else 
+                else
                 {
-                    ShowWarningDialog("写入失败!"+msg);
+                    ShowWarningDialog("写入失败!" + msg);
                 }
             }
             catch (Exception ex)
@@ -445,7 +445,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             bool isExit = true;
             int index = 1;
-            while (isExit) 
+            while (isExit)
             {
                 var str = index + rfidString;
                 if (allMedicineCabinetDetails.Any(x => x.RFID.ToString() == str))
@@ -453,22 +453,22 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     index++;
                     continue;
                 }
-                else 
+                else
                 {
-                    rfidString= str;
+                    rfidString = str;
                     isExit = false;
                 }
             }
             return int.Parse(rfidString);
         }
-        private void btnOpterDropDown_Click(object sender, EventArgs e)
-        {
-            btnOpterDropDown.ShowContextMenuStrip(cmsOpterData, 0, btnOpterDropDown.Height);
-        }
+        //private void btnOpterDropDown_Click(object sender, EventArgs e)
+        //{
+        //    btnOpterDropDown.ShowContextMenuStrip(cmsOpterData, 0, btnOpterDropDown.Height);
+        //}
 
         private void btnExportOpter_Click(object sender, EventArgs e)
         {
-            btnExportOpter.ShowContextMenuStrip(cmsExcelOpter, 0, btnExportOpter.Height);
+            //btnExportOpter.ShowContextMenuStrip(cmsExcelOpter, 0, btnExportOpter.Height);
         }
 
         private void 有效期查询ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -557,7 +557,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             if (MachinePublic.WriteRfidFish)
             {
                 MachinePublic.WriteRfidExcule = false;
-               ShowSuccessTip("数据写入成功");
+                ShowSuccessTip("数据写入成功");
                 MachinePublic.WriteRfidFish = false;
                 timer1.Stop();
 
@@ -569,6 +569,16 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 MessageBox.Show("数据写入失败");
                 timer1.Stop();
             }
+        }
+
+        private void btnOpterCabinets_Click(object sender, EventArgs e)
+        {
+            btnOpterCabinets.ShowContextMenuStrip(cmsOpterData, 0, btnOpterCabinets.Height);
+        }
+
+        private void brnCabinetsExport_Click(object sender, EventArgs e)
+        {
+            btnCabinetsExport.ShowContextMenuStrip(cmsExcelOpter, 0, btnCabinetsExport.Height);
         }
     }
 }
