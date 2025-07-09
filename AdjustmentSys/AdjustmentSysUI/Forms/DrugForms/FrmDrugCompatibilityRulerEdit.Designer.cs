@@ -47,11 +47,17 @@
             // btnCancel
             // 
             btnCancel.Location = new Point(437, 12);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
+            btnCancel.Text = "取 消";
             btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
             btnOK.Location = new Point(322, 12);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
+            btnOK.Text = "确 定";
             btnOK.Click += btnOK_Click;
             // 
             // txtBZ

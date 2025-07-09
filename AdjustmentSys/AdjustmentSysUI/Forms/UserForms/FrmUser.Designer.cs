@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             txtUserKey = new Sunny.UI.UITextBox();
             btnSearch = new Sunny.UI.UISymbolButton();
             btnEditUser = new Sunny.UI.UISymbolButton();
@@ -49,7 +49,7 @@
             // 
             txtUserKey.Cursor = Cursors.IBeam;
             txtUserKey.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtUserKey.Location = new Point(13, 49);
+            txtUserKey.Location = new Point(10, 50);
             txtUserKey.Margin = new Padding(4, 5, 4, 5);
             txtUserKey.MinimumSize = new Size(1, 16);
             txtUserKey.Name = "txtUserKey";
@@ -65,7 +65,7 @@
             // 
             btnSearch.Cursor = Cursors.Hand;
             btnSearch.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSearch.Location = new Point(560, 47);
+            btnSearch.Location = new Point(560, 48);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
             btnSearch.Radius = 10;
@@ -80,7 +80,7 @@
             // 
             btnEditUser.Cursor = Cursors.Hand;
             btnEditUser.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEditUser.Location = new Point(121, 93);
+            btnEditUser.Location = new Point(118, 96);
             btnEditUser.MinimumSize = new Size(1, 1);
             btnEditUser.Name = "btnEditUser";
             btnEditUser.Radius = 10;
@@ -96,7 +96,7 @@
             // 
             btnAddUser.Cursor = Cursors.Hand;
             btnAddUser.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAddUser.Location = new Point(13, 93);
+            btnAddUser.Location = new Point(10, 96);
             btnAddUser.MinimumSize = new Size(1, 1);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.Radius = 10;
@@ -109,48 +109,48 @@
             // 
             // dgvUserList
             // 
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvUserList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
+            dgvUserList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvUserList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvUserList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUserList.BackgroundColor = Color.White;
             dgvUserList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvUserList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvUserList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvUserList.ColumnHeadersHeight = 32;
             dgvUserList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvUserList.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvUserList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvUserList.EnableHeadersVisualStyles = false;
             dgvUserList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvUserList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvUserList.Location = new Point(13, 138);
+            dgvUserList.Location = new Point(10, 138);
             dgvUserList.Name = "dgvUserList";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvUserList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvUserList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvUserList.RowHeadersVisible = false;
             dgvUserList.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvUserList.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvUserList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvUserList.RowTemplate.Height = 27;
             dgvUserList.SelectedIndex = -1;
             dgvUserList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -163,14 +163,14 @@
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(27, 580);
+            uiPage.Location = new Point(10, 580);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
             uiPage.Radius = 10;
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(1085, 39);
+            uiPage.Size = new Size(1085, 35);
             uiPage.TabIndex = 6;
             uiPage.Text = "uiPagination1";
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;
@@ -200,7 +200,7 @@
             // 
             btnReset.Cursor = Cursors.Hand;
             btnReset.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Location = new Point(677, 47);
+            btnReset.Location = new Point(677, 48);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
             btnReset.Radius = 10;
@@ -215,7 +215,7 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(230, 93);
+            btnRefc.Location = new Point(227, 96);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 10;

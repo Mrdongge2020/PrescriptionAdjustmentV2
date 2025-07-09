@@ -36,14 +36,9 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             cbCJ = new Sunny.UI.UIComboBox();
-            uiLabel1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
             dudNumber = new Sunny.UI.UIDoubleUpDown();
-            btnCJXG = new Sunny.UI.UIButton();
-            uiLabel3 = new Sunny.UI.UILabel();
             txtName = new Sunny.UI.UITextBox();
-            btnQuery = new Sunny.UI.UIButton();
-            btnReset = new Sunny.UI.UIButton();
             dgvList = new Sunny.UI.UIDataGridView();
             CheckCol = new DataGridViewCheckBoxColumn();
             ID = new DataGridViewTextBoxColumn();
@@ -54,6 +49,9 @@
             OpterCol = new DataGridViewButtonColumn();
             cbSelectAll = new Sunny.UI.UICheckBox();
             uiLabel4 = new Sunny.UI.UILabel();
+            btnQuery = new Sunny.UI.UISymbolButton();
+            btnReset = new Sunny.UI.UISymbolButton();
+            btnCJXG = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
@@ -65,7 +63,7 @@
             cbCJ.Font = new Font("微软雅黑", 10.5F);
             cbCJ.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbCJ.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbCJ.Location = new Point(102, 48);
+            cbCJ.Location = new Point(10, 51);
             cbCJ.Margin = new Padding(4, 5, 4, 5);
             cbCJ.MinimumSize = new Size(63, 0);
             cbCJ.Name = "cbCJ";
@@ -77,33 +75,22 @@
             cbCJ.Watermark = "请选择颗粒厂家";
             cbCJ.SelectedValueChanged += cbCJ_SelectedValueChanged;
             // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new Font("微软雅黑", 10.5F);
-            uiLabel1.ForeColor = Color.Black;
-            uiLabel1.Location = new Point(19, 48);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(83, 29);
-            uiLabel1.TabIndex = 47;
-            uiLabel1.Text = "颗粒厂家：";
-            uiLabel1.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // uiLabel2
             // 
             uiLabel2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(438, 51);
+            uiLabel2.Location = new Point(271, 54);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(94, 23);
+            uiLabel2.Size = new Size(126, 23);
             uiLabel2.TabIndex = 49;
             uiLabel2.Text = "系数调整至";
-            uiLabel2.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // dudNumber
             // 
             dudNumber.DecimalPlaces = 3;
             dudNumber.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dudNumber.Location = new Point(543, 48);
+            dudNumber.Location = new Point(415, 51);
             dudNumber.Margin = new Padding(4, 5, 4, 5);
             dudNumber.MinimumSize = new Size(100, 0);
             dudNumber.Name = "dudNumber";
@@ -113,33 +100,10 @@
             dudNumber.Text = "uiDoubleUpDown1";
             dudNumber.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // btnCJXG
-            // 
-            btnCJXG.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnCJXG.Location = new Point(695, 45);
-            btnCJXG.MinimumSize = new Size(1, 1);
-            btnCJXG.Name = "btnCJXG";
-            btnCJXG.Size = new Size(100, 35);
-            btnCJXG.TabIndex = 51;
-            btnCJXG.Text = "批量修改";
-            btnCJXG.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnCJXG.Click += btnCJXG_Click;
-            // 
-            // uiLabel3
-            // 
-            uiLabel3.Font = new Font("微软雅黑", 10.5F);
-            uiLabel3.ForeColor = Color.Black;
-            uiLabel3.Location = new Point(19, 101);
-            uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(83, 29);
-            uiLabel3.TabIndex = 52;
-            uiLabel3.Text = "颗粒名称：";
-            uiLabel3.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // txtName
             // 
             txtName.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtName.Location = new Point(104, 101);
+            txtName.Location = new Point(10, 101);
             txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.MinimumSize = new Size(1, 16);
             txtName.Name = "txtName";
@@ -148,31 +112,7 @@
             txtName.Size = new Size(247, 29);
             txtName.TabIndex = 53;
             txtName.TextAlignment = ContentAlignment.MiddleLeft;
-            txtName.Watermark = "";
-            // 
-            // btnQuery
-            // 
-            btnQuery.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnQuery.Location = new Point(438, 98);
-            btnQuery.MinimumSize = new Size(1, 1);
-            btnQuery.Name = "btnQuery";
-            btnQuery.Size = new Size(100, 35);
-            btnQuery.TabIndex = 54;
-            btnQuery.Text = "查 找";
-            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnQuery.Click += btnQuery_Click;
-            // 
-            // btnReset
-            // 
-            btnReset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Location = new Point(559, 98);
-            btnReset.MinimumSize = new Size(1, 1);
-            btnReset.Name = "btnReset";
-            btnReset.Size = new Size(100, 35);
-            btnReset.TabIndex = 55;
-            btnReset.Text = "刷 新";
-            btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Click += btnReset_Click;
+            txtName.Watermark = "请输入颗粒名称";
             // 
             // dgvList
             // 
@@ -206,7 +146,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(8, 169);
+            dgvList.Location = new Point(10, 169);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
@@ -313,22 +253,67 @@
             uiLabel4.Text = "根据厂家批量修改时，未勾选中的数据将不会被修改，切记！";
             uiLabel4.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // btnQuery
+            // 
+            btnQuery.Cursor = Cursors.Hand;
+            btnQuery.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Location = new Point(303, 95);
+            btnQuery.MinimumSize = new Size(1, 1);
+            btnQuery.Name = "btnQuery";
+            btnQuery.Radius = 10;
+            btnQuery.Size = new Size(90, 35);
+            btnQuery.Symbol = 61442;
+            btnQuery.TabIndex = 59;
+            btnQuery.Text = "查 询";
+            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Click += btnQuery_Click;
+            // 
+            // btnReset
+            // 
+            btnReset.Cursor = Cursors.Hand;
+            btnReset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Location = new Point(415, 95);
+            btnReset.MinimumSize = new Size(1, 1);
+            btnReset.Name = "btnReset";
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
+            btnReset.Symbol = 61473;
+            btnReset.SymbolColor = SystemColors.Window;
+            btnReset.TabIndex = 60;
+            btnReset.Text = "刷 新";
+            btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Click += btnReset_Click;
+            // 
+            // btnCJXG
+            // 
+            btnCJXG.Cursor = Cursors.Hand;
+            btnCJXG.Font = new Font("微软雅黑", 12F);
+            btnCJXG.Location = new Point(564, 48);
+            btnCJXG.MinimumSize = new Size(1, 1);
+            btnCJXG.Name = "btnCJXG";
+            btnCJXG.Radius = 10;
+            btnCJXG.Size = new Size(110, 35);
+            btnCJXG.Symbol = 61508;
+            btnCJXG.SymbolColor = SystemColors.Window;
+            btnCJXG.TabIndex = 61;
+            btnCJXG.Text = "批量修改";
+            btnCJXG.TipsFont = new Font("微软雅黑", 12F);
+            btnCJXG.Click += btnCJXG_Click;
+            // 
             // FrmDurgDensityCoefficientSet
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(835, 624);
+            Controls.Add(btnCJXG);
+            Controls.Add(btnReset);
+            Controls.Add(btnQuery);
             Controls.Add(uiLabel4);
             Controls.Add(cbSelectAll);
             Controls.Add(dgvList);
-            Controls.Add(btnReset);
-            Controls.Add(btnQuery);
             Controls.Add(txtName);
-            Controls.Add(uiLabel3);
-            Controls.Add(btnCJXG);
             Controls.Add(dudNumber);
             Controls.Add(uiLabel2);
             Controls.Add(cbCJ);
-            Controls.Add(uiLabel1);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmDurgDensityCoefficientSet";
@@ -342,14 +327,9 @@
         #endregion
 
         private Sunny.UI.UIComboBox cbCJ;
-        private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UIDoubleUpDown dudNumber;
-        private Sunny.UI.UIButton btnCJXG;
-        private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UITextBox txtName;
-        private Sunny.UI.UIButton btnQuery;
-        private Sunny.UI.UIButton btnReset;
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UICheckBox cbSelectAll;
         private Sunny.UI.UILabel uiLabel4;
@@ -360,5 +340,8 @@
         private DataGridViewTextBoxColumn Density;
         private DataGridViewTextBoxColumn DensityCoefficient;
         private DataGridViewButtonColumn OpterCol;
+        private Sunny.UI.UISymbolButton btnQuery;
+        private Sunny.UI.UISymbolButton btnReset;
+        private Sunny.UI.UISymbolButton btnCJXG;
     }
 }

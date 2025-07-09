@@ -65,6 +65,7 @@
             btnConfimImport.Location = new Point(1121, 49);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
+            btnConfimImport.Radius = 10;
             btnConfimImport.Size = new Size(129, 35);
             btnConfimImport.Symbol = 561595;
             btnConfimImport.TabIndex = 97;
@@ -78,6 +79,7 @@
             btnOpenExcel.Location = new Point(26, 49);
             btnOpenExcel.MinimumSize = new Size(1, 1);
             btnOpenExcel.Name = "btnOpenExcel";
+            btnOpenExcel.Radius = 10;
             btnOpenExcel.Size = new Size(153, 35);
             btnOpenExcel.Symbol = 61717;
             btnOpenExcel.TabIndex = 96;

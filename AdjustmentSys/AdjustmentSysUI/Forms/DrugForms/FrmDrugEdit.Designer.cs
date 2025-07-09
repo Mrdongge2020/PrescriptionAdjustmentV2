@@ -163,6 +163,7 @@
             txtKLM.ShowText = false;
             txtKLM.Size = new Size(287, 29);
             txtKLM.TabIndex = 50;
+            txtKLM.Text = "0";
             txtKLM.TextAlignment = ContentAlignment.MiddleLeft;
             txtKLM.Type = Sunny.UI.UITextBox.UIEditType.Integer;
             txtKLM.Watermark = "请输入颗粒码806001";
@@ -463,7 +464,7 @@
             // 
             txtBZTM.Enabled = false;
             txtBZTM.Font = new Font("微软雅黑", 10.5F);
-            txtBZTM.Location = new Point(113, 514);
+            txtBZTM.Location = new Point(113, 517);
             txtBZTM.Margin = new Padding(4, 5, 4, 5);
             txtBZTM.MinimumSize = new Size(1, 16);
             txtBZTM.Name = "txtBZTM";
@@ -481,7 +482,8 @@
             btnSB.Location = new Point(430, 514);
             btnSB.MinimumSize = new Size(1, 1);
             btnSB.Name = "btnSB";
-            btnSB.Size = new Size(96, 29);
+            btnSB.Radius = 10;
+            btnSB.Size = new Size(100, 35);
             btnSB.TabIndex = 76;
             btnSB.Text = "识别条码";
             btnSB.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -546,7 +548,8 @@
             btnCancel.Location = new Point(720, 595);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(85, 35);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
             btnCancel.Symbol = 361453;
             btnCancel.TabIndex = 87;
             btnCancel.TabStop = false;
@@ -560,7 +563,8 @@
             btnOK.Location = new Point(551, 595);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(85, 35);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
             btnOK.TabIndex = 86;
             btnOK.Text = "提 交";
             btnOK.TipsFont = new Font("微软雅黑", 9F);

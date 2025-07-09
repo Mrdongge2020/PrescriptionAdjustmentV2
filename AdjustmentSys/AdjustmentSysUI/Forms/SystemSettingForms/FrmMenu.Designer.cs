@@ -47,7 +47,7 @@
             menuTreeView.CheckBoxes = true;
             menuTreeView.FillColor = Color.White;
             menuTreeView.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            menuTreeView.Location = new Point(468, 70);
+            menuTreeView.Location = new Point(468, 84);
             menuTreeView.Margin = new Padding(4, 5, 4, 5);
             menuTreeView.MinimumSize = new Size(1, 1);
             menuTreeView.Name = "menuTreeView";
@@ -63,9 +63,9 @@
             // 
             uiLabel7.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = Color.Black;
-            uiLabel7.Location = new Point(14, 41);
+            uiLabel7.Location = new Point(14, 50);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(81, 23);
+            uiLabel7.Size = new Size(123, 23);
             uiLabel7.TabIndex = 17;
             uiLabel7.Text = "系统角色：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
@@ -99,7 +99,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(14, 71);
+            dgvList.Location = new Point(10, 84);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -127,7 +127,7 @@
             uiLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             uiLabel1.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.Black;
-            uiLabel1.Location = new Point(471, 41);
+            uiLabel1.Location = new Point(471, 50);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(81, 23);
             uiLabel1.TabIndex = 37;
@@ -136,15 +136,14 @@
             // 
             // lblJSName
             // 
-            lblJSName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lblJSName.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lblJSName.ForeColor = Color.Blue;
-            lblJSName.Location = new Point(101, 41);
+            lblJSName.Location = new Point(161, 50);
             lblJSName.Name = "lblJSName";
-            lblJSName.Size = new Size(81, 23);
+            lblJSName.Size = new Size(137, 23);
             lblJSName.TabIndex = 38;
             lblJSName.Text = "无";
-            lblJSName.TextAlign = ContentAlignment.MiddleCenter;
+            lblJSName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FrmMenu
             // 

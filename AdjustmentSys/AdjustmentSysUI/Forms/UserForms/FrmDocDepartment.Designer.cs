@@ -49,13 +49,14 @@
             // 
             btnReset.Cursor = Cursors.Hand;
             btnReset.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Location = new Point(627, 48);
+            btnReset.Location = new Point(600, 48);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(72, 33);
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
             btnReset.Symbol = 561695;
             btnReset.TabIndex = 16;
-            btnReset.Text = "重置";
+            btnReset.Text = "重 置";
             btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnReset.Click += btnReset_Click;
             // 
@@ -65,14 +66,15 @@
             uiPage.FillColor = Color.FromArgb(248, 248, 248);
             uiPage.FillColor2 = Color.FromArgb(248, 248, 248);
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(9, 577);
+            uiPage.Location = new Point(10, 577);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
+            uiPage.Radius = 10;
             uiPage.RectColor = Color.FromArgb(140, 140, 140);
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(1030, 39);
+            uiPage.Size = new Size(1030, 35);
             uiPage.Style = Sunny.UI.UIStyle.Custom;
             uiPage.TabIndex = 14;
             uiPage.Text = "uiPagination1";
@@ -108,7 +110,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(9, 133);
+            dgvList.Location = new Point(10, 133);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -135,14 +137,14 @@
             // 
             btnAdd.Cursor = Cursors.Hand;
             btnAdd.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAdd.Location = new Point(9, 97);
+            btnAdd.Location = new Point(10, 91);
             btnAdd.MinimumSize = new Size(1, 1);
             btnAdd.Name = "btnAdd";
-            btnAdd.Radius = 1;
-            btnAdd.Size = new Size(70, 30);
-            btnAdd.Symbol = 362211;
+            btnAdd.Radius = 10;
+            btnAdd.Size = new Size(90, 35);
+            btnAdd.Symbol = 557672;
             btnAdd.TabIndex = 12;
-            btnAdd.Text = "新增";
+            btnAdd.Text = "新 增";
             btnAdd.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnAdd.Click += btnAdd_Click;
             // 
@@ -150,15 +152,15 @@
             // 
             btnEdit.Cursor = Cursors.Hand;
             btnEdit.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEdit.Location = new Point(110, 97);
+            btnEdit.Location = new Point(110, 91);
             btnEdit.MinimumSize = new Size(1, 1);
             btnEdit.Name = "btnEdit";
-            btnEdit.Radius = 1;
-            btnEdit.Size = new Size(70, 30);
-            btnEdit.Symbol = 361741;
+            btnEdit.Radius = 10;
+            btnEdit.Size = new Size(90, 35);
+            btnEdit.Symbol = 61508;
             btnEdit.SymbolColor = SystemColors.Window;
             btnEdit.TabIndex = 11;
-            btnEdit.Text = "修改";
+            btnEdit.Text = "修 改";
             btnEdit.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnEdit.Click += btnEdit_Click;
             // 
@@ -166,13 +168,14 @@
             // 
             btnSearch.Cursor = Cursors.Hand;
             btnSearch.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSearch.Location = new Point(498, 48);
+            btnSearch.Location = new Point(482, 48);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(72, 33);
+            btnSearch.Radius = 10;
+            btnSearch.Size = new Size(90, 35);
             btnSearch.Symbol = 61442;
             btnSearch.TabIndex = 10;
-            btnSearch.Text = "查询";
+            btnSearch.Text = "查 询";
             btnSearch.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSearch.Click += btnSearch_Click;
             // 
@@ -180,7 +183,7 @@
             // 
             txtKey.Cursor = Cursors.IBeam;
             txtKey.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtKey.Location = new Point(9, 48);
+            txtKey.Location = new Point(10, 50);
             txtKey.Margin = new Padding(4, 5, 4, 5);
             txtKey.MinimumSize = new Size(1, 16);
             txtKey.Name = "txtKey";
@@ -196,15 +199,15 @@
             // 
             btnDelete.Cursor = Cursors.Hand;
             btnDelete.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Location = new Point(211, 97);
+            btnDelete.Location = new Point(211, 91);
             btnDelete.MinimumSize = new Size(1, 1);
             btnDelete.Name = "btnDelete";
-            btnDelete.Radius = 1;
-            btnDelete.Size = new Size(70, 30);
+            btnDelete.Radius = 10;
+            btnDelete.Size = new Size(90, 35);
             btnDelete.Symbol = 559691;
             btnDelete.SymbolColor = SystemColors.Window;
             btnDelete.TabIndex = 18;
-            btnDelete.Text = "删除";
+            btnDelete.Text = "删 除";
             btnDelete.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnDelete.Click += btnDelete_Click;
             // 
@@ -212,15 +215,15 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(313, 97);
+            btnRefc.Location = new Point(313, 91);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
-            btnRefc.Radius = 1;
-            btnRefc.Size = new Size(70, 30);
+            btnRefc.Radius = 10;
+            btnRefc.Size = new Size(90, 35);
             btnRefc.Symbol = 61473;
             btnRefc.SymbolColor = SystemColors.Window;
             btnRefc.TabIndex = 29;
-            btnRefc.Text = "刷新";
+            btnRefc.Text = "刷 新";
             btnRefc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnRefc.Click += btnRefc_Click;
             // 

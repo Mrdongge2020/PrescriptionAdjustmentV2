@@ -43,20 +43,26 @@
             // btnCancel
             // 
             btnCancel.Location = new Point(411, 12);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
+            btnCancel.Text = "取 消";
             btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
             btnOK.Location = new Point(296, 12);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
+            btnOK.Text = "确 定";
             btnOK.Click += btnOK_Click;
             // 
             // uiLabel1
             // 
             uiLabel1.Font = new Font("宋体", 12F);
             uiLabel1.ForeColor = Color.Red;
-            uiLabel1.Location = new Point(36, 132);
+            uiLabel1.Location = new Point(4, 132);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(99, 23);
+            uiLabel1.Size = new Size(131, 23);
             uiLabel1.TabIndex = 47;
             uiLabel1.Text = "厂家名称：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -80,9 +86,9 @@
             // 
             uiLabel2.Font = new Font("宋体", 12F);
             uiLabel2.ForeColor = Color.Red;
-            uiLabel2.Location = new Point(36, 76);
+            uiLabel2.Location = new Point(4, 76);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(99, 23);
+            uiLabel2.Size = new Size(131, 23);
             uiLabel2.TabIndex = 49;
             uiLabel2.Text = "序号：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;

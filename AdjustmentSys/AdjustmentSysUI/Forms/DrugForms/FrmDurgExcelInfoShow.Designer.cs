@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             dgvList = new Sunny.UI.UIDataGridView();
             Code = new DataGridViewTextBoxColumn();
             ParName = new DataGridViewTextBoxColumn();
@@ -67,46 +67,46 @@
             dgvList.AllowUserToDeleteRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle8.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dgvList.ColumnHeadersHeight = 32;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.Columns.AddRange(new DataGridViewColumn[] { Code, ParName, FullName, NameSimplifiedPinyin, NameFullPinyin, ManufacturerId, ManufacturerName, HisCode, HisName, Density, Equivalent, DoseLimit, PackageNumber, WholesalePrice, RetailPrice, ListingNumber, Remark });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle10.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle10;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
             dgvList.Location = new Point(3, 92);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle5.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle11.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle11.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle11.SelectionForeColor = Color.White;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = Color.White;
+            dataGridViewCellStyle12.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle12;
             dgvList.SelectedIndex = -1;
             dgvList.Size = new Size(1297, 593);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
@@ -123,8 +123,8 @@
             // ParName
             // 
             ParName.DataPropertyName = "ParName";
-            dataGridViewCellStyle3.BackColor = Color.Red;
-            ParName.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.BackColor = Color.Red;
+            ParName.DefaultCellStyle = dataGridViewCellStyle9;
             ParName.HeaderText = "药品简称";
             ParName.Name = "ParName";
             ParName.ReadOnly = true;
@@ -257,7 +257,8 @@
             btnOpenExcel.Location = new Point(18, 51);
             btnOpenExcel.MinimumSize = new Size(1, 1);
             btnOpenExcel.Name = "btnOpenExcel";
-            btnOpenExcel.Size = new Size(153, 35);
+            btnOpenExcel.Radius = 10;
+            btnOpenExcel.Size = new Size(165, 35);
             btnOpenExcel.Symbol = 61717;
             btnOpenExcel.TabIndex = 1;
             btnOpenExcel.Text = "打开Excel文件";
@@ -269,10 +270,11 @@
             // 
             btnConfimImport.Enabled = false;
             btnConfimImport.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnConfimImport.Location = new Point(1031, 51);
+            btnConfimImport.Location = new Point(1010, 51);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
-            btnConfimImport.Size = new Size(129, 35);
+            btnConfimImport.Radius = 10;
+            btnConfimImport.Size = new Size(150, 35);
             btnConfimImport.Symbol = 561595;
             btnConfimImport.TabIndex = 3;
             btnConfimImport.Text = "确认导入";
@@ -283,10 +285,11 @@
             // 
             btnLoadErroeData.Enabled = false;
             btnLoadErroeData.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnLoadErroeData.Location = new Point(350, 51);
+            btnLoadErroeData.Location = new Point(371, 51);
             btnLoadErroeData.MinimumSize = new Size(1, 1);
             btnLoadErroeData.Name = "btnLoadErroeData";
-            btnLoadErroeData.Size = new Size(153, 35);
+            btnLoadErroeData.Radius = 10;
+            btnLoadErroeData.Size = new Size(165, 35);
             btnLoadErroeData.Symbol = 57490;
             btnLoadErroeData.TabIndex = 5;
             btnLoadErroeData.Text = "导出异常数据";
@@ -300,7 +303,8 @@
             btnCheckData.Location = new Point(201, 51);
             btnCheckData.MinimumSize = new Size(1, 1);
             btnCheckData.Name = "btnCheckData";
-            btnCheckData.Size = new Size(129, 35);
+            btnCheckData.Radius = 10;
+            btnCheckData.Size = new Size(150, 35);
             btnCheckData.Symbol = 90;
             btnCheckData.TabIndex = 6;
             btnCheckData.Text = "异常校验";
@@ -311,9 +315,9 @@
             // 
             lblCheckResult.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lblCheckResult.ForeColor = Color.Red;
-            lblCheckResult.Location = new Point(539, 61);
+            lblCheckResult.Location = new Point(542, 57);
             lblCheckResult.Name = "lblCheckResult";
-            lblCheckResult.Size = new Size(486, 23);
+            lblCheckResult.Size = new Size(458, 23);
             lblCheckResult.TabIndex = 94;
             lblCheckResult.Text = "校验结果：";
             lblCheckResult.TextAlign = ContentAlignment.MiddleLeft;
@@ -325,9 +329,9 @@
             lblRuler.ForeColor = Color.Blue;
             lblRuler.LinkBehavior = LinkBehavior.AlwaysUnderline;
             lblRuler.LinkColor = Color.FromArgb(0, 0, 192);
-            lblRuler.Location = new Point(1196, 63);
+            lblRuler.Location = new Point(1177, 63);
             lblRuler.Name = "lblRuler";
-            lblRuler.Size = new Size(104, 23);
+            lblRuler.Size = new Size(123, 23);
             lblRuler.TabIndex = 95;
             lblRuler.TabStop = true;
             lblRuler.Text = "查看导入规则";

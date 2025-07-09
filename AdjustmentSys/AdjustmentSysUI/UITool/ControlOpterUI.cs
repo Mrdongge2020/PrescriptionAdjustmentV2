@@ -138,16 +138,35 @@ namespace AdjustmentSysUI.UITool
                     }
                     if (c.ContextMenuStrip is not null)
                     {
+                        bool isSetParentTrue = false;
                         foreach (ToolStripItem item in c.ContextMenuStrip.Items)
                         {
                             if (menus == null || !menus.Any(x => x.ObjName == item.Name && x.ParentName == c.Name))
                             {
                                 item.Enabled = false;
                             }
+                            else 
+                            { 
+                                isSetParentTrue = true;
+                            }
+                        }
+                        if (isSetParentTrue && !c.Enabled) 
+                        {
+                            c.Enabled = true;
                         }
                     }
                 }
 
+                if (typename == "UIDataGridView" && c.ContextMenuStrip is not null)
+                {
+                    foreach (ToolStripItem item in c.ContextMenuStrip.Items)
+                    {
+                        if (menus == null || !menus.Any(x => x.ObjName == item.Name && x.ParentName == c.Name))
+                        {
+                            item.Enabled = false;
+                        }
+                    }
+                }
 
                 if (c.HasChildren)
                 {
