@@ -631,7 +631,6 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmDrugEdit";
-            Style = Sunny.UI.UIStyle.Custom;
             Text = "新增药品";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
