@@ -191,6 +191,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 else
                 {
                     ShowErrorDialog("未连接到设备");
+                    this.btnTestStart.Active=false;
                 }
             }
         }

@@ -59,10 +59,10 @@
             lblCFLY = new LinkLabel();
             label9 = new Label();
             lblWanCheng = new Sunny.UI.UILabel();
-            btnOutBox = new Sunny.UI.UIButton();
             lblFenHe = new Label();
             lblBoxNum = new LinkLabel();
             label11 = new Label();
+            btnOutBox = new Sunny.UI.UISymbolButton();
             SuspendLayout();
             // 
             // uiLabel1
@@ -444,18 +444,6 @@
             lblWanCheng.Text = "处方已完成,请确认取盒,并移交患者!";
             lblWanCheng.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btnOutBox
-            // 
-            btnOutBox.Font = new Font("宋体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOutBox.Location = new Point(886, 567);
-            btnOutBox.MinimumSize = new Size(1, 1);
-            btnOutBox.Name = "btnOutBox";
-            btnOutBox.Size = new Size(129, 49);
-            btnOutBox.TabIndex = 89;
-            btnOutBox.Text = "确认取盒";
-            btnOutBox.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOutBox.Click += btnOutBox_Click;
-            // 
             // lblFenHe
             // 
             lblFenHe.AutoSize = true;
@@ -491,15 +479,31 @@
             label11.TabIndex = 91;
             label11.Text = "盒数:";
             // 
+            // btnOutBox
+            // 
+            btnOutBox.Cursor = Cursors.Hand;
+            btnOutBox.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOutBox.Location = new Point(903, 571);
+            btnOutBox.MinimumSize = new Size(1, 1);
+            btnOutBox.Name = "btnOutBox";
+            btnOutBox.Radius = 10;
+            btnOutBox.Size = new Size(140, 45);
+            btnOutBox.Symbol = 361579;
+            btnOutBox.SymbolColor = SystemColors.Window;
+            btnOutBox.TabIndex = 93;
+            btnOutBox.Text = "确认取盒";
+            btnOutBox.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOutBox.Click += btnOutBox_Click;
+            // 
             // FrmOutBox
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1142, 641);
             ControlBox = false;
+            Controls.Add(btnOutBox);
             Controls.Add(lblBoxNum);
             Controls.Add(label11);
             Controls.Add(lblFenHe);
-            Controls.Add(btnOutBox);
             Controls.Add(lblWanCheng);
             Controls.Add(lblCFLY);
             Controls.Add(label9);
@@ -574,9 +578,9 @@
         private LinkLabel lblCFLY;
         private Label label9;
         private Sunny.UI.UILabel lblWanCheng;
-        private Sunny.UI.UIButton btnOutBox;
         private Label lblFenHe;
         private LinkLabel lblBoxNum;
         private Label label11;
+        private Sunny.UI.UISymbolButton btnOutBox;
     }
 }

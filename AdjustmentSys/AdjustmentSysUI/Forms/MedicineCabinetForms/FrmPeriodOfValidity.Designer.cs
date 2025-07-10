@@ -35,17 +35,16 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             label1 = new Label();
             dateTimeEnd = new Sunny.UI.UIDatePicker();
-            btnQuery = new Sunny.UI.UIButton();
             dgvList = new Sunny.UI.UIDataGridView();
             uiGroupBox1 = new Sunny.UI.UIGroupBox();
-            btnSave = new Sunny.UI.UIButton();
             dpSetDateEnd = new Sunny.UI.UIDatePicker();
             label2 = new Label();
-            uiLabel1 = new Sunny.UI.UILabel();
             cblisDurg = new Sunny.UI.UIComboBox();
             lblCount = new Sunny.UI.UILabel();
             dateTimeStart = new Sunny.UI.UIDatePicker();
             label3 = new Label();
+            btnQuery = new Sunny.UI.UISymbolButton();
+            btnSave = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             uiGroupBox1.SuspendLayout();
             SuspendLayout();
@@ -54,11 +53,11 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("微软雅黑", 10.5F);
-            label1.Location = new Point(7, 53);
+            label1.Location = new Point(21, 53);
             label1.Name = "label1";
-            label1.Size = new Size(44, 20);
+            label1.Size = new Size(68, 20);
             label1.TabIndex = 61;
-            label1.Text = "效期 :";
+            label1.Text = "效期到期:";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // dateTimeEnd
@@ -66,7 +65,7 @@
             dateTimeEnd.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dateTimeEnd.FillColor = Color.White;
             dateTimeEnd.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dateTimeEnd.Location = new Point(251, 49);
+            dateTimeEnd.Location = new Point(296, 49);
             dateTimeEnd.Margin = new Padding(4, 5, 4, 5);
             dateTimeEnd.MaxLength = 10;
             dateTimeEnd.MinimumSize = new Size(63, 0);
@@ -82,18 +81,6 @@
             dateTimeEnd.TextAlignment = ContentAlignment.MiddleLeft;
             dateTimeEnd.Value = new DateTime(2024, 7, 1, 16, 18, 24, 274);
             dateTimeEnd.Watermark = "";
-            // 
-            // btnQuery
-            // 
-            btnQuery.Font = new Font("微软雅黑", 12F);
-            btnQuery.Location = new Point(426, 49);
-            btnQuery.MinimumSize = new Size(1, 1);
-            btnQuery.Name = "btnQuery";
-            btnQuery.Size = new Size(77, 29);
-            btnQuery.TabIndex = 83;
-            btnQuery.Text = "查 询";
-            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnQuery.Click += btnQuery_Click;
             // 
             // dgvList
             // 
@@ -152,7 +139,6 @@
             uiGroupBox1.Controls.Add(btnSave);
             uiGroupBox1.Controls.Add(dpSetDateEnd);
             uiGroupBox1.Controls.Add(label2);
-            uiGroupBox1.Controls.Add(uiLabel1);
             uiGroupBox1.Controls.Add(cblisDurg);
             uiGroupBox1.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiGroupBox1.Location = new Point(7, 419);
@@ -165,24 +151,12 @@
             uiGroupBox1.Text = "效期调整(不选颗粒默认调整药柜全部颗粒效期)";
             uiGroupBox1.TextAlignment = ContentAlignment.MiddleLeft;
             // 
-            // btnSave
-            // 
-            btnSave.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSave.Location = new Point(550, 42);
-            btnSave.MinimumSize = new Size(1, 1);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(77, 29);
-            btnSave.TabIndex = 85;
-            btnSave.Text = "保 存";
-            btnSave.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSave.Click += btnSave_Click;
-            // 
             // dpSetDateEnd
             // 
             dpSetDateEnd.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dpSetDateEnd.FillColor = Color.White;
             dpSetDateEnd.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dpSetDateEnd.Location = new Point(371, 42);
+            dpSetDateEnd.Location = new Point(292, 41);
             dpSetDateEnd.Margin = new Padding(4, 5, 4, 5);
             dpSetDateEnd.MaxLength = 10;
             dpSetDateEnd.MinimumSize = new Size(63, 0);
@@ -203,23 +177,12 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("微软雅黑", 10.5F);
-            label2.Location = new Point(295, 46);
+            label2.Location = new Point(216, 45);
             label2.Name = "label2";
             label2.Size = new Size(65, 20);
             label2.TabIndex = 83;
             label2.Text = "效期至：";
             label2.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new Font("微软雅黑", 10.5F);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(28, 39);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(68, 32);
-            uiLabel1.TabIndex = 5;
-            uiLabel1.Text = "颗粒：";
-            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cblisDurg
             // 
@@ -229,7 +192,7 @@
             cblisDurg.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cblisDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cblisDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cblisDurg.Location = new Point(103, 42);
+            cblisDurg.Location = new Point(14, 39);
             cblisDurg.Margin = new Padding(4, 5, 4, 5);
             cblisDurg.MinimumSize = new Size(63, 0);
             cblisDurg.Name = "cblisDurg";
@@ -240,7 +203,7 @@
             cblisDurg.SymbolSize = 24;
             cblisDurg.TabIndex = 4;
             cblisDurg.TextAlignment = ContentAlignment.MiddleLeft;
-            cblisDurg.Watermark = "";
+            cblisDurg.Watermark = "请选择颗粒";
             // 
             // lblCount
             // 
@@ -258,7 +221,7 @@
             dateTimeStart.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dateTimeStart.FillColor = Color.White;
             dateTimeStart.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dateTimeStart.Location = new Point(62, 49);
+            dateTimeStart.Location = new Point(104, 49);
             dateTimeStart.Margin = new Padding(4, 5, 4, 5);
             dateTimeStart.MaxLength = 10;
             dateTimeStart.MinimumSize = new Size(63, 0);
@@ -279,24 +242,54 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("微软雅黑", 10.5F);
-            label3.Location = new Point(223, 53);
+            label3.Location = new Point(265, 53);
             label3.Name = "label3";
             label3.Size = new Size(23, 20);
             label3.TabIndex = 88;
             label3.Text = "至";
             label3.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // btnQuery
+            // 
+            btnQuery.Cursor = Cursors.Hand;
+            btnQuery.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Location = new Point(467, 46);
+            btnQuery.MinimumSize = new Size(1, 1);
+            btnQuery.Name = "btnQuery";
+            btnQuery.Radius = 10;
+            btnQuery.Size = new Size(90, 35);
+            btnQuery.Symbol = 61442;
+            btnQuery.TabIndex = 115;
+            btnQuery.Text = "查 询";
+            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Click += btnQuery_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.Cursor = Cursors.Hand;
+            btnSave.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSave.Location = new Point(466, 38);
+            btnSave.MinimumSize = new Size(1, 1);
+            btnSave.Name = "btnSave";
+            btnSave.Radius = 10;
+            btnSave.Size = new Size(90, 35);
+            btnSave.Symbol = 557713;
+            btnSave.TabIndex = 116;
+            btnSave.Text = "保 存";
+            btnSave.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSave.Click += btnSave_Click;
+            // 
             // FrmPeriodOfValidity
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(687, 516);
+            Controls.Add(btnQuery);
             Controls.Add(label3);
             Controls.Add(dateTimeStart);
             Controls.Add(dateTimeEnd);
             Controls.Add(lblCount);
             Controls.Add(uiGroupBox1);
             Controls.Add(dgvList);
-            Controls.Add(btnQuery);
             Controls.Add(label1);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -314,16 +307,15 @@
         #endregion
         private Label label1;
         private Sunny.UI.UIDatePicker dateTimeEnd;
-        private Sunny.UI.UIButton btnQuery;
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UIGroupBox uiGroupBox1;
-        private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIComboBox cblisDurg;
         private Sunny.UI.UIDatePicker dpSetDateEnd;
         private Label label2;
-        private Sunny.UI.UIButton btnSave;
         private Sunny.UI.UILabel lblCount;
         private Sunny.UI.UIDatePicker dateTimeStart;
         private Label label3;
+        private Sunny.UI.UISymbolButton btnQuery;
+        private Sunny.UI.UISymbolButton btnSave;
     }
 }

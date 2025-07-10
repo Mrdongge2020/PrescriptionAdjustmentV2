@@ -35,7 +35,6 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             btnRefc = new Sunny.UI.UISymbolButton();
-            uiLabel1 = new Sunny.UI.UILabel();
             cbDurg = new Sunny.UI.UIComboBox();
             cmsRightKeyMenu = new Sunny.UI.UIContextMenuStrip();
             ListingParticles = new ToolStripMenuItem();
@@ -65,7 +64,7 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("微软雅黑", 12F);
-            btnRefc.Location = new Point(327, 38);
+            btnRefc.Location = new Point(225, 48);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 10;
@@ -77,17 +76,6 @@
             btnRefc.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnRefc.Click += btnRefc_Click;
             // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new Font("微软雅黑", 12F);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(3, 44);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(94, 23);
-            uiLabel1.TabIndex = 1;
-            uiLabel1.Text = "药品搜索:";
-            uiLabel1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // cbDurg
             // 
             cbDurg.DataSource = null;
@@ -96,7 +84,7 @@
             cbDurg.Font = new Font("微软雅黑", 12F);
             cbDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbDurg.Location = new Point(112, 40);
+            cbDurg.Location = new Point(10, 50);
             cbDurg.Margin = new Padding(4, 5, 4, 5);
             cbDurg.MinimumSize = new Size(63, 0);
             cbDurg.Name = "cbDurg";
@@ -107,7 +95,7 @@
             cbDurg.SymbolSize = 24;
             cbDurg.TabIndex = 0;
             cbDurg.TextAlignment = ContentAlignment.MiddleLeft;
-            cbDurg.Watermark = "";
+            cbDurg.Watermark = "请选择药品";
             // 
             // cmsRightKeyMenu
             // 
@@ -242,7 +230,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(104, 173, 255);
-            dgvList.Location = new Point(3, 84);
+            dgvList.Location = new Point(10, 88);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(243, 249, 255);
@@ -260,7 +248,7 @@
             dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(48, 48, 48);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1134, 747);
+            dgvList.Size = new Size(1120, 736);
             dgvList.TabIndex = 36;
             // 
             // timer1
@@ -273,7 +261,7 @@
             btnCabinetsExport.ContextMenuStrip = cmsExcelOpter;
             btnCabinetsExport.Cursor = Cursors.Hand;
             btnCabinetsExport.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnCabinetsExport.Location = new Point(923, 38);
+            btnCabinetsExport.Location = new Point(923, 48);
             btnCabinetsExport.MinimumSize = new Size(1, 1);
             btnCabinetsExport.Name = "btnCabinetsExport";
             btnCabinetsExport.Radius = 10;
@@ -290,7 +278,7 @@
             btnOpterCabinets.ContextMenuStrip = cmsOpterData;
             btnOpterCabinets.Cursor = Cursors.Hand;
             btnOpterCabinets.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOpterCabinets.Location = new Point(713, 38);
+            btnOpterCabinets.Location = new Point(713, 48);
             btnOpterCabinets.MinimumSize = new Size(1, 1);
             btnOpterCabinets.Name = "btnOpterCabinets";
             btnOpterCabinets.Radius = 10;
@@ -310,7 +298,6 @@
             Controls.Add(btnCabinetsExport);
             Controls.Add(dgvList);
             Controls.Add(btnRefc);
-            Controls.Add(uiLabel1);
             Controls.Add(cbDurg);
             Name = "FrmMedicineCabinetManage";
             Padding = new Padding(0, 35, 0, 0);
@@ -329,7 +316,6 @@
         }
 
         #endregion
-        private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIComboBox cbDurg;
         private Sunny.UI.UIContextMenuStrip cmsRightKeyMenu;
         private ToolStripMenuItem ListingParticles;

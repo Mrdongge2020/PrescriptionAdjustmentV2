@@ -44,10 +44,11 @@
             // 
             btnConfimImport.Enabled = false;
             btnConfimImport.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnConfimImport.Location = new Point(809, 41);
+            btnConfimImport.Location = new Point(771, 41);
             btnConfimImport.MinimumSize = new Size(1, 1);
             btnConfimImport.Name = "btnConfimImport";
-            btnConfimImport.Size = new Size(129, 35);
+            btnConfimImport.Radius = 10;
+            btnConfimImport.Size = new Size(155, 35);
             btnConfimImport.Symbol = 561595;
             btnConfimImport.TabIndex = 100;
             btnConfimImport.Text = "确认导入";
@@ -60,7 +61,8 @@
             btnOpenExcel.Location = new Point(25, 40);
             btnOpenExcel.MinimumSize = new Size(1, 1);
             btnOpenExcel.Name = "btnOpenExcel";
-            btnOpenExcel.Size = new Size(153, 35);
+            btnOpenExcel.Radius = 10;
+            btnOpenExcel.Size = new Size(175, 35);
             btnOpenExcel.Symbol = 61717;
             btnOpenExcel.TabIndex = 99;
             btnOpenExcel.Text = "打开Excel文件";
@@ -126,9 +128,9 @@
             lblRuler.ForeColor = Color.Blue;
             lblRuler.LinkBehavior = LinkBehavior.AlwaysUnderline;
             lblRuler.LinkColor = Color.FromArgb(0, 0, 192);
-            lblRuler.Location = new Point(958, 50);
+            lblRuler.Location = new Point(932, 50);
             lblRuler.Name = "lblRuler";
-            lblRuler.Size = new Size(104, 23);
+            lblRuler.Size = new Size(130, 23);
             lblRuler.TabIndex = 101;
             lblRuler.TabStop = true;
             lblRuler.Text = "查看导入规则";

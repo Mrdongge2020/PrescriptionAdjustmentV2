@@ -63,9 +63,9 @@
             // 
             uiLabel7.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = Color.Black;
-            uiLabel7.Location = new Point(14, 50);
+            uiLabel7.Location = new Point(10, 50);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(123, 23);
+            uiLabel7.Size = new Size(96, 23);
             uiLabel7.TabIndex = 17;
             uiLabel7.Text = "系统角色：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
@@ -138,7 +138,7 @@
             // 
             lblJSName.Font = new Font("微软雅黑", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lblJSName.ForeColor = Color.Blue;
-            lblJSName.Location = new Point(161, 50);
+            lblJSName.Location = new Point(112, 50);
             lblJSName.Name = "lblJSName";
             lblJSName.Size = new Size(137, 23);
             lblJSName.TabIndex = 38;

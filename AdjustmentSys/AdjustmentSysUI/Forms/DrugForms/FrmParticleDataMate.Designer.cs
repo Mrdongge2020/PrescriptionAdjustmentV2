@@ -295,6 +295,7 @@
             uiLabel2.Location = new Point(10, 32);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(349, 101);
+            uiLabel2.Style = Sunny.UI.UIStyle.Custom;
             uiLabel2.TabIndex = 1;
             uiLabel2.Text = "1.导入文件字段名称要与表格一致。\r\n2.导入文件文件后，选择匹配字段，再点击确认匹配。\r\n3.密度，当量两列不能填写非数字数据。\r\n";
             uiLabel2.TextAlign = ContentAlignment.MiddleLeft;

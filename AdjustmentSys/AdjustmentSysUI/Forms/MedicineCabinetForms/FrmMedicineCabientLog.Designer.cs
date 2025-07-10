@@ -35,13 +35,9 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             uiPage = new Sunny.UI.UIPagination();
             dgvList = new Sunny.UI.UIDataGridView();
-            btnQuery = new Sunny.UI.UIButton();
             label3 = new Label();
             dateTimeStart = new Sunny.UI.UIDatePicker();
             dateTimeEnd = new Sunny.UI.UIDatePicker();
-            uiLabel2 = new Sunny.UI.UILabel();
-            uiLabel1 = new Sunny.UI.UILabel();
-            uiLabel13 = new Sunny.UI.UILabel();
             cbType = new Sunny.UI.UIComboBox();
             cbfp = new Sunny.UI.UIComboBox();
             uiLabel4 = new Sunny.UI.UILabel();
@@ -51,6 +47,7 @@
             lblNum3 = new Sunny.UI.UILabel();
             uiLabel8 = new Sunny.UI.UILabel();
             uiDataGridViewFooter1 = new Sunny.UI.UIDataGridViewFooter();
+            btnQuery = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
             // 
@@ -58,13 +55,14 @@
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(4, 521);
+            uiPage.Location = new Point(10, 521);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
+            uiPage.Radius = 10;
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(633, 39);
+            uiPage.Size = new Size(633, 35);
             uiPage.TabIndex = 118;
             uiPage.Text = "uiPagination1";
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;
@@ -101,7 +99,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(3, 122);
+            dgvList.Location = new Point(10, 122);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -121,23 +119,11 @@
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 117;
             // 
-            // btnQuery
-            // 
-            btnQuery.Font = new Font("微软雅黑", 12F);
-            btnQuery.Location = new Point(889, 51);
-            btnQuery.MinimumSize = new Size(1, 1);
-            btnQuery.Name = "btnQuery";
-            btnQuery.Size = new Size(77, 29);
-            btnQuery.TabIndex = 116;
-            btnQuery.Text = "查 询";
-            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnQuery.Click += btnQuery_Click;
-            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("微软雅黑", 10.5F);
-            label3.Location = new Point(690, 55);
+            label3.Location = new Point(548, 54);
             label3.Name = "label3";
             label3.Size = new Size(23, 20);
             label3.TabIndex = 115;
@@ -149,7 +135,7 @@
             dateTimeStart.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dateTimeStart.FillColor = Color.White;
             dateTimeStart.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dateTimeStart.Location = new Point(529, 51);
+            dateTimeStart.Location = new Point(387, 50);
             dateTimeStart.Margin = new Padding(4, 5, 4, 5);
             dateTimeStart.MaxLength = 10;
             dateTimeStart.MinimumSize = new Size(63, 0);
@@ -171,7 +157,7 @@
             dateTimeEnd.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dateTimeEnd.FillColor = Color.White;
             dateTimeEnd.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dateTimeEnd.Location = new Point(720, 51);
+            dateTimeEnd.Location = new Point(578, 50);
             dateTimeEnd.Margin = new Padding(4, 5, 4, 5);
             dateTimeEnd.MaxLength = 10;
             dateTimeEnd.MinimumSize = new Size(63, 0);
@@ -188,39 +174,6 @@
             dateTimeEnd.Value = new DateTime(2024, 7, 1, 16, 18, 24, 274);
             dateTimeEnd.Watermark = "";
             // 
-            // uiLabel2
-            // 
-            uiLabel2.Font = new Font("微软雅黑", 10.5F);
-            uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(475, 51);
-            uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(47, 29);
-            uiLabel2.TabIndex = 112;
-            uiLabel2.Text = "日期:";
-            uiLabel2.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new Font("微软雅黑", 10.5F);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(238, 51);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(47, 29);
-            uiLabel1.TabIndex = 111;
-            uiLabel1.Text = "药品:";
-            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // uiLabel13
-            // 
-            uiLabel13.Font = new Font("微软雅黑", 10.5F);
-            uiLabel13.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel13.Location = new Point(3, 51);
-            uiLabel13.Name = "uiLabel13";
-            uiLabel13.Size = new Size(47, 29);
-            uiLabel13.TabIndex = 110;
-            uiLabel13.Text = "类型:";
-            uiLabel13.TextAlign = ContentAlignment.MiddleRight;
-            // 
             // cbType
             // 
             cbType.DataSource = null;
@@ -230,7 +183,7 @@
             cbType.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbType.Items.AddRange(new object[] { "全部", "新增药品", "编辑药品", "删除药品" });
             cbType.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbType.Location = new Point(51, 51);
+            cbType.Location = new Point(10, 50);
             cbType.Margin = new Padding(4, 5, 4, 5);
             cbType.MinimumSize = new Size(63, 0);
             cbType.Name = "cbType";
@@ -242,7 +195,7 @@
             cbType.TabIndex = 109;
             cbType.TextAlignment = ContentAlignment.MiddleLeft;
             cbType.TrimFilter = true;
-            cbType.Watermark = "";
+            cbType.Watermark = "请选择日志类型";
             // 
             // cbfp
             // 
@@ -252,7 +205,7 @@
             cbfp.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cbfp.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbfp.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbfp.Location = new Point(290, 51);
+            cbfp.Location = new Point(206, 50);
             cbfp.Margin = new Padding(4, 5, 4, 5);
             cbfp.MinimumSize = new Size(63, 0);
             cbfp.Name = "cbfp";
@@ -264,7 +217,7 @@
             cbfp.TabIndex = 108;
             cbfp.TextAlignment = ContentAlignment.MiddleLeft;
             cbfp.TrimFilter = true;
-            cbfp.Watermark = "";
+            cbfp.Watermark = "请选择药品";
             // 
             // uiLabel4
             // 
@@ -272,18 +225,18 @@
             uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel4.Location = new Point(11, 90);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(61, 29);
+            uiLabel4.Size = new Size(96, 29);
             uiLabel4.TabIndex = 120;
             uiLabel4.Text = "使用量 :";
-            uiLabel4.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblNum1
             // 
             lblNum1.Font = new Font("微软雅黑", 10.5F);
             lblNum1.ForeColor = Color.FromArgb(48, 48, 48);
-            lblNum1.Location = new Point(78, 90);
+            lblNum1.Location = new Point(113, 90);
             lblNum1.Name = "lblNum1";
-            lblNum1.Size = new Size(47, 29);
+            lblNum1.Size = new Size(54, 29);
             lblNum1.TabIndex = 121;
             lblNum1.Text = "0";
             lblNum1.TextAlign = ContentAlignment.MiddleLeft;
@@ -292,9 +245,9 @@
             // 
             lblNum2.Font = new Font("微软雅黑", 10.5F);
             lblNum2.ForeColor = Color.FromArgb(48, 48, 48);
-            lblNum2.Location = new Point(191, 90);
+            lblNum2.Location = new Point(272, 90);
             lblNum2.Name = "lblNum2";
-            lblNum2.Size = new Size(47, 29);
+            lblNum2.Size = new Size(55, 29);
             lblNum2.TabIndex = 123;
             lblNum2.Text = "0";
             lblNum2.TextAlign = ContentAlignment.MiddleLeft;
@@ -303,20 +256,20 @@
             // 
             uiLabel6.Font = new Font("微软雅黑", 10.5F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(124, 90);
+            uiLabel6.Location = new Point(176, 90);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(61, 29);
+            uiLabel6.Size = new Size(90, 29);
             uiLabel6.TabIndex = 122;
             uiLabel6.Text = "上药量 :";
-            uiLabel6.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel6.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblNum3
             // 
             lblNum3.Font = new Font("微软雅黑", 10.5F);
             lblNum3.ForeColor = Color.FromArgb(48, 48, 48);
-            lblNum3.Location = new Point(332, 90);
+            lblNum3.Location = new Point(425, 90);
             lblNum3.Name = "lblNum3";
-            lblNum3.Size = new Size(47, 29);
+            lblNum3.Size = new Size(61, 29);
             lblNum3.TabIndex = 125;
             lblNum3.Text = "0";
             lblNum3.TextAlign = ContentAlignment.MiddleLeft;
@@ -325,19 +278,19 @@
             // 
             uiLabel8.Font = new Font("微软雅黑", 10.5F);
             uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new Point(265, 90);
+            uiLabel8.Location = new Point(338, 90);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(61, 29);
+            uiLabel8.Size = new Size(81, 29);
             uiLabel8.TabIndex = 124;
             uiLabel8.Text = "调整量 :";
-            uiLabel8.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel8.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiDataGridViewFooter1
             // 
             uiDataGridViewFooter1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiDataGridViewFooter1.DataGridView = null;
             uiDataGridViewFooter1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiDataGridViewFooter1.Location = new Point(4, 486);
+            uiDataGridViewFooter1.Location = new Point(10, 486);
             uiDataGridViewFooter1.MinimumSize = new Size(1, 1);
             uiDataGridViewFooter1.Name = "uiDataGridViewFooter1";
             uiDataGridViewFooter1.RadiusSides = Sunny.UI.UICornerRadiusSides.None;
@@ -345,11 +298,27 @@
             uiDataGridViewFooter1.TabIndex = 126;
             uiDataGridViewFooter1.Text = "uiDataGridViewFooter1";
             // 
+            // btnQuery
+            // 
+            btnQuery.Cursor = Cursors.Hand;
+            btnQuery.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Location = new Point(754, 47);
+            btnQuery.MinimumSize = new Size(1, 1);
+            btnQuery.Name = "btnQuery";
+            btnQuery.Radius = 10;
+            btnQuery.Size = new Size(90, 35);
+            btnQuery.Symbol = 61442;
+            btnQuery.TabIndex = 127;
+            btnQuery.Text = "查 询";
+            btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Click += btnQuery_Click;
+            // 
             // FrmMedicineCabientLog
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1018, 565);
+            Controls.Add(btnQuery);
             Controls.Add(uiDataGridViewFooter1);
             Controls.Add(lblNum3);
             Controls.Add(uiLabel8);
@@ -359,13 +328,9 @@
             Controls.Add(uiLabel4);
             Controls.Add(uiPage);
             Controls.Add(dgvList);
-            Controls.Add(btnQuery);
             Controls.Add(label3);
             Controls.Add(dateTimeStart);
             Controls.Add(dateTimeEnd);
-            Controls.Add(uiLabel2);
-            Controls.Add(uiLabel1);
-            Controls.Add(uiLabel13);
             Controls.Add(cbType);
             Controls.Add(cbfp);
             Name = "FrmMedicineCabientLog";
@@ -385,13 +350,9 @@
 
         private Sunny.UI.UIPagination uiPage;
         private Sunny.UI.UIDataGridView dgvList;
-        private Sunny.UI.UIButton btnQuery;
         private Label label3;
         private Sunny.UI.UIDatePicker dateTimeStart;
         private Sunny.UI.UIDatePicker dateTimeEnd;
-        private Sunny.UI.UILabel uiLabel2;
-        private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UILabel uiLabel13;
         private Sunny.UI.UIComboBox cbType;
         private Sunny.UI.UIComboBox cbfp;
         private Sunny.UI.UILabel uiLabel4;
@@ -401,5 +362,6 @@
         private Sunny.UI.UILabel lblNum3;
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UIDataGridViewFooter uiDataGridViewFooter1;
+        private Sunny.UI.UISymbolButton btnQuery;
     }
 }

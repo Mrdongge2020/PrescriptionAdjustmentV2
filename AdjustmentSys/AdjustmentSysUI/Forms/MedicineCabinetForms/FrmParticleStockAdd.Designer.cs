@@ -208,10 +208,11 @@
             // btnSBTM
             // 
             btnSBTM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSBTM.Location = new Point(471, 229);
+            btnSBTM.Location = new Point(471, 224);
             btnSBTM.MinimumSize = new Size(1, 1);
             btnSBTM.Name = "btnSBTM";
-            btnSBTM.Size = new Size(96, 29);
+            btnSBTM.Radius = 10;
+            btnSBTM.Size = new Size(110, 35);
             btnSBTM.TabIndex = 79;
             btnSBTM.Text = "识别条码";
             btnSBTM.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -253,7 +254,7 @@
             dtpDQRQ.Name = "dtpDQRQ";
             dtpDQRQ.Padding = new Padding(0, 0, 30, 2);
             dtpDQRQ.ShowToday = true;
-            dtpDQRQ.Size = new Size(112, 29);
+            dtpDQRQ.Size = new Size(130, 29);
             dtpDQRQ.SymbolDropDown = 61555;
             dtpDQRQ.SymbolNormal = 61555;
             dtpDQRQ.SymbolSize = 24;
@@ -284,17 +285,18 @@
             lbErroe.Name = "lbErroe";
             lbErroe.Padding = new Padding(2);
             lbErroe.ShowText = false;
-            lbErroe.Size = new Size(543, 121);
+            lbErroe.Size = new Size(557, 121);
             lbErroe.TabIndex = 83;
             lbErroe.Text = "uiListBox1";
             // 
             // btnCancel
             // 
             btnCancel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnCancel.Location = new Point(471, 470);
+            btnCancel.Location = new Point(471, 473);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(100, 35);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
             btnCancel.Symbol = 361453;
             btnCancel.TabIndex = 86;
             btnCancel.TabStop = false;
@@ -305,12 +307,13 @@
             // btnOK
             // 
             btnOK.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOK.Location = new Point(305, 470);
+            btnOK.Location = new Point(305, 473);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(100, 35);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
             btnOK.TabIndex = 85;
-            btnOK.Text = "确定添加";
+            btnOK.Text = "确 定";
             btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnOK.Click += btnOK_Click;
             // 
@@ -322,7 +325,7 @@
             uiLine1.Location = new Point(3, 444);
             uiLine1.MinimumSize = new Size(1, 1);
             uiLine1.Name = "uiLine1";
-            uiLine1.Size = new Size(588, 29);
+            uiLine1.Size = new Size(594, 29);
             uiLine1.TabIndex = 84;
             // 
             // timerParticleStockAdd
@@ -349,7 +352,7 @@
             lblBatch.Name = "lblBatch";
             lblBatch.Padding = new Padding(5);
             lblBatch.ShowText = false;
-            lblBatch.Size = new Size(200, 29);
+            lblBatch.Size = new Size(214, 29);
             lblBatch.TabIndex = 99;
             lblBatch.TextAlignment = ContentAlignment.MiddleLeft;
             lblBatch.Watermark = "";
@@ -357,7 +360,7 @@
             // FrmParticleStockAdd
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(592, 533);
+            ClientSize = new Size(600, 522);
             Controls.Add(lblBatch);
             Controls.Add(label13);
             Controls.Add(btnCancel);

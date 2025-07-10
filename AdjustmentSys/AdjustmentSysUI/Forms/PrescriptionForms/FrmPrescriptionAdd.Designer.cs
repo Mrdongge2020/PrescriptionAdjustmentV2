@@ -57,6 +57,7 @@
             txtRemark = new Sunny.UI.UITextBox();
             uiGroupBox1 = new Sunny.UI.UIGroupBox();
             uiGroupBox2 = new Sunny.UI.UIGroupBox();
+            btnAdd = new Sunny.UI.UISymbolButton();
             dgvFooter = new Sunny.UI.UIDataGridViewFooter();
             dgvDurgList = new Sunny.UI.UIDataGridView();
             ID = new DataGridViewTextBoxColumn();
@@ -73,17 +74,15 @@
             removeDurg = new ToolStripMenuItem();
             uiLabel15 = new Sunny.UI.UILabel();
             lbCheckResult = new Sunny.UI.UIListBox();
-            btnAdd = new Sunny.UI.UIButton();
             dudJL = new Sunny.UI.UIDoubleUpDown();
             uiLabel14 = new Sunny.UI.UILabel();
             uiLabel13 = new Sunny.UI.UILabel();
             cbJLFS = new Sunny.UI.UIComboBox();
-            uiLabel12 = new Sunny.UI.UILabel();
             cbDurg = new Sunny.UI.UIComboBox();
-            btnSavePre = new Sunny.UI.UIButton();
             uiLabel16 = new Sunny.UI.UILabel();
             txtXDFMC = new Sunny.UI.UITextBox();
-            btnSaveXDF = new Sunny.UI.UIButton();
+            btnSavePre = new Sunny.UI.UISymbolButton();
+            btnSaveXDF = new Sunny.UI.UISymbolButton();
             uiGroupBox1.SuspendLayout();
             uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDurgList).BeginInit();
@@ -94,26 +93,27 @@
             // 
             uiLabel1.Font = new Font("微软雅黑", 12F);
             uiLabel1.ForeColor = Color.Red;
-            uiLabel1.Location = new Point(13, 46);
+            uiLabel1.Location = new Point(3, 46);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(83, 23);
+            uiLabel1.Size = new Size(130, 23);
+            uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             uiLabel1.TabIndex = 0;
             uiLabel1.Text = "处方编号:";
-            uiLabel1.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtPrID
             // 
             txtPrID.ButtonSymbol = 362193;
             txtPrID.Cursor = Cursors.IBeam;
             txtPrID.Font = new Font("微软雅黑", 12F);
-            txtPrID.Location = new Point(96, 43);
+            txtPrID.Location = new Point(147, 43);
             txtPrID.Margin = new Padding(4, 5, 4, 5);
             txtPrID.MinimumSize = new Size(1, 16);
             txtPrID.Name = "txtPrID";
             txtPrID.Padding = new Padding(5);
             txtPrID.ShowButton = true;
             txtPrID.ShowText = false;
-            txtPrID.Size = new Size(259, 29);
+            txtPrID.Size = new Size(222, 29);
             txtPrID.TabIndex = 1;
             txtPrID.TextAlignment = ContentAlignment.MiddleLeft;
             txtPrID.Watermark = "";
@@ -123,7 +123,7 @@
             // txtPatName
             // 
             txtPatName.Font = new Font("微软雅黑", 12F);
-            txtPatName.Location = new Point(458, 43);
+            txtPatName.Location = new Point(480, 43);
             txtPatName.Margin = new Padding(4, 5, 4, 5);
             txtPatName.MaxLength = 20;
             txtPatName.MinimumSize = new Size(1, 16);
@@ -139,17 +139,18 @@
             // 
             uiLabel2.Font = new Font("微软雅黑", 12F);
             uiLabel2.ForeColor = Color.Red;
-            uiLabel2.Location = new Point(371, 46);
+            uiLabel2.Location = new Point(373, 46);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(83, 23);
+            uiLabel2.Size = new Size(102, 23);
+            uiLabel2.Style = Sunny.UI.UIStyle.Custom;
             uiLabel2.TabIndex = 2;
             uiLabel2.Text = "患者姓名:";
-            uiLabel2.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtPatPhone
             // 
             txtPatPhone.Font = new Font("微软雅黑", 12F);
-            txtPatPhone.Location = new Point(697, 43);
+            txtPatPhone.Location = new Point(722, 43);
             txtPatPhone.Margin = new Padding(4, 5, 4, 5);
             txtPatPhone.MaxLength = 20;
             txtPatPhone.MinimumSize = new Size(1, 16);
@@ -165,12 +166,12 @@
             // 
             uiLabel3.Font = new Font("微软雅黑", 12F);
             uiLabel3.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new Point(610, 46);
+            uiLabel3.Location = new Point(616, 46);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(83, 23);
+            uiLabel3.Size = new Size(102, 23);
             uiLabel3.TabIndex = 4;
             uiLabel3.Text = "患者电话:";
-            uiLabel3.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel4
             // 
@@ -178,32 +179,34 @@
             uiLabel4.ForeColor = Color.Red;
             uiLabel4.Location = new Point(853, 46);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(54, 23);
+            uiLabel4.Size = new Size(68, 23);
+            uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             uiLabel4.TabIndex = 6;
             uiLabel4.Text = "性别:";
-            uiLabel4.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel5
             // 
             uiLabel5.Font = new Font("微软雅黑", 12F);
             uiLabel5.ForeColor = Color.Red;
-            uiLabel5.Location = new Point(986, 46);
+            uiLabel5.Location = new Point(1011, 46);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(54, 23);
+            uiLabel5.Size = new Size(69, 23);
+            uiLabel5.Style = Sunny.UI.UIStyle.Custom;
             uiLabel5.TabIndex = 7;
             uiLabel5.Text = "年龄:";
-            uiLabel5.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel5.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel6
             // 
             uiLabel6.Font = new Font("微软雅黑", 12F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(1161, 46);
+            uiLabel6.Location = new Point(1192, 46);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(54, 23);
+            uiLabel6.Size = new Size(57, 23);
             uiLabel6.TabIndex = 8;
             uiLabel6.Text = "月份:";
-            uiLabel6.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel6.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cbSex
             // 
@@ -214,7 +217,7 @@
             cbSex.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbSex.Items.AddRange(new object[] { "女", "男", "保密" });
             cbSex.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbSex.Location = new Point(910, 43);
+            cbSex.Location = new Point(927, 43);
             cbSex.Margin = new Padding(4, 5, 4, 5);
             cbSex.MinimumSize = new Size(63, 0);
             cbSex.Name = "cbSex";
@@ -229,7 +232,7 @@
             // iudAgeYear
             // 
             iudAgeYear.Font = new Font("微软雅黑", 12F);
-            iudAgeYear.Location = new Point(1045, 43);
+            iudAgeYear.Location = new Point(1087, 43);
             iudAgeYear.Margin = new Padding(4, 5, 4, 5);
             iudAgeYear.MinimumSize = new Size(100, 0);
             iudAgeYear.Name = "iudAgeYear";
@@ -243,7 +246,7 @@
             // iupAgeMonth
             // 
             iupAgeMonth.Font = new Font("微软雅黑", 12F);
-            iupAgeMonth.Location = new Point(1217, 43);
+            iupAgeMonth.Location = new Point(1256, 43);
             iupAgeMonth.Margin = new Padding(4, 5, 4, 5);
             iupAgeMonth.MinimumSize = new Size(100, 0);
             iupAgeMonth.Name = "iupAgeMonth";
@@ -256,7 +259,7 @@
             // iudFFCS
             // 
             iudFFCS.Font = new Font("微软雅黑", 12F);
-            iudFFCS.Location = new Point(253, 97);
+            iudFFCS.Location = new Point(267, 97);
             iudFFCS.Margin = new Padding(4, 5, 4, 5);
             iudFFCS.Minimum = 0;
             iudFFCS.MinimumSize = new Size(100, 0);
@@ -271,7 +274,7 @@
             // iudFS
             // 
             iudFS.Font = new Font("微软雅黑", 12F);
-            iudFS.Location = new Point(133, 97);
+            iudFS.Location = new Point(147, 97);
             iudFS.Margin = new Padding(4, 5, 4, 5);
             iudFS.Minimum = 0;
             iudFS.MinimumSize = new Size(100, 0);
@@ -286,7 +289,7 @@
             // 
             uiLabel7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new Point(236, 100);
+            uiLabel7.Location = new Point(250, 100);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(10, 23);
             uiLabel7.TabIndex = 13;
@@ -297,12 +300,13 @@
             // 
             uiLabel8.Font = new Font("微软雅黑", 12F);
             uiLabel8.ForeColor = Color.Red;
-            uiLabel8.Location = new Point(13, 100);
+            uiLabel8.Location = new Point(3, 100);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(126, 23);
+            uiLabel8.Size = new Size(140, 23);
+            uiLabel8.Style = Sunny.UI.UIStyle.Custom;
             uiLabel8.TabIndex = 12;
             uiLabel8.Text = "付数/分服次数:";
-            uiLabel8.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel8.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel9
             // 
@@ -310,10 +314,11 @@
             uiLabel9.ForeColor = Color.Red;
             uiLabel9.Location = new Point(371, 100);
             uiLabel9.Name = "uiLabel9";
-            uiLabel9.Size = new Size(83, 23);
+            uiLabel9.Size = new Size(102, 23);
+            uiLabel9.Style = Sunny.UI.UIStyle.Custom;
             uiLabel9.TabIndex = 16;
             uiLabel9.Text = "医生姓名:";
-            uiLabel9.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel9.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cbDoctorName
             // 
@@ -323,7 +328,7 @@
             cbDoctorName.Font = new Font("微软雅黑", 12F);
             cbDoctorName.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbDoctorName.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbDoctorName.Location = new Point(458, 97);
+            cbDoctorName.Location = new Point(480, 97);
             cbDoctorName.Margin = new Padding(4, 5, 4, 5);
             cbDoctorName.MinimumSize = new Size(63, 0);
             cbDoctorName.Name = "cbDoctorName";
@@ -340,7 +345,7 @@
             // txtDocDepartment
             // 
             txtDocDepartment.Font = new Font("微软雅黑", 12F);
-            txtDocDepartment.Location = new Point(697, 97);
+            txtDocDepartment.Location = new Point(722, 97);
             txtDocDepartment.Margin = new Padding(4, 5, 4, 5);
             txtDocDepartment.MaxLength = 20;
             txtDocDepartment.MinimumSize = new Size(1, 16);
@@ -356,12 +361,13 @@
             // 
             uiLabel10.Font = new Font("微软雅黑", 12F);
             uiLabel10.ForeColor = Color.Red;
-            uiLabel10.Location = new Point(610, 100);
+            uiLabel10.Location = new Point(616, 100);
             uiLabel10.Name = "uiLabel10";
-            uiLabel10.Size = new Size(83, 23);
+            uiLabel10.Size = new Size(102, 23);
+            uiLabel10.Style = Sunny.UI.UIStyle.Custom;
             uiLabel10.TabIndex = 18;
             uiLabel10.Text = "医生科室:";
-            uiLabel10.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel10.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel11
             // 
@@ -369,22 +375,22 @@
             uiLabel11.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel11.Location = new Point(853, 100);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new Size(54, 23);
+            uiLabel11.Size = new Size(68, 23);
             uiLabel11.TabIndex = 20;
             uiLabel11.Text = "备注:";
-            uiLabel11.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel11.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtRemark
             // 
             txtRemark.Font = new Font("微软雅黑", 12F);
-            txtRemark.Location = new Point(910, 97);
+            txtRemark.Location = new Point(927, 97);
             txtRemark.Margin = new Padding(4, 5, 4, 5);
             txtRemark.MaxLength = 200;
             txtRemark.MinimumSize = new Size(1, 16);
             txtRemark.Name = "txtRemark";
             txtRemark.Padding = new Padding(5);
             txtRemark.ShowText = false;
-            txtRemark.Size = new Size(407, 29);
+            txtRemark.Size = new Size(429, 29);
             txtRemark.TabIndex = 21;
             txtRemark.TextAlignment = ContentAlignment.MiddleLeft;
             txtRemark.Watermark = "";
@@ -426,16 +432,15 @@
             // 
             // uiGroupBox2
             // 
+            uiGroupBox2.Controls.Add(btnAdd);
             uiGroupBox2.Controls.Add(dgvFooter);
             uiGroupBox2.Controls.Add(uiLabel15);
             uiGroupBox2.Controls.Add(lbCheckResult);
             uiGroupBox2.Controls.Add(dgvDurgList);
-            uiGroupBox2.Controls.Add(btnAdd);
             uiGroupBox2.Controls.Add(dudJL);
             uiGroupBox2.Controls.Add(uiLabel14);
             uiGroupBox2.Controls.Add(uiLabel13);
             uiGroupBox2.Controls.Add(cbJLFS);
-            uiGroupBox2.Controls.Add(uiLabel12);
             uiGroupBox2.Controls.Add(cbDurg);
             uiGroupBox2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiGroupBox2.Location = new Point(4, 193);
@@ -447,6 +452,21 @@
             uiGroupBox2.TabIndex = 24;
             uiGroupBox2.Text = "添加药品";
             uiGroupBox2.TextAlignment = ContentAlignment.MiddleLeft;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAdd.Location = new Point(704, 28);
+            btnAdd.MinimumSize = new Size(1, 1);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Radius = 10;
+            btnAdd.Size = new Size(110, 35);
+            btnAdd.Symbol = 557672;
+            btnAdd.TabIndex = 19;
+            btnAdd.Text = "添加药品";
+            btnAdd.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnAdd.Click += btnAdd_Click;
             // 
             // dgvFooter
             // 
@@ -615,9 +635,9 @@
             // 
             uiLabel15.Font = new Font("微软雅黑", 12F);
             uiLabel15.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel15.Location = new Point(960, 37);
+            uiLabel15.Location = new Point(960, 40);
             uiLabel15.Name = "uiLabel15";
-            uiLabel15.Size = new Size(84, 23);
+            uiLabel15.Size = new Size(137, 23);
             uiLabel15.TabIndex = 17;
             uiLabel15.Text = "处方分析:";
             uiLabel15.TextAlign = ContentAlignment.MiddleLeft;
@@ -637,23 +657,11 @@
             lbCheckResult.TabIndex = 16;
             lbCheckResult.Text = "uiListBox1";
             // 
-            // btnAdd
-            // 
-            btnAdd.Font = new Font("微软雅黑", 12F);
-            btnAdd.Location = new Point(755, 29);
-            btnAdd.MinimumSize = new Size(1, 1);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(100, 35);
-            btnAdd.TabIndex = 14;
-            btnAdd.Text = "添加药品";
-            btnAdd.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAdd.Click += btnAdd_Click;
-            // 
             // dudJL
             // 
             dudJL.DecimalPlaces = 2;
             dudJL.Font = new Font("微软雅黑", 12F);
-            dudJL.Location = new Point(610, 34);
+            dudJL.Location = new Point(553, 31);
             dudJL.Margin = new Padding(4, 5, 4, 5);
             dudJL.Maximum = 100000D;
             dudJL.Minimum = 0D;
@@ -669,23 +677,23 @@
             // 
             uiLabel14.Font = new Font("微软雅黑", 12F);
             uiLabel14.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel14.Location = new Point(559, 37);
+            uiLabel14.Location = new Point(477, 34);
             uiLabel14.Name = "uiLabel14";
-            uiLabel14.Size = new Size(47, 23);
+            uiLabel14.Size = new Size(72, 23);
             uiLabel14.TabIndex = 12;
             uiLabel14.Text = "剂量:";
-            uiLabel14.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel14.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel13
             // 
             uiLabel13.Font = new Font("微软雅黑", 12F);
             uiLabel13.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel13.Location = new Point(310, 37);
+            uiLabel13.Location = new Point(217, 34);
             uiLabel13.Name = "uiLabel13";
-            uiLabel13.Size = new Size(84, 23);
+            uiLabel13.Size = new Size(113, 23);
             uiLabel13.TabIndex = 10;
             uiLabel13.Text = "剂量方式:";
-            uiLabel13.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel13.TextAlign = ContentAlignment.MiddleRight;
             // 
             // cbJLFS
             // 
@@ -696,7 +704,7 @@
             cbJLFS.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbJLFS.Items.AddRange(new object[] { "饮片剂量", "颗粒剂量" });
             cbJLFS.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbJLFS.Location = new Point(401, 34);
+            cbJLFS.Location = new Point(337, 31);
             cbJLFS.Margin = new Padding(4, 5, 4, 5);
             cbJLFS.MinimumSize = new Size(63, 0);
             cbJLFS.Name = "cbJLFS";
@@ -708,17 +716,6 @@
             cbJLFS.TextAlignment = ContentAlignment.MiddleLeft;
             cbJLFS.Watermark = "";
             // 
-            // uiLabel12
-            // 
-            uiLabel12.Font = new Font("微软雅黑", 12F);
-            uiLabel12.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel12.Location = new Point(13, 37);
-            uiLabel12.Name = "uiLabel12";
-            uiLabel12.Size = new Size(83, 23);
-            uiLabel12.TabIndex = 3;
-            uiLabel12.Text = "药品搜索:";
-            uiLabel12.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // cbDurg
             // 
             cbDurg.DataSource = null;
@@ -727,7 +724,7 @@
             cbDurg.Font = new Font("微软雅黑", 12F);
             cbDurg.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbDurg.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbDurg.Location = new Point(96, 34);
+            cbDurg.Location = new Point(15, 31);
             cbDurg.Margin = new Padding(4, 5, 4, 5);
             cbDurg.MinimumSize = new Size(63, 0);
             cbDurg.Name = "cbDurg";
@@ -738,35 +735,23 @@
             cbDurg.SymbolSize = 24;
             cbDurg.TabIndex = 2;
             cbDurg.TextAlignment = ContentAlignment.MiddleLeft;
-            cbDurg.Watermark = "";
-            // 
-            // btnSavePre
-            // 
-            btnSavePre.Font = new Font("微软雅黑", 12F);
-            btnSavePre.Location = new Point(843, 681);
-            btnSavePre.MinimumSize = new Size(1, 1);
-            btnSavePre.Name = "btnSavePre";
-            btnSavePre.Size = new Size(100, 35);
-            btnSavePre.TabIndex = 25;
-            btnSavePre.Text = "提交处方";
-            btnSavePre.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSavePre.Click += btnSavePre_Click;
+            cbDurg.Watermark = "请选择药品";
             // 
             // uiLabel16
             // 
             uiLabel16.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel16.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new Point(17, 687);
+            uiLabel16.Location = new Point(17, 689);
             uiLabel16.Name = "uiLabel16";
-            uiLabel16.Size = new Size(101, 23);
+            uiLabel16.Size = new Size(139, 23);
             uiLabel16.TabIndex = 26;
             uiLabel16.Text = "协定方名称:";
-            uiLabel16.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel16.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtXDFMC
             // 
             txtXDFMC.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtXDFMC.Location = new Point(118, 684);
+            txtXDFMC.Location = new Point(163, 686);
             txtXDFMC.Margin = new Padding(4, 5, 4, 5);
             txtXDFMC.MinimumSize = new Size(1, 16);
             txtXDFMC.Name = "txtXDFMC";
@@ -777,14 +762,30 @@
             txtXDFMC.TextAlignment = ContentAlignment.MiddleLeft;
             txtXDFMC.Watermark = "";
             // 
+            // btnSavePre
+            // 
+            btnSavePre.Cursor = Cursors.Hand;
+            btnSavePre.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSavePre.Location = new Point(1187, 680);
+            btnSavePre.MinimumSize = new Size(1, 1);
+            btnSavePre.Name = "btnSavePre";
+            btnSavePre.Radius = 10;
+            btnSavePre.Size = new Size(120, 40);
+            btnSavePre.TabIndex = 29;
+            btnSavePre.Text = "提交处方";
+            btnSavePre.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSavePre.Click += btnSavePre_Click;
+            // 
             // btnSaveXDF
             // 
-            btnSaveXDF.Font = new Font("微软雅黑", 12F);
-            btnSaveXDF.Location = new Point(405, 681);
+            btnSaveXDF.Cursor = Cursors.Hand;
+            btnSaveXDF.Font = new Font("宋体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSaveXDF.Location = new Point(435, 683);
             btnSaveXDF.MinimumSize = new Size(1, 1);
             btnSaveXDF.Name = "btnSaveXDF";
-            btnSaveXDF.Size = new Size(109, 35);
-            btnSaveXDF.TabIndex = 28;
+            btnSaveXDF.Radius = 10;
+            btnSaveXDF.Size = new Size(130, 35);
+            btnSaveXDF.TabIndex = 30;
             btnSaveXDF.Text = "存为协定方";
             btnSaveXDF.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSaveXDF.Click += btnSaveXDF_Click;
@@ -794,9 +795,9 @@
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1370, 726);
             Controls.Add(btnSaveXDF);
+            Controls.Add(btnSavePre);
             Controls.Add(uiLabel16);
             Controls.Add(txtXDFMC);
-            Controls.Add(btnSavePre);
             Controls.Add(uiGroupBox2);
             Controls.Add(uiGroupBox1);
             MaximizeBox = false;
@@ -841,18 +842,14 @@
         private Sunny.UI.UIGroupBox uiGroupBox2;
         private Sunny.UI.UILabel uiLabel13;
         private Sunny.UI.UIComboBox cbJLFS;
-        private Sunny.UI.UILabel uiLabel12;
         private Sunny.UI.UIComboBox cbDurg;
         private Sunny.UI.UIDoubleUpDown dudJL;
         private Sunny.UI.UILabel uiLabel14;
         private Sunny.UI.UILabel uiLabel15;
         private Sunny.UI.UIListBox lbCheckResult;
         private Sunny.UI.UIDataGridView dgvDurgList;
-        private Sunny.UI.UIButton btnAdd;
-        private Sunny.UI.UIButton btnSavePre;
         private Sunny.UI.UILabel uiLabel16;
         private Sunny.UI.UITextBox txtXDFMC;
-        private Sunny.UI.UIButton btnSaveXDF;
         private Sunny.UI.UIDataGridViewFooter dgvFooter;
         private Sunny.UI.UIContextMenuStrip cmsDurg;
         private ToolStripMenuItem removeDurg;
@@ -867,5 +864,8 @@
         private DataGridViewTextBoxColumn Price;
         private DataGridViewTextBoxColumn TotalPrice;
         private DataGridViewTextBoxColumn ParCode;
+        private Sunny.UI.UISymbolButton btnAdd;
+        private Sunny.UI.UISymbolButton btnSavePre;
+        private Sunny.UI.UISymbolButton btnSaveXDF;
     }
 }

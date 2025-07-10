@@ -65,10 +65,11 @@
             // 
             btnReset.Cursor = Cursors.Hand;
             btnReset.Font = new Font("微软雅黑", 12F);
-            btnReset.Location = new Point(760, 91);
+            btnReset.Location = new Point(899, 90);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(84, 33);
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
             btnReset.Symbol = 561695;
             btnReset.TabIndex = 36;
             btnReset.Text = "重 置";
@@ -83,7 +84,7 @@
             cbPreState.Font = new Font("微软雅黑", 12F);
             cbPreState.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbPreState.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbPreState.Location = new Point(390, 93);
+            cbPreState.Location = new Point(445, 93);
             cbPreState.Margin = new Padding(4, 5, 4, 5);
             cbPreState.MinimumSize = new Size(63, 0);
             cbPreState.Name = "cbPreState";
@@ -98,13 +99,13 @@
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiPage.Font = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(89, 619);
+            uiPage.Location = new Point(10, 619);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(586, 39);
+            uiPage.Size = new Size(780, 35);
             uiPage.TabIndex = 34;
             uiPage.Text = "uiPagination1";
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;
@@ -140,7 +141,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(3, 170);
+            dgvList.Location = new Point(10, 171);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -157,7 +158,7 @@
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList.Size = new Size(781, 446);
+            dgvList.Size = new Size(781, 445);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 33;
             dgvList.CellClick += dgvList_CellClick;
@@ -168,12 +169,12 @@
             // 
             btnAddPre.Cursor = Cursors.Hand;
             btnAddPre.Font = new Font("微软雅黑", 12F);
-            btnAddPre.Location = new Point(16, 134);
+            btnAddPre.Location = new Point(16, 130);
             btnAddPre.MinimumSize = new Size(1, 1);
             btnAddPre.Name = "btnAddPre";
-            btnAddPre.Radius = 1;
-            btnAddPre.Size = new Size(100, 30);
-            btnAddPre.Symbol = 362211;
+            btnAddPre.Radius = 10;
+            btnAddPre.Size = new Size(120, 35);
+            btnAddPre.Symbol = 557672;
             btnAddPre.TabIndex = 32;
             btnAddPre.Text = "录入处方";
             btnAddPre.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -183,12 +184,12 @@
             // 
             btnCopyPre.Cursor = Cursors.Hand;
             btnCopyPre.Font = new Font("微软雅黑", 12F);
-            btnCopyPre.Location = new Point(138, 134);
+            btnCopyPre.Location = new Point(170, 130);
             btnCopyPre.MinimumSize = new Size(1, 1);
             btnCopyPre.Name = "btnCopyPre";
-            btnCopyPre.Radius = 1;
-            btnCopyPre.Size = new Size(100, 30);
-            btnCopyPre.Symbol = 361741;
+            btnCopyPre.Radius = 10;
+            btnCopyPre.Size = new Size(120, 35);
+            btnCopyPre.Symbol = 61637;
             btnCopyPre.SymbolColor = SystemColors.Window;
             btnCopyPre.TabIndex = 31;
             btnCopyPre.Text = "复制处方";
@@ -199,10 +200,11 @@
             // 
             btnSearch.Cursor = Cursors.Hand;
             btnSearch.Font = new Font("微软雅黑", 12F);
-            btnSearch.Location = new Point(631, 91);
+            btnSearch.Location = new Point(770, 90);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(84, 33);
+            btnSearch.Radius = 10;
+            btnSearch.Size = new Size(90, 35);
             btnSearch.Symbol = 61442;
             btnSearch.TabIndex = 30;
             btnSearch.Text = "查 询";
@@ -213,7 +215,7 @@
             // 
             txtPrID.Cursor = Cursors.IBeam;
             txtPrID.Font = new Font("微软雅黑", 12F);
-            txtPrID.Location = new Point(95, 44);
+            txtPrID.Location = new Point(147, 46);
             txtPrID.Margin = new Padding(4, 5, 4, 5);
             txtPrID.MinimumSize = new Size(1, 16);
             txtPrID.Name = "txtPrID";
@@ -229,7 +231,7 @@
             // 
             txtPatentName.Cursor = Cursors.IBeam;
             txtPatentName.Font = new Font("微软雅黑", 12F);
-            txtPatentName.Location = new Point(390, 44);
+            txtPatentName.Location = new Point(445, 46);
             txtPatentName.Margin = new Padding(4, 5, 4, 5);
             txtPatentName.MinimumSize = new Size(1, 16);
             txtPatentName.Name = "txtPatentName";
@@ -250,7 +252,7 @@
             cbSource.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbSource.Items.AddRange(new object[] { "所有来源", "HIS系统", "TCM系统" });
             cbSource.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbSource.Location = new Point(95, 93);
+            cbSource.Location = new Point(147, 93);
             cbSource.Margin = new Padding(4, 5, 4, 5);
             cbSource.MinimumSize = new Size(63, 0);
             cbSource.Name = "cbSource";
@@ -266,7 +268,7 @@
             dtpStart.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             dtpStart.FillColor = Color.White;
             dtpStart.Font = new Font("微软雅黑", 12F);
-            dtpStart.Location = new Point(723, 45);
+            dtpStart.Location = new Point(770, 47);
             dtpStart.Margin = new Padding(4, 5, 4, 5);
             dtpStart.MaxLength = 10;
             dtpStart.MinimumSize = new Size(63, 0);
@@ -287,23 +289,23 @@
             // 
             uiLabel1.Font = new Font("微软雅黑", 12F);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(16, 48);
+            uiLabel1.Location = new Point(16, 50);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(79, 23);
+            uiLabel1.Size = new Size(119, 23);
             uiLabel1.TabIndex = 41;
             uiLabel1.Text = "处方编号:";
-            uiLabel1.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel2
             // 
             uiLabel2.Font = new Font("微软雅黑", 12F);
             uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(304, 48);
+            uiLabel2.Location = new Point(325, 50);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(79, 23);
+            uiLabel2.Size = new Size(113, 23);
             uiLabel2.TabIndex = 42;
             uiLabel2.Text = "患者名称:";
-            uiLabel2.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel3
             // 
@@ -311,49 +313,49 @@
             uiLabel3.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel3.Location = new Point(16, 96);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(79, 23);
+            uiLabel3.Size = new Size(119, 23);
             uiLabel3.TabIndex = 43;
             uiLabel3.Text = "处方来源:";
-            uiLabel3.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel4
             // 
             uiLabel4.Font = new Font("微软雅黑", 12F);
             uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel4.Location = new Point(304, 96);
+            uiLabel4.Location = new Point(325, 96);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(79, 23);
+            uiLabel4.Size = new Size(113, 23);
             uiLabel4.TabIndex = 44;
             uiLabel4.Text = "处方状态:";
-            uiLabel4.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel5
             // 
             uiLabel5.Font = new Font("微软雅黑", 12F);
             uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new Point(624, 48);
+            uiLabel5.Location = new Point(623, 50);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(79, 23);
+            uiLabel5.Size = new Size(127, 23);
             uiLabel5.TabIndex = 45;
             uiLabel5.Text = "创建时间:";
-            uiLabel5.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel5.TextAlign = ContentAlignment.MiddleRight;
             // 
             // uiLabel6
             // 
             uiLabel6.Font = new Font("微软雅黑", 12F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(889, 48);
+            uiLabel6.Location = new Point(927, 50);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(31, 23);
+            uiLabel6.Size = new Size(55, 23);
             uiLabel6.TabIndex = 46;
             uiLabel6.Text = "至";
-            uiLabel6.TextAlign = ContentAlignment.MiddleLeft;
+            uiLabel6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dtpEnd
             // 
             dtpEnd.FillColor = Color.White;
             dtpEnd.Font = new Font("微软雅黑", 12F);
-            dtpEnd.Location = new Point(927, 45);
+            dtpEnd.Location = new Point(989, 47);
             dtpEnd.Margin = new Padding(4, 5, 4, 5);
             dtpEnd.MaxLength = 10;
             dtpEnd.MinimumSize = new Size(63, 0);
@@ -401,7 +403,7 @@
             dgvPreDetail.EnableHeadersVisualStyles = false;
             dgvPreDetail.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvPreDetail.GridColor = Color.FromArgb(80, 160, 255);
-            dgvPreDetail.Location = new Point(787, 170);
+            dgvPreDetail.Location = new Point(797, 170);
             dgvPreDetail.Name = "dgvPreDetail";
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
@@ -417,7 +419,7 @@
             dgvPreDetail.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvPreDetail.SelectedIndex = -1;
             dgvPreDetail.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPreDetail.Size = new Size(475, 446);
+            dgvPreDetail.Size = new Size(465, 446);
             dgvPreDetail.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvPreDetail.TabIndex = 48;
             // 

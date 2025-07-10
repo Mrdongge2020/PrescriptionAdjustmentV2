@@ -64,9 +64,9 @@
             // 
             uiLabel7.Font = new Font("微软雅黑", 10.5F);
             uiLabel7.ForeColor = Color.Red;
-            uiLabel7.Location = new Point(23, 263);
+            uiLabel7.Location = new Point(15, 263);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(100, 23);
+            uiLabel7.Size = new Size(139, 23);
             uiLabel7.TabIndex = 22;
             uiLabel7.Text = "参数类型：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
@@ -91,9 +91,9 @@
             // 
             uiLabel3.Font = new Font("微软雅黑", 10.5F);
             uiLabel3.ForeColor = Color.Red;
-            uiLabel3.Location = new Point(23, 163);
+            uiLabel3.Location = new Point(15, 163);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(100, 23);
+            uiLabel3.Size = new Size(139, 23);
             uiLabel3.TabIndex = 20;
             uiLabel3.Text = "参数值：";
             uiLabel3.TextAlign = ContentAlignment.MiddleRight;
@@ -117,9 +117,9 @@
             // 
             uiLabel2.Font = new Font("微软雅黑", 10.5F);
             uiLabel2.ForeColor = Color.Red;
-            uiLabel2.Location = new Point(23, 112);
+            uiLabel2.Location = new Point(15, 112);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(100, 23);
+            uiLabel2.Size = new Size(139, 23);
             uiLabel2.TabIndex = 18;
             uiLabel2.Text = "参数描述：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;
@@ -143,9 +143,9 @@
             // 
             uiLabel1.Font = new Font("微软雅黑", 10.5F);
             uiLabel1.ForeColor = Color.Red;
-            uiLabel1.Location = new Point(23, 61);
+            uiLabel1.Location = new Point(15, 61);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(100, 23);
+            uiLabel1.Size = new Size(139, 23);
             uiLabel1.TabIndex = 16;
             uiLabel1.Text = "参数名称：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;

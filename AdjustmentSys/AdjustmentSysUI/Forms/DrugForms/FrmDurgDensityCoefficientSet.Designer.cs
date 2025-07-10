@@ -249,6 +249,7 @@
             uiLabel4.Location = new Point(132, 138);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(511, 29);
+            uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             uiLabel4.TabIndex = 58;
             uiLabel4.Text = "根据厂家批量修改时，未勾选中的数据将不会被修改，切记！";
             uiLabel4.TextAlign = ContentAlignment.MiddleLeft;

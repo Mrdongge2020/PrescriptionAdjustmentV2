@@ -68,9 +68,10 @@
             // 
             uiLabel7.Font = new Font("宋体", 10.5F);
             uiLabel7.ForeColor = Color.Red;
-            uiLabel7.Location = new Point(28, 115);
+            uiLabel7.Location = new Point(3, 115);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(100, 23);
+            uiLabel7.Size = new Size(158, 23);
+            uiLabel7.Style = Sunny.UI.UIStyle.Custom;
             uiLabel7.TabIndex = 35;
             uiLabel7.Text = "所属科室：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
@@ -94,9 +95,9 @@
             // 
             uiLabel6.Font = new Font("宋体", 10.5F);
             uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new Point(28, 331);
+            uiLabel6.Location = new Point(3, 331);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(100, 23);
+            uiLabel6.Size = new Size(158, 23);
             uiLabel6.TabIndex = 33;
             uiLabel6.Text = "备注：";
             uiLabel6.TextAlign = ContentAlignment.MiddleRight;
@@ -119,9 +120,9 @@
             // 
             uiLabel5.Font = new Font("宋体", 10.5F);
             uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new Point(28, 224);
+            uiLabel5.Location = new Point(3, 224);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(100, 23);
+            uiLabel5.Size = new Size(158, 23);
             uiLabel5.TabIndex = 31;
             uiLabel5.Text = "联系电话：";
             uiLabel5.TextAlign = ContentAlignment.MiddleRight;
@@ -144,9 +145,9 @@
             // 
             uiLabel4.Font = new Font("宋体", 10.5F);
             uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel4.Location = new Point(28, 175);
+            uiLabel4.Location = new Point(3, 175);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(100, 23);
+            uiLabel4.Size = new Size(158, 23);
             uiLabel4.TabIndex = 29;
             uiLabel4.Text = "办公室：";
             uiLabel4.TextAlign = ContentAlignment.MiddleRight;
@@ -169,9 +170,10 @@
             // 
             uiLabel1.Font = new Font("宋体", 10.5F);
             uiLabel1.ForeColor = Color.Red;
-            uiLabel1.Location = new Point(26, 60);
+            uiLabel1.Location = new Point(1, 60);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(100, 23);
+            uiLabel1.Size = new Size(158, 23);
+            uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             uiLabel1.TabIndex = 23;
             uiLabel1.Text = "医生名称：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -194,9 +196,9 @@
             // 
             uiLabel2.Font = new Font("宋体", 10.5F);
             uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(28, 276);
+            uiLabel2.Location = new Point(3, 276);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(100, 23);
+            uiLabel2.Size = new Size(158, 23);
             uiLabel2.TabIndex = 41;
             uiLabel2.Text = "Email地址：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;

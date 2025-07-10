@@ -51,11 +51,17 @@
             // btnCancel
             // 
             btnCancel.Location = new Point(517, 12);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
+            btnCancel.Text = "取 消";
             btnCancel.Click += btnCancel_Click;
             // 
             // btnOK
             // 
             btnOK.Location = new Point(402, 12);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
+            btnOK.Text = "确 定";
             btnOK.Click += btnOK_Click;
             // 
             // cbGG
@@ -82,9 +88,9 @@
             // 
             uiLabel5.Font = new Font("宋体", 12F);
             uiLabel5.ForeColor = Color.Red;
-            uiLabel5.Location = new Point(77, 127);
+            uiLabel5.Location = new Point(19, 127);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(99, 29);
+            uiLabel5.Size = new Size(157, 29);
             uiLabel5.TabIndex = 58;
             uiLabel5.Text = "柜组编号：";
             uiLabel5.TextAlign = ContentAlignment.MiddleRight;
@@ -108,9 +114,9 @@
             // 
             uiLabel4.Font = new Font("宋体", 12F);
             uiLabel4.ForeColor = Color.Red;
-            uiLabel4.Location = new Point(77, 69);
+            uiLabel4.Location = new Point(19, 69);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(99, 29);
+            uiLabel4.Size = new Size(157, 29);
             uiLabel4.TabIndex = 56;
             uiLabel4.Text = "药柜名称：";
             uiLabel4.TextAlign = ContentAlignment.MiddleRight;
@@ -119,9 +125,9 @@
             // 
             uiLabel1.Font = new Font("宋体", 12F);
             uiLabel1.ForeColor = Color.Black;
-            uiLabel1.Location = new Point(77, 185);
+            uiLabel1.Location = new Point(19, 185);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(99, 29);
+            uiLabel1.Size = new Size(157, 29);
             uiLabel1.TabIndex = 60;
             uiLabel1.Text = "规格：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -149,9 +155,9 @@
             // 
             uiLabel2.Font = new Font("宋体", 12F);
             uiLabel2.ForeColor = Color.Red;
-            uiLabel2.Location = new Point(77, 303);
+            uiLabel2.Location = new Point(19, 303);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(99, 29);
+            uiLabel2.Size = new Size(157, 29);
             uiLabel2.TabIndex = 63;
             uiLabel2.Text = "单层个数：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;
@@ -160,9 +166,9 @@
             // 
             uiLabel3.Font = new Font("宋体", 12F);
             uiLabel3.ForeColor = Color.Red;
-            uiLabel3.Location = new Point(77, 241);
+            uiLabel3.Location = new Point(19, 241);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(99, 29);
+            uiLabel3.Size = new Size(157, 29);
             uiLabel3.TabIndex = 62;
             uiLabel3.Text = "药柜层数：";
             uiLabel3.TextAlign = ContentAlignment.MiddleRight;
@@ -204,9 +210,9 @@
             // 
             uiLabel6.Font = new Font("宋体", 12F);
             uiLabel6.ForeColor = Color.Black;
-            uiLabel6.Location = new Point(77, 366);
+            uiLabel6.Location = new Point(19, 366);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(99, 29);
+            uiLabel6.Size = new Size(157, 29);
             uiLabel6.TabIndex = 66;
             uiLabel6.Text = "备注：";
             uiLabel6.TextAlign = ContentAlignment.MiddleRight;

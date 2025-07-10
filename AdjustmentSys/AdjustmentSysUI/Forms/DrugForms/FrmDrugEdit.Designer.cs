@@ -71,7 +71,7 @@
             // txtJC
             // 
             txtJC.Font = new Font("微软雅黑", 10.5F);
-            txtJC.Location = new Point(113, 113);
+            txtJC.Location = new Point(150, 113);
             txtJC.Margin = new Padding(4, 5, 4, 5);
             txtJC.MaxLength = 20;
             txtJC.MinimumSize = new Size(1, 16);
@@ -89,7 +89,8 @@
             uiLabel4.ForeColor = Color.Red;
             uiLabel4.Location = new Point(9, 113);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(99, 29);
+            uiLabel4.Size = new Size(134, 29);
+            uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             uiLabel4.TabIndex = 42;
             uiLabel4.Text = "颗粒简称：";
             uiLabel4.TextAlign = ContentAlignment.MiddleRight;
@@ -100,7 +101,8 @@
             uiLabel1.ForeColor = Color.Red;
             uiLabel1.Location = new Point(9, 52);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(99, 29);
+            uiLabel1.Size = new Size(134, 29);
+            uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             uiLabel1.TabIndex = 40;
             uiLabel1.Text = "颗粒厂家：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -113,7 +115,7 @@
             cbCJ.Font = new Font("微软雅黑", 10.5F);
             cbCJ.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbCJ.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbCJ.Location = new Point(113, 52);
+            cbCJ.Location = new Point(150, 52);
             cbCJ.Margin = new Padding(4, 5, 4, 5);
             cbCJ.MinimumSize = new Size(63, 0);
             cbCJ.Name = "cbCJ";
@@ -127,7 +129,7 @@
             // txtQC
             // 
             txtQC.Font = new Font("微软雅黑", 10.5F);
-            txtQC.Location = new Point(113, 171);
+            txtQC.Location = new Point(150, 171);
             txtQC.Margin = new Padding(4, 5, 4, 5);
             txtQC.MaxLength = 50;
             txtQC.MinimumSize = new Size(1, 16);
@@ -145,7 +147,7 @@
             uiLabel5.ForeColor = Color.Black;
             uiLabel5.Location = new Point(9, 171);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(99, 29);
+            uiLabel5.Size = new Size(134, 29);
             uiLabel5.TabIndex = 47;
             uiLabel5.Text = "颗粒全称：";
             uiLabel5.TextAlign = ContentAlignment.MiddleRight;
@@ -154,7 +156,7 @@
             // 
             txtKLM.DecimalPlaces = 0;
             txtKLM.Font = new Font("微软雅黑", 10.5F);
-            txtKLM.Location = new Point(113, 229);
+            txtKLM.Location = new Point(150, 229);
             txtKLM.Margin = new Padding(4, 5, 4, 5);
             txtKLM.MaxLength = 6;
             txtKLM.MinimumSize = new Size(1, 16);
@@ -174,7 +176,8 @@
             uiLabel6.ForeColor = Color.Red;
             uiLabel6.Location = new Point(9, 229);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(99, 29);
+            uiLabel6.Size = new Size(134, 29);
+            uiLabel6.Style = Sunny.UI.UIStyle.Custom;
             uiLabel6.TabIndex = 49;
             uiLabel6.Text = "颗粒码：";
             uiLabel6.TextAlign = ContentAlignment.MiddleRight;
@@ -183,7 +186,7 @@
             // 
             txtMD.DecimalPlaces = 4;
             txtMD.Font = new Font("微软雅黑", 10.5F);
-            txtMD.Location = new Point(113, 282);
+            txtMD.Location = new Point(150, 282);
             txtMD.Margin = new Padding(4, 5, 4, 5);
             txtMD.MinimumSize = new Size(1, 16);
             txtMD.Name = "txtMD";
@@ -202,7 +205,8 @@
             uiLabel9.ForeColor = Color.Red;
             uiLabel9.Location = new Point(9, 282);
             uiLabel9.Name = "uiLabel9";
-            uiLabel9.Size = new Size(99, 29);
+            uiLabel9.Size = new Size(134, 29);
+            uiLabel9.Style = Sunny.UI.UIStyle.Custom;
             uiLabel9.TabIndex = 52;
             uiLabel9.Text = "密度：";
             uiLabel9.TextAlign = ContentAlignment.MiddleRight;
@@ -211,7 +215,7 @@
             // 
             txtDL.DecimalPlaces = 4;
             txtDL.Font = new Font("微软雅黑", 10.5F);
-            txtDL.Location = new Point(113, 338);
+            txtDL.Location = new Point(150, 338);
             txtDL.Margin = new Padding(4, 5, 4, 5);
             txtDL.MinimumSize = new Size(1, 16);
             txtDL.Name = "txtDL";
@@ -230,7 +234,8 @@
             uiLabel11.ForeColor = Color.Red;
             uiLabel11.Location = new Point(9, 338);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new Size(99, 29);
+            uiLabel11.Size = new Size(134, 29);
+            uiLabel11.Style = Sunny.UI.UIStyle.Custom;
             uiLabel11.TabIndex = 55;
             uiLabel11.Text = "当量：";
             uiLabel11.TextAlign = ContentAlignment.MiddleRight;
@@ -238,7 +243,7 @@
             // txtHISM
             // 
             txtHISM.Font = new Font("微软雅黑", 10.5F);
-            txtHISM.Location = new Point(562, 282);
+            txtHISM.Location = new Point(599, 282);
             txtHISM.Margin = new Padding(4, 5, 4, 5);
             txtHISM.MaxLength = 50;
             txtHISM.MinimumSize = new Size(1, 16);
@@ -254,9 +259,9 @@
             // 
             uiLabel12.Font = new Font("微软雅黑", 10.5F);
             uiLabel12.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel12.Location = new Point(456, 282);
+            uiLabel12.Location = new Point(444, 282);
             uiLabel12.Name = "uiLabel12";
-            uiLabel12.Size = new Size(99, 29);
+            uiLabel12.Size = new Size(148, 29);
             uiLabel12.TabIndex = 58;
             uiLabel12.Text = "HIS码：";
             uiLabel12.TextAlign = ContentAlignment.MiddleRight;
@@ -265,7 +270,7 @@
             // 
             txtLSJ.DecimalPlaces = 4;
             txtLSJ.Font = new Font("微软雅黑", 10.5F);
-            txtLSJ.Location = new Point(562, 52);
+            txtLSJ.Location = new Point(599, 52);
             txtLSJ.Margin = new Padding(4, 5, 4, 5);
             txtLSJ.MinimumSize = new Size(1, 16);
             txtLSJ.Name = "txtLSJ";
@@ -282,9 +287,9 @@
             // 
             uiLabel2.Font = new Font("微软雅黑", 10.5F);
             uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(456, 52);
+            uiLabel2.Location = new Point(444, 52);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(99, 29);
+            uiLabel2.Size = new Size(148, 29);
             uiLabel2.TabIndex = 60;
             uiLabel2.Text = "零售价：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;
@@ -293,7 +298,7 @@
             // 
             txtGHJ.DecimalPlaces = 4;
             txtGHJ.Font = new Font("微软雅黑", 10.5F);
-            txtGHJ.Location = new Point(562, 113);
+            txtGHJ.Location = new Point(599, 113);
             txtGHJ.Margin = new Padding(4, 5, 4, 5);
             txtGHJ.MinimumSize = new Size(1, 16);
             txtGHJ.Name = "txtGHJ";
@@ -310,9 +315,9 @@
             // 
             uiLabel3.Font = new Font("微软雅黑", 10.5F);
             uiLabel3.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new Point(456, 113);
+            uiLabel3.Location = new Point(444, 113);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(99, 29);
+            uiLabel3.Size = new Size(148, 29);
             uiLabel3.TabIndex = 62;
             uiLabel3.Text = "供货价：";
             uiLabel3.TextAlign = ContentAlignment.MiddleRight;
@@ -320,7 +325,7 @@
             // txtJLSX
             // 
             txtJLSX.Font = new Font("微软雅黑", 10.5F);
-            txtJLSX.Location = new Point(562, 171);
+            txtJLSX.Location = new Point(599, 171);
             txtJLSX.Margin = new Padding(4, 5, 4, 5);
             txtJLSX.MinimumSize = new Size(1, 16);
             txtJLSX.Name = "txtJLSX";
@@ -337,9 +342,9 @@
             // 
             uiLabel7.Font = new Font("微软雅黑", 10.5F);
             uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new Point(456, 171);
+            uiLabel7.Location = new Point(444, 171);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(99, 29);
+            uiLabel7.Size = new Size(148, 29);
             uiLabel7.TabIndex = 64;
             uiLabel7.Text = "剂量上限：";
             uiLabel7.TextAlign = ContentAlignment.MiddleRight;
@@ -347,7 +352,7 @@
             // txtDBZM
             // 
             txtDBZM.Font = new Font("微软雅黑", 10.5F);
-            txtDBZM.Location = new Point(562, 229);
+            txtDBZM.Location = new Point(599, 229);
             txtDBZM.Margin = new Padding(4, 5, 4, 5);
             txtDBZM.MaxLength = 20;
             txtDBZM.MinimumSize = new Size(1, 16);
@@ -363,9 +368,9 @@
             // 
             uiLabel8.Font = new Font("微软雅黑", 10.5F);
             uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new Point(456, 229);
+            uiLabel8.Location = new Point(444, 229);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(99, 29);
+            uiLabel8.Size = new Size(148, 29);
             uiLabel8.TabIndex = 66;
             uiLabel8.Text = "大包装码：";
             uiLabel8.TextAlign = ContentAlignment.MiddleRight;
@@ -373,7 +378,7 @@
             // txtSSBH
             // 
             txtSSBH.Font = new Font("微软雅黑", 10.5F);
-            txtSSBH.Location = new Point(560, 394);
+            txtSSBH.Location = new Point(597, 394);
             txtSSBH.Margin = new Padding(4, 5, 4, 5);
             txtSSBH.MaxLength = 50;
             txtSSBH.MinimumSize = new Size(1, 16);
@@ -389,9 +394,9 @@
             // 
             uiLabel10.Font = new Font("微软雅黑", 10.5F);
             uiLabel10.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new Point(456, 394);
+            uiLabel10.Location = new Point(444, 394);
             uiLabel10.Name = "uiLabel10";
-            uiLabel10.Size = new Size(99, 29);
+            uiLabel10.Size = new Size(148, 29);
             uiLabel10.TabIndex = 68;
             uiLabel10.Text = "上市编号：";
             uiLabel10.TextAlign = ContentAlignment.MiddleRight;
@@ -399,7 +404,7 @@
             // txtMCQP
             // 
             txtMCQP.Font = new Font("微软雅黑", 10.5F);
-            txtMCQP.Location = new Point(113, 394);
+            txtMCQP.Location = new Point(150, 394);
             txtMCQP.Margin = new Padding(4, 5, 4, 5);
             txtMCQP.MaxLength = 500;
             txtMCQP.MinimumSize = new Size(1, 16);
@@ -417,7 +422,7 @@
             uiLabel13.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel13.Location = new Point(9, 394);
             uiLabel13.Name = "uiLabel13";
-            uiLabel13.Size = new Size(99, 29);
+            uiLabel13.Size = new Size(134, 29);
             uiLabel13.TabIndex = 70;
             uiLabel13.Text = "名称全拼：";
             uiLabel13.TextAlign = ContentAlignment.MiddleRight;
@@ -425,7 +430,7 @@
             // txtMCJP
             // 
             txtMCJP.Font = new Font("微软雅黑", 10.5F);
-            txtMCJP.Location = new Point(113, 453);
+            txtMCJP.Location = new Point(150, 453);
             txtMCJP.Margin = new Padding(4, 5, 4, 5);
             txtMCJP.MaxLength = 500;
             txtMCJP.MinimumSize = new Size(1, 16);
@@ -443,7 +448,7 @@
             uiLabel14.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel14.Location = new Point(9, 453);
             uiLabel14.Name = "uiLabel14";
-            uiLabel14.Size = new Size(99, 29);
+            uiLabel14.Size = new Size(134, 29);
             uiLabel14.TabIndex = 72;
             uiLabel14.Text = "名称简拼：";
             uiLabel14.TextAlign = ContentAlignment.MiddleRight;
@@ -455,7 +460,7 @@
             lblTM.ForeColor = Color.FromArgb(48, 48, 48);
             lblTM.Location = new Point(9, 520);
             lblTM.Name = "lblTM";
-            lblTM.Size = new Size(99, 23);
+            lblTM.Size = new Size(134, 23);
             lblTM.TabIndex = 74;
             lblTM.Text = "包装条码：";
             lblTM.TextAlign = ContentAlignment.MiddleRight;
@@ -464,7 +469,7 @@
             // 
             txtBZTM.Enabled = false;
             txtBZTM.Font = new Font("微软雅黑", 10.5F);
-            txtBZTM.Location = new Point(113, 517);
+            txtBZTM.Location = new Point(150, 517);
             txtBZTM.Margin = new Padding(4, 5, 4, 5);
             txtBZTM.MinimumSize = new Size(1, 16);
             txtBZTM.Name = "txtBZTM";
@@ -479,7 +484,7 @@
             // 
             btnSB.Enabled = false;
             btnSB.Font = new Font("微软雅黑", 10.5F);
-            btnSB.Location = new Point(430, 514);
+            btnSB.Location = new Point(467, 511);
             btnSB.MinimumSize = new Size(1, 1);
             btnSB.Name = "btnSB";
             btnSB.Radius = 10;
@@ -492,7 +497,7 @@
             // txtBZ
             // 
             txtBZ.Font = new Font("微软雅黑", 10.5F);
-            txtBZ.Location = new Point(562, 452);
+            txtBZ.Location = new Point(599, 452);
             txtBZ.Margin = new Padding(4, 5, 4, 5);
             txtBZ.MaxLength = 200;
             txtBZ.MinimumSize = new Size(1, 16);
@@ -509,9 +514,9 @@
             // 
             uiLabel16.Font = new Font("微软雅黑", 10.5F);
             uiLabel16.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new Point(456, 452);
+            uiLabel16.Location = new Point(444, 452);
             uiLabel16.Name = "uiLabel16";
-            uiLabel16.Size = new Size(99, 29);
+            uiLabel16.Size = new Size(148, 29);
             uiLabel16.TabIndex = 77;
             uiLabel16.Text = "备注：";
             uiLabel16.TextAlign = ContentAlignment.MiddleRight;
@@ -519,7 +524,7 @@
             // txtHISMC
             // 
             txtHISMC.Font = new Font("微软雅黑", 10.5F);
-            txtHISMC.Location = new Point(562, 336);
+            txtHISMC.Location = new Point(599, 336);
             txtHISMC.Margin = new Padding(4, 5, 4, 5);
             txtHISMC.MaxLength = 50;
             txtHISMC.MinimumSize = new Size(1, 16);
@@ -535,9 +540,9 @@
             // 
             uiLabel15.Font = new Font("微软雅黑", 10.5F);
             uiLabel15.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel15.Location = new Point(456, 336);
+            uiLabel15.Location = new Point(444, 336);
             uiLabel15.Name = "uiLabel15";
-            uiLabel15.Size = new Size(99, 29);
+            uiLabel15.Size = new Size(148, 29);
             uiLabel15.TabIndex = 83;
             uiLabel15.Text = "HIS名称：";
             uiLabel15.TextAlign = ContentAlignment.MiddleRight;
@@ -578,13 +583,13 @@
             uiLine1.Location = new Point(3, 560);
             uiLine1.MinimumSize = new Size(1, 1);
             uiLine1.Name = "uiLine1";
-            uiLine1.Size = new Size(885, 29);
+            uiLine1.Size = new Size(919, 29);
             uiLine1.TabIndex = 85;
             // 
             // FrmDrugEdit
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(891, 639);
+            ClientSize = new Size(925, 639);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(uiLine1);
@@ -626,6 +631,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmDrugEdit";
+            Style = Sunny.UI.UIStyle.Custom;
             Text = "新增药品";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);

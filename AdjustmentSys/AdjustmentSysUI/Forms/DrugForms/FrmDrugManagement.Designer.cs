@@ -59,7 +59,7 @@
             // 
             btnDelete.Cursor = Cursors.Hand;
             btnDelete.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnDelete.Location = new Point(223, 90);
+            btnDelete.Location = new Point(227, 90);
             btnDelete.MinimumSize = new Size(1, 1);
             btnDelete.Name = "btnDelete";
             btnDelete.Radius = 10;
@@ -75,7 +75,7 @@
             // 
             btnReset.Cursor = Cursors.Hand;
             btnReset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnReset.Location = new Point(445, 48);
+            btnReset.Location = new Point(447, 48);
             btnReset.MinimumSize = new Size(1, 1);
             btnReset.Name = "btnReset";
             btnReset.Radius = 10;
@@ -90,7 +90,7 @@
             // 
             btnAdd.Cursor = Cursors.Hand;
             btnAdd.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnAdd.Location = new Point(6, 90);
+            btnAdd.Location = new Point(10, 90);
             btnAdd.MinimumSize = new Size(1, 1);
             btnAdd.Name = "btnAdd";
             btnAdd.Radius = 10;
@@ -105,7 +105,7 @@
             // 
             btnEdit.Cursor = Cursors.Hand;
             btnEdit.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnEdit.Location = new Point(114, 90);
+            btnEdit.Location = new Point(116, 90);
             btnEdit.MinimumSize = new Size(1, 1);
             btnEdit.Name = "btnEdit";
             btnEdit.Radius = 10;
@@ -121,7 +121,7 @@
             // 
             btnSearch.Cursor = Cursors.Hand;
             btnSearch.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSearch.Location = new Point(334, 48);
+            btnSearch.Location = new Point(337, 48);
             btnSearch.MinimumSize = new Size(1, 1);
             btnSearch.Name = "btnSearch";
             btnSearch.Radius = 10;
@@ -136,7 +136,7 @@
             // 
             txtKeywords.Cursor = Cursors.IBeam;
             txtKeywords.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtKeywords.Location = new Point(6, 50);
+            txtKeywords.Location = new Point(10, 50);
             txtKeywords.Margin = new Padding(4, 5, 4, 5);
             txtKeywords.MinimumSize = new Size(1, 16);
             txtKeywords.Name = "txtKeywords";
@@ -177,7 +177,7 @@
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(6, 134);
+            dgvList.Location = new Point(10, 134);
             dgvList.Name = "dgvList";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
@@ -205,7 +205,7 @@
             // 
             btnRefc.Cursor = Cursors.Hand;
             btnRefc.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnRefc.Location = new Point(332, 90);
+            btnRefc.Location = new Point(337, 90);
             btnRefc.MinimumSize = new Size(1, 1);
             btnRefc.Name = "btnRefc";
             btnRefc.Radius = 10;
@@ -221,7 +221,7 @@
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiPage.Location = new Point(6, 609);
+            uiPage.Location = new Point(10, 609);
             uiPage.Margin = new Padding(4, 5, 4, 5);
             uiPage.MinimumSize = new Size(1, 1);
             uiPage.Name = "uiPage";

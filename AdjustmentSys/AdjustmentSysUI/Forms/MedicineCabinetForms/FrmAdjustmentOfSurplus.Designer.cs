@@ -171,7 +171,8 @@
             btnCancel.Location = new Point(306, 316);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(100, 35);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
             btnCancel.Symbol = 361453;
             btnCancel.TabIndex = 89;
             btnCancel.TabStop = false;
@@ -185,9 +186,10 @@
             btnOK.Location = new Point(140, 316);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(100, 35);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
             btnOK.TabIndex = 88;
-            btnOK.Text = "确定调整";
+            btnOK.Text = "确 定";
             btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnOK.Click += btnOK_Click;
             // 

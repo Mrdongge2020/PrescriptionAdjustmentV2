@@ -70,12 +70,12 @@
             lbResultMsg = new Sunny.UI.UIListBox();
             lblCheckResult3 = new LinkLabel();
             lblCheckResult2 = new LinkLabel();
-            btnOK = new Sunny.UI.UIButton();
-            btnSayOK = new Sunny.UI.UIButton();
-            btnCancel = new Sunny.UI.UIButton();
             uiLine1 = new Sunny.UI.UILine();
             label18 = new Label();
             uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
+            btnCancel = new Sunny.UI.UISymbolButton();
+            btnOK = new Sunny.UI.UISymbolButton();
+            btnSayOK = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             uiTableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -578,44 +578,6 @@
             lblCheckResult2.Text = "未通过，查看详情";
             lblCheckResult2.Click += lblCheckResult2_Click;
             // 
-            // btnOK
-            // 
-            btnOK.Enabled = false;
-            btnOK.Font = new Font("微软雅黑", 12F);
-            btnOK.Location = new Point(1106, 468);
-            btnOK.MinimumSize = new Size(1, 1);
-            btnOK.Name = "btnOK";
-            btnOK.Size = new Size(100, 35);
-            btnOK.TabIndex = 38;
-            btnOK.Text = "确 认";
-            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnOK.Click += btnOK_Click;
-            // 
-            // btnSayOK
-            // 
-            btnSayOK.Enabled = false;
-            btnSayOK.Font = new Font("微软雅黑", 12F);
-            btnSayOK.Location = new Point(1106, 513);
-            btnSayOK.MinimumSize = new Size(1, 1);
-            btnSayOK.Name = "btnSayOK";
-            btnSayOK.Size = new Size(100, 35);
-            btnSayOK.TabIndex = 39;
-            btnSayOK.Text = "忽 略";
-            btnSayOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnSayOK.Click += btnSayOK_Click;
-            // 
-            // btnCancel
-            // 
-            btnCancel.Font = new Font("微软雅黑", 12F);
-            btnCancel.Location = new Point(1106, 557);
-            btnCancel.MinimumSize = new Size(1, 1);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(100, 35);
-            btnCancel.TabIndex = 40;
-            btnCancel.Text = "取 消";
-            btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            btnCancel.Click += btnCancel_Click;
-            // 
             // uiLine1
             // 
             uiLine1.BackColor = Color.Transparent;
@@ -666,16 +628,60 @@
             uiTableLayoutPanel1.TabIndex = 43;
             uiTableLayoutPanel1.TagString = null;
             // 
+            // btnCancel
+            // 
+            btnCancel.Font = new Font("微软雅黑", 12F);
+            btnCancel.Location = new Point(1106, 567);
+            btnCancel.MinimumSize = new Size(1, 1);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(100, 35);
+            btnCancel.Symbol = 361453;
+            btnCancel.TabIndex = 93;
+            btnCancel.TabStop = false;
+            btnCancel.Text = "取 消";
+            btnCancel.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnOK
+            // 
+            btnOK.Font = new Font("微软雅黑", 12F);
+            btnOK.Location = new Point(1106, 472);
+            btnOK.MinimumSize = new Size(1, 1);
+            btnOK.Name = "btnOK";
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(100, 35);
+            btnOK.TabIndex = 94;
+            btnOK.TabStop = false;
+            btnOK.Text = "确 认";
+            btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnOK.Click += btnOK_Click;
+            // 
+            // btnSayOK
+            // 
+            btnSayOK.Font = new Font("微软雅黑", 12F);
+            btnSayOK.Location = new Point(1106, 521);
+            btnSayOK.MinimumSize = new Size(1, 1);
+            btnSayOK.Name = "btnSayOK";
+            btnSayOK.Radius = 10;
+            btnSayOK.Size = new Size(100, 35);
+            btnSayOK.Symbol = 557412;
+            btnSayOK.TabIndex = 95;
+            btnSayOK.TabStop = false;
+            btnSayOK.Text = "忽略";
+            btnSayOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnSayOK.Click += btnSayOK_Click;
+            // 
             // FrmConfirmPrescription
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1238, 615);
+            Controls.Add(btnSayOK);
+            Controls.Add(btnOK);
+            Controls.Add(btnCancel);
             Controls.Add(uiTableLayoutPanel1);
             Controls.Add(label18);
             Controls.Add(uiLine1);
-            Controls.Add(btnCancel);
-            Controls.Add(btnSayOK);
-            Controls.Add(btnOK);
             Controls.Add(lbResultMsg);
             Controls.Add(linkLabel1);
             Controls.Add(dgvList);
@@ -759,9 +765,6 @@
         private Sunny.UI.UIListBox lbResultMsg;
         private LinkLabel lblCheckResult3;
         private LinkLabel lblCheckResult2;
-        private Sunny.UI.UIButton btnOK;
-        private Sunny.UI.UIButton btnSayOK;
-        private Sunny.UI.UIButton btnCancel;
         private DataGridViewTextBoxColumn Code;
         private DataGridViewTextBoxColumn ParticlesName;
         private DataGridViewTextBoxColumn 饮片剂量;
@@ -771,5 +774,8 @@
         private Sunny.UI.UILine uiLine1;
         private Label label18;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
+        private Sunny.UI.UISymbolButton btnCancel;
+        private Sunny.UI.UISymbolButton btnOK;
+        private Sunny.UI.UISymbolButton btnSayOK;
     }
 }

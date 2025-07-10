@@ -52,7 +52,7 @@
             txtKCYL.Name = "txtKCYL";
             txtKCYL.Padding = new Padding(5);
             txtKCYL.ShowText = false;
-            txtKCYL.Size = new Size(220, 29);
+            txtKCYL.Size = new Size(152, 29);
             txtKCYL.TabIndex = 60;
             txtKCYL.Text = "0.0000";
             txtKCYL.TextAlignment = ContentAlignment.MiddleLeft;
@@ -93,10 +93,11 @@
             // btnCancel
             // 
             btnCancel.Font = new Font("微软雅黑", 12F);
-            btnCancel.Location = new Point(236, 232);
+            btnCancel.Location = new Point(272, 221);
             btnCancel.MinimumSize = new Size(1, 1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(99, 35);
+            btnCancel.Radius = 10;
+            btnCancel.Size = new Size(90, 35);
             btnCancel.Symbol = 361453;
             btnCancel.TabIndex = 92;
             btnCancel.TabStop = false;
@@ -107,12 +108,13 @@
             // btnOK
             // 
             btnOK.Font = new Font("微软雅黑", 12F);
-            btnOK.Location = new Point(70, 232);
+            btnOK.Location = new Point(127, 221);
             btnOK.MinimumSize = new Size(1, 1);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(99, 35);
+            btnOK.Radius = 10;
+            btnOK.Size = new Size(90, 35);
             btnOK.TabIndex = 91;
-            btnOK.Text = "确定调整";
+            btnOK.Text = "确 定";
             btnOK.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnOK.Click += btnOK_Click;
             // 
@@ -169,7 +171,7 @@
             // FrmStockSet
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(379, 293);
+            ClientSize = new Size(379, 275);
             Controls.Add(lblName);
             Controls.Add(lblDQCZ);
             Controls.Add(label5);

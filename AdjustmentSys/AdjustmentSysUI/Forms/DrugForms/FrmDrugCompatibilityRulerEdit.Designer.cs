@@ -63,7 +63,7 @@
             // txtBZ
             // 
             txtBZ.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtBZ.Location = new Point(178, 247);
+            txtBZ.Location = new Point(190, 247);
             txtBZ.Margin = new Padding(4, 5, 4, 5);
             txtBZ.MaxLength = 200;
             txtBZ.MinimumSize = new Size(1, 16);
@@ -80,9 +80,9 @@
             // 
             uiLabel16.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel16.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new Point(26, 242);
+            uiLabel16.Location = new Point(1, 247);
             uiLabel16.Name = "uiLabel16";
-            uiLabel16.Size = new Size(116, 23);
+            uiLabel16.Size = new Size(179, 23);
             uiLabel16.TabIndex = 93;
             uiLabel16.Text = "备注：";
             uiLabel16.TextAlign = ContentAlignment.MiddleRight;
@@ -90,7 +90,7 @@
             // txtName
             // 
             txtName.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtName.Location = new Point(178, 65);
+            txtName.Location = new Point(190, 65);
             txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.MaxLength = 50;
             txtName.MinimumSize = new Size(1, 16);
@@ -106,9 +106,10 @@
             // 
             uiLabel4.Font = new Font("宋体", 12F);
             uiLabel4.ForeColor = Color.Red;
-            uiLabel4.Location = new Point(26, 69);
+            uiLabel4.Location = new Point(4, 68);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(116, 23);
+            uiLabel4.Size = new Size(179, 23);
+            uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             uiLabel4.TabIndex = 80;
             uiLabel4.Text = "规则名称：";
             uiLabel4.TextAlign = ContentAlignment.MiddleRight;
@@ -121,7 +122,7 @@
             cbfp.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cbfp.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbfp.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbfp.Location = new Point(178, 124);
+            cbfp.Location = new Point(190, 124);
             cbfp.Margin = new Padding(4, 5, 4, 5);
             cbfp.MinimumSize = new Size(63, 0);
             cbfp.Name = "cbfp";
@@ -139,9 +140,10 @@
             // 
             uiLabel1.Font = new Font("宋体", 12F);
             uiLabel1.ForeColor = Color.Red;
-            uiLabel1.Location = new Point(26, 128);
+            uiLabel1.Location = new Point(4, 127);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(116, 23);
+            uiLabel1.Size = new Size(179, 23);
+            uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             uiLabel1.TabIndex = 95;
             uiLabel1.Text = "第一味颗粒：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -154,7 +156,7 @@
             cbSp.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cbSp.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbSp.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbSp.Location = new Point(178, 183);
+            cbSp.Location = new Point(190, 183);
             cbSp.Margin = new Padding(4, 5, 4, 5);
             cbSp.MinimumSize = new Size(63, 0);
             cbSp.Name = "cbSp";
@@ -171,9 +173,10 @@
             // 
             uiLabel2.Font = new Font("宋体", 12F);
             uiLabel2.ForeColor = Color.Red;
-            uiLabel2.Location = new Point(26, 187);
+            uiLabel2.Location = new Point(4, 186);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(116, 23);
+            uiLabel2.Size = new Size(179, 23);
+            uiLabel2.Style = Sunny.UI.UIStyle.Custom;
             uiLabel2.TabIndex = 97;
             uiLabel2.Text = "第二味颗粒：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;

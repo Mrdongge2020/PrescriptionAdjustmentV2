@@ -63,6 +63,7 @@
             uiLabel1.Location = new Point(4, 132);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(131, 23);
+            uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             uiLabel1.TabIndex = 47;
             uiLabel1.Text = "厂家名称：";
             uiLabel1.TextAlign = ContentAlignment.MiddleRight;
@@ -89,6 +90,7 @@
             uiLabel2.Location = new Point(4, 76);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(131, 23);
+            uiLabel2.Style = Sunny.UI.UIStyle.Custom;
             uiLabel2.TabIndex = 49;
             uiLabel2.Text = "序号：";
             uiLabel2.TextAlign = ContentAlignment.MiddleRight;
