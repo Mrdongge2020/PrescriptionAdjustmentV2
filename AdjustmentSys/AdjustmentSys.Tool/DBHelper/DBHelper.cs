@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,7 +18,9 @@ namespace AdjustmentSys.Tool
     /// </summary>
     public class DBHelper
     {
-        public readonly static string SqlConn = "Server=47.109.107.251,1433;database=AdjustmentSysDB;uid=sa;pwd=LDSsql20231106;TrustServerCertificate=true"; //ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString.ToString();
+        public readonly static string SqlConn = "Server=47.109.107.251,1433;database=AdjustmentSysDB;uid=sa;pwd=LDSsql20231106;TrustServerCertificate=true";
+        //public readonly static string SqlConn = "Server=127.0.1;database=AdjustmentSysDB;uid=sa;pwd=jsd123456;TrustServerCertificate=true";
+        //ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString.ToString();
 
         /// <summary>
         /// 执行增、删、改的方法：ExecuteNonQuery,返回true,false
@@ -46,6 +50,7 @@ namespace AdjustmentSys.Tool
             }
         }
 
+
         /// <summary>
         ///  执行增、删、改的方法：ExecuteNonQuery,返回true,false
         /// </summary>
@@ -73,6 +78,38 @@ namespace AdjustmentSys.Tool
         public static bool ExecuteNonQuery(string sql)
         {
             return ExecuteNonQuery(sql, new SqlParameter[] { });
+        }
+
+        /// <summary>
+        /// 执行一个TSQL命令
+        /// </summary>
+        /// <param name="sqlcmd">TSQL语句</param>
+        /// <returns></returns>
+        public static bool Execute(string sqlcmd)
+        {
+            SqlConnection conn = new SqlConnection(SqlConn);
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlcmd, conn))
+                {
+                    if (conn.State != ConnectionState.Open)
+                    {
+                        conn.Open();
+                    }
+                    int rows= cmd.ExecuteNonQuery();
+                    return rows > 0 ;
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorInfo = "调用<public static int ExecuteNonQuery(string sqlcmd)>方法时发生错误：" + ex.Message;
+                OperateLog.WriteLog(LogTypeEnum.数据库, errorInfo);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         /// <summary>

@@ -24,6 +24,8 @@ namespace AdjustmentSysUI
             Application.SetCompatibleTextRenderingDefault(false);
             //var service = new ServiceCollection();
             //ConfigureServices(service);
+            OperateLog.BaseUrl = Application.StartupPath;
+            IniFileHelper.filePath = Application.StartupPath + "\\Config.ini";
             OperateLog.FileCheck();
             ApplicationConfiguration.Initialize();
             Application.Run(new FrmLogin());

@@ -186,7 +186,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             SysDeviceInfo.currentDeviceInfo.DeviceType = device.DeviceType;// DeviceTypeEnum.半自动袋装;
             SysDeviceInfo.currentDeviceInfo.MedicineCabinetCode = device.MedicineCabinetCode;
 
-            bool isWriteSuccess= IniFileHelper.WriteIniData("DeviceInfo", "DeviceID", device.ID.ToString(),ConfigPath);
+            bool isWriteSuccess= IniFileHelper.WriteIniData("DeviceInfo", "DeviceID", device.ID.ToString());
             if (isWriteSuccess) 
             {
                 ShowSuccessDialog("设备设为本机成功，请重新登录");

@@ -13,81 +13,79 @@ namespace AdjustmentSys.Tool.FileOpter
 {
     public class OperateLog
     {
+        public static string BaseUrl;
+
+        
         public static void WriteLog(LogTypeEnum logtype, string logContent) 
         {
-            Action action = () =>
-            {
-                //获取日志地址
-                string logUrl = $"Logs\\{logtype.ToString()}s\\{logtype.ToString()}{DateTime.Now.ToString("yyyyMMdd")}.log";
+            string typeDescript= CommFunHelper.GetEnumDescription(logtype);
+            //获取日志地址
+            string logUrl = $"{BaseUrl}Logs\\{typeDescript}s\\{typeDescript}{DateTime.Now.ToString("yyyyMMdd")}.log";
 
-                Task.Run(() =>
+            Task.Run(() =>
+            {
+                try
                 {
-                    try
+                    if (!IsFileInUse(logUrl))
                     {
-                        if (!IsFileInUse(logUrl))
+                        FileStream fs = new FileStream(logUrl, FileMode.Append);
+                        lock (fs)
                         {
-                            FileStream fs = new FileStream(logUrl, FileMode.Append);
-                            lock (fs)
-                            {
-                                StreamWriter sw = new StreamWriter(fs);
-                                sw.WriteLine("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + logContent);
-                                sw.Close();
-                                fs.Close();
-                            }
+                            StreamWriter sw = new StreamWriter(fs);
+                            sw.WriteLine("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + logContent);
+                            sw.Close();
+                            fs.Close();
                         }
                     }
-                    catch (Exception e)
-                    {
-                        Write_SystemException(logContent);
-                    }
-                });
-            };
+                }
+                catch (Exception e)
+                {
+                    Write_SystemException(logContent);
+                }
+            });
         }
 
 
 
         public static void Write_SystemException(string logContent)
         {
-            Action action = () =>
-            {
-                //获取日志地址
-                string logUrl = $"Logs\\{LogTypeEnum.系统异常.ToString()}s\\{LogTypeEnum.系统异常.ToString()}{DateTime.Now.ToString("yyyyMMdd")}.log";
+            string typeDescript = CommFunHelper.GetEnumDescription(LogTypeEnum.系统异常);
+            //获取日志地址
+            string logUrl = $"{BaseUrl}Logs\\{typeDescript}s\\{typeDescript}{DateTime.Now.ToString("yyyyMMdd")}.log";
 
-                Task.Run(() =>
+            Task.Run(() =>
+            {
+                try
                 {
-                    try
+                    if (!IsFileInUse(logUrl))
                     {
-                        if (!IsFileInUse(logUrl))
+                        FileStream fs = new FileStream(logUrl, FileMode.Append);
+                        lock (fs)
                         {
-                            FileStream fs = new FileStream(logUrl, FileMode.Append);
-                            lock (fs)
-                            {
-                                StreamWriter sw = new StreamWriter(fs);
-                                sw.WriteLine("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + logContent);
-                                sw.Close();
-                                fs.Close();
-                            }
+                            StreamWriter sw = new StreamWriter(fs);
+                            sw.WriteLine("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + logContent);
+                            sw.Close();
+                            fs.Close();
                         }
                     }
-                    catch (Exception e)
-                    {
+                }
+                catch (Exception e)
+                {
 
-                    }
-                });
-            };
+                }
+            });
         }
 
         public static void FileCheck()
         {
             try
             {
-               // Action action = () => {
                     foreach (FieldInfo fi in typeof(LogTypeEnum).GetFields())
                     {
                         var attribute = Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
                         if (attribute != null)
                         {
-                            string logUrl = $"Logs\\{((DescriptionAttribute)attribute).Description}s\\{((DescriptionAttribute)attribute).Description}{DateTime.Now.ToString("yyyyMMdd")}.log";
+                            string logUrl = $"{BaseUrl}Logs\\{((DescriptionAttribute)attribute).Description}s\\{((DescriptionAttribute)attribute).Description}{DateTime.Now.ToString("yyyyMMdd")}.log";
                             FileInfo fileInfo = new FileInfo(logUrl);
                             string directory = Path.GetDirectoryName(fileInfo.FullName);
 
@@ -107,11 +105,10 @@ namespace AdjustmentSys.Tool.FileOpter
                             {
                                 string pat = $"{((DescriptionAttribute)attribute).Description}*.log";
 
-                                DeleteLoginFile(directory, pat, 7);
+                                DeleteLoginFile(directory, pat, 3);
                             }
                         }
                     }
-               // };
             }
             catch (Exception)
             {

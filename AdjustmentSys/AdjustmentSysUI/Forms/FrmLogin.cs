@@ -25,13 +25,13 @@ namespace AdjustmentSysUI
 {
     public partial class FrmLogin : UILoginForm
     {
-        private string ConfigPath = Application.StartupPath + "\\Config.ini";
+        //private string ConfigPath = Application.StartupPath + "\\Config.ini";
         private UserInfoBLL  _userInfoBLL=new UserInfoBLL();
         public FrmLogin()
         {
             InitializeComponent();
             UserName = "admin";
-            Password = "111111";
+            Password = "111111";            
         }
 
         private void FrmLogin_ButtonLoginClick(object sender, System.EventArgs e)
@@ -66,7 +66,7 @@ namespace AdjustmentSysUI
                 #region 设备,药柜信息
 
                 //设备信息
-                string deviceid = IniFileHelper.ReadIniData("DeviceInfo", "DeviceID", "", ConfigPath);
+                string deviceid = IniFileHelper.ReadIniData("DeviceInfo", "DeviceID");
                 if (!string.IsNullOrEmpty(deviceid))
                 {
                     DeviceBLL _deviceBLL = new DeviceBLL();
@@ -119,9 +119,6 @@ namespace AdjustmentSysUI
 
 
                 #endregion
-
-
-
                 this.Hide();
                 FrmMain frmMain = new FrmMain();
                 frmMain.Show();

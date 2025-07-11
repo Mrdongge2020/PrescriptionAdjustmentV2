@@ -11,6 +11,7 @@ namespace AdjustmentSys.EFCore
 {
     public class EFCoreContext : DbContext
     {
+        //private string strConn = "Server=127.0.1;database=AdjustmentSysDB;uid=sa;pwd=jsd123456;TrustServerCertificate=true";
         private string strConn = "Server=47.109.107.251,1433;database=AdjustmentSysDB;uid=sa;pwd=LDSsql20231106;TrustServerCertificate=true";
 
         public EFCoreContext()

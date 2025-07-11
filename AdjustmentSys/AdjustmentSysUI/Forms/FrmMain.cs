@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.DAL.Common;
+﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.PublicModel;
@@ -54,7 +55,7 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmUser(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDoctor(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDocDepartment(), ++pageIndex));
-
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSysLog(), ++pageIndex));
 
             pageIndex = 300;
             parent = navMenuMainLeft.CreateNode("药品管理", 361617, 28, pageIndex);
@@ -231,14 +232,82 @@ namespace AdjustmentSysUI.Forms
             bool result = ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
             if (result)
             {
+                BackData();
                 this.ExitApp();
-            }
-            //else
-            //{
-            //    e.Cancel = true;//手动取消事件
-            //}
+            }          
         }
 
-       
+        /// <summary>
+        /// 备份数据
+        /// </summary>
+        public void BackData()
+        {
+            //获取备份日期
+            var bakDate = IniFileHelper.ReadIniData("SystemSet", "BakDbDate");
+            if (string.IsNullOrEmpty(bakDate) && bakDate != DateTime.Now.ToString("yyyy-MM-dd"))
+            {
+                if (ConfigTB.IsBakDataBase)
+                {
+                    BackupsDB(true);
+                }
+                else
+                {
+                    if (Convert.ToInt32(DateTime.Now.ToString("HHmmss")) >= 170000 && Convert.ToInt32(DateTime.Now.ToString("HHmmss")) <= 200000)
+                    {
+                        if (ShowAskDialog("数据备份提示", "确定要备份当前系统数据吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                        {
+                            BackupsDB();
+                        }
+                    }
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 备份数据库
+        /// </summary>
+        /// <param name="IsAuto">是否自动备份</param>
+        private void BackupsDB(bool IsAuto = false)
+        {
+            try
+            {
+                string strPath = "D:\\DB_Backups\\";
+                if (Directory.Exists(strPath) == false)//如果不存在就创建file文件夹
+                {
+                    Directory.CreateDirectory(strPath);
+                }
+
+                string FileName = strPath + "BackAdjustmentSysDB_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
+                string sql = @" BACKUP DATABASE AdjustmentSysDB to DISK ='" + FileName + "'";
+
+                CommonStaticDataBLL commonStaticDataBLL = new CommonStaticDataBLL();
+
+                bool msg= commonStaticDataBLL.ExecuteSQL(sql);
+                if (!msg)
+                {
+                    ShowErrorTip("数据库备份失败.");
+                    OperateLog.WriteLog(LogTypeEnum.数据库, "系统退出备份数据库失败,");
+                    return;
+                }
+
+                OperateLog.WriteLog(LogTypeEnum.用户操作, SysLoginUser.currentUser.UserName+ "系统退出成功备份数据库-" + FileName);
+                //写备份记录
+                IniFileHelper.WriteIniData("SystemSet", "BakDbDate", DateTime.Now.ToString("yyyy-MM-dd"));
+
+                ///保留3份，其余删除
+                OperateLog.DeleteLoginFile("D:\\DB_Backups", "BackMART_*.bak", 3);
+
+                if (!IsAuto)
+                {
+                    ShowSuccessTip("数据备份成功.");
+                }
+            }
+            catch (Exception ex)
+            {
+                OperateLog.WriteLog(LogTypeEnum.数据库,  "系统退出备份数据库失败,"+ ex.Message);
+                ShowErrorTip("数据库备份失败.");
+            }
+        }
     }
 }

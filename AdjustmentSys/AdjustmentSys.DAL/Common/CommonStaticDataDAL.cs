@@ -1,6 +1,9 @@
 ﻿using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.PublicModel;
+using AdjustmentSys.Tool;
+using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +49,16 @@ namespace AdjustmentSys.DAL.Common
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 执行SQL语句
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public bool ExecuteSQL(string sql)
+        {
+            return DBHelper.Execute(sql);
         }
     }
 }

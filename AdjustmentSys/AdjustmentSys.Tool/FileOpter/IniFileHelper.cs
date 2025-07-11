@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,17 +16,21 @@ namespace AdjustmentSys.Tool.FileOpter
         private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);     
         [DllImport("kernel32")]//返回取得字符串缓冲区的长度    
         
-        private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);     
-        #endregion  
-        
+        private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
+        public static string filePath;
+        #endregion
+
         #region 读ini文件    
-        public static string ReadIniData(string Section,string Key,string NoText,string iniFilePath)      
+        public static string ReadIniData(string Section,string Key)      
         {
-            FileExit(iniFilePath);
-            if (File.Exists(iniFilePath))     
+            
+            string iniFilePath = filePath;
+            FileExit(filePath);
+            if (File.Exists(filePath))     
             {                
                 StringBuilder temp = new StringBuilder(1024); 
-                GetPrivateProfileString(Section, Key, NoText, temp, 1024, iniFilePath);   
+                GetPrivateProfileString(Section, Key,"", temp, 1024, filePath);   
                 return temp.ToString();     
             }            
             else   
@@ -36,12 +41,12 @@ namespace AdjustmentSys.Tool.FileOpter
         #endregion  
 
         #region 写ini文件   
-        public static bool WriteIniData(string Section,string Key,string Value,string iniFilePath)   
+        public static bool WriteIniData(string Section,string Key,string Value)   
         {
-            FileExit(iniFilePath);
-            if (File.Exists(iniFilePath))     
+            FileExit(filePath);
+            if (File.Exists(filePath))     
             {       
-                long OpStation = WritePrivateProfileString(Section, Key, Value, iniFilePath);     
+                long OpStation = WritePrivateProfileString(Section, Key, Value, filePath);     
                 if (OpStation == 0)       
                 {                 
                     return false;         

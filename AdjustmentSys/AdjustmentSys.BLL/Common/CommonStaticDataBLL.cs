@@ -30,5 +30,15 @@ namespace AdjustmentSys.BLL.Common
         { 
             return commonStaticDataDAL.GetSystemParameterValue();
         }
+
+        /// <summary>
+        /// 执行SQL语句
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public bool ExecuteSQL(string sql) 
+        {
+            return commonStaticDataDAL.ExecuteSQL(sql);
+        }
     }
 }

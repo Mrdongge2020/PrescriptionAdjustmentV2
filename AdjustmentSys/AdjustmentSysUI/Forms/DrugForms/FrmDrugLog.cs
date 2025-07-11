@@ -24,6 +24,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             InitializeComponent();
             initData();
             ControlOpterUI.SetTitleStyle(this);
+
         }
 
         private void initData()

@@ -11,4 +11,17 @@
         /// </summary>
         public string Name { get; set; }
     }
+
+    public class ComboxStringModel
+    {
+        /// <summary>
+        /// string值
+        /// </summary>
+        public string Id { get; set; }
+        /// <summary>
+        /// 文本
+        /// </summary>
+        public string Name { get; set; }
+    }
+
 }
