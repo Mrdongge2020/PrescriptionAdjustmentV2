@@ -42,7 +42,9 @@ namespace AdjustmentSysUI.Forms
 
             ConfigTB configTB = new ConfigTB();
             ConfigTB.SetConfigData();
-            int pageIndex = 100;
+            int pageIndex = 10;
+            navMenuMainLeft.CreateNode(AddPage(new FrmHomePage()));
+            pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));

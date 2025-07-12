@@ -333,7 +333,6 @@
             // FrmMain
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1168, 758);
             ControlBox = false;
             Controls.Add(uiPanel4);
@@ -344,7 +343,6 @@
             MinimizeBox = false;
             Name = "FrmMain";
             Padding = new Padding(0, 40, 0, 0);
-            Style = Sunny.UI.UIStyle.Custom;
             Text = "四川家施德颗粒调剂系统V2.0";
             TitleHeight = 40;
             WindowState = FormWindowState.Maximized;

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            label1 = new Label();
             lblLoadingPreCount = new Label();
+            label1 = new Label();
             panel2 = new Panel();
             label2 = new Label();
             label3 = new Label();
@@ -42,7 +42,6 @@
             label7 = new Label();
             uiBarChart1 = new Sunny.UI.UIBarChart();
             uiLineChart1 = new Sunny.UI.UILineChart();
-            uiGroupBox1 = new Sunny.UI.UIGroupBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -60,16 +59,6 @@
             panel1.Size = new Size(172, 120);
             panel1.TabIndex = 1;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label1.Location = new Point(32, 80);
-            label1.Name = "label1";
-            label1.Size = new Size(109, 20);
-            label1.TabIndex = 0;
-            label1.Text = "待下载处方";
-            // 
             // lblLoadingPreCount
             // 
             lblLoadingPreCount.AutoSize = true;
@@ -79,6 +68,16 @@
             lblLoadingPreCount.Size = new Size(45, 29);
             lblLoadingPreCount.TabIndex = 1;
             lblLoadingPreCount.Text = "20";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("宋体", 15F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label1.Location = new Point(32, 80);
+            label1.Name = "label1";
+            label1.Size = new Size(109, 20);
+            label1.TabIndex = 0;
+            label1.Text = "待下载处方";
             // 
             // panel2
             // 
@@ -198,19 +197,6 @@
             uiLineChart1.TabIndex = 7;
             uiLineChart1.Text = "uiLineChart1";
             // 
-            // uiGroupBox1
-            // 
-            uiGroupBox1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiGroupBox1.Location = new Point(36, 613);
-            uiGroupBox1.Margin = new Padding(4, 5, 4, 5);
-            uiGroupBox1.MinimumSize = new Size(1, 1);
-            uiGroupBox1.Name = "uiGroupBox1";
-            uiGroupBox1.Padding = new Padding(0, 32, 0, 0);
-            uiGroupBox1.Size = new Size(831, 186);
-            uiGroupBox1.TabIndex = 8;
-            uiGroupBox1.Text = "设备异常信息";
-            uiGroupBox1.TextAlignment = ContentAlignment.MiddleLeft;
-            // 
             // FrmHomePage
             // 
             AllowShowTitle = true;
@@ -218,7 +204,6 @@
             BackColor = Color.White;
             ClientSize = new Size(913, 823);
             ControlBoxCloseFillHoverColor = Color.Transparent;
-            Controls.Add(uiGroupBox1);
             Controls.Add(uiLineChart1);
             Controls.Add(uiBarChart1);
             Controls.Add(panel4);
@@ -228,8 +213,11 @@
             Name = "FrmHomePage";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
+            Style = Sunny.UI.UIStyle.Custom;
             Symbol = 61461;
-            Text = "首页";
+            Text = "系统首页";
+            TitleFillColor = Color.FromArgb(250, 250, 250);
+            TitleForeColor = Color.Black;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
