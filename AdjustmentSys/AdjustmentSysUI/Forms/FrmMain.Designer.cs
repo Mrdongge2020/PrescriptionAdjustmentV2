@@ -62,12 +62,12 @@
             uiPanel2.Controls.Add(uiSymbolLabel1);
             uiPanel2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiPanel2.ForeColor = Color.FromArgb(80, 126, 164);
-            uiPanel2.Location = new Point(562, 1);
+            uiPanel2.Location = new Point(650, 1);
             uiPanel2.Margin = new Padding(4, 5, 4, 5);
             uiPanel2.MinimumSize = new Size(1, 1);
             uiPanel2.Name = "uiPanel2";
-            uiPanel2.RectColor = Color.White;
-            uiPanel2.Size = new Size(608, 28);
+            uiPanel2.RectColor = Color.FromArgb(243, 249, 255);
+            uiPanel2.Size = new Size(520, 28);
             uiPanel2.Style = Sunny.UI.UIStyle.Custom;
             uiPanel2.TabIndex = 6;
             uiPanel2.Text = null;
@@ -75,9 +75,9 @@
             // 
             // uiSymbolLabel3
             // 
-            uiSymbolLabel3.BackColor = Color.White;
+            uiSymbolLabel3.BackColor = Color.FromArgb(243, 249, 255);
             uiSymbolLabel3.Font = new Font("宋体", 10.5F);
-            uiSymbolLabel3.Location = new Point(417, 4);
+            uiSymbolLabel3.Location = new Point(360, 4);
             uiSymbolLabel3.MinimumSize = new Size(1, 1);
             uiSymbolLabel3.Name = "uiSymbolLabel3";
             uiSymbolLabel3.Size = new Size(170, 23);
@@ -88,9 +88,9 @@
             // 
             // uiSymbolLabel2
             // 
-            uiSymbolLabel2.BackColor = Color.White;
+            uiSymbolLabel2.BackColor = Color.FromArgb(243, 249, 255);
             uiSymbolLabel2.Font = new Font("宋体", 10.5F);
-            uiSymbolLabel2.Location = new Point(213, 4);
+            uiSymbolLabel2.Location = new Point(185, 4);
             uiSymbolLabel2.MinimumSize = new Size(1, 1);
             uiSymbolLabel2.Name = "uiSymbolLabel2";
             uiSymbolLabel2.Size = new Size(170, 23);
@@ -101,9 +101,9 @@
             // 
             // uiSymbolLabel1
             // 
-            uiSymbolLabel1.BackColor = Color.White;
+            uiSymbolLabel1.BackColor = Color.FromArgb(243, 249, 255);
             uiSymbolLabel1.Font = new Font("宋体", 10.5F);
-            uiSymbolLabel1.Location = new Point(6, 4);
+            uiSymbolLabel1.Location = new Point(10, 4);
             uiSymbolLabel1.MinimumSize = new Size(1, 1);
             uiSymbolLabel1.Name = "uiSymbolLabel1";
             uiSymbolLabel1.Size = new Size(170, 23);
@@ -219,6 +219,7 @@
             pannelBottom.Margin = new Padding(4, 5, 4, 5);
             pannelBottom.MinimumSize = new Size(1, 1);
             pannelBottom.Name = "pannelBottom";
+            pannelBottom.RectColor = Color.FromArgb(243, 249, 255);
             pannelBottom.Size = new Size(1178, 33);
             pannelBottom.Style = Sunny.UI.UIStyle.Custom;
             pannelBottom.TabIndex = 10;
@@ -243,10 +244,10 @@
             lblDeviceName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblDeviceName.Font = new Font("宋体", 10.5F);
             lblDeviceName.ForeColor = Color.FromArgb(48, 48, 48);
-            lblDeviceName.Location = new Point(431, 4);
+            lblDeviceName.Location = new Point(424, 4);
             lblDeviceName.Name = "lblDeviceName";
             lblDeviceName.Padding = new Padding(0, 0, 10, 0);
-            lblDeviceName.Size = new Size(106, 23);
+            lblDeviceName.Size = new Size(204, 23);
             lblDeviceName.TabIndex = 3;
             lblDeviceName.Text = "设备名称：家施德半自动盒装";
             lblDeviceName.TextAlign = ContentAlignment.MiddleRight;
@@ -299,6 +300,7 @@
             uiPanel4.Size = new Size(1164, 55);
             uiPanel4.Style = Sunny.UI.UIStyle.Custom;
             uiPanel4.TabIndex = 16;
+            uiPanel4.Text = null;
             uiPanel4.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // FrmMain

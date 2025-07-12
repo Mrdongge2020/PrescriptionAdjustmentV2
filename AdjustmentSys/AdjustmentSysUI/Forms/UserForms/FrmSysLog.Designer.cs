@@ -100,7 +100,7 @@
             Name = "FrmSysLog";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "系统管理>>系统日志查询";
+            Text = "系统管理>>系统日志";
             Load += FrmSysLog_Load;
             ResumeLayout(false);
         }
