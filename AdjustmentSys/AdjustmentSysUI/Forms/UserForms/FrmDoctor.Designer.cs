@@ -64,6 +64,8 @@
             // uiPage
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiPage.FillColor = Color.White;
+            uiPage.FillColor2 = Color.White;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiPage.Location = new Point(10, 580);
             uiPage.Margin = new Padding(4, 5, 4, 5);
@@ -72,7 +74,7 @@
             uiPage.Radius = 10;
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(1085, 35);
+            uiPage.Size = new Size(1263, 35);
             uiPage.TabIndex = 14;
             uiPage.Text = "uiPagination1";
             uiPage.TextAlignment = ContentAlignment.MiddleCenter;

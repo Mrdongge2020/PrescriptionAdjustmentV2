@@ -29,7 +29,8 @@ namespace AdjustmentSysUI.UITool
             uIPage.Style = UIStyle.Custom;
             uIPage.Symbol = 361641;
             uIPage.TitleForeColor = Color.Black;//Color.FromArgb(80, 126, 164);
-            uIPage.TitleFillColor = Color.FromArgb(243, 249, 255);//Color.White;//SystemColors.GradientInactiveCaption;
+            uIPage.TitleFillColor = Color.FromArgb(250, 250, 250);//Color.White;//SystemColors.GradientInactiveCaption;
+            uIPage.BackColor= Color.White;
             //添加菜单
             ControlOpterUI.FindAllMenuByButtons(uIPage, uIPage.Name);
             //设置菜单权限

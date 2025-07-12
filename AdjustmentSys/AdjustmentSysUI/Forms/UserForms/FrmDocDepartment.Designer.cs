@@ -63,8 +63,8 @@
             // uiPage
             // 
             uiPage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            uiPage.FillColor = Color.FromArgb(248, 248, 248);
-            uiPage.FillColor2 = Color.FromArgb(248, 248, 248);
+            uiPage.FillColor = Color.White;
+            uiPage.FillColor2 = Color.White;
             uiPage.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiPage.Location = new Point(10, 577);
             uiPage.Margin = new Padding(4, 5, 4, 5);
@@ -74,7 +74,7 @@
             uiPage.RectColor = Color.FromArgb(140, 140, 140);
             uiPage.RectSides = ToolStripStatusLabelBorderSides.None;
             uiPage.ShowText = false;
-            uiPage.Size = new Size(1030, 35);
+            uiPage.Size = new Size(1266, 35);
             uiPage.Style = Sunny.UI.UIStyle.Custom;
             uiPage.TabIndex = 14;
             uiPage.Text = "uiPagination1";
@@ -128,7 +128,7 @@
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList.Size = new Size(1254, 436);
+            dgvList.Size = new Size(1266, 436);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 13;
             dgvList.CellClick += dgvList_CellClick;
