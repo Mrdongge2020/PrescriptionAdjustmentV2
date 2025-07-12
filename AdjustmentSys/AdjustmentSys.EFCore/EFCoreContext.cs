@@ -184,6 +184,14 @@ namespace AdjustmentSys.EFCore
         /// 系统配置表
         /// </summary>
         public DbSet<ConfigInfo> ConfigInfos { get; set; }
+        /// <summary>
+        /// 打印项表
+        /// </summary>
+        public DbSet<PrintItemInfo> PrintItemInfos { get; set; }
+        /// <summary>
+        /// 打印配置表
+        /// </summary>
+        public DbSet<PrintConfigInfo> PrintConfigInfos { get; set; }
 
         public static string GetEntityComment(string typeName, string? fieldName = null, List<string>? baseTypeNames = null)
         {

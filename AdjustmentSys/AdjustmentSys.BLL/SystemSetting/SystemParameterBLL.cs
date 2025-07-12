@@ -1,9 +1,11 @@
 ﻿using AdjustmentSys.DAL.SystemSetting;
 using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
+using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.SystemSetting;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +62,28 @@ namespace AdjustmentSys.BLL.SystemSetting
         public string UpdateConfigValue(string name, string datavalue)
         { 
             return systemParameterDAL.UpdateConfigValue(name, datavalue);
+        }
+
+        /// <summary>
+        /// 修改打印选项的值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="datavalue">值</param>
+        /// <returns></returns>
+        public string UpdatePrintConfigValue(string name, string datavalue)
+        {
+            
+            return systemParameterDAL.UpdatePrintConfigValue(name,datavalue);
+
+        }
+
+        /// <summary>
+        /// 修改打印配置config的值
+        /// </summary>
+        /// <returns></returns>
+        public string UpdatePrintItemValue(string name, double? sort, string title, int? checkvalue) 
+        {
+            return systemParameterDAL.UpdatePrintItemValue(name, sort,title,checkvalue);
         }
     }
 }

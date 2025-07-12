@@ -28,16 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
             btnAddUser = new Sunny.UI.UISymbolButton();
             uiTabControl1 = new Sunny.UI.UITabControl();
             tabPage1 = new TabPage();
@@ -53,12 +68,42 @@
             Column2 = new DataGridViewTextBoxColumn();
             ConfigName = new DataGridViewTextBoxColumn();
             tabPage2 = new TabPage();
+            uiGroupBox5 = new Sunny.UI.UIGroupBox();
+            uiDataGridView3 = new Sunny.UI.UIDataGridView();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            Column10 = new DataGridViewTextBoxColumn();
+            Column11 = new DataGridViewButtonColumn();
+            Column14 = new DataGridViewTextBoxColumn();
+            uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            uiDataGridView2 = new Sunny.UI.UIDataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewTextBoxColumn();
+            Column8 = new DataGridViewTextBoxColumn();
+            Column9 = new DataGridViewButtonColumn();
+            Column13 = new DataGridViewTextBoxColumn();
+            uiRadioButton3 = new Sunny.UI.UIRadioButton();
+            uiRadioButton2 = new Sunny.UI.UIRadioButton();
+            uiRadioButton1 = new Sunny.UI.UIRadioButton();
+            chbIsPrintMainTag = new Sunny.UI.UICheckBox();
+            uiGroupBox3 = new Sunny.UI.UIGroupBox();
+            uiDataGridView1 = new Sunny.UI.UIDataGridView();
+            QYXX = new DataGridViewCheckBoxColumn();
+            ZDYQYX = new DataGridViewCheckBoxColumn();
+            DYX = new DataGridViewTextBoxColumn();
+            Column12 = new DataGridViewTextBoxColumn();
             uiTabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             uiGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvList1).BeginInit();
             uiGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
+            tabPage2.SuspendLayout();
+            uiGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView3).BeginInit();
+            uiGroupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView2).BeginInit();
+            uiGroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).BeginInit();
             SuspendLayout();
             // 
             // btnAddUser
@@ -90,7 +135,7 @@
             uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             uiTabControl1.Name = "uiTabControl1";
             uiTabControl1.SelectedIndex = 0;
-            uiTabControl1.Size = new Size(1070, 497);
+            uiTabControl1.Size = new Size(1396, 743);
             uiTabControl1.SizeMode = TabSizeMode.Fixed;
             uiTabControl1.TabBackColor = Color.White;
             uiTabControl1.TabIndex = 34;
@@ -105,23 +150,23 @@
             tabPage1.Controls.Add(uiGroupBox1);
             tabPage1.Location = new Point(0, 40);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(1070, 457);
+            tabPage1.Size = new Size(1396, 703);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "功能设置";
             // 
             // uiGroupBox2
             // 
-            uiGroupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiGroupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             uiGroupBox2.Controls.Add(dgvList1);
             uiGroupBox2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiGroupBox2.Location = new Point(505, 7);
+            uiGroupBox2.Location = new Point(447, 5);
             uiGroupBox2.Margin = new Padding(4, 5, 4, 5);
             uiGroupBox2.MinimumSize = new Size(1, 1);
             uiGroupBox2.Name = "uiGroupBox2";
             uiGroupBox2.Padding = new Padding(0, 32, 0, 0);
-            uiGroupBox2.Size = new Size(552, 439);
+            uiGroupBox2.Size = new Size(536, 685);
             uiGroupBox2.TabIndex = 35;
-            uiGroupBox2.Text = "功能项设置";
+            uiGroupBox2.Text = "调剂参数设置";
             uiGroupBox2.TextAlignment = ContentAlignment.MiddleLeft;
             // 
             // dgvList1
@@ -130,53 +175,53 @@
             dgvList1.AllowUserToDeleteRows = false;
             dgvList1.AllowUserToResizeColumns = false;
             dgvList1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle21.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList1.BackgroundColor = Color.White;
             dgvList1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle22.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle22.ForeColor = Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle22.SelectionForeColor = Color.White;
-            dataGridViewCellStyle22.WrapMode = DataGridViewTriState.True;
-            dgvList1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvList1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvList1.ColumnHeadersHeight = 32;
             dgvList1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList1.Columns.AddRange(new DataGridViewColumn[] { Column3, Column4, Column5, Column6 });
-            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = SystemColors.Window;
-            dataGridViewCellStyle23.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle23.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle23.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.False;
-            dgvList1.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvList1.DefaultCellStyle = dataGridViewCellStyle3;
             dgvList1.EnableHeadersVisualStyles = false;
             dgvList1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList1.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList1.Location = new Point(12, 30);
+            dgvList1.Location = new Point(9, 30);
             dgvList1.Name = "dgvList1";
-            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle24.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle24.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle24.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle24.SelectionForeColor = Color.White;
-            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.True;
-            dgvList1.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvList1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvList1.RowHeadersVisible = false;
             dgvList1.RowHeadersWidth = 51;
-            dataGridViewCellStyle25.BackColor = Color.White;
-            dataGridViewCellStyle25.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList1.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList1.RowTemplate.Height = 27;
             dgvList1.SelectedIndex = -1;
             dgvList1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList1.Size = new Size(529, 394);
+            dgvList1.Size = new Size(518, 640);
             dgvList1.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList1.TabIndex = 33;
             dgvList1.CellContentClick += dgvList1_CellContentClick;
@@ -217,7 +262,7 @@
             uiGroupBox1.MinimumSize = new Size(1, 1);
             uiGroupBox1.Name = "uiGroupBox1";
             uiGroupBox1.Padding = new Padding(0, 32, 0, 0);
-            uiGroupBox1.Size = new Size(417, 441);
+            uiGroupBox1.Size = new Size(417, 687);
             uiGroupBox1.TabIndex = 34;
             uiGroupBox1.Text = "功能项设置";
             uiGroupBox1.TextAlignment = ContentAlignment.MiddleLeft;
@@ -228,53 +273,53 @@
             dgvList.AllowUserToDeleteRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle26.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle27.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle27.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle27.ForeColor = Color.White;
-            dataGridViewCellStyle27.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle27.SelectionForeColor = Color.White;
-            dataGridViewCellStyle27.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvList.ColumnHeadersHeight = 32;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvList.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, ConfigName });
-            dataGridViewCellStyle28.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle28.BackColor = SystemColors.Window;
-            dataGridViewCellStyle28.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle28.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle28.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle28.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle28.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
-            dgvList.Location = new Point(9, 35);
+            dgvList.Location = new Point(3, 35);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle29.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle29.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle29.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle29.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle29.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle29.SelectionForeColor = Color.White;
-            dataGridViewCellStyle29.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle9.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.White;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dgvList.RowHeadersVisible = false;
             dgvList.RowHeadersWidth = 51;
-            dataGridViewCellStyle30.BackColor = Color.White;
-            dataGridViewCellStyle30.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvList.RowTemplate.Height = 27;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList.Size = new Size(399, 391);
+            dgvList.Size = new Size(399, 637);
             dgvList.StripeOddColor = Color.FromArgb(235, 243, 255);
             dgvList.TabIndex = 33;
             dgvList.CellContentClick += dgvList_CellContentClick;
@@ -303,17 +348,372 @@
             // tabPage2
             // 
             tabPage2.BackColor = Color.White;
+            tabPage2.Controls.Add(uiGroupBox5);
+            tabPage2.Controls.Add(uiGroupBox4);
+            tabPage2.Controls.Add(uiRadioButton3);
+            tabPage2.Controls.Add(uiRadioButton2);
+            tabPage2.Controls.Add(uiRadioButton1);
+            tabPage2.Controls.Add(chbIsPrintMainTag);
+            tabPage2.Controls.Add(uiGroupBox3);
             tabPage2.Location = new Point(0, 40);
             tabPage2.Name = "tabPage2";
-            tabPage2.Size = new Size(1070, 457);
+            tabPage2.Size = new Size(1396, 703);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "打印设置";
+            // 
+            // uiGroupBox5
+            // 
+            uiGroupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            uiGroupBox5.Controls.Add(uiDataGridView3);
+            uiGroupBox5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiGroupBox5.Location = new Point(985, 51);
+            uiGroupBox5.Margin = new Padding(4, 5, 4, 5);
+            uiGroupBox5.MinimumSize = new Size(1, 1);
+            uiGroupBox5.Name = "uiGroupBox5";
+            uiGroupBox5.Padding = new Padding(0, 32, 0, 0);
+            uiGroupBox5.Size = new Size(404, 647);
+            uiGroupBox5.TabIndex = 41;
+            uiGroupBox5.Text = "打印功能项设置";
+            uiGroupBox5.TextAlignment = ContentAlignment.MiddleLeft;
+            // 
+            // uiDataGridView3
+            // 
+            uiDataGridView3.AllowUserToAddRows = false;
+            uiDataGridView3.AllowUserToDeleteRows = false;
+            uiDataGridView3.AllowUserToResizeRows = false;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            uiDataGridView3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiDataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            uiDataGridView3.BackgroundColor = Color.White;
+            uiDataGridView3.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle12.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle12.ForeColor = Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle12.SelectionForeColor = Color.White;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
+            uiDataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            uiDataGridView3.ColumnHeadersHeight = 32;
+            uiDataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            uiDataGridView3.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, Column10, Column11, Column14 });
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = SystemColors.Window;
+            dataGridViewCellStyle13.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle13.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.False;
+            uiDataGridView3.DefaultCellStyle = dataGridViewCellStyle13;
+            uiDataGridView3.EnableHeadersVisualStyles = false;
+            uiDataGridView3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView3.GridColor = Color.FromArgb(80, 160, 255);
+            uiDataGridView3.Location = new Point(3, 30);
+            uiDataGridView3.Name = "uiDataGridView3";
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle14.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle14.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle14.SelectionForeColor = Color.White;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
+            uiDataGridView3.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            uiDataGridView3.RowHeadersVisible = false;
+            uiDataGridView3.RowHeadersWidth = 51;
+            dataGridViewCellStyle15.BackColor = Color.White;
+            dataGridViewCellStyle15.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView3.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            uiDataGridView3.RowTemplate.Height = 27;
+            uiDataGridView3.SelectedIndex = -1;
+            uiDataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            uiDataGridView3.Size = new Size(398, 612);
+            uiDataGridView3.StripeOddColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView3.TabIndex = 33;
+            uiDataGridView3.CellContentClick += uiDataGridView3_CellContentClick;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "打印参数";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            dataGridViewTextBoxColumn2.Resizable = DataGridViewTriState.True;
+            dataGridViewTextBoxColumn2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column10
+            // 
+            Column10.HeaderText = "参数值";
+            Column10.Name = "Column10";
+            // 
+            // Column11
+            // 
+            Column11.FillWeight = 70F;
+            Column11.HeaderText = "保存";
+            Column11.Name = "Column11";
+            // 
+            // Column14
+            // 
+            Column14.HeaderText = "名称";
+            Column14.Name = "Column14";
+            Column14.ReadOnly = true;
+            Column14.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column14.Visible = false;
+            // 
+            // uiGroupBox4
+            // 
+            uiGroupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiGroupBox4.Controls.Add(uiDataGridView2);
+            uiGroupBox4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiGroupBox4.Location = new Point(420, 51);
+            uiGroupBox4.Margin = new Padding(4, 5, 4, 5);
+            uiGroupBox4.MinimumSize = new Size(1, 1);
+            uiGroupBox4.Name = "uiGroupBox4";
+            uiGroupBox4.Padding = new Padding(0, 32, 0, 0);
+            uiGroupBox4.Size = new Size(557, 647);
+            uiGroupBox4.TabIndex = 40;
+            uiGroupBox4.Text = "打印顺序/标题设置";
+            uiGroupBox4.TextAlignment = ContentAlignment.MiddleLeft;
+            // 
+            // uiDataGridView2
+            // 
+            uiDataGridView2.AllowUserToAddRows = false;
+            uiDataGridView2.AllowUserToDeleteRows = false;
+            uiDataGridView2.AllowUserToResizeRows = false;
+            dataGridViewCellStyle16.BackColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            uiDataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiDataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            uiDataGridView2.BackgroundColor = Color.White;
+            uiDataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle17.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle17.ForeColor = Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle17.SelectionForeColor = Color.White;
+            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.True;
+            uiDataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            uiDataGridView2.ColumnHeadersHeight = 32;
+            uiDataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            uiDataGridView2.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, Column7, Column8, Column9, Column13 });
+            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = SystemColors.Window;
+            dataGridViewCellStyle18.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle18.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle18.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.False;
+            uiDataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
+            uiDataGridView2.EnableHeadersVisualStyles = false;
+            uiDataGridView2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView2.GridColor = Color.FromArgb(80, 160, 255);
+            uiDataGridView2.Location = new Point(3, 30);
+            uiDataGridView2.Name = "uiDataGridView2";
+            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle19.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle19.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle19.SelectionForeColor = Color.White;
+            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.True;
+            uiDataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            uiDataGridView2.RowHeadersVisible = false;
+            uiDataGridView2.RowHeadersWidth = 51;
+            dataGridViewCellStyle20.BackColor = Color.White;
+            dataGridViewCellStyle20.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            uiDataGridView2.RowTemplate.Height = 27;
+            uiDataGridView2.SelectedIndex = -1;
+            uiDataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            uiDataGridView2.Size = new Size(551, 614);
+            uiDataGridView2.StripeOddColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView2.TabIndex = 33;
+            uiDataGridView2.CellContentClick += uiDataGridView2_CellContentClick;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "打印功能";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            dataGridViewTextBoxColumn1.Resizable = DataGridViewTriState.True;
+            dataGridViewTextBoxColumn1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column7
+            // 
+            Column7.FillWeight = 70F;
+            Column7.HeaderText = "排序";
+            Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            Column8.HeaderText = "标题";
+            Column8.Name = "Column8";
+            // 
+            // Column9
+            // 
+            Column9.FillWeight = 70F;
+            Column9.HeaderText = "保存";
+            Column9.Name = "Column9";
+            // 
+            // Column13
+            // 
+            Column13.HeaderText = "名称";
+            Column13.Name = "Column13";
+            Column13.ReadOnly = true;
+            Column13.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column13.Visible = false;
+            // 
+            // uiRadioButton3
+            // 
+            uiRadioButton3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            uiRadioButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiRadioButton3.Location = new Point(1131, 14);
+            uiRadioButton3.MinimumSize = new Size(1, 1);
+            uiRadioButton3.Name = "uiRadioButton3";
+            uiRadioButton3.Size = new Size(253, 29);
+            uiRadioButton3.TabIndex = 39;
+            uiRadioButton3.Text = "按出筐数量打印副标签";
+            // 
+            // uiRadioButton2
+            // 
+            uiRadioButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            uiRadioButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiRadioButton2.Location = new Point(877, 14);
+            uiRadioButton2.MinimumSize = new Size(1, 1);
+            uiRadioButton2.Name = "uiRadioButton2";
+            uiRadioButton2.Size = new Size(248, 29);
+            uiRadioButton2.TabIndex = 38;
+            uiRadioButton2.Text = "按袋/盒数打印副标签";
+            // 
+            // uiRadioButton1
+            // 
+            uiRadioButton1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            uiRadioButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiRadioButton1.Location = new Point(635, 14);
+            uiRadioButton1.MinimumSize = new Size(1, 1);
+            uiRadioButton1.Name = "uiRadioButton1";
+            uiRadioButton1.Size = new Size(217, 29);
+            uiRadioButton1.TabIndex = 0;
+            uiRadioButton1.Text = "按处方打印副标签";
+            // 
+            // chbIsPrintMainTag
+            // 
+            chbIsPrintMainTag.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            chbIsPrintMainTag.ForeColor = Color.FromArgb(48, 48, 48);
+            chbIsPrintMainTag.Location = new Point(8, 14);
+            chbIsPrintMainTag.MinimumSize = new Size(1, 1);
+            chbIsPrintMainTag.Name = "chbIsPrintMainTag";
+            chbIsPrintMainTag.Size = new Size(296, 29);
+            chbIsPrintMainTag.TabIndex = 37;
+            chbIsPrintMainTag.Text = "是否自动打印主标签";
+            // 
+            // uiGroupBox3
+            // 
+            uiGroupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            uiGroupBox3.Controls.Add(uiDataGridView1);
+            uiGroupBox3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiGroupBox3.Location = new Point(8, 51);
+            uiGroupBox3.Margin = new Padding(4, 5, 4, 5);
+            uiGroupBox3.MinimumSize = new Size(1, 1);
+            uiGroupBox3.Name = "uiGroupBox3";
+            uiGroupBox3.Padding = new Padding(0, 32, 0, 0);
+            uiGroupBox3.Size = new Size(404, 647);
+            uiGroupBox3.TabIndex = 36;
+            uiGroupBox3.Text = "打印功能项设置";
+            uiGroupBox3.TextAlignment = ContentAlignment.MiddleLeft;
+            // 
+            // uiDataGridView1
+            // 
+            uiDataGridView1.AllowUserToAddRows = false;
+            uiDataGridView1.AllowUserToDeleteRows = false;
+            uiDataGridView1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle21.BackColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            uiDataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            uiDataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            uiDataGridView1.BackgroundColor = Color.White;
+            uiDataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle22.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle22.ForeColor = Color.White;
+            dataGridViewCellStyle22.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle22.SelectionForeColor = Color.White;
+            dataGridViewCellStyle22.WrapMode = DataGridViewTriState.True;
+            uiDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            uiDataGridView1.ColumnHeadersHeight = 32;
+            uiDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            uiDataGridView1.Columns.AddRange(new DataGridViewColumn[] { QYXX, ZDYQYX, DYX, Column12 });
+            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = SystemColors.Window;
+            dataGridViewCellStyle23.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle23.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle23.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.False;
+            uiDataGridView1.DefaultCellStyle = dataGridViewCellStyle23;
+            uiDataGridView1.EnableHeadersVisualStyles = false;
+            uiDataGridView1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView1.GridColor = Color.FromArgb(80, 160, 255);
+            uiDataGridView1.Location = new Point(3, 30);
+            uiDataGridView1.Name = "uiDataGridView1";
+            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle24.Font = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle24.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle24.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle24.SelectionForeColor = Color.White;
+            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.True;
+            uiDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            uiDataGridView1.RowHeadersVisible = false;
+            uiDataGridView1.RowHeadersWidth = 51;
+            dataGridViewCellStyle25.BackColor = Color.White;
+            dataGridViewCellStyle25.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            uiDataGridView1.RowTemplate.Height = 27;
+            uiDataGridView1.SelectedIndex = -1;
+            uiDataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            uiDataGridView1.Size = new Size(398, 614);
+            uiDataGridView1.StripeOddColor = Color.FromArgb(235, 243, 255);
+            uiDataGridView1.TabIndex = 33;
+            uiDataGridView1.CellContentClick += uiDataGridView1_CellContentClick;
+            // 
+            // QYXX
+            // 
+            QYXX.FillWeight = 70F;
+            QYXX.HeaderText = "启用选项";
+            QYXX.Name = "QYXX";
+            QYXX.ReadOnly = true;
+            QYXX.Resizable = DataGridViewTriState.True;
+            // 
+            // ZDYQYX
+            // 
+            ZDYQYX.FillWeight = 70F;
+            ZDYQYX.HeaderText = "主打印启用项";
+            ZDYQYX.Name = "ZDYQYX";
+            ZDYQYX.Resizable = DataGridViewTriState.True;
+            // 
+            // DYX
+            // 
+            DYX.HeaderText = "打印项";
+            DYX.Name = "DYX";
+            DYX.ReadOnly = true;
+            DYX.Resizable = DataGridViewTriState.True;
+            DYX.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column12
+            // 
+            Column12.HeaderText = "名称";
+            Column12.Name = "Column12";
+            Column12.ReadOnly = true;
+            Column12.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column12.Visible = false;
             // 
             // FrmSystemParameter
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1090, 561);
+            ClientSize = new Size(1416, 807);
             Controls.Add(uiTabControl1);
             Controls.Add(btnAddUser);
             Font = new Font("微软雅黑", 10.5F);
@@ -329,6 +729,13 @@
             ((System.ComponentModel.ISupportInitialize)dgvList1).EndInit();
             uiGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();
+            tabPage2.ResumeLayout(false);
+            uiGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView3).EndInit();
+            uiGroupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView2).EndInit();
+            uiGroupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -348,5 +755,28 @@
         private DataGridViewCheckBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn ConfigName;
+        private Sunny.UI.UIGroupBox uiGroupBox3;
+        private Sunny.UI.UIDataGridView uiDataGridView1;
+        private Sunny.UI.UIRadioButton uiRadioButton1;
+        private Sunny.UI.UICheckBox chbIsPrintMainTag;
+        private Sunny.UI.UIGroupBox uiGroupBox4;
+        private Sunny.UI.UIDataGridView uiDataGridView2;
+        private Sunny.UI.UIRadioButton uiRadioButton3;
+        private Sunny.UI.UIRadioButton uiRadioButton2;
+        private Sunny.UI.UIGroupBox uiGroupBox5;
+        private Sunny.UI.UIDataGridView uiDataGridView3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn Column10;
+        private DataGridViewButtonColumn Column11;
+        private DataGridViewTextBoxColumn Column14;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn Column7;
+        private DataGridViewTextBoxColumn Column8;
+        private DataGridViewButtonColumn Column9;
+        private DataGridViewTextBoxColumn Column13;
+        private DataGridViewCheckBoxColumn QYXX;
+        private DataGridViewCheckBoxColumn ZDYQYX;
+        private DataGridViewTextBoxColumn DYX;
+        private DataGridViewTextBoxColumn Column12;
     }
 }

@@ -115,16 +115,20 @@ namespace AdjustmentSys.DAL.SystemSetting
             string error = "";
             try
             {
-                var config = _eFCoreContext.ConfigInfos.FirstOrDefault(x => x.Name == name && x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId);
+                var config = _eFCoreContext.ConfigInfos.FirstOrDefault(x => x.ChineseName == name && x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId);
                 if (config != null)
                 {
                     config.DataValue = datavalue;
                     _eFCoreContext.ConfigInfos.Update(config);
                     _eFCoreContext.SaveChanges();
+                    OperateLog.WriteLog(LogTypeEnum.用户操作, $"{SysLoginUser.currentUser.UserName}修改配置表的【{config.ChineseName}】值为【{datavalue}】");
                 }
-                OperateLog.WriteLog(LogTypeEnum.用户操作, $"{SysLoginUser.currentUser.UserName}修改配置表的【{config.ChineseName}】值为【{datavalue}】");
-                _eFCoreContext.SaveChanges();
-                return error;
+                else
+                {
+                    error = $"系统中未找到配置参数【{name}】";
+                }
+
+               
             }
             catch (Exception e)
             {
@@ -134,5 +138,91 @@ namespace AdjustmentSys.DAL.SystemSetting
             return error;
             
         }
+
+        /// <summary>
+        /// 修改打印选项的值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="datavalue">值</param>
+        /// <returns></returns>
+        public string UpdatePrintConfigValue(string name, string datavalue)
+        {
+            string error = "";
+            try
+            {
+                var config = _eFCoreContext.PrintConfigInfos.FirstOrDefault(x => x.ItemChineseName == name && x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId);
+                if (config != null)
+                {
+                    config.DataValue = datavalue;
+                    _eFCoreContext.PrintConfigInfos.Update(config);
+                    _eFCoreContext.SaveChanges();
+                    OperateLog.WriteLog(LogTypeEnum.用户操作, $"{SysLoginUser.currentUser.UserName}修改配置表的【{config.ItemChineseName}】值为【{datavalue}】");
+                }
+                else
+                {
+                    error = $"系统中未找到配置参数【{name}】";
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                OperateLog.WriteLog(LogTypeEnum.数据库, $"{SysLoginUser.currentUser.UserName}修改配置表的【{name}】值为【{datavalue}】出错，原因：" + e.Message);
+                error = e.Message;
+            }
+            return error;
+
+        }
+
+        /// <summary>
+        /// 修改打印配置config的值
+        /// </summary>
+        /// <returns></returns>
+        public string UpdatePrintItemValue(string name,double?  sort,string title,int? checkvalue)
+        {
+            string error = "";
+            string msg = "";
+            try
+            {
+                var config = _eFCoreContext.PrintItemInfos.FirstOrDefault(x => x.ItemChineseName == name && x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId);
+               
+                if (config != null)
+                {
+                    if (sort.HasValue)
+                    {
+                        config.Sort = sort.Value;
+                        msg += $"【sort】值为【{sort.Value}】";
+                    }
+                    if (title != null)
+                    {
+                        config.Title = title;
+                        msg += $"【title】值为【{title}】";
+                    }
+                    if (checkvalue.HasValue)
+                    {
+                        config.CheckedValue = checkvalue.Value;
+                        msg += $"【CheckedValue】值为【{checkvalue.Value}】";
+                    }
+                    _eFCoreContext.PrintItemInfos.Update(config);
+                    _eFCoreContext.SaveChanges();
+                    OperateLog.WriteLog(LogTypeEnum.用户操作, $"{SysLoginUser.currentUser.UserName}修改配置表的{name}-{msg}");
+                    _eFCoreContext.SaveChanges();
+                    return error;
+                }
+                else 
+                {
+                    error = $"系统中未找到打印项【{name}】";
+                }
+            }
+            catch (Exception e)
+            {
+                OperateLog.WriteLog(LogTypeEnum.数据库, $"{SysLoginUser.currentUser.UserName}修改配置表的{name}-{msg}出错，原因：" + e.Message);
+                error = e.Message;
+            }
+            return error;
+
+        }
+
+
     }
 }

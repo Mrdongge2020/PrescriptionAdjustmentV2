@@ -40,10 +40,17 @@ namespace AdjustmentSysUI.Forms
             //TestFile();
             InitializeComponent();
 
-            ConfigTB configTB = new ConfigTB();
+            //初始化配置数据
             ConfigTB.SetConfigData();
+            PrintConfigTB.SetConfigData();
+            PrintConfigTB.SetPrintItemData();
+
+            //加载菜单
+            //首页
             int pageIndex = 10;
             navMenuMainLeft.CreateNode(AddPage(new FrmHomePage()));
+
+
             pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));

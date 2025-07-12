@@ -3,8 +3,10 @@ using AdjustmentSys.DAL.Common;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Tool.Enums;
+using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.UITool;
 using Sunny.UI;
+using Sunny.UI.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,6 +71,66 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                     dgvList1.Rows.Add(Result);
                 }
             }
+
+            foreach (var item in PrintConfigTB.PrintItemInfos)
+            {
+                DataGridViewRow Result = new DataGridViewRow();
+                Result.CreateCells(uiDataGridView1);
+
+                if (item.CheckedValue == 3 || item.CheckedValue == 1)
+                {
+                    Result.Cells[0].Value = true;
+                }
+                else
+                {
+                    Result.Cells[0].Value = false;
+                }
+                if (item.CheckedValue == 3 || item.CheckedValue == 2)
+                {
+                    Result.Cells[1].Value = true;
+                }
+                else
+                {
+                    Result.Cells[1].Value = false;
+                }
+                Result.Cells[2].Value = item.ItemChineseName.ToString();
+                Result.Cells[3].Value = item.ItemName;
+                uiDataGridView1.Rows.Add(Result);
+            }
+
+            LoaduiDataGridView2();
+
+            foreach (var item in PrintConfigTB.PrintConfigs)
+            {
+                DataGridViewRow Result = new DataGridViewRow();
+                Result.CreateCells(uiDataGridView3);
+                Result.Height = 30;
+                Result.Cells[0].Value = item.ItemChineseName;
+                Result.Cells[1].Value = item.DataValue;
+                Result.Cells[2].Value = "保存";
+                Result.Cells[3].Value = item.ItemName;
+                uiDataGridView3.Rows.Add(Result);
+            }
+
+        }
+        private void LoaduiDataGridView2()
+        {
+            if (uiDataGridView2.Rows.Count > 0)
+            {
+                uiDataGridView2.Rows.Clear();
+            }
+            foreach (var item in PrintConfigTB.PrintItemInfos.Where(x => x.CheckedValue > 0).OrderBy(x => x.Sort).ToList())
+            {
+                DataGridViewRow Result = new DataGridViewRow();
+                Result.CreateCells(uiDataGridView2);
+                Result.Height = 30;
+                Result.Cells[0].Value = item.ItemChineseName;
+                Result.Cells[1].Value = item.Sort;
+                Result.Cells[2].Value = item.Title;
+                Result.Cells[3].Value = "保存";
+                Result.Cells[4].Value = item.ItemName;
+                uiDataGridView2.Rows.Add(Result);
+            }
         }
 
         private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -79,7 +141,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
             //获取被选中列的相关信息
 
-            string name = dgvList.Rows[e.RowIndex].Cells[2].Value.ToString();
+            string name = dgvList.Rows[e.RowIndex].Cells[1].Value.ToString();
 
 
             //根据单击时，Cell的值进行处理。EditedFormattedValue和Value均可以
@@ -116,13 +178,13 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
         private void dgvList1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1) { return; }
+            if (e.RowIndex == -1 || e.ColumnIndex!=2) { return; }
             string buttonText = this.dgvList1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
 
             if (buttonText == "保存")
             {
 
-                string name = dgvList1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                string name = dgvList1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 string data = dgvList1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 string msg = DataCheck(name, data);
                 if (msg == "")
@@ -148,7 +210,39 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
         private string DataCheck(string name, string dvalue)
         {
-            var config = ConfigTB.ConfigInfos.FirstOrDefault(x => x.Name == name);
+            var config = ConfigTB.ConfigInfos.FirstOrDefault(x => x.ChineseName == name);
+            if (config == null)
+            {
+                return "未找到改配置信息";
+            }
+            //根据特性中的默认值给属性赋值
+            if (config.DataValueType == "int")
+            {
+                if (!int.TryParse(dvalue, out int value1))
+                {
+                    return "该数据只能是整数数字类型";
+                }
+                if (config.DataValuMin != config.DataValuMax && (value1 < config.DataValuMin || value1 > config.DataValuMax))
+                {
+                    return $"该数据只能是介于[{config.DataValuMin}]~[{config.DataValuMax}]的整数数字";
+                }
+            }
+            else if (config.DataValueType == "double" || config.DataValueType == "float")
+            {
+                if (!int.TryParse(dvalue, out int value1))
+                {
+                    return "该数据只能是数字类型";
+                }
+                if (config.DataValuMin != config.DataValuMax && (value1 < config.DataValuMin || value1 > config.DataValuMax))
+                {
+                    return $"该数据只能是介于[{config.DataValuMin}]~[{config.DataValuMax}]的数字";
+                }
+            }
+            return "";
+        }
+        private string PrintDataCheck(string name, string dvalue)
+        {
+            var config = PrintConfigTB.PrintConfigs.FirstOrDefault(x => x.ItemChineseName == name);
             if (config == null)
             {
                 return "未找到改配置信息";
@@ -182,6 +276,119 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
         private void FrmSystemParameter_Load(object sender, EventArgs e)
         {
             InitDgvFormat();
+        }
+
+        private void uiDataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || this.uiDataGridView1.CurrentCell.ColumnIndex == 2) { return; }
+            DataGridViewCheckBoxCell dgvCheck = (DataGridViewCheckBoxCell)(this.uiDataGridView1.Rows[this.uiDataGridView1.CurrentCell.RowIndex].Cells[0]);
+            DataGridViewCheckBoxCell dgvCheck1 = (DataGridViewCheckBoxCell)(this.uiDataGridView1.Rows[this.uiDataGridView1.CurrentCell.RowIndex].Cells[1]);
+            if (this.uiDataGridView1.CurrentCell.ColumnIndex == 0)
+            {
+                if (Convert.ToBoolean(dgvCheck.EditedFormattedValue) == false)
+                {
+                    uiDataGridView1.Rows[e.RowIndex].Cells[0].Value = true;
+                }
+                else
+                {
+                    uiDataGridView1.Rows[e.RowIndex].Cells[0].Value = false;
+                }
+            }
+            if (this.uiDataGridView1.CurrentCell.ColumnIndex == 1)
+            {
+                if (Convert.ToBoolean(dgvCheck1.EditedFormattedValue) == false)
+                {
+                    uiDataGridView1.Rows[e.RowIndex].Cells[1].Value = true;
+                }
+                else
+                {
+                    uiDataGridView1.Rows[e.RowIndex].Cells[1].Value = false;
+                }
+            }
+
+            //获取被选中列的相关信息
+            string chinesename = uiDataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            bool bool1 = Convert.ToBoolean(dgvCheck.EditedFormattedValue);
+            bool bool2 = Convert.ToBoolean(dgvCheck1.EditedFormattedValue);
+
+            int combinedValue = (bool1 ? 1 : 0) | (bool2 ? 1 : 0) << 1;
+            string error = systemParameterBLL.UpdatePrintItemValue(chinesename, null, null, combinedValue);
+            if (error == "")
+            {
+                ShowSuccessTip("操作成功");
+                PrintConfigTB.SetPrintItemData();
+                LoaduiDataGridView2();
+            }
+            else
+            {
+                ShowErrorDialog("操作失败，原因:" + error);
+            }
+        }
+
+        private void uiDataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || e.ColumnIndex != 3) { return; }
+            string buttonText = this.uiDataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+            if (buttonText == "保存")
+            {
+
+                string chinesename = uiDataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string sort = uiDataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string title = uiDataGridView2.Rows[e.RowIndex].Cells[2].Value?.ToString();
+                if (!double.TryParse(sort, out double s))
+                {
+                    ShowErrorDialog("请输入整数或2位小数的数字");
+                    return;
+                }
+                if (string.IsNullOrEmpty(title)) 
+                {
+                    title = "";
+                }
+                string error = systemParameterBLL.UpdatePrintItemValue(chinesename, s, title, null);
+                if (error == "")
+                {
+                    ShowSuccessTip("操作成功");
+                    //LoaduiDataGridView2();
+                    PrintConfigTB.SetPrintItemData();
+                }
+                else
+                {
+                    ShowErrorDialog("操作失败，原因:" + error);
+                }
+            }
+        }
+
+        private void uiDataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || e.ColumnIndex!=2) { return; }
+            string buttonText = this.uiDataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+            if (buttonText == "保存")
+            {
+
+                string name = uiDataGridView3.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string data = uiDataGridView3.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string msg = PrintDataCheck(name, data);
+                if (msg == "")
+                {
+                    string error = systemParameterBLL.UpdatePrintConfigValue(name, data);
+                    if (error == "")
+                    {
+                        ShowSuccessTip("保存成功");
+                        PrintConfigTB.SetConfigData();
+                    }
+                    else
+                    {
+                        ShowErrorDialog("保存失败，原因:" + error);
+                    }
+                }
+                else
+                {
+                    ShowErrorDialog("保存失败，原因:" + msg);
+                }
+
+            }
         }
     }
 }
