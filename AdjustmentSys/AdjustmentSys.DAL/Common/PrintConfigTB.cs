@@ -54,7 +54,16 @@ namespace AdjustmentSys.DAL.Common
         public static int     BarcodeWidth                 { get; set; }//条码宽度
         [ConfigAttribute("每行字符数", 10, "int", 0, 0)]
         public static int     RowWordNumber { get; set; }                    //每行字符数
-
+        /// <summary>
+        /// 是否自动打印处方主标签
+        /// </summary>
+        [ConfigAttribute("是否自动打印处方主标签", 0, "bool", 0, 1)]
+        public static bool Automainpaper { get; set; }  //0 不自动打印  1自动打印
+        /// <summary>
+        /// 处方打印方式
+        /// </summary>
+        [ConfigAttribute("处方打印方式", 0, "int", 0, 2)]
+        public static int Automodepapertype { get; set; }// 0一处方打印一次   1根据出筐打印   2根据袋数打印
         /// <summary>
         /// 设置config参数
         /// </summary>

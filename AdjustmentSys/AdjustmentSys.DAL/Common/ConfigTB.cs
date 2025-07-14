@@ -27,18 +27,24 @@ namespace AdjustmentSys.DAL.Common
         /// </summary>
         [ConfigAttribute("是否初始化菜单", false,"bool",0,0)]
         public static bool IsInitMenu { get; set; }
-
+        /// <summary>
+        /// 是否显示仪表温度
+        /// </summary>
         [ConfigAttribute("是否显示仪表温度", 0, "bool", 0, 0)]
         public static bool IsShowTemperature { get; set; }  //是否显示温度  0 不显示  1显示
-
+        /// <summary>
+        /// 是否退出自动备份数据库
+        /// </summary>
         [ConfigAttribute("是否退出自动备份数据库", 0, "bool", 0, 0)]
         public static bool IsBakDataBase { get; set; }  //是否退出自动备份数据库  0 不自动备份  1自动备份
-        /// <summary>
         /// <summary>
         /// 药瓶容量
         /// </summary>
         [ConfigAttribute("药瓶容量", 940, "int", 100, 940)]
         public static int BottleCapacity { get; set; }// 药瓶容量
+        
+
+
         /// <summary>
         /// 设置config参数
         /// </summary>
