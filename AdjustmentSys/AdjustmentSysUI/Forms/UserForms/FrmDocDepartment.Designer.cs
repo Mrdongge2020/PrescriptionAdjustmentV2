@@ -244,7 +244,7 @@
             Name = "FrmDocDepartment";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "系统管理>>科室管理";
+            Text = "人员管理>>科室管理";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmDocDepartment_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();

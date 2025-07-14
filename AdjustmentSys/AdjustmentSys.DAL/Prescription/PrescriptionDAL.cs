@@ -115,6 +115,7 @@ namespace AdjustmentSys.DAL.Prescription
                                           ,PaymentType
                                           ,PaymentStatus
                                           ,PrescriptionType
+                                          ,BedNumber
                                           ,ImportTime
                                           ,Quantity
                                           ,TaskFrequency

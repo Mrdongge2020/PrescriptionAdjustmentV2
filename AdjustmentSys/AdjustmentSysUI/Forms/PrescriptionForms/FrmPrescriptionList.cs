@@ -2,6 +2,7 @@
 using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.CommModel;
+using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
 using AdjustmentSysUI.Forms.UserForms;
@@ -14,6 +15,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,7 +40,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
         public FrmPrescriptionList()
         {
-            
+
             InitializeComponent();
             ControlOpterUI.SetTitleStyle(this);
         }
@@ -131,6 +133,8 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PaymentType", "缴费类型", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PaymentStatus", "缴费状态", true, true, 100, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "PrescriptionType", "处方类型", true, true, 100, "");
+            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "BedNumber", "住院床号", true, true, 100, "");
+
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ImportTime", "导入时间", true, true, datecolwidth, "yyyy-MM-dd HH:mm:ss", true);
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "Remarks", "备注", true, true, 100, "");
 
@@ -322,15 +326,15 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             if (pColumn.SortMode != DataGridViewColumnSortMode.Programmatic)
             {
                 return;
-                
+
             }
             string columnName = pColumn.DataPropertyName;
             if (this.orderField != columnName)
             {
-                if (this.orderField != null) 
+                if (this.orderField != null)
                 {
                     dgvList.Columns[this.orderField].HeaderCell.SortGlyphDirection = SortOrder.None;
-                } 
+                }
                 pColumn.HeaderCell.SortGlyphDirection = SortOrder.Ascending;
                 this.orderField = columnName;
 
@@ -350,6 +354,134 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             QueryPrePageList();
         }
 
-        
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+            if (dgvList.SelectedRows.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "请先选择要打印的处方");
+                return;
+            }
+            if (!ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            {
+                return;
+            }
+            //if (dgvPreDetail.Rows.Count<=0) 
+            //{
+            //    ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
+            //    return;
+            //}
+            //获取打印数据
+
+            try
+            {
+                var prescriptionPrintModel = GetPrescriptionPrintModel();
+                if (prescriptionPrintModel == null) 
+                {
+                    ShowWarningDialog("异常提示", "未完成打印，处方信息不存在");
+                    return;
+                }
+                PrescriptionPrint prescriptionPrint = new PrescriptionPrint();
+                if (prescriptionPrint.IsOK())
+                {
+                    prescriptionPrint.PrintData = prescriptionPrintModel;
+                    prescriptionPrint.Print();
+                }
+                else
+                {
+                    ShowWarningDialog("异常提示", "未启动任何打印项，请核对启用打印设置");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
+            }
+        }
+
+        private PrescriptionPrintModel GetPrescriptionPrintModel()
+        {
+            PrescriptionPrintModel prescriptionPrintModel = new PrescriptionPrintModel();
+            prescriptionPrintModel.PrescriptionID = dgvList.SelectedRows[0].Cells["PrescriptionID"].Value?.ToString();
+            prescriptionPrintModel.PatientName = dgvList.SelectedRows[0].Cells["PatientName"].Value?.ToString();
+            prescriptionPrintModel.PatientSex = dgvList.SelectedRows[0].Cells["PatientSexText"].Value?.ToString();
+            prescriptionPrintModel.PatientAge = dgvList.SelectedRows[0].Cells["PatientAgeText"].Value?.ToString();
+            prescriptionPrintModel.DoctorName = dgvList.SelectedRows[0].Cells["DoctorName"].Value?.ToString();
+            prescriptionPrintModel.DepartmentName = dgvList.SelectedRows[0].Cells["DepartmentName"].Value?.ToString();
+            prescriptionPrintModel.Quantity = Convert.ToInt32(dgvList.SelectedRows[0].Cells["Quantity"].Value?.ToString());
+            prescriptionPrintModel.TaskFrequency = Convert.ToInt32(dgvList.SelectedRows[0].Cells["TaskFrequency"].Value?.ToString());
+            prescriptionPrintModel.TotalPrice = Convert.ToDecimal(dgvList.SelectedRows[0].Cells["TotalPrice"].Value?.ToString());
+            prescriptionPrintModel.Remarks = dgvList.SelectedRows[0].Cells["Remarks"].Value?.ToString();
+            prescriptionPrintModel.UsageMethod = dgvList.SelectedRows[0].Cells["Remarks"].Value?.ToString();
+            prescriptionPrintModel.BedNumber = dgvList.SelectedRows[0].Cells["BedNumber"].Value?.ToString();
+            string processStatusText = dgvList.SelectedRows[0].Cells["ProcessStatusText"].Value?.ToString();
+            if (!string.IsNullOrEmpty(processStatusText) && processStatusText == "完成")
+            {
+                prescriptionPrintModel.BedNumber = dgvList.SelectedRows[0].Cells["BoxNumber"].Value?.ToString();
+                prescriptionPrintModel.PreDateTime = Convert.ToDateTime(dgvList.SelectedRows[0].Cells["CompleteTime"].Value?.ToString());
+            }
+            else
+            {
+                prescriptionPrintModel.PreDateTime = Convert.ToDateTime(dgvList.SelectedRows[0].Cells["CreateTime"].Value?.ToString());
+            }
+
+            if (dgvPreDetail.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dgvPreDetail.Rows)
+                {
+                    PrintDetailModel printDetailModel = new PrintDetailModel();
+                    printDetailModel.ParCode = row.Cells["ParCode"].Value?.ToString();
+                    string name = row.Cells["ParName"].Value?.ToString();
+                    printDetailModel.ParName = string.IsNullOrEmpty(name) ? row.Cells["ParticlesNameHIS"].Value?.ToString() : name;
+                    printDetailModel.Dose = row.Cells["Dose"].Value?.ToString();
+                    printDetailModel.DoseHerb = row.Cells["DoseHerb"].Value?.ToString();
+                }
+            }
+            else
+            {
+                prescriptionPrintModel.Details = null;
+            }
+            return prescriptionPrintModel;
+        }
+
+        private void btnMainPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvList.SelectedRows.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "请先选择要打印的处方");
+                return;
+            }
+            if (!ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            {
+                return;
+            }
+            //if (dgvPreDetail.Rows.Count<=0) 
+            //{
+            //    ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
+            //    return;
+            //}
+            //获取打印数据
+
+            try
+            {
+                var prescriptionPrintModel = GetPrescriptionPrintModel();
+                PrescriptionPrint prescriptionPrint = new PrescriptionPrint();
+                if (prescriptionPrint.IsOK(true))
+                {
+                    if (prescriptionPrintModel != null)
+                    {
+                        prescriptionPrint.PrintData = prescriptionPrintModel;
+                        prescriptionPrint.Print(false, true);
+                    }
+                }
+                else
+                {
+                    ShowWarningDialog("异常提示", "未启用任何主打印项，请核对启用主打印设置");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
+            }
+        }
     }
 }

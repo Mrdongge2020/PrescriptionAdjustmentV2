@@ -156,6 +156,12 @@ namespace AdjustmentSys.Entity
         [Column("PrescriptionType")]
         [MaxLength(50)]
         public string? PrescriptionType { get; set; }
+        /// <summary>
+        /// 住院床号
+        /// </summary>
+        [Column("BedNumber")]
+        [MaxLength(50)]
+        public string? BedNumber { get; set; }
 
         /// <summary>
         /// 导入时间

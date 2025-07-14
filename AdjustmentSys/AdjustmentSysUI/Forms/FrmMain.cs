@@ -58,13 +58,13 @@ namespace AdjustmentSysUI.Forms
 
 
             pageIndex = 200;
-            parent = navMenuMainLeft.CreateNode("系统管理", 362718, 28, pageIndex);
+            parent = navMenuMainLeft.CreateNode("人员管理", 362718, 28, pageIndex);
 
             //通过设置PageIndex关联，节点文字、图标由相应的Page的Text、Symbol提供
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmUser(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDoctor(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDocDepartment(), ++pageIndex));
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSysLog(), ++pageIndex));
+            
 
             pageIndex = 300;
             parent = navMenuMainLeft.CreateNode("药品管理", 361617, 28, pageIndex);
@@ -98,7 +98,7 @@ namespace AdjustmentSysUI.Forms
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSystemParameter(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmMenu(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmColorful(), ++pageIndex));
-
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmSysLog(), ++pageIndex));
 
             //登录用户信息
             lblLoginUser.Text = "用户:" + SysLoginUser._currentUser.UserName + " " + SysLoginUser._currentUser.UserLevelName;

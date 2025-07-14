@@ -455,6 +455,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
         private void chbIsPrintMainTag_CheckedChanged(object sender, EventArgs e)
         {
+            if (!canTriggerEvent) { return; }
             string checkValue = "";
             if (chbIsPrintMainTag.Checked)
             {

@@ -262,7 +262,7 @@
             Name = "FrmDoctor";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "系统管理>>医生管理";
+            Text = "人员管理>>医生管理";
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Load += FrmDoctor_Load;
             ((System.ComponentModel.ISupportInitialize)dgvList).EndInit();

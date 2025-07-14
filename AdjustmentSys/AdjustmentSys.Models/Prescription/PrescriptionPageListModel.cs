@@ -136,7 +136,10 @@ namespace AdjustmentSys.Models.Prescription
         /// 处方类型，住院或门诊
         /// </summary>
         public string PrescriptionType { get; set; }
-
+        /// <summary>
+        /// 住院床号
+        /// </summary>
+        public string? BedNumber { get; set; }
         /// <summary>
         /// 导入时间
         /// </summary>
