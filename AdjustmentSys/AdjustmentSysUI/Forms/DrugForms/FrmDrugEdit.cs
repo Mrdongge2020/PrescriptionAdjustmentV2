@@ -1,20 +1,24 @@
 ﻿using AdjustmentSys.BLL.Common;
 using AdjustmentSys.BLL.Drug;
 using AdjustmentSys.BLL.User;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.CommModel;
 using AdjustmentSys.Models.Drug;
+using AdjustmentSys.Tool.Enums;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using ZXing;
 
 namespace AdjustmentSysUI.Forms.Drug
 {
@@ -115,7 +119,7 @@ namespace AdjustmentSysUI.Forms.Drug
             particlesInfo.ManufacturerId = int.Parse(cbCJ.SelectedValue.ToString());
             particlesInfo.Name = txtJC.Text?.Trim();
             particlesInfo.FullName = txtQC.Text?.Trim();
-            particlesInfo.Code = int.Parse(txtKLM.Text?.Trim());
+            particlesInfo.Code =string.IsNullOrEmpty(txtKLM.Text?.Trim())?0:int.Parse(txtKLM.Text?.Trim());
             particlesInfo.Density = float.Parse(txtMD.Text?.Trim());
             particlesInfo.Equivalent = float.Parse(txtDL.Text?.Trim());
             particlesInfo.NameSimplifiedPinyin = txtMCJP.Text?.Trim();
@@ -157,18 +161,18 @@ namespace AdjustmentSysUI.Forms.Drug
                 ShowWarningDialog("异常提示", "请选择颗粒厂家");
                 return false;
             }
-            if (string.IsNullOrEmpty(txtKLM.Text))
-            {
-                ShowWarningDialog("异常提示", "颗粒码不能为空");
-                txtKLM.Focus();
-                return false;
-            }
-            if (txtKLM.Text.Length!=6 || !int.TryParse(txtKLM.Text,out int w))
-            {
-                ShowWarningDialog("异常提示", "颗粒码只能是6位正整数");
-                txtKLM.Focus();
-                return false;
-            }
+            //if (string.IsNullOrEmpty(txtKLM.Text))
+            //{
+            //    ShowWarningDialog("异常提示", "颗粒码不能为空");
+            //    txtKLM.Focus();
+            //    return false;
+            //}
+            //if (txtKLM.Text.Length != 6 || !int.TryParse(txtKLM.Text, out int w))
+            //{
+            //    ShowWarningDialog("异常提示", "颗粒码只能是6位正整数");
+            //    txtKLM.Focus();
+            //    return false;
+            //}
             if (string.IsNullOrEmpty(txtMD.Text))
             {
                 ShowWarningDialog("异常提示", "密度不能为空");
@@ -193,20 +197,63 @@ namespace AdjustmentSysUI.Forms.Drug
                 ShowWarningDialog("异常提示", "请选择颗粒厂家");
                 return ;
             }
-            if (string.IsNullOrEmpty(txtKLM.Text))
+            string code = txtBZTM.Text?.Trim();
+            if (string.IsNullOrEmpty(code))
             {
-                ShowWarningDialog("异常提示", "颗粒码不能为空");
-                txtKLM.Focus();
+                ShowWarningDialog("异常提示", "包装条码不能为空");
+                txtBZTM.Focus();
                 return;
             }
-            var result= _drugManagermentBLL.GetManufacturerRuleResult(txtKLM.Text.Trim(),(int)cbCJ.SelectedValue);
-            if (result!=null) 
+            
+            int mid = cbCJ.SelectedValue == null ? 0 : (int)cbCJ.SelectedValue;
+            CommonDataBLL commonDataBLL = new CommonDataBLL();
+            //获取厂家信息
+            var mcodes = commonDataBLL.GetManufacturerCodes(mid);
+            if (mcodes == null || mcodes.Count <= 0)
             {
-                txtMD.Text = result.Density.ToString();
-                txtDL.Text = result.Equivalent.ToString();
-                txtDBZM.Text = result.PackageNumber;
+                ShowWarningDialog("异常提示", "无可用的厂家条码信息");
+                return;
             }
-            ShowSuccessTip("解析完成");
+            mcodes = mcodes.Where(x => x.ExampleCode.Length == code.Length).ToList();
+            if (mcodes == null || mcodes.Count <= 0)
+            {
+                ShowWarningDialog("异常提示", "未找到相匹配的厂家条码信息");
+                return;
+            }
+
+            for (int i = 0; i < mcodes.Count; i++)
+            {
+                //解析
+                var ruler = GetAnalysisResult(mcodes[i], code);
+                if (ruler != null)
+                {
+                    txtMD.Text = ruler.Density.ToString();
+                    txtDL.Text = ruler.Equivalent.ToString();
+                    txtDBZM.Text = ruler.PackageNumber;
+                    ShowSuccessTip("解析完成");
+                    break;
+                }
+                
+            }
+        }
+        /// <summary>
+        /// 获取解析结果
+        /// </summary>
+        /// <param name="code">编码规则</param>
+        /// <returns></returns>
+        private ManufacturerRuleResultModel GetAnalysisResult(ManufacturerResolutionCode code, string codeStr)
+        {
+            DrugManufacturerBLL drugManufacturerBLL = new DrugManufacturerBLL();
+            ManufacturerRuleResultModel resultModel = new ManufacturerRuleResultModel();
+
+            resultModel.PackageNumber = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Packaging, codeStr, code.LargePackagingCodeIndex, code.LargePackagingCodeLength);
+            resultModel.PackageType = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.PackagingType, codeStr, (int)code.PackagingTypeIndex, (int)code.PackagingTypeLength);
+            resultModel.BatchNumber = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.BatchNumber, codeStr, (int)code.BatchNumberIndex, (int)code.BatchNumberLength);
+            resultModel.VaildUntil = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.VaildUntil, codeStr, (int)code.ValidityPeriodIndex, (int)code.ValidityPeriodLength);
+            resultModel.Density = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Density, codeStr, code.DensityIndex, code.DensityLength));
+            resultModel.Equivalent = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Equivalent, codeStr, (int)code.EquivalentIndex, (int)code.EquivalentLength));
+            resultModel.LoadCapacity = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.LoadingCapacity, codeStr, (int)code.LoadingCapacityIndex, (int)code.LoadingCapacityLength));
+            return resultModel;
         }
     }
 }

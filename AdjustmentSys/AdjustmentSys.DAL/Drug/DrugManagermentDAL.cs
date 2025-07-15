@@ -31,7 +31,7 @@ namespace AdjustmentSys.DAL.Drug
         {
             string error = "";
             ParticlesInfo particlesInfo = new ParticlesInfo();
-
+            particlesInfo.Code = drugInfo.Code;
             #region 逻辑校验
             if (drugInfo.ID != default(int))//编辑
             {
@@ -53,7 +53,17 @@ namespace AdjustmentSys.DAL.Drug
                 if (isExitDrug)
                 {
                     return "该药品名称或编号已存在";
-                }        
+                }
+                int maxCode= _eFCoreContext.ParticlesInfos.Max(x => x.Code);
+                if (maxCode > 0)
+                {
+                    particlesInfo.Code = maxCode+1;
+                }
+                else
+                {
+                    particlesInfo.Code = 806001;
+                }
+               
             } 
             #endregion
 
@@ -61,7 +71,7 @@ namespace AdjustmentSys.DAL.Drug
             //赋值字典
             particlesInfo.Name = drugInfo.Name;
             particlesInfo.FullName = drugInfo.FullName;
-            particlesInfo.Code = drugInfo.Code;
+            
             particlesInfo.NameFullPinyin = drugInfo.NameFullPinyin;
             particlesInfo.NameSimplifiedPinyin = drugInfo.NameSimplifiedPinyin;
             particlesInfo.ManufacturerId = drugInfo.ManufacturerId;
@@ -302,7 +312,7 @@ namespace AdjustmentSys.DAL.Drug
             //药品名称条件
             if (!string.IsNullOrEmpty(parName))
             {
-                where = where.Where(x => (x.ParticleName==parName.ToUpper()));
+                where = where.Where(x => (x.ParticleName.Contains(parName.ToUpper())));
             }
             if (sdate.HasValue)
             {

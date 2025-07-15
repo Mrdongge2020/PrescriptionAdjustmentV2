@@ -79,6 +79,8 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         private void btnReset_Click(object sender, EventArgs e)
         {
             this.txtKeywords.Text = string.Empty;
+            uiPage.ActivePage = 1;
+            QueryPageList();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -235,6 +237,13 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         private void brnDrugExport_Click(object sender, EventArgs e)
         {
             btnDrugExport.ShowContextMenuStrip(cmsDurgExcelOpter, 0, btnDrugExport.Height);
+        }
+
+        private void txtKeywords_ButtonClick(object sender, EventArgs e)
+        {
+            txtKeywords.Text = "";
+            uiPage.ActivePage = 1;
+            QueryPageList();
         }
     }
 }

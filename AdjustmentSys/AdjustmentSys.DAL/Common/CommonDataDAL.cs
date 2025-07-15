@@ -127,7 +127,7 @@ namespace AdjustmentSys.DAL.Common
                 var data = (from a in _eFCoreContext.ManufacturerResolutionCodes
                             join b in _eFCoreContext.ManufacturerInfos
                             on a.ManufacturerId equals b.ID
-                            where b.IsDelete == false
+                            where b.IsDelete == true
                             select a).ToList();
                 return data;
             }
@@ -136,7 +136,7 @@ namespace AdjustmentSys.DAL.Common
                 var data = (from a in _eFCoreContext.ManufacturerResolutionCodes
                             join b in _eFCoreContext.ManufacturerInfos
                             on a.ManufacturerId equals b.ID
-                            where b.IsDelete == false && a.ManufacturerId == mid
+                            where b.IsDelete == true && a.ManufacturerId == mid
                             select a).ToList();
                 return data;
             }

@@ -21,7 +21,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
     {
         public FrmMedicineCabientLog()
         {
-          
+
             InitializeComponent();
 
             var names = Enum.GetNames(typeof(MedicineCabinetOperationLogTypeEnum));
@@ -35,16 +35,16 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             cbType.ValueMember = "Id";
             cbType.DisplayMember = "Name";
             cbType.DataSource = preStatuslist;
-            cbType.SelectedIndex = -1;
+            cbType.SelectedItem = null;
 
             this.dateTimeStart.Value = DateTime.Now.Date;
             this.dateTimeEnd.Value = DateTime.Now.Date.AddDays(1);
 
-            ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
-            List<ComboxModel> pDatas = _comboxDataBLL.GetCabinetParticlesComboxData();
-            cbfp.ValueMember = "Id";
-            cbfp.DisplayMember = "Name";
-            cbfp.DataSource = pDatas;
+            //ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
+            //List<ComboxModel> pDatas = _comboxDataBLL.GetCabinetParticlesComboxData();
+            //cbfp.ValueMember = "Id";
+            //cbfp.DisplayMember = "Name";
+            //cbfp.DataSource = pDatas;
             ControlOpterUI.SetTitleStyle(this);
         }
 
@@ -88,17 +88,17 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void queryPage()
         {
-            MedicineCabinetOperationLogTypeEnum? type = null;
-            if (cbType.SelectedValue != null && cbType.SelectedIndex != -1)
+            int? type = null;
+            if (cbType.SelectedItem!=null)
             {
-                type = (MedicineCabinetOperationLogTypeEnum)cbType.SelectedValue;
+                type = ((ComboxModel)cbType.SelectedItem).Id;
             }
 
-            string pname = "";
-            if (!string.IsNullOrEmpty(cbfp.SelectedText))
-            {
-                pname = cbfp.SelectedText;
-            }
+            string pname = txtName.Text;
+            //if (!string.IsNullOrEmpty(cbfp.Text))
+            //{
+            //    pname = cbfp.Text;
+            //}
             MedicineCabinetDrugManageBLL medicineCabinetDrugManageBLL = new MedicineCabinetDrugManageBLL();
             int allCount = 0;//总条数
             var datas = medicineCabinetDrugManageBLL.GetMedicineCabinetOperationLogByPage(type, pname, dateTimeStart.Value, dateTimeEnd.Value, uiPage.ActivePage, uiPage.PageSize, out allCount);
@@ -107,17 +107,29 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             dgvList.DataSource = datas?.mcParticLogs;
 
-            lblNum1.Text= datas?.UsedQuantitySum.ToString();
-            lblNum2.Text = datas?.AddQuantitySum.ToString();
-            lblNum3.Text = datas?.AdjustmentQuantitySum.ToString();
+            lblNum1.Text = datas?.UsedQuantitySum.ToString()==""?"0": datas?.UsedQuantitySum.ToString();
+            lblNum2.Text = datas?.AddQuantitySum.ToString()==""?"0" : datas?.AddQuantitySum.ToString();
+            lblNum3.Text = datas?.AdjustmentQuantitySum.ToString() == "" ? "0" : datas?.AdjustmentQuantitySum.ToString();
 
             uiDataGridViewFooter1.Clear();
             uiDataGridViewFooter1["ParticleCode"] = "合计：";
-            uiDataGridViewFooter1["InitialQuantity"] = datas?.mcParticLogs.Sum(x=>x.InitialQuantity).ToString();
+            uiDataGridViewFooter1["InitialQuantity"] = datas?.mcParticLogs.Sum(x => x.InitialQuantity).ToString();
             uiDataGridViewFooter1["CurrentWeightQuantity"] = datas?.mcParticLogs.Sum(x => x.CurrentWeightQuantity).ToString();
             uiDataGridViewFooter1["UsedQuantity"] = datas?.mcParticLogs.Sum(x => x.UsedQuantity).ToString();
             uiDataGridViewFooter1["AddQuantity"] = datas?.mcParticLogs.Sum(x => x.AddQuantity).ToString();
             uiDataGridViewFooter1["AdjustmentQuantity"] = datas?.mcParticLogs?.Sum(x => x.AdjustmentQuantity).ToString();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            cbType.SelectedItem =null;
+            cbType.Text = "";
+            this.dateTimeStart.Value = DateTime.Now.Date;
+            this.dateTimeEnd.Value = DateTime.Now.Date.AddDays(1);
+            txtName.Text = "";
+            //初始化当前页
+            uiPage.ActivePage = 1;
+            queryPage();
         }
     }
 }

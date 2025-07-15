@@ -162,18 +162,18 @@
             txtKLM.MinimumSize = new Size(1, 16);
             txtKLM.Name = "txtKLM";
             txtKLM.Padding = new Padding(5);
+            txtKLM.ReadOnly = true;
             txtKLM.ShowText = false;
             txtKLM.Size = new Size(287, 29);
             txtKLM.TabIndex = 50;
-            txtKLM.Text = "0";
             txtKLM.TextAlignment = ContentAlignment.MiddleLeft;
             txtKLM.Type = Sunny.UI.UITextBox.UIEditType.Integer;
-            txtKLM.Watermark = "请输入颗粒码806001";
+            txtKLM.Watermark = "";
             // 
             // uiLabel6
             // 
             uiLabel6.Font = new Font("微软雅黑", 10.5F);
-            uiLabel6.ForeColor = Color.Red;
+            uiLabel6.ForeColor = Color.Black;
             uiLabel6.Location = new Point(9, 229);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new Size(134, 29);

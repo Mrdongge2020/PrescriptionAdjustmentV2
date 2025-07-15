@@ -32,7 +32,6 @@ namespace AdjustmentSys.Entity
         /// 编号
         /// </summary>
         [Column("Code")]
-        [MaxLength(20)]
         public int Code { get; set; }
         /// <summary>
         /// 名称简称全拼

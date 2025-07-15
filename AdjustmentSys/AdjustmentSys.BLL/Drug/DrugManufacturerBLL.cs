@@ -128,6 +128,45 @@ namespace AdjustmentSys.BLL.Drug
                         }
                     case BarcodeEnum.VaildUntil://有效期
                         {
+                            // return "20" + barcode.Substring(startvalue, length);
+                            if (length == 3)
+                            {
+                                int yeartime = DateTime.Now.Year;
+                                int yeartime3 = yeartime / 10;
+                                string timeStr = yeartime3.ToString() + barcode.Substring(startvalue, 1) + "-" +barcode.Substring(startvalue + 1, length - 1) + "-01";
+                                DateTime VaildUntil = Convert.ToDateTime(timeStr);
+                                if (VaildUntil.AddYears(3) < DateTime.Now)
+                                {
+                                    yeartime3 = yeartime3 + 1;
+                                }
+                                return yeartime3.ToString() + barcode.Substring(startvalue, length);
+                            }
+                            if (length == 10)
+                            {
+                                //获取生产日期
+                                string yxqDate = barcode.Substring(startvalue, length);
+                                if (string.IsNullOrEmpty(yxqDate))
+                                {
+                                    return "20" + barcode.Substring(startvalue, length);
+                                }
+                                if (yxqDate.Length == 10)
+                                {
+                                    string scDate = yxqDate.Substring(0, 4) + "-" + yxqDate.Substring(4, 2) + "-" + yxqDate.Substring(6, 2);
+                                    if (DateTime.TryParse(scDate, out DateTime t))
+                                    {
+                                        int monthValue = int.Parse(yxqDate.Substring(8, 2));
+                                        return t.AddMonths(monthValue).ToString("yyyy-MM-dd").Replace("-", "");
+                                    }
+                                    else
+                                    {
+                                        return "20" + barcode.Substring(startvalue, length);
+                                    }
+                                }
+                            }
+                            if (length == 9)
+                            {
+                                return barcode.Substring(startvalue, length);
+                            }
                             return "20" + barcode.Substring(startvalue, length);
                         }
                     case BarcodeEnum.Equivalent://当量

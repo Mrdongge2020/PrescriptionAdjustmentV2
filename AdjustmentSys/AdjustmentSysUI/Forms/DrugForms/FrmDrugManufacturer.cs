@@ -386,6 +386,7 @@ namespace AdjustmentSysUI.Forms.Drug
             }
 
             txtDBZM.Text = _drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Packaging, model.ExampleCode, model.LargePackagingCodeIndex, model.LargePackagingCodeLength);
+            txtPH.Text = _drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.BatchNumber, model.ExampleCode, (int)model.BatchNumberIndex, (int)model.BatchNumberLength);
             txtBZLX.Text = _drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.PackagingType, model.ExampleCode, (int)model.PackagingTypeIndex, (int)model.PackagingTypeLength);
             txtYXQ.Text = _drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.VaildUntil, model.ExampleCode, (int)model.ValidityPeriodIndex, (int)model.ValidityPeriodLength);
             txtMD.Text = _drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Density, model.ExampleCode, model.DensityIndex, model.DensityLength);
@@ -448,7 +449,7 @@ namespace AdjustmentSysUI.Forms.Drug
                 lbl3.ForeColor = Color.Red;
 
             }
-            if (txtYXQ.Text.Length == 6)
+            if (txtYXQ.Text.Length == 6 || txtYXQ.Text.Length==8)
             {
                 lbl4.Text = "成功";
                 lbl4.ForeColor = Color.Blue;

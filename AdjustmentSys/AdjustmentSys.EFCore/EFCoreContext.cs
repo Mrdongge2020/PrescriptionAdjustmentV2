@@ -1,6 +1,7 @@
 ﻿using AdjustmentSys.Entity;
 using AdjustmentSys.Tool;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -65,6 +66,7 @@ namespace AdjustmentSys.EFCore
                     }
                 });
             }
+            
             //base.OnModelCreating(modelBuilder);
         }
 

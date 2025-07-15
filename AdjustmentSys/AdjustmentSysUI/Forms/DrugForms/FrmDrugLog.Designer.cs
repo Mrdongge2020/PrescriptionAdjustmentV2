@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            cbfp = new Sunny.UI.UIComboBox();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             cbType = new Sunny.UI.UIComboBox();
             label3 = new Label();
             dateTimeStart = new Sunny.UI.UIDatePicker();
@@ -41,30 +40,10 @@
             dgvList = new Sunny.UI.UIDataGridView();
             uiPage = new Sunny.UI.UIPagination();
             btnQuery = new Sunny.UI.UISymbolButton();
+            txtName = new Sunny.UI.UITextBox();
+            btnReset = new Sunny.UI.UISymbolButton();
             ((System.ComponentModel.ISupportInitialize)dgvList).BeginInit();
             SuspendLayout();
-            // 
-            // cbfp
-            // 
-            cbfp.DataSource = null;
-            cbfp.FillColor = Color.White;
-            cbfp.FilterIgnoreCase = true;
-            cbfp.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            cbfp.ItemHoverColor = Color.FromArgb(155, 200, 255);
-            cbfp.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbfp.Location = new Point(216, 50);
-            cbfp.Margin = new Padding(4, 5, 4, 5);
-            cbfp.MinimumSize = new Size(63, 0);
-            cbfp.Name = "cbfp";
-            cbfp.Padding = new Padding(0, 0, 30, 2);
-            cbfp.ShowClearButton = true;
-            cbfp.ShowFilter = true;
-            cbfp.Size = new Size(149, 29);
-            cbfp.SymbolSize = 24;
-            cbfp.TabIndex = 97;
-            cbfp.TextAlignment = ContentAlignment.MiddleLeft;
-            cbfp.TrimFilter = true;
-            cbfp.Watermark = "请选择药品";
             // 
             // cbType
             // 
@@ -150,46 +129,47 @@
             dgvList.AllowUserToDeleteRows = false;
             dgvList.AllowUserToResizeColumns = false;
             dgvList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvList.ColumnHeadersHeight = 32;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
             dgvList.Location = new Point(10, 87);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle9.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvList.RowHeadersVisible = false;
             dgvList.RowHeadersWidth = 80;
-            dataGridViewCellStyle10.BackColor = Color.White;
-            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.SelectedIndex = -1;
             dgvList.ShowEditingIcon = false;
             dgvList.Size = new Size(1056, 347);
@@ -229,12 +209,46 @@
             btnQuery.TabIndex = 108;
             btnQuery.Text = "查 询";
             btnQuery.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnQuery.Click += btnQuery_Click;
+            // 
+            // txtName
+            // 
+            txtName.Cursor = Cursors.IBeam;
+            txtName.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            txtName.Location = new Point(198, 49);
+            txtName.Margin = new Padding(4, 5, 4, 5);
+            txtName.MinimumSize = new Size(1, 16);
+            txtName.Name = "txtName";
+            txtName.Padding = new Padding(5);
+            txtName.ShowText = false;
+            txtName.Size = new Size(183, 30);
+            txtName.TabIndex = 109;
+            txtName.TextAlignment = ContentAlignment.MiddleLeft;
+            txtName.TouchPressClick = true;
+            txtName.Watermark = "请输入药品名称";
+            // 
+            // btnReset
+            // 
+            btnReset.Cursor = Cursors.Hand;
+            btnReset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Location = new Point(892, 47);
+            btnReset.MinimumSize = new Size(1, 1);
+            btnReset.Name = "btnReset";
+            btnReset.Radius = 10;
+            btnReset.Size = new Size(90, 35);
+            btnReset.Symbol = 561695;
+            btnReset.TabIndex = 110;
+            btnReset.Text = "重 置";
+            btnReset.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnReset.Click += btnReset_Click;
             // 
             // FrmDrugLog
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1074, 490);
+            Controls.Add(btnReset);
+            Controls.Add(txtName);
             Controls.Add(btnQuery);
             Controls.Add(uiPage);
             Controls.Add(dgvList);
@@ -242,7 +256,6 @@
             Controls.Add(dateTimeStart);
             Controls.Add(dateTimeEnd);
             Controls.Add(cbType);
-            Controls.Add(cbfp);
             Name = "FrmDrugLog";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
@@ -258,8 +271,6 @@
         }
 
         #endregion
-
-        private Sunny.UI.UIComboBox cbfp;
         private Sunny.UI.UIComboBox cbType;
         private Label label3;
         private Sunny.UI.UIDatePicker dateTimeStart;
@@ -267,5 +278,7 @@
         private Sunny.UI.UIDataGridView dgvList;
         private Sunny.UI.UIPagination uiPage;
         private Sunny.UI.UISymbolButton btnQuery;
+        private Sunny.UI.UITextBox txtName;
+        private Sunny.UI.UISymbolButton btnReset;
     }
 }

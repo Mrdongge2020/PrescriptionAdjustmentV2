@@ -20,7 +20,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
     {
         public FrmDrugLog()
         {
-          
+
             InitializeComponent();
             initData();
             ControlOpterUI.SetTitleStyle(this);
@@ -32,11 +32,11 @@ namespace AdjustmentSysUI.Forms.DrugForms
             this.dateTimeStart.Value = DateTime.Now.Date;
             this.dateTimeEnd.Value = DateTime.Now.Date.AddDays(1);
 
-            ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
-            List<ComboxModel> pDatas = _comboxDataBLL.GetParticlesInfoComboxData();
-            cbfp.ValueMember = "Id";
-            cbfp.DisplayMember = "Name";
-            cbfp.DataSource = pDatas;
+            //ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
+            //List<ComboxModel> pDatas = _comboxDataBLL.GetParticlesInfoComboxData();
+            //cbfp.ValueMember = "Id";
+            //cbfp.DisplayMember = "Name";
+            //cbfp.DataSource = pDatas;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
 
             //创建列
-            dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 0, "");
+            //dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ID", "主键", true, false, 0, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParticleCode", "药品编号", true, true, 15, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "ParticleName", "药品名称", true, true, 15, "");
             dataGradeViewUi.InitDgvTextBoxColumn(this.dgvList, DataGridViewContentAlignment.MiddleLeft, "OperationLogDecribe", "操作类型", true, true, 15, "");
@@ -75,27 +75,27 @@ namespace AdjustmentSysUI.Forms.DrugForms
         private void queryPage()
         {
             ParticleOperationLogTypeEnum? type = null;
-            if (cbType.SelectedText != "全部")
+            if (cbType.Text != "全部")
             {
-                if (cbType.SelectedText == "新增药品")
+                if (cbType.Text == "新增药品")
                 {
                     type = ParticleOperationLogTypeEnum.新增药品;
                 }
-                if (cbType.SelectedText == "编辑药品")
+                if (cbType.Text == "编辑药品")
                 {
                     type = ParticleOperationLogTypeEnum.编辑药品;
                 }
-                if (cbType.SelectedText == "删除药品")
+                if (cbType.Text == "删除药品")
                 {
                     type = ParticleOperationLogTypeEnum.删除药品;
                 }
             }
 
-            string pname = "";
-            if (!string.IsNullOrEmpty(cbfp.SelectedText))
-            {
-                pname = cbfp.SelectedText;
-            }
+            string pname = txtName.Text;
+            //if (!string.IsNullOrEmpty(cbfp.Text))
+            //{
+            //    pname = cbfp.Text;
+            //}
             DrugManagermentBLL drugManagermentBLL = new DrugManagermentBLL();
             int allCount = 0;//总条数
             var datas = drugManagermentBLL.GetDurgLogByPage(type, pname, dateTimeStart.Value, dateTimeEnd.Value, uiPage.ActivePage, uiPage.PageSize, out allCount);
@@ -112,6 +112,16 @@ namespace AdjustmentSysUI.Forms.DrugForms
 
         private void uiPage_PageChanged(object sender, object pagingSource, int pageIndex, int count)
         {
+            queryPage();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            cbType.Text = "全部";
+            txtName.Text = "";
+            this.dateTimeStart.Value = DateTime.Now.Date;
+            this.dateTimeEnd.Value = DateTime.Now.Date.AddDays(1);
+            uiPage.ActivePage = 1;
             queryPage();
         }
     }

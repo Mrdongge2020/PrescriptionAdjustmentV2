@@ -147,18 +147,20 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     continue;
                 }
+                lblSYZL.Text = ruler.LoadCapacity.ToString();
+                dtpDQRQ.Value = CheckVaildUntil(ruler.VaildUntil);
+                lblBatch.Text = ruler.BatchNumber;
                 var currentPartic = particles.Where(x => x.PackageNumber == ruler.PackageNumber).ToList();
                 if (currentPartic != null && currentPartic.Count == 1)
                 {
+
+                    //if (!string.IsNullOrEmpty(ruler.VaildUntil) && DateTime.TryParse(ruler.VaildUntil, out DateTime t))
+                    //{
+                    //    dtpDQRQ.Value = t;
+                    //}
                     //找到颗粒，赋值
                     particlesInfo = currentPartic[0];
-                    lblSYZL.Text = ruler.LoadCapacity.ToString();
-                    lblBatch.Text = ruler.BatchNumber;
-                    if (!string.IsNullOrEmpty(ruler.VaildUntil) && DateTime.TryParse(ruler.VaildUntil, out DateTime t))
-                    {
-                        dtpDQRQ.Value = t;
-                    }
-                    lblBatch.Text = ruler.BatchNumber;
+                    
                     cbCJ.SelectedValue = particlesInfo.ManufacturerId;
 
                     ruleResultModel = ruler;
@@ -208,12 +210,78 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             resultModel.PackageNumber = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Packaging, codeStr, code.LargePackagingCodeIndex, code.LargePackagingCodeLength);
             resultModel.PackageType = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.PackagingType, codeStr, (int)code.PackagingTypeIndex, (int)code.PackagingTypeLength);
-            resultModel.BatchNumber = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.BatchNumber, codeStr, (int)code.BatchNumberIndex, (int)code.BatchNumberLength);
+            resultModel.BatchNumber = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.BatchNumber, codeStr, (int)code.BatchNumberIndex, (int)code.BatchNumberLength);;
             resultModel.VaildUntil = drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.VaildUntil, codeStr, (int)code.ValidityPeriodIndex, (int)code.ValidityPeriodLength);
             resultModel.Density = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Density, codeStr, code.DensityIndex, code.DensityLength));
             resultModel.Equivalent = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.Equivalent, codeStr, (int)code.EquivalentIndex, (int)code.EquivalentLength));
             resultModel.LoadCapacity = float.Parse(drugManufacturerBLL.RetBarcodeResult(BarcodeEnum.LoadingCapacity, codeStr, (int)code.LoadingCapacityIndex, (int)code.LoadingCapacityLength));
             return resultModel;
+        }
+        public DateTime CheckVaildUntil(string vaildUntil)
+        {
+            string VaildUntil = vaildUntil;
+            string tempStr = "";
+            if (VaildUntil.Length == 8)
+            {
+                //获取生产日期
+                string scDate = VaildUntil.Substring(0, 4) + "-" + VaildUntil.Substring(4, 2) + "-" + VaildUntil.Substring(6, 2);
+                if (DateTime.TryParse(scDate, out DateTime t))
+                {
+                    return t;
+                }
+            }
+            if (VaildUntil.Length == 9)
+            {
+
+                tempStr = "20" + VaildUntil.Substring(0, 2) + "-" + VaildUntil.Substring(2, 2) + "-01";
+
+                if (DateTime.TryParse(tempStr, out DateTime t))
+                {
+                    int monthValue = int.Parse(VaildUntil.Substring(7, 2));
+                    return t.AddMonths(monthValue);
+                }
+                else
+                {
+                    return DateTime.Now.AddYears(1).Date;
+                }
+            }
+            
+            if (VaildUntil.Length == 6)
+            {
+                if (VaildUntil.StartsWith("20"))
+                {
+                    tempStr = VaildUntil.Substring(0, 4) + "-" + VaildUntil.Substring(4) + "-01";
+                }
+                else
+                {
+                    tempStr = "20" + VaildUntil.Substring(0, 2) + "-" + VaildUntil.Substring(2, 2) + "-" + VaildUntil.Substring(4, 2);
+                }
+            }
+            if (VaildUntil.Length == 4)
+            {
+                tempStr = "20" + VaildUntil.Substring(0, 2) + "-" + VaildUntil.Substring(2, 2) + "-01";
+            }
+
+            //if (VaildUntil.Length == 8)
+            //{
+            //    tempStr = "20" + VaildUntil.Substring(0, 2) + "-" + VaildUntil.Substring(2, 2) +"-"+ VaildUntil.Substring(4, 2)+"-"+ VaildUntil.Substring(6, 2);
+            //}
+            DateTime vaildDate;
+            if (tempStr != "" && DateTime.TryParse(tempStr, out vaildDate))
+            {
+                if (vaildDate > DateTime.Now.AddYears(4))
+                {
+                    return DateTime.Now.AddYears(1);
+                }
+                else
+                {
+                    return vaildDate;
+                }
+            }
+            else
+            {
+                return DateTime.Now.AddYears(1);
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

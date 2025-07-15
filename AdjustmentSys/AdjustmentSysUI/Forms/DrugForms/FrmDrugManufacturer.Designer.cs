@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             dgvList = new Sunny.UI.UIDataGridView();
             btnAdd = new Sunny.UI.UISymbolButton();
             btnEdit = new Sunny.UI.UISymbolButton();
@@ -93,44 +93,44 @@
             // 
             // dgvList
             // 
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(235, 243, 255);
-            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
+            dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.BackgroundColor = Color.White;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.SelectionForeColor = Color.White;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvList.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvList.DefaultCellStyle = dataGridViewCellStyle3;
             dgvList.EnableHeadersVisualStyles = false;
             dgvList.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             dgvList.GridColor = Color.FromArgb(80, 160, 255);
             dgvList.Location = new Point(10, 90);
             dgvList.Name = "dgvList";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle9.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.White;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvList.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvList.RowHeadersVisible = false;
-            dataGridViewCellStyle10.BackColor = Color.White;
-            dataGridViewCellStyle10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.SelectedIndex = -1;
             dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvList.Size = new Size(667, 661);
@@ -263,18 +263,20 @@
             // 
             // uiLabel3
             // 
+            uiLabel3.BackColor = Color.Transparent;
             uiLabel3.Font = new Font("宋体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = Color.Red;
-            uiLabel3.Location = new Point(40, 548);
+            uiLabel3.Location = new Point(3, 542);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(83, 23);
+            uiLabel3.Size = new Size(120, 23);
+            uiLabel3.Style = Sunny.UI.UIStyle.Custom;
             uiLabel3.TabIndex = 33;
             uiLabel3.Text = "解析码:";
             uiLabel3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // btnStartJX
             // 
-            btnStartJX.Cursor = Cursors.SizeWE;
+            btnStartJX.Cursor = Cursors.Hand;
             btnStartJX.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnStartJX.Location = new Point(470, 536);
             btnStartJX.MinimumSize = new Size(1, 1);
@@ -288,7 +290,7 @@
             // 
             // btnSave
             // 
-            btnSave.Cursor = Cursors.SizeWE;
+            btnSave.Cursor = Cursors.Hand;
             btnSave.Enabled = false;
             btnSave.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnSave.Location = new Point(680, 536);
@@ -303,6 +305,7 @@
             // 
             // uiGroupBox1
             // 
+            uiGroupBox1.BackColor = Color.Transparent;
             uiGroupBox1.Controls.Add(lbl7);
             uiGroupBox1.Controls.Add(btnreset);
             uiGroupBox1.Controls.Add(lbl6);
@@ -359,6 +362,7 @@
             // 
             // lbl7
             // 
+            lbl7.BackColor = Color.Transparent;
             lbl7.Font = new Font("宋体", 10.5F);
             lbl7.ForeColor = Color.Blue;
             lbl7.Location = new Point(727, 447);
@@ -371,7 +375,7 @@
             // 
             // btnreset
             // 
-            btnreset.Cursor = Cursors.SizeWE;
+            btnreset.Cursor = Cursors.Hand;
             btnreset.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             btnreset.Location = new Point(584, 536);
             btnreset.MinimumSize = new Size(1, 1);
@@ -385,6 +389,7 @@
             // 
             // lbl6
             // 
+            lbl6.BackColor = Color.Transparent;
             lbl6.Font = new Font("宋体", 10.5F);
             lbl6.ForeColor = Color.Blue;
             lbl6.Location = new Point(727, 391);
@@ -397,6 +402,7 @@
             // 
             // lbl5
             // 
+            lbl5.BackColor = Color.Transparent;
             lbl5.Font = new Font("宋体", 10.5F);
             lbl5.ForeColor = Color.Blue;
             lbl5.Location = new Point(727, 324);
@@ -409,6 +415,7 @@
             // 
             // lbl4
             // 
+            lbl4.BackColor = Color.Transparent;
             lbl4.Font = new Font("宋体", 10.5F);
             lbl4.ForeColor = Color.Blue;
             lbl4.Location = new Point(727, 261);
@@ -421,6 +428,7 @@
             // 
             // lbl3
             // 
+            lbl3.BackColor = Color.Transparent;
             lbl3.Font = new Font("宋体", 10.5F);
             lbl3.ForeColor = Color.Blue;
             lbl3.Location = new Point(727, 194);
@@ -433,6 +441,7 @@
             // 
             // lbl2
             // 
+            lbl2.BackColor = Color.Transparent;
             lbl2.Font = new Font("宋体", 10.5F);
             lbl2.ForeColor = Color.Blue;
             lbl2.Location = new Point(727, 133);
@@ -445,6 +454,7 @@
             // 
             // lbl1
             // 
+            lbl1.BackColor = Color.Transparent;
             lbl1.Font = new Font("宋体", 10.5F);
             lbl1.ForeColor = Color.Blue;
             lbl1.Location = new Point(727, 72);
@@ -458,7 +468,7 @@
             // txtJXM
             // 
             txtJXM.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            txtJXM.Location = new Point(147, 542);
+            txtJXM.Location = new Point(147, 539);
             txtJXM.Margin = new Padding(4, 5, 4, 5);
             txtJXM.MaxLength = 50;
             txtJXM.MinimumSize = new Size(1, 16);
@@ -519,11 +529,13 @@
             // 
             // uiLabel13
             // 
+            uiLabel13.BackColor = Color.Transparent;
             uiLabel13.Font = new Font("微软雅黑", 10.5F);
             uiLabel13.ForeColor = Color.Red;
             uiLabel13.Location = new Point(21, 447);
             uiLabel13.Name = "uiLabel13";
             uiLabel13.Size = new Size(102, 23);
+            uiLabel13.Style = Sunny.UI.UIStyle.Custom;
             uiLabel13.TabIndex = 56;
             uiLabel13.Text = "装量:";
             uiLabel13.TextAlign = ContentAlignment.MiddleRight;
@@ -576,11 +588,13 @@
             // 
             // uiLabel12
             // 
+            uiLabel12.BackColor = Color.Transparent;
             uiLabel12.Font = new Font("微软雅黑", 10.5F);
             uiLabel12.ForeColor = Color.Red;
             uiLabel12.Location = new Point(21, 391);
             uiLabel12.Name = "uiLabel12";
             uiLabel12.Size = new Size(102, 23);
+            uiLabel12.Style = Sunny.UI.UIStyle.Custom;
             uiLabel12.TabIndex = 52;
             uiLabel12.Text = "密度:";
             uiLabel12.TextAlign = ContentAlignment.MiddleRight;
@@ -633,11 +647,13 @@
             // 
             // uiLabel11
             // 
+            uiLabel11.BackColor = Color.Transparent;
             uiLabel11.Font = new Font("微软雅黑", 10.5F);
             uiLabel11.ForeColor = Color.Black;
             uiLabel11.Location = new Point(21, 324);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new Size(102, 23);
+            uiLabel11.Style = Sunny.UI.UIStyle.Custom;
             uiLabel11.TabIndex = 48;
             uiLabel11.Text = "当量:";
             uiLabel11.TextAlign = ContentAlignment.MiddleRight;
@@ -690,11 +706,13 @@
             // 
             // uiLabel10
             // 
+            uiLabel10.BackColor = Color.Transparent;
             uiLabel10.Font = new Font("微软雅黑", 10.5F);
             uiLabel10.ForeColor = Color.Black;
             uiLabel10.Location = new Point(21, 261);
             uiLabel10.Name = "uiLabel10";
             uiLabel10.Size = new Size(102, 23);
+            uiLabel10.Style = Sunny.UI.UIStyle.Custom;
             uiLabel10.TabIndex = 44;
             uiLabel10.Text = "有效期:";
             uiLabel10.TextAlign = ContentAlignment.MiddleRight;
@@ -747,11 +765,13 @@
             // 
             // uiLabel9
             // 
+            uiLabel9.BackColor = Color.Transparent;
             uiLabel9.Font = new Font("微软雅黑", 10.5F);
             uiLabel9.ForeColor = Color.Black;
             uiLabel9.Location = new Point(21, 194);
             uiLabel9.Name = "uiLabel9";
             uiLabel9.Size = new Size(102, 23);
+            uiLabel9.Style = Sunny.UI.UIStyle.Custom;
             uiLabel9.TabIndex = 40;
             uiLabel9.Text = "批号:";
             uiLabel9.TextAlign = ContentAlignment.MiddleRight;
@@ -804,11 +824,13 @@
             // 
             // uiLabel8
             // 
+            uiLabel8.BackColor = Color.Transparent;
             uiLabel8.Font = new Font("微软雅黑", 10.5F);
             uiLabel8.ForeColor = Color.Black;
             uiLabel8.Location = new Point(21, 133);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new Size(102, 23);
+            uiLabel8.Style = Sunny.UI.UIStyle.Custom;
             uiLabel8.TabIndex = 36;
             uiLabel8.Text = "包装类型:";
             uiLabel8.TextAlign = ContentAlignment.MiddleRight;
@@ -845,33 +867,39 @@
             // 
             // uiLabel7
             // 
+            uiLabel7.BackColor = Color.Transparent;
             uiLabel7.Font = new Font("微软雅黑", 10.5F);
             uiLabel7.ForeColor = Color.Black;
             uiLabel7.Location = new Point(470, 28);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(102, 23);
+            uiLabel7.Style = Sunny.UI.UIStyle.Custom;
             uiLabel7.TabIndex = 33;
             uiLabel7.Text = "解析结果";
             uiLabel7.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // uiLabel6
             // 
+            uiLabel6.BackColor = Color.Transparent;
             uiLabel6.Font = new Font("微软雅黑", 10.5F);
             uiLabel6.ForeColor = Color.Black;
             uiLabel6.Location = new Point(317, 28);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new Size(102, 23);
+            uiLabel6.Style = Sunny.UI.UIStyle.Custom;
             uiLabel6.TabIndex = 32;
             uiLabel6.Text = "长度";
             uiLabel6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // uiLabel5
             // 
+            uiLabel5.BackColor = Color.Transparent;
             uiLabel5.Font = new Font("微软雅黑", 10.5F);
             uiLabel5.ForeColor = Color.Black;
             uiLabel5.Location = new Point(147, 28);
             uiLabel5.Name = "uiLabel5";
             uiLabel5.Size = new Size(102, 23);
+            uiLabel5.Style = Sunny.UI.UIStyle.Custom;
             uiLabel5.TabIndex = 31;
             uiLabel5.Text = "起始位";
             uiLabel5.TextAlign = ContentAlignment.MiddleLeft;
@@ -894,11 +922,13 @@
             // 
             // uiLabel4
             // 
+            uiLabel4.BackColor = Color.Transparent;
             uiLabel4.Font = new Font("微软雅黑", 10.5F);
             uiLabel4.ForeColor = Color.Red;
             uiLabel4.Location = new Point(21, 72);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(102, 23);
+            uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             uiLabel4.TabIndex = 29;
             uiLabel4.Text = "大包装码:";
             uiLabel4.TextAlign = ContentAlignment.MiddleRight;
@@ -923,6 +953,7 @@
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.White;
             ClientSize = new Size(1522, 848);
             Controls.Add(txtCJMC);
             Controls.Add(uiGroupBox1);
@@ -943,7 +974,7 @@
             Style = Sunny.UI.UIStyle.Custom;
             Symbol = 361641;
             Text = "药品管理>>药品厂家管理";
-            TitleFillColor = Color.FromArgb(243, 249, 255);
+            TitleFillColor = Color.FromArgb(250, 250, 250);
             TitleFont = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             TitleForeColor = Color.FromArgb(80, 126, 164);
             Load += FrmDrugManufacturer_Load;
