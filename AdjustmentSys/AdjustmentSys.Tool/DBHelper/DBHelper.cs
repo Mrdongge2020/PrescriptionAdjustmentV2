@@ -18,9 +18,7 @@ namespace AdjustmentSys.Tool
     /// </summary>
     public class DBHelper
     {
-        public readonly static string SqlConn = "Server=47.109.107.251,1433;database=AdjustmentSysDB;uid=sa;pwd=LDSsql20231106;TrustServerCertificate=true";
-        //public readonly static string SqlConn = "Server=127.0.1;database=AdjustmentSysDB;uid=sa;pwd=jsd123456;TrustServerCertificate=true";
-        //ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString.ToString();
+        public readonly static string SqlConn = IniConfigTB.ConnString;//"Server=47.109.107.251,1433;database=AdjustmentSysDB;uid=sa;pwd=LDSsql20231106;TrustServerCertificate=true";
 
         /// <summary>
         /// 执行增、删、改的方法：ExecuteNonQuery,返回true,false

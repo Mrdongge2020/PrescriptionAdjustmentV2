@@ -37,13 +37,7 @@ namespace AdjustmentSysUI.Forms
         ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
         public FrmMain()
         {
-            //TestFile();
             InitializeComponent();
-
-            //初始化配置数据
-            ConfigTB.SetConfigData();
-            PrintConfigTB.SetConfigData();
-            PrintConfigTB.SetPrintItemData();
 
             //加载菜单
             //首页
@@ -252,7 +246,7 @@ namespace AdjustmentSysUI.Forms
         public void BackData()
         {
             //获取备份日期
-            var bakDate = IniFileHelper.ReadIniData("SystemSet", "BakDbDate");
+            var bakDate = IniFileHelper.ReadIniData("DataBaseSet", "BakDbDate");
             if (string.IsNullOrEmpty(bakDate) && bakDate != DateTime.Now.ToString("yyyy-MM-dd"))
             {
                 if (ConfigTB.IsBakDataBase)
@@ -302,7 +296,7 @@ namespace AdjustmentSysUI.Forms
 
                 OperateLog.WriteLog(LogTypeEnum.用户操作, SysLoginUser.currentUser.UserName+ "系统退出成功备份数据库-" + FileName);
                 //写备份记录
-                IniFileHelper.WriteIniData("SystemSet", "BakDbDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                IniFileHelper.WriteIniData("DataBaseSet", "BakDbDate", DateTime.Now.ToString("yyyy-MM-dd"));
 
                 ///保留3份，其余删除
                 OperateLog.DeleteLoginFile("D:\\DB_Backups", "BackMART_*.bak", 3);
