@@ -32,10 +32,6 @@ namespace AdjustmentSysUI
                 OperateLog.BaseUrl = Application.StartupPath;
                 IniFileHelper.filePath = Application.StartupPath + "\\Config.ini";
                 IniConfigTB.SetInitData();
-                OperateLog.FileCheck();
-                ConfigTB.SetConfigData();
-                PrintConfigTB.SetConfigData();
-                PrintConfigTB.SetPrintItemData();
                 #endregion
                 ApplicationConfiguration.Initialize();
                 Application.Run(new FrmLogin());

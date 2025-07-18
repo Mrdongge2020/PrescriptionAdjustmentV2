@@ -4,6 +4,7 @@ using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
+using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSys.Tool.TCP;
@@ -38,6 +39,13 @@ namespace AdjustmentSysUI.Forms
         public FrmMain()
         {
             InitializeComponent();
+
+            #region 初始化信息      
+            OperateLog.FileCheck();
+            ConfigTB.SetConfigData();
+            PrintConfigTB.SetConfigData();
+            PrintConfigTB.SetPrintItemData();
+            #endregion
 
             //加载菜单
             //首页

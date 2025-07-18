@@ -1,9 +1,11 @@
 ﻿using AdjustmentSys.BLL.Device;
 using AdjustmentSys.BLL.MedicineCabinet;
+using AdjustmentSys.DAL.Common;
 using AdjustmentSys.IService;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Service;
+using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.Forms;
@@ -116,8 +118,6 @@ namespace AdjustmentSysUI
                     SysDeviceInfo.currentDeviceInfo.LargeCabinetCount = 0;
                     SysDeviceInfo.currentDeviceInfo.SmallCabinetCount = 0;
                 }
-
-
                 #endregion
                 this.Hide();
                 FrmMain frmMain = new FrmMain();

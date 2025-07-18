@@ -67,6 +67,10 @@ namespace AdjustmentSys.Models.Prescription
         /// </summary>
         public string UsageMethod { get; set; }
         /// <summary>
+        /// 协定处方名称
+        /// </summary>
+        public string PrescriptionName { get; set; }
+        /// <summary>
         /// 生成的使用方法
         /// </summary>
         public string GenerateUseWay { get; set; }

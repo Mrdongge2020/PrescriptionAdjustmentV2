@@ -177,12 +177,26 @@ namespace AdjustmentSysUI.UITool
                         }
                         else
                         {
-                            currentStr += string.Join("  ", templineStrings1);
+                            if (currentItems.Any(x => x.ItemChineseName == "打印颗粒明细" || x.ItemChineseName == "打印饮片计量" || x.ItemChineseName == "打印颗粒计量"))
+                            {
+                                currentStr += string.Join("@", templineStrings1);
+                            }
+                            else
+                            {
+                                currentStr += string.Join("  ", templineStrings1);
+                            }
                         }
                     }
                     if (currentStr != "")
                     {
-                        templineStrings.AddRange(SplitStringByLength(currentStr, PrintConfigTB.RowWordNumber * 2));
+                        if (currentItems.Any(x => x.ItemChineseName == "打印颗粒明细" || x.ItemChineseName == "打印饮片计量" || x.ItemChineseName == "打印颗粒计量"))
+                        {
+                            templineStrings.AddRange(currentStr.Split('@'));
+                        }
+                        else
+                        {
+                            templineStrings.AddRange(SplitStringByLength(currentStr, PrintConfigTB.RowWordNumber * 2));
+                        }
                     }
                 }
                 if (templineStrings != null && templineStrings.Count > 0)
@@ -350,12 +364,12 @@ namespace AdjustmentSysUI.UITool
                         }
                     }
                     break;
-                //case "打印就诊卡号":
-                //    if (!StringIsNULL(PrintData.BackupField1))
-                //    {
-                //        str = PrintData.BackupField1;
-                //    }
-                //    break;
+                case "打印协定处方":
+                    if (!StringIsNULL(PrintData.PrescriptionName))
+                    {
+                        str = PrintData.PrescriptionName;
+                    }
+                    break;
                 case "打印住院部床号":
                     if (!StringIsNULL(PrintData.BedNumber))
                     {
@@ -385,6 +399,14 @@ namespace AdjustmentSysUI.UITool
             {
                 if (index > 0)
                 {
+                    int alllength = PrintConfigTB.RowWordNumber * 2;
+                    string fengexian = "";
+                    while (alllength > 0)
+                    {
+                        fengexian += "-";
+                        alllength--;
+                    }
+                    rstrings.Add(fengexian);
                     var parcheck = papercheckDatas.FirstOrDefault(x => x.ItemChineseName == "打印颗粒明细");
                     if (parcheck != null && !StringIsNULL(tb.Title))
                     {

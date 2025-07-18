@@ -413,6 +413,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             prescriptionPrintModel.Remarks = dgvList.SelectedRows[0].Cells["Remarks"].Value?.ToString();
             prescriptionPrintModel.UsageMethod = dgvList.SelectedRows[0].Cells["Remarks"].Value?.ToString();
             prescriptionPrintModel.BedNumber = dgvList.SelectedRows[0].Cells["BedNumber"].Value?.ToString();
+            prescriptionPrintModel.PrescriptionName= dgvList.SelectedRows[0].Cells["PrescriptionName"].Value?.ToString();
             string processStatusText = dgvList.SelectedRows[0].Cells["ProcessStatusText"].Value?.ToString();
             if (!string.IsNullOrEmpty(processStatusText) && processStatusText == "完成")
             {

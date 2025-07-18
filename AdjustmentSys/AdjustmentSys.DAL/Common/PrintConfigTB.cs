@@ -214,9 +214,11 @@ namespace AdjustmentSys.DAL.Common
             //获取表里面的值
             PrintItemInfos = _eFCoreContext.PrintItemInfos.Where(x => x.DeviceId == SysDeviceInfo.currentDeviceInfo.DeviceId)?.ToList();
 
-            if (PrintItemInfos == null || PrintItemInfos.Count<=0)
+            var allPrintItemInfos = _eFCoreContext.PrintItemInfos.Where(x => x.DeviceId == 0)?.ToList();
+
+            if (PrintItemInfos == null || PrintItemInfos.Count <= 0)
             {
-                var allPrintItemInfos = _eFCoreContext.PrintItemInfos.Where(x => x.DeviceId == 0)?.ToList();
+
 
                 PrintItemInfos = allPrintItemInfos.Select(x => new PrintItemInfo()
                 {
@@ -242,7 +244,48 @@ namespace AdjustmentSys.DAL.Common
                         OperateLog.WriteLog(LogTypeEnum.数据库, "初始化打印配项数据出现异常，原因：" + e.Message);
                     }
                 }
-            } 
+            }
+            else
+            {
+                var names = PrintItemInfos.Select(x => x.ItemName).ToList();
+                if (names!=null && names.Count>0) 
+                {
+                   var list=  allPrintItemInfos.Where(x => !names.Contains(x.ItemName)).ToList();
+                    if (list != null && list.Count > 0) 
+                    {
+
+                       var insertList= list.Select(x => new PrintItemInfo()
+                        {
+                            ItemName = x.ItemName,
+                            ItemChineseName = x.ItemChineseName,
+                            Title = x.Title,
+                            Sort = x.Sort,
+                            CheckedValue = x.CheckedValue,
+                            DeviceId = SysDeviceInfo.currentDeviceInfo.DeviceId
+                        }).ToList();
+
+                        PrintItemInfos.AddRange(insertList);
+
+                        using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+                        {
+                            try
+                            {
+                                _eFCoreContext.PrintItemInfos.AddRange(insertList);
+                                _eFCoreContext.SaveChanges();
+
+                                dbContextTransaction.Commit();
+                            }
+                            catch (Exception e)
+                            {
+                                dbContextTransaction.Rollback();
+                                OperateLog.WriteLog(LogTypeEnum.数据库, "初始化打印配项数据出现异常，原因：" + e.Message);
+                            }
+                        }
+                    }
+
+                }
+            }
+            
         }
     }
 }
