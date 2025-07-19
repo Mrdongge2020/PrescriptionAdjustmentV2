@@ -76,12 +76,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = frmUserEdit.resultMsg;
             if (msg == "Successed")
             {
-                ShowSuccessTip("新增用户成功");
+                this.ShowSuccessTip("新增用户成功");
                 QueryUserList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -90,7 +90,7 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (checkedUserId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的用户");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的用户");
                 return;
             }
 
@@ -106,12 +106,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = frmUserEdit.resultMsg;
             if (msg == "Successed")
             {
-                ShowSuccessTip("编辑用户成功");
+                this.ShowSuccessTip("编辑用户成功");
                 QueryUserList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 

@@ -122,30 +122,30 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (cbDurg.SelectedValue == null || (int)cbDurg.SelectedValue == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择药品");
+                this.ShowWarningDialog("异常提示", "请先选择药品");
                 cbDurg.Focus();
                 return;
             }
             if (dudJL.Value == 0)
             {
-                ShowWarningDialog("异常提示", "请输入药品剂量");
+                this.ShowWarningDialog("异常提示", "请输入药品剂量");
                 dudJL.Focus();
                 return;
             }
             if (parIdList != null && parIdList.Contains((int)cbDurg.SelectedValue))
             {
-                ShowWarningDialog("异常提示", "该药品已在列表存在，请勿重复添加");
+                this.ShowWarningDialog("异常提示", "该药品已在列表存在，请勿重复添加");
                 return;
             }
             var durgInfo = _prescriptionBLL.GetParticlesInfo((int)cbDurg.SelectedValue);
             if (durgInfo == null)
             {
-                ShowWarningDialog("异常提示", "未找到该药品信息");
+                this.ShowWarningDialog("异常提示", "未找到该药品信息");
                 return;
             }
             if (durgInfo.Equivalent == 0)
             {
-                ShowWarningDialog("异常提示", "该药品当量为0，无法添加");
+                this.ShowWarningDialog("异常提示", "该药品当量为0，无法添加");
                 return;
             }
 
@@ -162,7 +162,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             if (!AddDurgCheck(durgInfo))
             {
-                ShowWarningDialog("异常提示", "该药品未通过检查，无法添加");
+                this.ShowWarningDialog("异常提示", "该药品未通过检查，无法添加");
                 return;
             }
 
@@ -180,7 +180,8 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             row.Cells[8].Value = durgInfo.RetailPrice;
             row.Cells[9].Value = Math.Round(durgInfo.RetailPrice * (decimal)durgInfo.DoseHerb, 3);
 
-            dgvDurgList.Rows.Insert(0, row);
+            //dgvDurgList.Rows.Insert(0, row);
+            dgvDurgList.Rows.Insert(dgvDurgList.Rows.Count == 0 ? 0 : dgvDurgList.Rows.Count, row);
 
             parIdList.Add(durgInfo.ID);
 
@@ -214,7 +215,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 if (rulercheckList != null && rulercheckList.Count > 0)
                 {
                     string allStr = string.Join("\r\n", rulercheckList);
-                    if (!ShowAskDialog("是否忽略?", allStr, UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                    if (!this.ShowAskDialog("是否忽略?", allStr, UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                     {
                         return false;
                     }
@@ -248,13 +249,13 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                ShowWarningDialog("异常提示", "协定方名称不能为空");
+                this.ShowWarningDialog("异常提示", "协定方名称不能为空");
                 txtName.Focus();
                 return;
             }
             if (dgvDurgList.Rows.Count == 0)
             {
-                ShowWarningDialog("异常提示", "处方药品不能为空");
+                this.ShowWarningDialog("异常提示", "处方药品不能为空");
                 cbDurg.Focus();
                 return;
             }
@@ -306,7 +307,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (dgvDurgList.SelectedRows.Count == 0)
             {
-                ShowWarningDialog("异常提示", "请选中要移除的药品信息");
+                this.ShowWarningDialog("异常提示", "请选中要移除的药品信息");
                 return;
             }
 

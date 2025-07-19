@@ -193,7 +193,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
         private void btnSayOK_Click(object sender, EventArgs e)
         {
-            if (!ShowAskDialog("忽略提示", "确定要忽略列表中展示的相关异常信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("忽略提示", "确定要忽略列表中展示的相关异常信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -230,7 +230,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             }
             else
             {
-                ShowErrorDialog("确认处方失败，请稍后再试");
+                this.ShowErrorDialog("确认处方失败，请稍后再试");
             }
         }
 

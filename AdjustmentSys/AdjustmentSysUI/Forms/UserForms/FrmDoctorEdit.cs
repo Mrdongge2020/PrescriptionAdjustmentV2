@@ -107,14 +107,14 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                ShowWarningDialog("异常提示", "医生名称不能为空");
+                this.ShowWarningDialog("异常提示", "医生名称不能为空");
                 txtName.Focus();
                 return false;
             }
 
             if (cbDepartment.SelectedIndex == -1)
             {
-                ShowWarningDialog("异常提示", "请选择医生所属科室");
+                this.ShowWarningDialog("异常提示", "请选择医生所属科室");
                 return false;
             }
             return true;

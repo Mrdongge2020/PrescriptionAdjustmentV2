@@ -100,7 +100,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -108,18 +108,18 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             if (string.IsNullOrEmpty(txtSBMC.Text))
             {
-                ShowWarningDialog("异常提示", "设备名称不能为空");
+                this.ShowWarningDialog("异常提示", "设备名称不能为空");
                 txtSBMC.Focus();
                 return false;
             }
             if (cbLX.SelectedIndex==-1)
             {
-                ShowWarningDialog("异常提示", "请选择设备类型");
+                this.ShowWarningDialog("异常提示", "请选择设备类型");
                 return false;
             }
             if (string.IsNullOrEmpty(txtSBBZ.Text))
             {
-                ShowWarningDialog("异常提示", "设备编组不能为空");
+                this.ShowWarningDialog("异常提示", "设备编组不能为空");
                 txtSBBZ.Focus();
                 return false;
             }
@@ -130,21 +130,21 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     if (!codes.Contains(txtMECode.Text))
                     {
-                        ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
+                        this.ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
                         txtMECode.Focus();
                         return false;
                     }
                 }
                 else 
                 {
-                    ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
+                    this.ShowWarningDialog("异常提示", "药柜编组信息在系统不存在");
                     txtMECode.Focus();
                     return false;
                 }
             }
             else
             {
-                ShowWarningDialog("异常提示", "药柜编组不能为空");
+                this.ShowWarningDialog("异常提示", "药柜编组不能为空");
                 txtMECode.Focus();
                 return false;
             }

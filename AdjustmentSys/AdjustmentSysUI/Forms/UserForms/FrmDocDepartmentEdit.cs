@@ -89,19 +89,19 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                ShowWarningDialog("异常提示", "科室名称不能为空");
+                this.ShowWarningDialog("异常提示", "科室名称不能为空");
                 txtName.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtAddress.Text))
             {
-                ShowWarningDialog("异常提示", "科室地址不能为空");
+                this.ShowWarningDialog("异常提示", "科室地址不能为空");
                 txtAddress.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtCname.Text))
             {
-                ShowWarningDialog("异常提示", "科室联系人不能为空");
+                this.ShowWarningDialog("异常提示", "科室联系人不能为空");
                 txtCname.Focus();
                 return false;
             }

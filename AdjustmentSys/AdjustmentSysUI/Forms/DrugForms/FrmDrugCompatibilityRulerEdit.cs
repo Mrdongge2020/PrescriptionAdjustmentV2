@@ -91,12 +91,12 @@ namespace AdjustmentSysUI.Forms.Drug
             string msg = _particleProhibitionRuleBLL.AddOrEditRuleInfo(rule);
             if (msg == "")
             {
-                ShowSuccessTip((_id > 0 ? "编辑" : "新增") + "成功");
+                this.ShowSuccessTip((_id > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -104,24 +104,24 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                ShowWarningDialog("异常提示", "规则名称不能为空");
+                this.ShowWarningDialog("异常提示", "规则名称不能为空");
                 txtName.Focus();
                 return false;
             }
             if (cbfp.SelectedValue == null && _id==0)
             {
-                ShowWarningDialog("异常提示", "请选择第一味颗粒");
+                this.ShowWarningDialog("异常提示", "请选择第一味颗粒");
                 return false;
             }
             if (cbSp.SelectedValue == null && _id == 0)
             {
-                ShowWarningDialog("异常提示", "请选择第二味颗粒");
+                this.ShowWarningDialog("异常提示", "请选择第二味颗粒");
                 return false;
             }
 
             if (cbfp.SelectedValue!=null &&  cbSp.SelectedValue!=null && cbfp.SelectedValue == cbSp.SelectedValue)
             {
-                ShowWarningDialog("异常提示", "第一味颗粒与第二味颗粒不能重复");
+                this.ShowWarningDialog("异常提示", "第一味颗粒与第二味颗粒不能重复");
                 return false;
             }
             return true;

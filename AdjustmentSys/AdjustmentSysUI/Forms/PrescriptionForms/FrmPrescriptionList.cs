@@ -263,12 +263,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string msg = frmPrescriptionAdd.saveMessage;
             if (msg == "Successed")
             {
-                ShowSuccessTip("提交处方成功");
+                this.ShowSuccessTip("提交处方成功");
                 QueryPrePageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
 
         }
@@ -277,7 +277,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (string.IsNullOrEmpty(selectPreId))
             {
-                ShowWarningDialog("异常提示", "请先选择要复制的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要复制的处方");
                 return;
             }
 
@@ -295,12 +295,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string msg = frmPrescriptionAdd.saveMessage;
             if (msg == "Successed")
             {
-                ShowSuccessTip("提交处方成功");
+                this.ShowSuccessTip("提交处方成功");
                 QueryPrePageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -359,16 +359,16 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             if (dgvList.SelectedRows.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要打印的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要打印的处方");
                 return;
             }
-            if (!ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             //if (dgvPreDetail.Rows.Count<=0) 
             //{
-            //    ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
+            //    this.ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
             //    return;
             //}
             //获取打印数据
@@ -378,7 +378,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 var prescriptionPrintModel = GetPrescriptionPrintModel();
                 if (prescriptionPrintModel == null) 
                 {
-                    ShowWarningDialog("异常提示", "未完成打印，处方信息不存在");
+                    this.ShowWarningDialog("异常提示", "未完成打印，处方信息不存在");
                     return;
                 }
                 PrescriptionPrint prescriptionPrint = new PrescriptionPrint();
@@ -389,12 +389,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 }
                 else
                 {
-                    ShowWarningDialog("异常提示", "未启动任何打印项，请核对启用打印设置");
+                    this.ShowWarningDialog("异常提示", "未启动任何打印项，请核对启用打印设置");
                 }
             }
             catch (Exception ex)
             {
-                ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
+                this.ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
             }
         }
 
@@ -448,16 +448,16 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (dgvList.SelectedRows.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要打印的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要打印的处方");
                 return;
             }
-            if (!ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("打印提示", "确定要打印选中的处方信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             //if (dgvPreDetail.Rows.Count<=0) 
             //{
-            //    ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
+            //    this.ShowWarningDialog("异常提示", "选择的处方没有颗粒详情，不能打印");
             //    return;
             //}
             //获取打印数据
@@ -476,12 +476,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 }
                 else
                 {
-                    ShowWarningDialog("异常提示", "未启用任何主打印项，请核对启用主打印设置");
+                    this.ShowWarningDialog("异常提示", "未启用任何主打印项，请核对启用主打印设置");
                 }
             }
             catch (Exception ex)
             {
-                ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
+                this.ShowErrorDialog("异常提示", "操作失败，原因" + ex.Message);
             }
         }
     }

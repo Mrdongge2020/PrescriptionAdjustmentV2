@@ -94,28 +94,28 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             float kcNum=float.TryParse(kcStr, out float kcNum1)? kcNum1:-1;
             if (kcNum < 0)
             {
-                ShowWarningDialog("异常提示", "库存余量数据必须大于0");
+                this.ShowWarningDialog("异常提示", "库存余量数据必须大于0");
                 return;
             }
             //药柜颗粒信息
             var meDetail = commonDataBLL.GetMedicineCabinetDetail(MachinePublic.ReadRfidData);
             if (meDetail == null)
             {
-                ShowWarningDialog("异常提示", "药柜颗粒信息不存在");
+                this.ShowWarningDialog("异常提示", "药柜颗粒信息不存在");
                 return;
             }
             //获取全部颗粒信息
             var particles = commonDataBLL.GetCommonParticles();
             if (particles == null || particles.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "药品字典信息不存在");
+                this.ShowWarningDialog("异常提示", "药品字典信息不存在");
                 return;
             }
 
             var parinfo = particles.FirstOrDefault(x => x.ID == meDetail.ParticlesID);
             if (parinfo == null)
             {
-                ShowWarningDialog("异常提示", "该药品字典信息不存在");
+                this.ShowWarningDialog("异常提示", "该药品字典信息不存在");
                 return;
             }
             MedicineCabinetOperationLogInfo loginfo = new MedicineCabinetOperationLogInfo();
@@ -142,7 +142,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
     }

@@ -54,7 +54,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 else
                 {
                     btnConfimImport.Enabled = false;
-                    ShowWarningDialog("导入提示", "未找到合规的颗粒库存信息。");
+                    this.ShowWarningDialog("导入提示", "未找到合规的颗粒库存信息。");
                 }
                 return;
             }
@@ -75,7 +75,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 else
                 {
                     btnConfimImport.Enabled = false;
-                    ShowWarningDialog("导入提示", "未找到合规的颗粒位置信息。");
+                    this.ShowWarningDialog("导入提示", "未找到合规的颗粒位置信息。");
                 }
                 return;
             }
@@ -117,10 +117,10 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             string msg = "";
             if (dgvList.Rows.Count <= 0)
             {
-                ShowWarningDialog("导入提示", "请先加载要导入的数据。");
+                this.ShowWarningDialog("导入提示", "请先加载要导入的数据。");
                 return;
             }
-            if (!ShowAskDialog("导入提示", $"确定要列表中的数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("导入提示", $"确定要列表中的数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -135,12 +135,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             if (msg == "")
             {
-                ShowSuccessTip("导入数据成功");
+                this.ShowSuccessTip("导入数据成功");
                 this.btnConfimImport.Enabled = false;
             }
             else
             {
-                ShowErrorDialog("导入数据失败,原因:" + msg);
+                this.ShowErrorDialog("导入数据失败,原因:" + msg);
             }
         }
 
@@ -160,7 +160,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                          "5.数字列请正确填写，否则数据会校验不通过不能导入。\r\n" +
                          "6.此导入功能最好仅限首次初始化药柜使用，操作需谨慎。";
             }
-            ShowInfoDialog(remark);
+            this.ShowInfoDialog(remark);
         }
     }
 }

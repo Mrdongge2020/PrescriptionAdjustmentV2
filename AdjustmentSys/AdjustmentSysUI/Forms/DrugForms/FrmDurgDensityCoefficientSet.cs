@@ -73,30 +73,30 @@ namespace AdjustmentSysUI.Forms.DrugForms
         {
             if (cbCJ.SelectedValue == null || (int)cbCJ.SelectedValue <= 0)
             {
-                ShowWarningDialog("异常提示", "请选择厂家");
+                this.ShowWarningDialog("异常提示", "请选择厂家");
                 return;
             }
             if (dudNumber.Value <= 0)
             {
-                ShowWarningDialog("异常提示", "系数调整值必须大于0");
+                this.ShowWarningDialog("异常提示", "系数调整值必须大于0");
                 dudNumber.Focus();
                 return;
             }
             var ids = CheckedIds();
             if (ids == null || ids.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "该厂家没有需要修改的数据");
+                this.ShowWarningDialog("异常提示", "该厂家没有需要修改的数据");
                 return;
             }
 
             string msg = _drugManagermentBLL.UpdateParticlesDensityCoefficient(ids, (float)dudNumber.Value);
             if (msg == "")
             {
-                ShowSuccessTip("批量修改成功");
+                this.ShowSuccessTip("批量修改成功");
             }
             else
             {
-                ShowErrorDialog("批量修改失败:" + msg);
+                this.ShowErrorDialog("批量修改失败:" + msg);
             }
         }
 
@@ -177,7 +177,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
                     bool flag = float.TryParse(this.dgvList.Rows[e.RowIndex].Cells["DensityCoefficient"].Value.ToString(), out value);
                     if (!flag || value <= 0 || value > 2)
                     {
-                        ShowWarningDialog("异常提示", "密度系数只能是大于0且小于2的数值");
+                        this.ShowWarningDialog("异常提示", "密度系数只能是大于0且小于2的数值");
                         this.dgvList.CurrentCell = dgvList.Rows[e.RowIndex].Cells["DensityCoefficient"]; //设置当前单元格
                         dgvList.BeginEdit(true); //设置可编辑状态
                         return;
@@ -188,11 +188,11 @@ namespace AdjustmentSysUI.Forms.DrugForms
                     string msg = _drugManagermentBLL.UpdateParticlesDensityCoefficient(new List<int>() { particlesID }, densityCoefficient);
                     if (msg == "")
                     {
-                        ShowSuccessTip("保存成功");
+                        this.ShowSuccessTip("保存成功");
                     }
                     else
                     {
-                        ShowErrorDialog(msg);
+                        this.ShowErrorDialog(msg);
                     }
                 }
                 catch (Exception ex)

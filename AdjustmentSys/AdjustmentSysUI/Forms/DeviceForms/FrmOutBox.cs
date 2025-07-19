@@ -131,7 +131,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     _boxCount, _endTime,_second,_timeStr);
                 if (msg!="") 
                 { 
-                    ShowErrorDialog(msg);
+                    this.ShowErrorDialog(msg);
                 }
             }
         }

@@ -270,7 +270,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (selectDurgModel == null)
             {
-                ShowWarningDialog("请选择药柜信息");
+                this.ShowWarningDialog("请选择药柜信息");
                 return;
             }
             Point startPoint = new Point(MousePosition.X - 70, MousePosition.Y - 20);
@@ -283,7 +283,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 string msg = _medicineCabinetDrugManageBLL.ListingParticle(selectDurgModel.ID, code, frmListingParticles._Id);
                 if (msg == "")
                 {
-                    ShowSuccessTip("上架颗粒成功");
+                    this.ShowSuccessTip("上架颗粒成功");
                     int index = frmListingParticles._Name.IndexOf('(');
                     string valueText = frmListingParticles._Name.Substring(0, index) + "\r\n" + "0克";
                     dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
@@ -291,7 +291,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 }
                 else
                 {
-                    ShowErrorDialog("错误提示", msg);
+                    this.ShowErrorDialog("错误提示", msg);
                 }
             }
         }
@@ -319,20 +319,20 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (selectDurgModel == null)
             {
-                ShowWarningDialog("请选择药柜信息");
+                this.ShowWarningDialog("请选择药柜信息");
                 return;
             }
             string msg = _medicineCabinetDrugManageBLL.RemoveParticle(selectDurgModel.ID);
             if (msg == "")
             {
-                ShowSuccessTip("下架颗粒成功");
+                this.ShowSuccessTip("下架颗粒成功");
 
                 dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
                 dgvList.Rows[Rowindex].Cells[Colindex].Value = "";
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -372,12 +372,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             {
                 if (selectDurgModel == null)
                 {
-                    ShowWarningDialog("写入失败!请选择药柜颗粒信息");
+                    this.ShowWarningDialog("写入失败!请选择药柜颗粒信息");
                     return;
                 }
                 if (!MachinePublic.ConnectionState)
                 {
-                    ShowWarningDialog("写入失败!未连接到设备,无法使用RFID写入功能");
+                    this.ShowWarningDialog("写入失败!未连接到设备,无法使用RFID写入功能");
                     return;
                 }
                 CommonStaticDataBLL commonStaticDataBLL = new CommonStaticDataBLL();
@@ -389,20 +389,20 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 }
                 if (Math.Abs(MachinePublic.Weight - emptyBottleWeight) > 5)  //|当前重量-空瓶重量|<5
                 {
-                    ShowWarningDialog("写入失败!空瓶重量异常， 请确认药瓶是否为空瓶");
+                    this.ShowWarningDialog("写入失败!空瓶重量异常， 请确认药瓶是否为空瓶");
                     return;
                 }
 
                 if (MachinePublic.Weight <= 200 || !MachinePublic.WeightState)
                 {
-                    ShowWarningDialog("写入失败!请等待数称重据稳定后再写入");
+                    this.ShowWarningDialog("写入失败!请等待数称重据稳定后再写入");
                     return;
                 }
                 MedicineCabinetDrugManageBLL medicineCabinetDrugManageBLL = new MedicineCabinetDrugManageBLL();
                 var mcd = medicineCabinetDrugManageBLL.GetMedicineCabinetDetail(selectDurgModel.ID);
                 if (mcd == null)
                 {
-                    ShowWarningDialog("写入失败!未找到药柜颗粒信息");
+                    this.ShowWarningDialog("写入失败!未找到药柜颗粒信息");
                     return;
                 }
 
@@ -420,12 +420,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 }
                 else
                 {
-                    ShowWarningDialog("写入失败!" + msg);
+                    this.ShowWarningDialog("写入失败!" + msg);
                 }
             }
             catch (Exception ex)
             {
-                ShowWarningDialog("写入失败!" + ex.Message);
+                this.ShowWarningDialog("写入失败!" + ex.Message);
             }
         }
         /// <summary>
@@ -484,7 +484,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             bool isSuccessed = frmParticleStockAdd.isSuccess;
             if (isSuccessed)
             {
-                ShowSuccessTip("上药操作成功");
+                this.ShowSuccessTip("上药操作成功");
                 Refc();
             }
 
@@ -497,7 +497,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             bool isSuccessed = frmAdjustmentOfSurplus.isSuccess;
             if (isSuccessed)
             {
-                ShowSuccessTip("余量校准操作成功");
+                this.ShowSuccessTip("余量校准操作成功");
                 Refc();
             }
         }
@@ -509,7 +509,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             bool isSuccessed = frmStockSet.isSuccess;
             if (isSuccessed)
             {
-                ShowSuccessTip("库存设置操作成功");
+                this.ShowSuccessTip("库存设置操作成功");
                 Refc();
             }
         }
@@ -519,7 +519,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             var positionInfos = _medicineCabinetDrugManageBLL.GetParticlesPosition();
             if (positionInfos == null || positionInfos.Count <= 0)
             {
-                ShowWarningDialog("需要导出的颗粒位置信息不存在");
+                this.ShowWarningDialog("需要导出的颗粒位置信息不存在");
                 return;
             }
 
@@ -532,7 +532,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             var stockInfos = _medicineCabinetDrugManageBLL.GetParticlesStock();
             if (stockInfos == null || stockInfos.Count <= 0)
             {
-                ShowWarningDialog("需要导出的颗粒库存信息不存在");
+                this.ShowWarningDialog("需要导出的颗粒库存信息不存在");
                 return;
             }
 
@@ -557,7 +557,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             if (MachinePublic.WriteRfidFish)
             {
                 MachinePublic.WriteRfidExcule = false;
-                ShowSuccessTip("数据写入成功");
+                this.ShowSuccessTip("数据写入成功");
                 MachinePublic.WriteRfidFish = false;
                 timer1.Stop();
 

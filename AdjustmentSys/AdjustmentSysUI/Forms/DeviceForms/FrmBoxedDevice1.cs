@@ -101,7 +101,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             catch (Exception ex)
             {
-                ShowErrorDialog("错误提示", ex.Message);
+                this.ShowErrorDialog("错误提示", ex.Message);
             }
         }
 
@@ -296,7 +296,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             catch (Exception ex)
             {
-                ShowErrorDialog(ex.Message);
+                this.ShowErrorDialog(ex.Message);
             }
         }
 
@@ -414,13 +414,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             if (selectPreId == "")
             {
-                ShowWarningDialog("异常提示", "请先选择要复位的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要复位的处方");
                 return;
             }
             var isSuccess = _prescriptionAdjustmentBLL.ReturnPrescription(selectPreId);
             if (isSuccess)
             {
-                ShowSuccessTip($"处方[{selectPreId}]已成功复位");
+                this.ShowSuccessTip($"处方[{selectPreId}]已成功复位");
                 downLoadPreModel.LoadedPreIds.Remove(selectPreId);
                 //downLoadPreModel.LoadedPreIds = downLoadPreModel.LoadedPreIds.Distinct().ToList();
                 var curCheckPre = downLoadPreModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == selectPreId);
@@ -440,7 +440,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             else
             {
-                ShowErrorDialog("错误提示", $"处方[{selectPreId}]复位失败，请稍后再试");
+                this.ShowErrorDialog("错误提示", $"处方[{selectPreId}]复位失败，请稍后再试");
             }
         }
 
@@ -448,7 +448,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             if (selectPreId == "")
             {
-                ShowWarningDialog("异常提示", "请先选择要查看的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要查看的处方");
                 return;
             }
             dataGradeViewUi.FormClose("FrmPrescriptionPaper");
@@ -460,13 +460,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             if (selectPreId == "")
             {
-                ShowWarningDialog("异常提示", "请先选择要核对的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要核对的处方");
                 return;
             }
             List<string> checkedPreids = _prescriptionAdjustmentBLL.GetConfirmedPrescriptions(downLoadPreModel.LoadedPreIds);
             if (checkedPreids != null && checkedPreids.Contains(selectPreId))
             {
-                ShowWarningDialog("异常提示", "该处方已核对，无需再次核对");
+                this.ShowWarningDialog("异常提示", "该处方已核对，无需再次核对");
                 return;
             }
             dataGradeViewUi.FormClose("FrmConfirmPrescription");
@@ -475,7 +475,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             bool isPassed = frmConfirmPrescription.isConfirmOK;
             if (isPassed)
             {
-                ShowSuccessTip($"处方[{selectPreId}]核对成功");
+                this.ShowSuccessTip($"处方[{selectPreId}]核对成功");
                 AddButton();
                 //写入到文件
                 if (downLoadPreModel == null)
@@ -523,7 +523,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             if (selectPreId == "")
             {
-                ShowWarningDialog("异常提示", "请先选择要调剂的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要调剂的处方");
                 return;
             }
 
@@ -534,7 +534,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             if (downLoadPreModel == null || downLoadPreModel.CheckedPreInfos == null || downLoadPreModel.CheckedPreInfos.Count <= 0
                 || !downLoadPreModel.CheckedPreInfos.Any(x => x.PrescriptionID == selectPreId))
             {
-                ShowWarningDialog("异常提示", "该处方还未核对通过");
+                this.ShowWarningDialog("异常提示", "该处方还未核对通过");
                 return;
             }
 
@@ -542,7 +542,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             prescriptionModel = downLoadPreModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == selectPreId);
             if (prescriptionModel.Details == null || prescriptionModel.Details.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "未找到处方颗粒详情信息");
+                this.ShowWarningDialog("异常提示", "未找到处方颗粒详情信息");
                 return;
             }
 
@@ -1533,7 +1533,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                                                                 string error = "";//prescriptionFactory.DeductStock(prescriptionModel, listParticlesDetai.DeductStockWeight); //扣除库存
                                                                 if (error != "")
                                                                 {
-                                                                    ShowErrorDialog("异常提示", error);
+                                                                    this.ShowErrorDialog("异常提示", error);
                                                                 }
                                                             }
                                                         }
@@ -1700,7 +1700,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             catch
             {
-                ShowErrorDialog("保存恢复数据异常");
+                this.ShowErrorDialog("保存恢复数据异常");
             }
         }
 
@@ -1852,7 +1852,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 //}
                 //else
                 //{
-                //    ShowErrorDialog("异常提示", error);
+                //    this.ShowErrorDialog("异常提示", error);
                 //}
             }
             return false;

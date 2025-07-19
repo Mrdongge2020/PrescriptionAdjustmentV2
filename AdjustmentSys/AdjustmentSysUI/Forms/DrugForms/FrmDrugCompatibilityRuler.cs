@@ -81,22 +81,22 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (selectId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要删除的规则信息");
+                this.ShowWarningDialog("异常提示", "请先选择要删除的规则信息");
                 return;
             }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的规则信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("删除提示", "确定要删除选中的规则信息吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _particleProhibitionRuleBLL.DeleteRuleInfo(selectId);
             if (msg == "")
             {
-                ShowSuccessTip("删除成功");
+                this.ShowSuccessTip("删除成功");
                 QueryPageList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -117,7 +117,7 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (selectId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的规则信息");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的规则信息");
                 return;
             }
             Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x is FrmDrugCompatibilityRulerEdit).FirstOrDefault();

@@ -42,7 +42,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (cblisDurg.SelectedValue==null)
             {
-                ShowWarningDialog("请选择上架的药品信息");
+                this.ShowWarningDialog("请选择上架的药品信息");
                 return;
             }
             _Id= (int)cblisDurg.SelectedValue;

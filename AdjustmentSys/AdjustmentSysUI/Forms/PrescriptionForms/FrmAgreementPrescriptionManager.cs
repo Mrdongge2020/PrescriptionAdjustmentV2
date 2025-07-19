@@ -134,12 +134,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string msg = frmAgreementPrescriptionAdd.saveMessage;
             if (msg == "Successed")
             {
-                ShowSuccessTip("新建协定方成功");
+                this.ShowSuccessTip("新建协定方成功");
                 QueryPageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -147,7 +147,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (selectId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的协定方");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的协定方");
                 return;
             }
             Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x is FrmAgreementPrescriptionAdd).FirstOrDefault();
@@ -162,12 +162,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string msg = frmAgreementPrescriptionAdd.saveMessage;
             if (msg == "Successed")
             {
-                ShowSuccessTip("编辑协定方成功");
+                this.ShowSuccessTip("编辑协定方成功");
                 QueryPageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -175,22 +175,22 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (selectId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要删除的协定方");
+                this.ShowWarningDialog("异常提示", "请先选择要删除的协定方");
                 return;
             }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的协定方吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("删除提示", "确定要删除选中的协定方吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _prescriptionBLL.DeleteAgreementPrescriptionInfo(selectId);
             if (msg == "")
             {
-                ShowSuccessTip("删除成功");
+                this.ShowSuccessTip("删除成功");
                 QueryPageList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -198,7 +198,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (selectId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要复制的处方");
+                this.ShowWarningDialog("异常提示", "请先选择要复制的处方");
                 return;
             }
 
@@ -216,11 +216,11 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string msg = frmPrescriptionAdd.saveMessage;
             if (msg == "Successed")
             {
-                ShowSuccessTip("提交处方成功");
+                this.ShowSuccessTip("提交处方成功");
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 

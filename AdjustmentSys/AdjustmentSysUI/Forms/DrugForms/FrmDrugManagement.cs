@@ -121,7 +121,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             bool isOK = frmEdit.isSuccess;
             if (isOK)
             {
-                ShowSuccessTip("新增成功");
+                this.ShowSuccessTip("新增成功");
                 QueryPageList();
             }
         }
@@ -130,7 +130,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         {
             if (_drugId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的药品");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的药品");
                 return;
             }
 
@@ -146,7 +146,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             bool isOK = frmEdit.isSuccess;
             if (isOK)
             {
-                ShowSuccessTip("编辑成功");
+                this.ShowSuccessTip("编辑成功");
                 QueryPageList();
             }
         }
@@ -155,22 +155,22 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
         {
             if (_drugId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要删除的药品");
+                this.ShowWarningDialog("异常提示", "请先选择要删除的药品");
                 return;
             }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的药品吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("删除提示", "确定要删除选中的药品吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _drugManagermentBLL.DeleteDrugInfo(_drugId);
             if (msg == "")
             {
-                ShowSuccessTip("删除成功");
+                this.ShowSuccessTip("删除成功");
                 QueryPageList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -204,7 +204,7 @@ namespace AdjustmentSysUI.Forms.Pharmacopoeia
             var exportDatas = _drugManagermentBLL.ParticlesExports();
             if (exportDatas == null || exportDatas.Count <= 0)
             {
-                ShowWarningDialog("导出提示", "要导出的药品信息不存在");
+                this.ShowWarningDialog("导出提示", "要导出的药品信息不存在");
                 return;
             }
             ExcelOpterUI excelOpterUI = new ExcelOpterUI();

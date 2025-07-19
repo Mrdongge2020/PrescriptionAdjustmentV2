@@ -113,22 +113,22 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (checkDocId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要删除的医生");
+                this.ShowWarningDialog("异常提示", "请先选择要删除的医生");
                 return;
             }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的医生吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("删除提示", "确定要删除选中的医生吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _doctorInfoBLL.DeleteDoctorInfo(checkDocId);
             if (msg == "")
             {
-                ShowErrorTip("删除成功");
+                this.ShowErrorTip("删除成功");
                 QueryPageList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -136,7 +136,7 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (checkDocId == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的医生");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的医生");
                 return;
             }
 
@@ -152,12 +152,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = frmEdit.resultMsg;
             if (msg == "Successed")
             {
-                ShowSuccessTip("编辑医生成功");
+                this.ShowSuccessTip("编辑医生成功");
                 QueryPageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -175,12 +175,12 @@ namespace AdjustmentSysUI.Forms.UserForms
             string msg = frmEdit.resultMsg;
             if (msg == "Successed")
             {
-                ShowSuccessTip("新增医生成功");
+                this.ShowSuccessTip("新增医生成功");
                 QueryPageList();
             }
             else if (msg != "")
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 

@@ -49,13 +49,13 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (iudSort.Value<=0) 
             {
-                ShowWarningDialog("异常提示", "序号必须大于0");
+                this.ShowWarningDialog("异常提示", "序号必须大于0");
                 iudSort.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(txtMC.Text))
             {
-                ShowWarningDialog("异常提示", "厂家名称不能为空");
+                this.ShowWarningDialog("异常提示", "厂家名称不能为空");
                 txtMC.Focus();
                 return;
             }
@@ -67,12 +67,12 @@ namespace AdjustmentSysUI.Forms.Drug
             if (msg == "")
             {
                 IsSuccess = true;
-                //ShowSuccessTip((_manufacturerInfo.ID > 0 ? "编辑" : "新增") + "成功");
+                //this.ShowSuccessTip((_manufacturerInfo.ID > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
     }

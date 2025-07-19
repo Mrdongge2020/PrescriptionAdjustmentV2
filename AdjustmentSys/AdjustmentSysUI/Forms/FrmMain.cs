@@ -217,7 +217,7 @@ namespace AdjustmentSysUI.Forms
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool result = ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+            bool result = this.ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
             if (result)
             {
                 this.ExitApp();
@@ -240,7 +240,7 @@ namespace AdjustmentSysUI.Forms
 
         private void lblCloseSys_Click(object sender, EventArgs e)
         {
-            bool result = ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
+            bool result = this.ShowAskDialog("退出提示", "确定退出系统吗？退出后将结束所有任务", UIStyle.Blue, false, UIMessageDialogButtons.Ok);
             if (result)
             {
                 BackData();
@@ -265,7 +265,7 @@ namespace AdjustmentSysUI.Forms
                 {
                     if (Convert.ToInt32(DateTime.Now.ToString("HHmmss")) >= 170000 && Convert.ToInt32(DateTime.Now.ToString("HHmmss")) <= 200000)
                     {
-                        if (ShowAskDialog("数据备份提示", "确定要备份当前系统数据吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                        if (this.ShowAskDialog("数据备份提示", "确定要备份当前系统数据吗", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                         {
                             BackupsDB();
                         }
@@ -297,7 +297,7 @@ namespace AdjustmentSysUI.Forms
                 bool msg= commonStaticDataBLL.ExecuteSQL(sql);
                 if (!msg)
                 {
-                    ShowErrorTip("数据库备份失败.");
+                    this.ShowErrorTip("数据库备份失败.");
                     OperateLog.WriteLog(LogTypeEnum.数据库, "系统退出备份数据库失败,");
                     return;
                 }
@@ -311,13 +311,13 @@ namespace AdjustmentSysUI.Forms
 
                 if (!IsAuto)
                 {
-                    ShowSuccessTip("数据备份成功.");
+                    this.ShowSuccessTip("数据备份成功.");
                 }
             }
             catch (Exception ex)
             {
                 OperateLog.WriteLog(LogTypeEnum.数据库,  "系统退出备份数据库失败,"+ ex.Message);
-                ShowErrorTip("数据库备份失败.");
+                this.ShowErrorTip("数据库备份失败.");
             }
         }
     }

@@ -113,7 +113,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             string code = txtBZTM.Text.Trim();
             if (string.IsNullOrEmpty(code))
             {
-                ShowWarningDialog("异常提示", "请扫描颗粒条码");
+                this.ShowWarningDialog("异常提示", "请扫描颗粒条码");
                 this.txtBZTM.Focus();
                 return;
             }
@@ -122,20 +122,20 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             var mcodes = commonDataBLL.GetManufacturerCodes(mid);
             if (mcodes == null || mcodes.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "无可用的厂家条码信息");
+                this.ShowWarningDialog("异常提示", "无可用的厂家条码信息");
                 return;
             }
             mcodes = mcodes.Where(x => x.ExampleCode.Length == code.Length).ToList();
             if (mcodes == null || mcodes.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "未找到相匹配的厂家条码信息");
+                this.ShowWarningDialog("异常提示", "未找到相匹配的厂家条码信息");
                 return;
             }
             //获取全部颗粒信息
             var particles = commonDataBLL.GetCommonParticles();
             if (particles == null || particles.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "无可用药品字典信息");
+                this.ShowWarningDialog("异常提示", "无可用药品字典信息");
                 return;
             }
             ParticlesInfo particlesInfo = null;
@@ -170,27 +170,27 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             if (particlesInfo == null)
             {
-                ShowWarningDialog("异常提示", "未找到相关颗粒信息");
+                this.ShowWarningDialog("异常提示", "未找到相关颗粒信息");
                 return;
             }
 
             var meParticles = commonDataBLL.GetMedicineCabinetDetails(SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode);
             if (meParticles == null || meParticles.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "无可用药柜药品信息");
+                this.ShowWarningDialog("异常提示", "无可用药柜药品信息");
                 return;
             }
             //meParticles = meParticles.Where(x => x.ParticlesID == particlesInfo.ID).ToList();
             //if (meParticles == null || meParticles.Count <= 0)
             //{
-            //    ShowWarningDialog("异常提示", "该药品未在药柜上架");
+            //    this.ShowWarningDialog("异常提示", "该药品未在药柜上架");
             //    return;
             //}
             int rfid = MachinePublic.ReadRfidData;
             var cumeParticles = meParticles.FirstOrDefault(x => x.RFID == rfid);
             if (cumeParticles == null)
             {
-                ShowWarningDialog("异常提示", "包装条码药品与称重药品不一致");
+                this.ShowWarningDialog("异常提示", "包装条码药品与称重药品不一致");
                 return;
             }
 
@@ -290,7 +290,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             var meDetail = commonDataBLL.GetMedicineCabinetDetail(MachinePublic.ReadRfidData);
             if (meDetail == null)
             {
-                ShowWarningDialog("异常提示", "药柜颗粒信息不存在");
+                this.ShowWarningDialog("异常提示", "药柜颗粒信息不存在");
                 return;
             }
             // MedicineCabinetDetail medicineCabinetDetail= new MedicineCabinetDetail();
@@ -301,7 +301,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             if (!string.IsNullOrEmpty(meDetail.BatchNumber) && meDetail.BatchNumber != lblBatch.Text)
             {
-                if (!ShowAskDialog("批号提示", "当前药品批号与药柜批号记录不一致，是否更新药柜批号记录后继续上药？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                if (!this.ShowAskDialog("批号提示", "当前药品批号与药柜批号记录不一致，是否更新药柜批号记录后继续上药？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                 {
                     return;
                 }
@@ -315,7 +315,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             float addNum = float.TryParse(addNumStr, out float a) ? a : 0;
             if (addNum == 0)
             {
-                ShowWarningDialog("异常提示", "上药重量不能为0");
+                this.ShowWarningDialog("异常提示", "上药重量不能为0");
                 return;
             }
             meDetail.Stock = meDetail.Stock.Value + addNum;
@@ -324,30 +324,30 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             var particles = commonDataBLL.GetCommonParticles();
             if (particles == null || particles.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "药品字典信息不存在");
+                this.ShowWarningDialog("异常提示", "药品字典信息不存在");
                 return;
             }
 
             var parinfo = particles.FirstOrDefault(x => x.ID == meDetail.ParticlesID);
             if (parinfo == null)
             {
-                ShowWarningDialog("异常提示", "该药品字典信息不存在");
+                this.ShowWarningDialog("异常提示", "该药品字典信息不存在");
                 return;
             }
             if (ruleResultModel == null)
             {
-                ShowWarningDialog("异常提示", "请识别包装条码");
+                this.ShowWarningDialog("异常提示", "请识别包装条码");
                 return;
             }
 
             if (ruleResultModel.PackageNumber != parinfo.PackageNumber)
             {
-                ShowWarningDialog("异常提示", "包装码与实际上药药品不一致");
+                this.ShowWarningDialog("异常提示", "包装码与实际上药药品不一致");
                 return;
             }
             if (ruleResultModel.Density != parinfo.Density)
             {
-                if (!ShowAskDialog("密度提示", "当前药品包装密度与药品字典记录不一致，是否更新字典密度后继续上药？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                if (!this.ShowAskDialog("密度提示", "当前药品包装密度与药品字典记录不一致，是否更新字典密度后继续上药？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                 {
                     return;
                 }
@@ -380,7 +380,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
 
         }

@@ -102,22 +102,22 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (_Id == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要删除的药柜信息");
+                this.ShowWarningDialog("异常提示", "请先选择要删除的药柜信息");
                 return;
             }
-            if (!ShowAskDialog("删除提示", "确定要删除选中的药柜信息吗？这将同时删除此药柜备相关配置信息，不可恢复！", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("删除提示", "确定要删除选中的药柜信息吗？这将同时删除此药柜备相关配置信息，不可恢复！", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _medicineCabinetInfoBLL.DeleteCabinetInfo(_Id);
             if (msg == "")
             {
-                ShowSuccessTip("删除成功");
+                this.ShowSuccessTip("删除成功");
                 QueryList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -125,7 +125,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (_Id == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的药柜信息");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的药柜信息");
                 return;
             }
             Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x is FrmMedicineCabinetEdit).FirstOrDefault();

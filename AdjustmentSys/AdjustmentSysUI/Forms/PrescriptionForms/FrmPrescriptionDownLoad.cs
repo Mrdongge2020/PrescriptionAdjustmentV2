@@ -201,22 +201,22 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             List<string> preIds = GetAllCheckPreId();
             if (preIds == null || preIds.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请勾选要作废的处方");
+                this.ShowWarningDialog("异常提示", "请勾选要作废的处方");
                 return;
             }
-            if (!ShowAskDialog("作废提示", "确定要作废已勾选的处方吗，作废后将不可恢复，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("作废提示", "确定要作废已勾选的处方吗，作废后将不可恢复，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
             var msg = _prescriptionBLL.UpdatePrescriptionStatus(preIds, ProcessStatusEnum.作废);
             if (msg == "")
             {
-                ShowSuccessTip("作废成功");
+                this.ShowSuccessTip("作废成功");
                 QueryPrePageList();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -224,16 +224,16 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             //if (selectPreId == "")
             //{
-            //    ShowWarningDialog("异常提示", "请选中要匹配HIS码的处方");
+            //    this.ShowWarningDialog("异常提示", "请选中要匹配HIS码的处方");
             //    return;
             //}
             List<string> preIds = GetAllCheckPreId();
             if (preIds == null || preIds.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请勾选要匹配HIS码的处方");
+                this.ShowWarningDialog("异常提示", "请勾选要匹配HIS码的处方");
                 return;
             }
-            if (!ShowAskDialog("作废提示", $"确定要对已勾选的处方[{string.Join(",", preIds)}]匹配HIS码吗，操作不可逆，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("作废提示", $"确定要对已勾选的处方[{string.Join(",", preIds)}]匹配HIS码吗，操作不可逆，谨慎操作。", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -246,7 +246,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             if (errorList != null && errorList.Count > 0)
             {
 
-                ShowWarningDialog("结果提示", string.Join("\r\n", errorList));
+                this.ShowWarningDialog("结果提示", string.Join("\r\n", errorList));
                 QueryPrePageList();
             }
 
@@ -257,7 +257,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             List<string> preIds = GetAllCheckPreId();
             if (preIds == null || preIds.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "请勾选要下载的处方");
+                this.ShowWarningDialog("异常提示", "请勾选要下载的处方");
                 return;
             }
             List<string> errorList = null;
@@ -266,7 +266,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             {
                 if (errorList != null && errorList.Count > 0)
                 {
-                    ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
+                    this.ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
                 };
                 this.Close();
             }
@@ -274,7 +274,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             {
                 if (errorList != null && errorList.Count > 0)
                 {
-                    ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
+                    this.ShowWarningDialog("错误提示", string.Join("\r\n", errorList));
                 };
             }
 
@@ -311,7 +311,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (dgvPreDetail.SelectedRows.Count<=0) 
             {
-                ShowWarningDialog("异常提示", "请选择要更新HIS码的药品信息");
+                this.ShowWarningDialog("异常提示", "请选择要更新HIS码的药品信息");
                 return;
             }
           
@@ -324,7 +324,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             string parName = frmUpdateHisCode.ParName;
             if (parName != "") 
             {
-                ShowSuccessTip($"更新药品[{parName}]的HIS信息成功");
+                this.ShowSuccessTip($"更新药品[{parName}]的HIS信息成功");
                 QueryPreDetailList();
             }
         }

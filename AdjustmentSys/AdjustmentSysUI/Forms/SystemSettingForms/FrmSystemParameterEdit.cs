@@ -89,7 +89,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             }
             else 
             {
-                ShowErrorDialog("错误提示", error);
+                this.ShowErrorDialog("错误提示", error);
             }
         }
 
@@ -97,25 +97,25 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
         {
             if (string.IsNullOrEmpty(txtName.Text)) 
             {
-                ShowWarningDialog("异常提示", "参数名称不能为空");
+                this.ShowWarningDialog("异常提示", "参数名称不能为空");
                 txtName.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtDecribe.Text))
             {
-                ShowWarningDialog("异常提示", "参数描述不能为空");
+                this.ShowWarningDialog("异常提示", "参数描述不能为空");
                 txtDecribe.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtParaValue.Text))
             {
-                ShowWarningDialog("异常提示", "参数值不能为空");
+                this.ShowWarningDialog("异常提示", "参数值不能为空");
                 txtParaValue.Focus();
                 return false;
             }
             if (cbType.SelectedIndex==-1 ||(int)cbType.SelectedValue==-1 )
             {
-                ShowWarningDialog("异常提示", "参数类型不能为空");
+                this.ShowWarningDialog("异常提示", "参数类型不能为空");
                 cbType.Focus();
                 return false;
             }

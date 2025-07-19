@@ -52,7 +52,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             uiRichTextBox1.Text = "";
             if (cbLogType.SelectedValue == null)
             {
-                ShowInfoDialog("请选择日志类型");
+                this.ShowInfoDialog("请选择日志类型");
                 cbLogType.Focus();
                 return;
             }

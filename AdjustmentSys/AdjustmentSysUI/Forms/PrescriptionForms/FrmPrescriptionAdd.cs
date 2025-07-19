@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AdjustmentSysUI.Forms.PrescriptionForms
 {
@@ -28,6 +29,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         ComboxDataBLL _comboxDataBLL = new ComboxDataBLL();
         PrescriptionBLL _prescriptionBLL = new PrescriptionBLL();
         List<int> parIdList = new List<int>();//已添加的药品id
+        List<ComboxModel> docDatas = new List<ComboxModel>();
         List<ComboxModel> durgDLData = new List<ComboxModel>();//药柜药品数据
         private string PreId = "";//复制的处方编号
         private int? PreStatus;//复制的处方状态
@@ -40,13 +42,16 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             PreStatus = preStatus;
             this.agreementPrescriptionId = agreementPrescriptionId;
 
+            InitData();
+            InitPreData(PreId);
         }
 
         private void FrmPrescriptionAdd_Load(object sender, EventArgs e)
         {
             saveMessage = "";
-            InitData();
-            InitPreData(PreId);
+            this.txtPatName.Focus();
+            this.txtPatName.SelectAll();
+
         }
         /// <summary>
         /// 初始化数据
@@ -59,7 +64,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             cbDurg.DataSource = durgDLData;
             cbDurg.SelectedIndex = -1;
 
-            List<ComboxModel> docDatas = _comboxDataBLL.GetDoctorComboxData();
+            docDatas = _comboxDataBLL.GetDoctorComboxData();
             cbDoctorName.ValueMember = "Id";
             cbDoctorName.DisplayMember = "Name";
             cbDoctorName.DataSource = docDatas;
@@ -77,6 +82,9 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             string depName = _prescriptionBLL.GetDoctorDepartment(docId);
             txtDocDepartment.Text = depName;
+
+            txtRemark.Focus();
+            txtRemark.SelectAll();
         }
 
         private void InitPreData(string preId)
@@ -122,11 +130,11 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             //分析数据
             lbCheckResult.Items.Clear();
             txtXDFMC.Text = string.Empty;
-            if (agreementPrescriptionId.HasValue) 
+            if (agreementPrescriptionId.HasValue)
             {
                 InitCopyPreData();
             }
-            
+
         }
 
         private void InitCopyPreData()
@@ -243,44 +251,44 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (string.IsNullOrEmpty(txtPrID.Text))
             {
-                ShowWarningDialog("异常提示", "处方编号不能为空");
+                this.ShowWarningDialog("异常提示", "处方编号不能为空");
                 txtPrID.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtPatName.Text))
             {
-                ShowWarningDialog("异常提示", "患者姓名不能为空");
+                this.ShowWarningDialog("异常提示", "患者姓名不能为空");
                 txtPatName.Focus();
                 return false;
             }
 
             if (iudFS.Value <= 0)
             {
-                ShowWarningDialog("异常提示", "付数必须大于0");
+                this.ShowWarningDialog("异常提示", "付数必须大于0");
                 iudFS.Focus();
                 return false;
             }
             if (iudFFCS.Value <= 0)
             {
-                ShowWarningDialog("异常提示", "分服次数必须大于0");
+                this.ShowWarningDialog("异常提示", "分服次数必须大于0");
                 iudFFCS.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(cbDoctorName.Text))
             {
-                ShowWarningDialog("异常提示", "医生姓名不能为空");
+                this.ShowWarningDialog("异常提示", "医生姓名不能为空");
                 cbDoctorName.Focus();
                 return false;
             }
             if (string.IsNullOrEmpty(txtDocDepartment.Text))
             {
-                ShowWarningDialog("异常提示", "医生科室不能为空");
+                this.ShowWarningDialog("异常提示", "医生科室不能为空");
                 txtDocDepartment.Focus();
                 return false;
             }
             if (dgvDurgList.Rows.Count == 0)
             {
-                ShowWarningDialog("异常提示", "处方药品不能为空");
+                this.ShowWarningDialog("异常提示", "处方药品不能为空");
                 cbDurg.Focus();
                 return false;
             }
@@ -289,33 +297,57 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            AddDurg();
+        }
+
+        private bool AddDurg()
+        {
             if (cbDurg.SelectedValue == null || (int)cbDurg.SelectedValue == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择药品");
+                this.ShowWarningDialog("异常提示", "请先选择药品");
                 cbDurg.Focus();
-                return;
+                return false;
             }
             if (dudJL.Value == 0)
             {
-                ShowWarningDialog("异常提示", "请输入药品剂量");
+                this.ShowWarningDialog("异常提示", "请输入药品剂量");
                 dudJL.Focus();
-                return;
+                return false;
             }
             if (parIdList != null && parIdList.Contains((int)cbDurg.SelectedValue))
             {
-                ShowWarningDialog("异常提示", "该药品已在列表存在，请勿重复添加");
-                return;
+                //this.ShowWarningDialog("异常提示", "该药品已在列表存在，请勿重复添加");
+                //return false;
+                #region 20250718新加
+
+                if (!this.ShowAskDialog("数据提示", "该处方已添加< " + cbDurg.Text + " >,是否覆盖此颗粒信息", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                {
+                    this.cbDurg.Focus();
+                    return false;
+                }
+                else
+                {
+                    foreach (DataGridViewRow row1 in dgvDurgList.Rows)
+                    {
+                        if ((int)row1.Cells["ID"].Value == (int)cbDurg.SelectedValue)
+                        {
+                            dgvDurgList.Rows.Remove(row1);
+                            break;
+                        }
+                    }
+                }
+                #endregion
             }
             var durgInfo = _prescriptionBLL.GetParticlesInfo((int)cbDurg.SelectedValue);
             if (durgInfo == null)
             {
-                ShowWarningDialog("异常提示", "未找到该药品信息");
-                return;
+                this.ShowWarningDialog("异常提示", "未找到该药品信息");
+                return false;
             }
             if (durgInfo.Equivalent == 0)
             {
-                ShowWarningDialog("异常提示", "该药品当量为0，无法添加");
-                return;
+                this.ShowWarningDialog("异常提示", "该药品当量为0，无法添加");
+                return false;
             }
 
             if (cbJLFS.SelectedIndex == 0)
@@ -331,8 +363,8 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             if (!AddDurgCheck(durgInfo))
             {
-                ShowWarningDialog("异常提示", "该药品未通过检查，无法添加");
-                return;
+                this.ShowWarningDialog("异常提示", "该药品未通过检查，无法添加");
+                return false;
             }
 
             DataGridViewRow row = new DataGridViewRow();
@@ -349,9 +381,12 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             row.Cells[8].Value = durgInfo.RetailPrice;
             row.Cells[9].Value = Math.Round(durgInfo.RetailPrice * (decimal)durgInfo.DoseHerb, 3);
 
-            dgvDurgList.Rows.Insert(0, row);
-
-            parIdList.Add(durgInfo.ID);
+            //dgvDurgList.Rows.Insert(0, row);
+            dgvDurgList.Rows.Insert(dgvDurgList.Rows.Count == 0 ? 0 : dgvDurgList.Rows.Count, row);
+            if (!parIdList.Contains(durgInfo.ID))
+            {
+                parIdList.Add(durgInfo.ID);
+            }
 
             this.dgvDurgList.TopLeftHeaderCell.Value = "共" + parIdList.Count.ToString() + "条";
             dgvDurgList.ClearSelection();
@@ -367,6 +402,8 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             dgvFooter["Dose"] = dataGradeViewUi.ComputeColumnSum(dgvDurgList, "Dose").ToString();
             dgvFooter["Price"] = dataGradeViewUi.ComputeColumnSum(dgvDurgList, "Price").ToString();
             dgvFooter["TotalPrice"] = dataGradeViewUi.ComputeColumnSum(dgvDurgList, "TotalPrice").ToString();
+
+            return true;
         }
 
         private double ComputeColumnSum(DataGridView dataGrid, string colNname)
@@ -396,7 +433,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                 if (rulercheckList != null && rulercheckList.Count > 0)
                 {
                     string allStr = string.Join("\r\n", rulercheckList);
-                    if (!ShowAskDialog("是否忽略?", allStr, UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                    if (!this.ShowAskDialog("是否忽略?", allStr, UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                     {
                         return false;
                     }
@@ -456,7 +493,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             dataPrescription.TaskFrequency = iudFFCS.Value;
             dataPrescription.DoctorName = cbDoctorName.Text;
             dataPrescription.DepartmentName = txtDocDepartment.Text;
-            dataPrescription.PrescriptionSource =1;
+            dataPrescription.PrescriptionSource = 1;
             dataPrescription.Remarks = txtRemark.Text;
             dataPrescription.UsageMethod = string.IsNullOrEmpty(txtRemark.Text) ? "无" : txtRemark.Text;
             if (agreementPrescriptionId.HasValue)
@@ -496,7 +533,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (dgvDurgList.SelectedRows.Count == 0)
             {
-                ShowWarningDialog("异常提示", "请选中要移除的药品信息");
+                this.ShowWarningDialog("异常提示", "请选中要移除的药品信息");
                 return;
             }
 
@@ -531,13 +568,13 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (string.IsNullOrEmpty(txtXDFMC.Text))
             {
-                ShowWarningDialog("异常提示", "协定方名称不能为空");
+                this.ShowWarningDialog("异常提示", "协定方名称不能为空");
                 txtXDFMC.Focus();
                 return;
             }
             if (dgvDurgList.Rows.Count == 0)
             {
-                ShowWarningDialog("异常提示", "处方药品不能为空");
+                this.ShowWarningDialog("异常提示", "处方药品不能为空");
                 cbDurg.Focus();
                 return;
             }
@@ -563,12 +600,120 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             var message = _prescriptionBLL.AddOrEditAgreementPrescriptionInfo(agreementPrescriptionId, agreementPrescriptionInfo, agreementPrescriptionDetails);
             if (message == "")
             {
-                ShowSuccessTip("存为协定方成功");
-                txtXDFMC.Text=string.Empty;
+                this.ShowSuccessTip("存为协定方成功");
+                txtXDFMC.Text = string.Empty;
             }
             else
             {
-                ShowSuccessTip("存为协定方失败，原因:"+message);
+                this.ShowSuccessTip("存为协定方失败，原因:" + message);
+            }
+        }
+
+        private void txtPatName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                txtPatPhone.Focus();
+                txtPatPhone.SelectAll();
+            }
+        }
+
+        private void txtPatPhone_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                cbSex.Focus();
+                cbSex.SelectAll();
+            }
+        }
+
+        
+
+        private void iudAgeYear_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                iudFS.Focus();
+                iudFS.SelectAll();
+            }
+        }
+
+        private void iudFS_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                iudFFCS.Focus();
+                iudFFCS.SelectAll();
+            }
+        }
+
+        private void iudFFCS_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                cbDoctorName.Focus();
+                cbDoctorName.SelectAll();
+            }
+        }
+
+
+
+
+        private void txtRemark_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                cbDurg.Focus();
+                cbDurg.SelectAll();
+            }
+        }
+
+
+
+        private void dudJL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (dudJL.Value <= 0)
+                {
+                    this.ShowWarningDialog("异常提示", "请先输入药品剂量");
+                    return;
+                }
+                if (AddDurg())
+                {
+                    cbDurg.SelectedItem = null;
+                    cbDurg.Text = "";
+                    cbDurg.Focus();
+                }
+            }
+        }
+
+        private void cbDurg_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cbDurg.SelectedItem != null)
+            {
+                this.dudJL.Focus();
+                dudJL.SelectAll();
+            }
+
+        }
+
+        private void dudJL_Enter(object sender, EventArgs e)
+        {
+            dudJL.SelectAll();
+        }
+
+        private void iudAgeYear_Enter(object sender, EventArgs e)
+        {
+            iudAgeYear.SelectAll();
+        }
+
+        private void cbSex_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSex.SelectedIndex!=-1) 
+            {
+                this.iudAgeYear.Focus();
+                iudAgeYear.SelectAll();
             }
         }
     }

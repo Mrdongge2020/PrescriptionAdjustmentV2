@@ -84,7 +84,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             }
             else
             {
-                if (!ShowAskDialog("重要提示", "您未选择药品，将执行修改药柜上所有药品效期到" + dpSetDateEnd.Value.ToString("yyyy-MM-dd HH:mm:ss") + ",请慎重操作！确定要全部修改？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+                if (!this.ShowAskDialog("重要提示", "您未选择药品，将执行修改药柜上所有药品效期到" + dpSetDateEnd.Value.ToString("yyyy-MM-dd HH:mm:ss") + ",请慎重操作！确定要全部修改？", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
                 {
                     return;
                 }
@@ -93,12 +93,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             bool isOk = _medicineCabinetDrugManageBLL.UpdateValidity(pid, dpSetDateEnd.Value);
             if (isOk)
             {
-                ShowSuccessTip("操作成功");
+                this.ShowSuccessTip("操作成功");
                 QueryData();
             }
             else
             {
-                ShowErrorDialog("错误提示", "操作失败，请稍后再试");
+                this.ShowErrorDialog("错误提示", "操作失败，请稍后再试");
             }
         }
 

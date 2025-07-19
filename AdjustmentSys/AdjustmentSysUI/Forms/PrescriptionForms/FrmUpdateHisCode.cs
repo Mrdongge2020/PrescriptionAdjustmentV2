@@ -35,7 +35,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         {
             if (cblisDurg.SelectedValue == null)
             {
-                ShowWarningDialog("请选择要更新HIS码的药品信息");
+                this.ShowWarningDialog("请选择要更新HIS码的药品信息");
                 return;
             }
             DrugManagermentBLL drugManagermentBLL = new DrugManagermentBLL();
@@ -48,7 +48,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             }
             else 
             { 
-                ShowErrorDialog(msg);
+                this.ShowErrorDialog(msg);
             }
            
         }

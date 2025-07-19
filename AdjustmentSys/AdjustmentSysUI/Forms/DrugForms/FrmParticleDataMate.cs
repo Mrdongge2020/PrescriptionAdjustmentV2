@@ -41,7 +41,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             else
             {
                 btnConfimImport.Enabled = false;
-                ShowWarningDialog("导入提示", "未找到合规的药品匹配信息。");
+                this.ShowWarningDialog("导入提示", "未找到合规的药品匹配信息。");
             }
         }
 
@@ -49,7 +49,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
         {
             if (dgvList.Rows.Count <= 0)
             {
-                ShowWarningDialog("导入提示", "要匹配的药品信息不存在");
+                this.ShowWarningDialog("导入提示", "要匹配的药品信息不存在");
                 return;
             }
             List<string> fieldstrings = new List<string>();
@@ -75,10 +75,10 @@ namespace AdjustmentSysUI.Forms.DrugForms
             }
             if (fieldstrings==null || fieldstrings.Count<=0) 
             {
-                ShowWarningDialog("导入提示", "请先选择要匹配的字段");
+                this.ShowWarningDialog("导入提示", "请先选择要匹配的字段");
                 return;
             }
-            if (!ShowAskDialog("匹配提示", $"确定要根据药品简称匹配已选中的字段数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
+            if (!this.ShowAskDialog("匹配提示", $"确定要根据药品简称匹配已选中的字段数据吗？操作不可逆哦", UIStyle.Blue, false, UIMessageDialogButtons.Ok))
             {
                 return;
             }
@@ -86,13 +86,13 @@ namespace AdjustmentSysUI.Forms.DrugForms
             var msg= _drugManagermentBLL.MateParticlesImport(particlesMateList, fieldstrings);
             if (msg=="") 
             {
-                ShowSuccessTip("导入数据成功");
+                this.ShowSuccessTip("导入数据成功");
                 btnConfimImport.Enabled = false;
                 uiCheckBoxGroup1.UnSelectAll();
             }
             else
             {
-                ShowErrorDialog("导入数据失败,原因:" + msg);
+                this.ShowErrorDialog("导入数据失败,原因:" + msg);
             }
         }
     }

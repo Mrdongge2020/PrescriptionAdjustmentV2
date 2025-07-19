@@ -190,7 +190,7 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 if (error == "")
                 {
                     dgvList.Rows[e.RowIndex].Cells[0].Value = true;
-                    ShowSuccessTip(name + "启用成功");
+                    this.ShowSuccessTip(name + "启用成功");
                 }
             }
             //若单击时，CheckBox已经被勾上
@@ -200,12 +200,12 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 if (error == "")
                 {
                     dgvList.Rows[e.RowIndex].Cells[0].Value = false;
-                    ShowSuccessTip(name+"禁用成功");
+                    this.ShowSuccessTip(name+"禁用成功");
                 }
             }
             if (error != "")
             {
-                ShowErrorDialog(name + "操作出现异常，原因:" + error);
+                this.ShowErrorDialog(name + "操作出现异常，原因:" + error);
                 return;
             }
 
@@ -228,17 +228,17 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                     string error = systemParameterBLL.UpdateConfigValue(name, data);
                     if (error == "")
                     {
-                        ShowSuccessTip(name+"保存成功");
+                        this.ShowSuccessTip(name+"保存成功");
                         ConfigTB.SetConfigData();
                     }
                     else
                     {
-                        ShowErrorDialog(name+"保存失败，原因:" + error);
+                        this.ShowErrorDialog(name+"保存失败，原因:" + error);
                     }
                 }
                 else
                 {
-                    ShowErrorDialog(name+"保存失败，原因:" + msg);
+                    this.ShowErrorDialog(name+"保存失败，原因:" + msg);
                 }
 
             }
@@ -372,13 +372,13 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             string error = systemParameterBLL.UpdatePrintItemValue(chinesename, null, null, combinedValue);
             if (error == "")
             {
-                ShowSuccessTip(chinesename + "操作成功");
+                this.ShowSuccessTip(chinesename + "操作成功");
                 PrintConfigTB.SetPrintItemData();
                 LoaduiDataGridView2();
             }
             else
             {
-                ShowErrorDialog(chinesename+"操作失败，原因:" + error);
+                this.ShowErrorDialog(chinesename+"操作失败，原因:" + error);
             }
         }
 
@@ -395,12 +395,12 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 string title = uiDataGridView2.Rows[e.RowIndex].Cells[2].Value?.ToString();
                 if (string.IsNullOrEmpty(sort)) 
                 {
-                    ShowErrorDialog("排序不能为空");
+                    this.ShowErrorDialog("排序不能为空");
                     return;
                 }
                 if (!double.TryParse(sort, out double s) || s<0)
                 {
-                    ShowErrorDialog("排序请输入整数或2位小数的数字");
+                    this.ShowErrorDialog("排序请输入整数或2位小数的数字");
                     return;
                 }
                 if (string.IsNullOrEmpty(title))
@@ -410,13 +410,13 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                 string error = systemParameterBLL.UpdatePrintItemValue(chinesename, s, title, null);
                 if (error == "")
                 {
-                    ShowSuccessTip(chinesename+"保存成功");
+                    this.ShowSuccessTip(chinesename+"保存成功");
                     PrintConfigTB.SetPrintItemData();
                     LoaduiDataGridView2();
                 }
                 else
                 {
-                    ShowErrorDialog(chinesename+"操作失败，原因:" + error);
+                    this.ShowErrorDialog(chinesename+"操作失败，原因:" + error);
                 }
             }
         }
@@ -437,17 +437,17 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
                     string error = systemParameterBLL.UpdatePrintConfigValue(name, data);
                     if (error == "")
                     {
-                        ShowSuccessTip(name+"保存成功");
+                        this.ShowSuccessTip(name+"保存成功");
                         PrintConfigTB.SetConfigData();
                     }
                     else
                     {
-                        ShowErrorDialog(name + "保存失败，原因:" + error);
+                        this.ShowErrorDialog(name + "保存失败，原因:" + error);
                     }
                 }
                 else
                 {
-                    ShowErrorDialog(name + "保存失败，原因:" + msg);
+                    this.ShowErrorDialog(name + "保存失败，原因:" + msg);
                 }
 
             }
@@ -471,11 +471,11 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             string error = systemParameterBLL.UpdatePrintConfigValue("是否自动打印处方主标签", checkValue);
             if (error == "")
             {
-                ShowSuccessTip($"是否自动打印处方主标签设置成功");
+                this.ShowSuccessTip($"是否自动打印处方主标签设置成功");
             }
             else
             {
-                ShowErrorDialog("操作出现异常，原因:" + error);
+                this.ShowErrorDialog("操作出现异常，原因:" + error);
                 return;
             }
 
@@ -522,11 +522,11 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
             string error = systemParameterBLL.UpdatePrintConfigValue(name, value);
             if (error == "")
             {
-                ShowSuccessTip("处方打印方式设置成功");
+                this.ShowSuccessTip("处方打印方式设置成功");
             }
             else
             {
-                ShowErrorDialog(name + "操作出现异常，原因:" + error);
+                this.ShowErrorDialog(name + "操作出现异常，原因:" + error);
                 return;
             }
 

@@ -139,7 +139,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
         {
             if (selectPreId == "")
             {
-                //UIMessageDialog.ShowWarningDialog("异常提示", "请先选择要复位的处方");
+                //UIMessageDialog.this.ShowWarningDialog("异常提示", "请先选择要复位的处方");
                 return;
             }
             PrescriptionBLL prescriptionBLL = new PrescriptionBLL();
@@ -156,7 +156,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
             }
             else
             {
-                //ShowErrorDialog("错误提示", errorMsg);
+                //this.ShowErrorDialog("错误提示", errorMsg);
             }
         }
     }

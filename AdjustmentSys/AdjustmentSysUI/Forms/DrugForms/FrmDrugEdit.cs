@@ -139,12 +139,12 @@ namespace AdjustmentSysUI.Forms.Drug
             if (msg == "")
             {
                 isSuccess = true;
-                //ShowSuccessTip((_drugId > 0 ? "编辑" : "新增") + "成功");
+                //this.ShowSuccessTip((_drugId > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -152,37 +152,37 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (string.IsNullOrEmpty(txtJC.Text))
             {
-                ShowWarningDialog("异常提示", "名称简称不能为空");
+                this.ShowWarningDialog("异常提示", "名称简称不能为空");
                 txtJC.Focus();
                 return false;
             }
             if (cbCJ.SelectedIndex == -1)
             {
-                ShowWarningDialog("异常提示", "请选择颗粒厂家");
+                this.ShowWarningDialog("异常提示", "请选择颗粒厂家");
                 return false;
             }
             //if (string.IsNullOrEmpty(txtKLM.Text))
             //{
-            //    ShowWarningDialog("异常提示", "颗粒码不能为空");
+            //    this.ShowWarningDialog("异常提示", "颗粒码不能为空");
             //    txtKLM.Focus();
             //    return false;
             //}
             //if (txtKLM.Text.Length != 6 || !int.TryParse(txtKLM.Text, out int w))
             //{
-            //    ShowWarningDialog("异常提示", "颗粒码只能是6位正整数");
+            //    this.ShowWarningDialog("异常提示", "颗粒码只能是6位正整数");
             //    txtKLM.Focus();
             //    return false;
             //}
             if (string.IsNullOrEmpty(txtMD.Text))
             {
-                ShowWarningDialog("异常提示", "密度不能为空");
+                this.ShowWarningDialog("异常提示", "密度不能为空");
                 txtMD.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDL.Text))
             {
-                ShowWarningDialog("异常提示", "当量不能为空");
+                this.ShowWarningDialog("异常提示", "当量不能为空");
                 txtDL.Focus();
                 return false;
             }
@@ -194,13 +194,13 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (cbCJ.SelectedIndex == -1)
             {
-                ShowWarningDialog("异常提示", "请选择颗粒厂家");
+                this.ShowWarningDialog("异常提示", "请选择颗粒厂家");
                 return ;
             }
             string code = txtBZTM.Text?.Trim();
             if (string.IsNullOrEmpty(code))
             {
-                ShowWarningDialog("异常提示", "包装条码不能为空");
+                this.ShowWarningDialog("异常提示", "包装条码不能为空");
                 txtBZTM.Focus();
                 return;
             }
@@ -211,13 +211,13 @@ namespace AdjustmentSysUI.Forms.Drug
             var mcodes = commonDataBLL.GetManufacturerCodes(mid);
             if (mcodes == null || mcodes.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "无可用的厂家条码信息");
+                this.ShowWarningDialog("异常提示", "无可用的厂家条码信息");
                 return;
             }
             mcodes = mcodes.Where(x => x.ExampleCode.Length == code.Length).ToList();
             if (mcodes == null || mcodes.Count <= 0)
             {
-                ShowWarningDialog("异常提示", "未找到相匹配的厂家条码信息");
+                this.ShowWarningDialog("异常提示", "未找到相匹配的厂家条码信息");
                 return;
             }
 
@@ -230,7 +230,7 @@ namespace AdjustmentSysUI.Forms.Drug
                     txtMD.Text = ruler.Density.ToString();
                     txtDL.Text = ruler.Equivalent.ToString();
                     txtDBZM.Text = ruler.PackageNumber;
-                    ShowSuccessTip("解析完成");
+                    this.ShowSuccessTip("解析完成");
                     break;
                 }
                 

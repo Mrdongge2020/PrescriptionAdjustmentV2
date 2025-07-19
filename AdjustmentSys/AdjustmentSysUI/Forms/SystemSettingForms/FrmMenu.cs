@@ -143,11 +143,11 @@ namespace AdjustmentSysUI.Forms.SystemSettingForms
 
             if (resMsg == "")
             {
-                ShowSuccessTip("操作成功");
+                this.ShowSuccessTip("操作成功");
             }
             else
             {
-                ShowErrorDialog("操作失败" + resMsg);
+                this.ShowErrorDialog("操作失败" + resMsg);
             }
 
         }

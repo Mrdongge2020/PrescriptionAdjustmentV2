@@ -185,12 +185,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                     else
                     {
-                        ShowErrorDialog("设备正在调剂,禁止切换至调试模式");
+                        this.ShowErrorDialog("设备正在调剂,禁止切换至调试模式");
                     }
                 }
                 else
                 {
-                    ShowErrorDialog("未连接到设备");
+                    this.ShowErrorDialog("未连接到设备");
                     this.btnTestStart.Active=false;
                 }
             }
@@ -350,7 +350,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             else
             {
-                ShowErrorDialog(DateTime.Now + "|设置下药参数异常|");
+                this.ShowErrorDialog(DateTime.Now + "|设置下药参数异常|");
                 dudDZTSbfb.Focus();
             }
         }
@@ -433,7 +433,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
             catch (Exception ex)
             {
-                ShowErrorDialog("颗粒名称写入异常,原因:" + ex.Message);
+                this.ShowErrorDialog("颗粒名称写入异常,原因:" + ex.Message);
             }
         }
 

@@ -114,7 +114,7 @@
             txtPrID.ShowButton = true;
             txtPrID.ShowText = false;
             txtPrID.Size = new Size(222, 29);
-            txtPrID.TabIndex = 1;
+            txtPrID.TabIndex = 2;
             txtPrID.TextAlignment = ContentAlignment.MiddleLeft;
             txtPrID.Watermark = "";
             txtPrID.ButtonClick += txtPrID_ButtonClick;
@@ -131,9 +131,10 @@
             txtPatName.Padding = new Padding(5);
             txtPatName.ShowText = false;
             txtPatName.Size = new Size(126, 29);
-            txtPatName.TabIndex = 3;
+            txtPatName.TabIndex = 1;
             txtPatName.TextAlignment = ContentAlignment.MiddleLeft;
             txtPatName.Watermark = "";
+            txtPatName.KeyDown += txtPatName_KeyDown;
             // 
             // uiLabel2
             // 
@@ -158,9 +159,10 @@
             txtPatPhone.Padding = new Padding(5);
             txtPatPhone.ShowText = false;
             txtPatPhone.Size = new Size(127, 29);
-            txtPatPhone.TabIndex = 5;
+            txtPatPhone.TabIndex = 4;
             txtPatPhone.TextAlignment = ContentAlignment.MiddleLeft;
             txtPatPhone.Watermark = "";
+            txtPatPhone.KeyDown += txtPatPhone_KeyDown;
             // 
             // uiLabel3
             // 
@@ -211,7 +213,6 @@
             // cbSex
             // 
             cbSex.DataSource = null;
-            cbSex.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbSex.FillColor = Color.White;
             cbSex.Font = new Font("微软雅黑", 12F);
             cbSex.ItemHoverColor = Color.FromArgb(155, 200, 255);
@@ -224,10 +225,11 @@
             cbSex.Padding = new Padding(0, 0, 30, 2);
             cbSex.Size = new Size(66, 29);
             cbSex.SymbolSize = 24;
-            cbSex.TabIndex = 9;
+            cbSex.TabIndex = 5;
             cbSex.Text = "女";
             cbSex.TextAlignment = ContentAlignment.MiddleLeft;
             cbSex.Watermark = "";
+            cbSex.SelectedIndexChanged += cbSex_SelectedIndexChanged;
             // 
             // iudAgeYear
             // 
@@ -236,12 +238,15 @@
             iudAgeYear.Margin = new Padding(4, 5, 4, 5);
             iudAgeYear.MinimumSize = new Size(100, 0);
             iudAgeYear.Name = "iudAgeYear";
+            iudAgeYear.Padding = new Padding(5);
             iudAgeYear.ShowText = false;
             iudAgeYear.Size = new Size(100, 29);
-            iudAgeYear.TabIndex = 10;
-            iudAgeYear.Text = null;
+            iudAgeYear.TabIndex = 6;
+            iudAgeYear.Text = "20";
             iudAgeYear.TextAlignment = ContentAlignment.MiddleCenter;
             iudAgeYear.Value = 20;
+            iudAgeYear.KeyDown += iudAgeYear_KeyDown;
+            iudAgeYear.Enter += iudAgeYear_Enter;
             // 
             // iupAgeMonth
             // 
@@ -250,10 +255,11 @@
             iupAgeMonth.Margin = new Padding(4, 5, 4, 5);
             iupAgeMonth.MinimumSize = new Size(100, 0);
             iupAgeMonth.Name = "iupAgeMonth";
+            iupAgeMonth.Padding = new Padding(5);
             iupAgeMonth.ShowText = false;
             iupAgeMonth.Size = new Size(100, 29);
-            iupAgeMonth.TabIndex = 11;
-            iupAgeMonth.Text = "uiIntegerUpDown2";
+            iupAgeMonth.TabIndex = 7;
+            iupAgeMonth.Text = "0";
             iupAgeMonth.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // iudFFCS
@@ -261,29 +267,33 @@
             iudFFCS.Font = new Font("微软雅黑", 12F);
             iudFFCS.Location = new Point(267, 97);
             iudFFCS.Margin = new Padding(4, 5, 4, 5);
-            iudFFCS.Minimum = 0;
+            iudFFCS.Minimum = 0D;
             iudFFCS.MinimumSize = new Size(100, 0);
             iudFFCS.Name = "iudFFCS";
+            iudFFCS.Padding = new Padding(5);
             iudFFCS.ShowText = false;
             iudFFCS.Size = new Size(100, 29);
             iudFFCS.TabIndex = 15;
-            iudFFCS.Text = "uiIntegerUpDown3";
+            iudFFCS.Text = "2";
             iudFFCS.TextAlignment = ContentAlignment.MiddleCenter;
             iudFFCS.Value = 2;
+            iudFFCS.KeyDown += iudFFCS_KeyDown;
             // 
             // iudFS
             // 
             iudFS.Font = new Font("微软雅黑", 12F);
             iudFS.Location = new Point(147, 97);
             iudFS.Margin = new Padding(4, 5, 4, 5);
-            iudFS.Minimum = 0;
+            iudFS.Minimum = 0D;
             iudFS.MinimumSize = new Size(100, 0);
             iudFS.Name = "iudFS";
+            iudFS.Padding = new Padding(5);
             iudFS.ShowText = false;
             iudFS.Size = new Size(100, 29);
-            iudFS.TabIndex = 14;
-            iudFS.Text = "uiIntegerUpDown4";
+            iudFS.TabIndex = 8;
+            iudFS.Text = "0";
             iudFS.TextAlignment = ContentAlignment.MiddleCenter;
+            iudFS.KeyDown += iudFS_KeyDown;
             // 
             // uiLabel7
             // 
@@ -333,11 +343,10 @@
             cbDoctorName.MinimumSize = new Size(63, 0);
             cbDoctorName.Name = "cbDoctorName";
             cbDoctorName.Padding = new Padding(0, 0, 30, 2);
-            cbDoctorName.ShowClearButton = true;
             cbDoctorName.ShowFilter = true;
             cbDoctorName.Size = new Size(126, 29);
             cbDoctorName.SymbolSize = 24;
-            cbDoctorName.TabIndex = 17;
+            cbDoctorName.TabIndex = 9;
             cbDoctorName.TextAlignment = ContentAlignment.MiddleLeft;
             cbDoctorName.Watermark = "";
             cbDoctorName.SelectedValueChanged += cbDoctorName_SelectedValueChanged;
@@ -353,7 +362,7 @@
             txtDocDepartment.Padding = new Padding(5);
             txtDocDepartment.ShowText = false;
             txtDocDepartment.Size = new Size(127, 29);
-            txtDocDepartment.TabIndex = 19;
+            txtDocDepartment.TabIndex = 10;
             txtDocDepartment.TextAlignment = ContentAlignment.MiddleLeft;
             txtDocDepartment.Watermark = "";
             // 
@@ -391,9 +400,10 @@
             txtRemark.Padding = new Padding(5);
             txtRemark.ShowText = false;
             txtRemark.Size = new Size(429, 29);
-            txtRemark.TabIndex = 21;
+            txtRemark.TabIndex = 11;
             txtRemark.TextAlignment = ContentAlignment.MiddleLeft;
             txtRemark.Watermark = "";
+            txtRemark.KeyDown += txtRemark_KeyDown;
             // 
             // uiGroupBox1
             // 
@@ -426,7 +436,7 @@
             uiGroupBox1.Name = "uiGroupBox1";
             uiGroupBox1.Padding = new Padding(0, 32, 0, 0);
             uiGroupBox1.Size = new Size(1362, 152);
-            uiGroupBox1.TabIndex = 23;
+            uiGroupBox1.TabIndex = 100;
             uiGroupBox1.Text = "处方信息";
             uiGroupBox1.TextAlignment = ContentAlignment.MiddleLeft;
             // 
@@ -659,7 +669,6 @@
             // 
             // dudJL
             // 
-            dudJL.DecimalPlaces = 2;
             dudJL.Font = new Font("微软雅黑", 12F);
             dudJL.Location = new Point(553, 31);
             dudJL.Margin = new Padding(4, 5, 4, 5);
@@ -667,11 +676,16 @@
             dudJL.Minimum = 0D;
             dudJL.MinimumSize = new Size(100, 0);
             dudJL.Name = "dudJL";
+            dudJL.Padding = new Padding(5);
             dudJL.ShowText = false;
             dudJL.Size = new Size(116, 29);
-            dudJL.TabIndex = 13;
-            dudJL.Text = null;
+            dudJL.Step = 1D;
+            dudJL.TabIndex = 14;
+            dudJL.Text = "0.00";
             dudJL.TextAlignment = ContentAlignment.MiddleCenter;
+            dudJL.Value = 0D;
+            dudJL.KeyDown += dudJL_KeyDown;
+            dudJL.Enter += dudJL_Enter;
             // 
             // uiLabel14
             // 
@@ -711,7 +725,7 @@
             cbJLFS.Padding = new Padding(0, 0, 30, 2);
             cbJLFS.Size = new Size(126, 29);
             cbJLFS.SymbolSize = 24;
-            cbJLFS.TabIndex = 11;
+            cbJLFS.TabIndex = 13;
             cbJLFS.Text = "饮片剂量";
             cbJLFS.TextAlignment = ContentAlignment.MiddleLeft;
             cbJLFS.Watermark = "";
@@ -729,13 +743,13 @@
             cbDurg.MinimumSize = new Size(63, 0);
             cbDurg.Name = "cbDurg";
             cbDurg.Padding = new Padding(0, 0, 30, 2);
-            cbDurg.ShowClearButton = true;
             cbDurg.ShowFilter = true;
             cbDurg.Size = new Size(190, 29);
             cbDurg.SymbolSize = 24;
-            cbDurg.TabIndex = 2;
+            cbDurg.TabIndex = 12;
             cbDurg.TextAlignment = ContentAlignment.MiddleLeft;
             cbDurg.Watermark = "请选择药品";
+            cbDurg.SelectedValueChanged += cbDurg_SelectedValueChanged;
             // 
             // uiLabel16
             // 

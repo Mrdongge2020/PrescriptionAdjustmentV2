@@ -115,28 +115,28 @@ namespace AdjustmentSysUI.Forms.UserForms
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                ShowWarningDialog("异常提示","用户名不能为空");
+                this.ShowWarningDialog("异常提示","用户名不能为空");
                 txtName.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtPassword.Text))
             {
-                ShowWarningDialog("异常提示", "密码不能为空");
+                this.ShowWarningDialog("异常提示", "密码不能为空");
                 txtPassword.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtConfimPassword.Text))
             {
-                ShowWarningDialog("异常提示", "确认密码不能为空");
+                this.ShowWarningDialog("异常提示", "确认密码不能为空");
                 txtConfimPassword.Focus();
                 return false;
             }
 
             if (txtPassword.Text.Trim() != txtConfimPassword.Text.Trim())
             {
-                ShowWarningDialog("异常提示", "两次输入密码不一致,请重新输入密码");
+                this.ShowWarningDialog("异常提示", "两次输入密码不一致,请重新输入密码");
                 txtPassword.Focus();
                 txtPassword.Text = "";
                 txtConfimPassword.Text = "";
@@ -145,7 +145,7 @@ namespace AdjustmentSysUI.Forms.UserForms
 
             if (cbLevel.SelectedIndex == -1)
             {
-                ShowWarningDialog("异常提示", "请选择权限等级");
+                this.ShowWarningDialog("异常提示", "请选择权限等级");
                 return false;
             }
             return true;

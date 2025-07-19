@@ -219,7 +219,7 @@ namespace AdjustmentSysUI.Forms.Drug
             bool issuccess = frmEdit.IsSuccess;
             if (issuccess) 
             {
-                ShowSuccessTip("新增厂家成功");
+                this.ShowSuccessTip("新增厂家成功");
             }
         }
 
@@ -227,7 +227,7 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (_Id == 0)
             {
-                ShowWarningDialog("异常提示", "请先选择要编辑的厂家");
+                this.ShowWarningDialog("异常提示", "请先选择要编辑的厂家");
                 return;
             }
 
@@ -243,7 +243,7 @@ namespace AdjustmentSysUI.Forms.Drug
             bool issuccess = frmEdit.IsSuccess;
             if (issuccess)
             {
-                ShowSuccessTip("编辑厂家成功");
+                this.ShowSuccessTip("编辑厂家成功");
             }
         }
 
@@ -277,12 +277,12 @@ namespace AdjustmentSysUI.Forms.Drug
             string message = _drugManufacturerBLL.AddOrEditManufacturerResolutionCode(model);
             if (message == "")
             {
-                ShowSuccessTip((model.ID > 0 ? "编辑" : "新增") + "解析规则成功");
+                this.ShowSuccessTip((model.ID > 0 ? "编辑" : "新增") + "解析规则成功");
 
             }
             else
             {
-                ShowErrorDialog("错误提示", message);
+                this.ShowErrorDialog("错误提示", message);
             }
         }
 
@@ -324,46 +324,46 @@ namespace AdjustmentSysUI.Forms.Drug
         {
             if (string.IsNullOrEmpty(txtJXM.Text))
             {
-                ShowWarningDialog("异常提示", "规则里解析码不能为空");
+                this.ShowWarningDialog("异常提示", "规则里解析码不能为空");
                 txtJXM.Focus();
                 return false;
             }
 
             if (iudS1.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里大包装码起始位数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里大包装码起始位数字不能为0");
                 iudS1.Focus();
                 return false;
             }
             if (iudSL1.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里大包装码长度数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里大包装码长度数字不能为0");
                 iudSL1.Focus();
                 return false;
             }
 
             if (iudS6.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里密度起始位数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里密度起始位数字不能为0");
                 iudS6.Focus();
                 return false;
             }
             if (iudSL6.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里密度长度数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里密度长度数字不能为0");
                 iudSL6.Focus();
                 return false;
             }
 
             if (iudS7.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里装量起始位数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里装量起始位数字不能为0");
                 iudS7.Focus();
                 return false;
             }
             if (iudSL7.Value == 0)
             {
-                ShowWarningDialog("异常提示", "规则里装量长度数字不能为0");
+                this.ShowWarningDialog("异常提示", "规则里装量长度数字不能为0");
                 iudSL7.Focus();
                 return false;
             }
@@ -396,7 +396,7 @@ namespace AdjustmentSysUI.Forms.Drug
             {
                 TextCheck();
                 //解析完成
-                ShowSuccessTip("解析完成");
+                this.ShowSuccessTip("解析完成");
                 btnSave.Enabled = true;
             }
 
@@ -549,7 +549,7 @@ namespace AdjustmentSysUI.Forms.Drug
             }
             if (errorMsg != "")
             {
-                ShowErrorDialog(errorMsg);
+                this.ShowErrorDialog(errorMsg);
             }
             return true;
         }
@@ -700,13 +700,13 @@ namespace AdjustmentSysUI.Forms.Drug
                 string msg = _drugManufacturerBLL.DeleteManufacturerInfo(id, isChecked);
                 if (msg == "")
                 {
-                    ShowSuccessTip((isChecked ? "启用" : "禁用") + "厂家成功");
+                    this.ShowSuccessTip((isChecked ? "启用" : "禁用") + "厂家成功");
                     //dgvList.Rows[e.RowIndex].Cells[0].Value = !isChecked;
                     QueryPageList();
                 }
                 else
                 {
-                    ShowErrorDialog("错误提示", msg);
+                    this.ShowErrorDialog("错误提示", msg);
                 }
 
             }

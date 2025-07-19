@@ -48,7 +48,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             else
             {
                 btnCheckData.Enabled = false;
-                ShowWarningDialog("导入提示", "未找到合规的药品信息。");
+                this.ShowWarningDialog("导入提示", "未找到合规的药品信息。");
             }
 
             btnConfimImport.Enabled = false;
@@ -60,13 +60,13 @@ namespace AdjustmentSysUI.Forms.DrugForms
             var datas = ErrorParticlesExportList.Where(x => x.IsPassed == "通过").ToList();
             if (dgvList.Rows.Count <= 0 || datas == null || datas.Count == 0)
             {
-                ShowWarningDialog("导入提示", "要导入的药品信息不存在");
+                this.ShowWarningDialog("导入提示", "要导入的药品信息不存在");
                 return;
             }
             string msg = _drugManagermentBLL.SaveAllParticlesImport(datas);
             if (msg == "")
             {
-                ShowSuccessTip("导入数据成功");
+                this.ShowSuccessTip("导入数据成功");
                 dgvList.DataSource = null;
                 ErrorParticlesExportList.AddRange(datas);
                 btnConfimImport.Enabled = false;
@@ -75,7 +75,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             }
             else
             {
-                ShowErrorDialog("导入数据失败,原因:" + msg);
+                this.ShowErrorDialog("导入数据失败,原因:" + msg);
             }
         }
 
@@ -83,7 +83,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
         {
             if (dgvList.Rows.Count <= 0)
             {
-                ShowWarningDialog("校验提示", "要校验的药品信息不存在");
+                this.ShowWarningDialog("校验提示", "要校验的药品信息不存在");
                 return;
             }
             ErrorParticlesExportList = _drugManagermentBLL.CheckAllParticlesImport(ErrorParticlesExportList);
@@ -113,7 +113,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
             var exportDatas = ErrorParticlesExportList.Where(x => x.IsPassed != "通过").ToList();
             if (exportDatas == null || !exportDatas.Any())
             {
-                ShowWarningDialog("导出提示", "要导出的异常药品信息不存在");
+                this.ShowWarningDialog("导出提示", "要导出的异常药品信息不存在");
                 return;
             }
             excelOpterUI.ExportSinglePage(exportDatas.ToList<object>(), "异常药品信息");
@@ -126,7 +126,7 @@ namespace AdjustmentSysUI.Forms.DrugForms
                             "3.此功能根据药品简称唯一性导入，重复和系统已存在的名称简称将不会被导入。\r\n" +
                             "4.数字列请正确填写，否则数据会校验不通过不能导入。" +
                             "5.导入有风险，操作需谨慎。";
-            ShowInfoDialog(remark);
+            this.ShowInfoDialog(remark);
         }
     }
 }

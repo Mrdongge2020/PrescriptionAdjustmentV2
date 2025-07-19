@@ -41,20 +41,20 @@ namespace AdjustmentSysUI
             string name = UserName;
             if (string.IsNullOrEmpty(name)) 
             {
-                ShowWarningDialog("登录用户名不能为空");    
+                this.ShowWarningDialog("登录用户名不能为空");    
                 return;
             }
             string pwd = Password;
             if (string.IsNullOrEmpty(pwd))
             {
-                ShowWarningDialog("登录密码不能为空");
+                this.ShowWarningDialog("登录密码不能为空");
                 return;
             }
             var user = _userInfoBLL.Login(name, pwd);
             
             if (user!=null)
             {
-                ShowSuccessTip("登录成功");
+                this.ShowSuccessTip("登录成功");
                 //登录信息
                 #region 登录信息
                 IsLogin = true;
@@ -86,7 +86,7 @@ namespace AdjustmentSysUI
                     {
                         if (!device.IsEnable)
                         {
-                            ShowWarningDialog("异常提示", "设备信息已禁用，请先启用");
+                            this.ShowWarningDialog("异常提示", "设备信息已禁用，请先启用");
                         }
                         //设备信息
                         SysDeviceInfo.currentDeviceInfo.DeviceName = device.Name;
@@ -126,7 +126,7 @@ namespace AdjustmentSysUI
             }
             else
             {
-                ShowErrorDialog("用户名或者密码错误。");
+                this.ShowErrorDialog("用户名或者密码错误。");
                 return;
             }
         }

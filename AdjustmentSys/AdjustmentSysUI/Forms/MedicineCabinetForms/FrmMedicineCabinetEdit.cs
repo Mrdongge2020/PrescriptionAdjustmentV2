@@ -107,12 +107,12 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             string msg = _medicineCabinetInfoBLL.AddOrEditCabinetInfo(medicineCabinetInfo);
             if (msg == "")
             {
-                ShowSuccessTip((_Id > 0 ? "编辑" : "新增") + "成功");
+                this.ShowSuccessTip((_Id > 0 ? "编辑" : "新增") + "成功");
                 this.Close();
             }
             else
             {
-                ShowErrorDialog("错误提示", msg);
+                this.ShowErrorDialog("错误提示", msg);
             }
         }
 
@@ -120,24 +120,24 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         {
             if (string.IsNullOrEmpty(txtYGMC.Text))
             {
-                ShowWarningDialog("异常提示", "药柜名称不能为空");
+                this.ShowWarningDialog("异常提示", "药柜名称不能为空");
                 txtYGMC.Focus();
                 return false;
             }
             if (cbGG.SelectedIndex <=0)
             {
-                ShowWarningDialog("异常提示", "请选择药柜规格");
+                this.ShowWarningDialog("异常提示", "请选择药柜规格");
                 return false;
             }
             if (string.IsNullOrEmpty(txtYGBZ.Text))
             {
-                ShowWarningDialog("异常提示", "药柜编组不能为空");
+                this.ShowWarningDialog("异常提示", "药柜编组不能为空");
                 txtYGBZ.Focus();
                 return false;
             }
             if (iudZXGS.Value == 0 || iupHXGS.Value == 0)
             {
-                ShowWarningDialog("异常提示", "药柜层数和单层个数不能为0");
+                this.ShowWarningDialog("异常提示", "药柜层数和单层个数不能为0");
             }
             return true;
         }
