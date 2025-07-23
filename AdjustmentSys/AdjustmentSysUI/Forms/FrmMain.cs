@@ -57,7 +57,8 @@ namespace AdjustmentSysUI.Forms
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));
-
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBagDevice(), ++pageIndex));
+            
 
             pageIndex = 200;
             parent = navMenuMainLeft.CreateNode("人员管理", 362718, 28, pageIndex);

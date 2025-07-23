@@ -1,6 +1,7 @@
 using AdjustmentSys.DAL.Common;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.FileOpter;
+using AdjustmentSysUI.Forms.DeviceForms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdjustmentSysUI
