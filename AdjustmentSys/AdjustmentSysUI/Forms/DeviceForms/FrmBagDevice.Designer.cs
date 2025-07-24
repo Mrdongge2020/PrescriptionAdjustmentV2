@@ -28,13 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            uC_PreFlowList1 = new UserControlForms.UC_PreFlowList();
             SuspendLayout();
+            // 
+            // uC_PreFlowList1
+            // 
+            uC_PreFlowList1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            uC_PreFlowList1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uC_PreFlowList1.Location = new Point(10, 50);
+            uC_PreFlowList1.MinimumSize = new Size(1, 1);
+            uC_PreFlowList1.Name = "uC_PreFlowList1";
+            uC_PreFlowList1.Size = new Size(270, 680);
+            uC_PreFlowList1.TabIndex = 0;
+            uC_PreFlowList1.Text = "uC_PreFlowList1";
+            uC_PreFlowList1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // FrmBagDevice
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1064, 660);
+            ClientSize = new Size(1064, 737);
+            Controls.Add(uC_PreFlowList1);
             Name = "FrmBagDevice";
             Padding = new Padding(0, 35, 0, 0);
             ShowTitle = true;
@@ -46,5 +60,7 @@
         }
 
         #endregion
+
+        private UserControlForms.UC_PreFlowList uC_PreFlowList1;
     }
 }

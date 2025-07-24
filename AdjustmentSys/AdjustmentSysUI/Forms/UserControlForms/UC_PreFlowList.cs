@@ -24,9 +24,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
         {
             InitializeComponent();
         }
-       // private UIPage uipage = new UIPage();
-        private PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
-
+        private UIPage uipage = new UIPage();
         public string? selectPreID;//选中的处方编号
         private string fileUrl = Application.StartupPath + "\\PreLoadfile.bin";
         public PrescriptionBinModel prescriptionBinModel = new PrescriptionBinModel();
@@ -55,6 +53,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                 {
                     prescriptionBinModel = new PrescriptionBinModel();
                 }
+                PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
                 var preDatas = _prescriptionAdjustmentBLL.GetDownLoadedPres(preIdList);
 
                 if (preDatas == null || preDatas.Count <= 0) { return; }
@@ -76,22 +75,9 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                     }
                 }
 
-                //downLoadPreModel.LoadedPreIds.AddRange(downLoadPreModel.LoadedPreIds.Distinct().ToList());
                 BinFileHelper.WriteObjectToBinaryFile(fileUrl, prescriptionBinModel);
                 AddButton();
-            }
-            //btn = new UC_PreFlowButton();
-            //btn.SetDPIScale();
-            //btn.Text = "CF" + index + DateTime.Now.ToString("yyyyMMdd-HHmmss");//"Button" + index++.ToString("D2");
-            //btn.Name = btn.Text;
-            //btn.Content = "张美丽  女  23岁";
-            //btn.StatusStr = "待核对";
-            //btn.FSStr = index * 10 + "付";
-            //btn.MouseClick += Btn_Click;
-            //btn.DoubleClick += Btn_DoubleClick;
-            //index++;
-            ////建议用封装的方法Add
-            //flpPreList.Add(btn);
+            } 
         }
 
         /// <summary>
@@ -99,10 +85,6 @@ namespace AdjustmentSysUI.Forms.UserControlForms
         /// </summary>
         public void AddButton()
         {
-            //从文件拿取
-            //downLoadPreModel.LoadedPreIds = new List<string>() { "60722445406002" };
-            //BinFileHelper.WriteObjectToBinaryFile(fileUrl, downLoadPreModel);
-
             //清除用Clear方法
             flpPreList.Clear();
             prescriptionBinModel = BinFileHelper.ReadObjectFromBinaryFile<PrescriptionBinModel>(fileUrl);
@@ -126,32 +108,6 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                 //建议用封装的方法Add
                 flpPreList.Add(btn);
             }
-           
-
-            //获取数据
-            //var preDatas = _prescriptionAdjustmentBLL.GetDownLoadedPres(downLoadPreModel.LoadedPreIds);
-            //if (preDatas == null || preDatas.Count <= 0) { return; }
-
-
-            //UC_PreButton btn;
-            //foreach (var item in preDatas)
-            //{
-            //    btn = new UC_PreButton();
-            //    string btnText = "处方编号：" + item.PrescriptionID + "\r\n" + $@"患者姓名：" + item.PatientName + "\r\n" + "患者性别：" + item.PatientSex + "\r\n"
-            //        + "处方付数：" + item.Quantity + "\r\n" + "处方状态：" + item.ProcessStatusText;
-            //    btn.Text = btnText;
-            //    btn.Name = item.PrescriptionID;
-            //    btn.FillEllipseColor = Color.Green;
-            //    btn.FillColor = Color.WhiteSmoke;
-            //    btn.Click += Btn_Click;
-            //    if (item.ProcessStatus == ProcessStatusEnum.待核对)
-            //    {
-            //        btn.FillEllipseColor = Color.Red;
-            //    }
-            //    //用封装的方法Add
-            //    uiFlowLayoutPanel1.Add(btn);
-            //}
-            //this.Render();
         }
 
         /// <summary>
@@ -191,7 +147,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
         {
             if (string.IsNullOrEmpty(selectPreID)) 
             {
-                //uipage.ShowWarningDialog("请先选择要核对的处方");
+                uipage.ShowWarningDialog("请先选择要核对的处方");
                 return;
             }
             foreach (Control item in flpPreList.AllControls)
@@ -201,7 +157,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                 {
                     if (buttonItem.StatusStr == "已核对")
                     {
-                        //uipage.ShowWarningDialog("该处方已核对");
+                        uipage.ShowWarningDialog("该处方已核对");
                     }
                     else
                     {
@@ -219,15 +175,15 @@ namespace AdjustmentSysUI.Forms.UserControlForms
         {
             if (string.IsNullOrEmpty(selectPreID))
             {
-                //uipage.ShowWarningDialog("请先选择要复位的处方");
+                uipage.ShowWarningDialog("请先选择要复位的处方");
                 return;
             }
-            
+            PrescriptionAdjustmentBLL _prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
             var isSuccess = _prescriptionAdjustmentBLL.ReturnPrescription(selectPreID);
             if (isSuccess)
             {
                 OperateLog.WriteLog(LogTypeEnum.用户操作, $"处方[{selectPreID}]已成功复位");
-                //uipage.ShowSuccessTip($"处方[{selectPreID}]已成功复位");
+                uipage.ShowSuccessTip($"处方[{selectPreID}]已成功复位");
                 int index= prescriptionBinModel.LoadedPrescriptions.RemoveAll(x=>x.PrescriptionID== selectPreID);
                 if (index>0) 
                 {
@@ -245,7 +201,7 @@ namespace AdjustmentSysUI.Forms.UserControlForms
             else
             {
                 OperateLog.WriteLog(LogTypeEnum.系统异常, $"处方[{selectPreID}]复位失败");
-                //uipage.ShowErrorDialog("错误提示", $"处方[{selectPreID}]复位失败，请稍后再试");
+                uipage.ShowErrorDialog("错误提示", $"处方[{selectPreID}]复位失败，请稍后再试");
             }
         }
     }

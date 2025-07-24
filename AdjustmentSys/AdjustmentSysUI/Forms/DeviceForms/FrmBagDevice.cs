@@ -1,4 +1,5 @@
-﻿using AdjustmentSysUI.UITool;
+﻿using AdjustmentSysUI.Forms.UserControlForms;
+using AdjustmentSysUI.UITool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void FrmBagDevice_Load(object sender, EventArgs e)
         {
-             
-            
+            UC_PreFlowList uC_PreFlowList = this.uC_PreFlowList1;
+            uC_PreFlowList.AddButton();
+
+
         }
     }
 }
