@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>TCMIX调剂系统</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
