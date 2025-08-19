@@ -206,9 +206,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             deviceMaching.Sealbox.HomeFinsh = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 9);//9#走膜回零完成
             deviceMaching.Turntable.HomeFinsh = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 10);//10#转盘回零完成
             deviceMaching.Supplyboxs.HomeFinsh = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 11);//11#供盒回零完成
-            MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
-            MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
-            deviceMaching.WeighingStation.Weight = MachinePublic.Weight;//  称重工位重量D252 D253
+            OldMachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
+            OldMachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
+            deviceMaching.WeighingStation.Weight = OldMachinePublic.Weight;//  称重工位重量D252 D253
 
             //异常映射
             deviceMaching.DeviceError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257
@@ -243,9 +243,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 deviceMaching.WFish = false;
             }
-            DataProcessingTool.ReverseBit16(ref D200[0], 15, MachinePublic.WriteRfidExcule);//RFID写
-            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 14);//RFID写入完成
-            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 15);//RFID写入错误
+            DataProcessingTool.ReverseBit16(ref D200[0], 15, OldMachinePublic.WriteRfidExcule);//RFID写
+            OldMachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 14);//RFID写入完成
+            OldMachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(deviceMaching.HomeFishState, 15);//RFID写入错误
             if (deviceMaching.RunState == WorkStateEnum.Set)
             {
                 deviceMaching.AdjustmentStations[0].HomeData = DataProcessingTool.ByteCheck16(B400, 9);
@@ -270,8 +270,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
                 //   MachinePublic.WriteRFIDdate       
 
-                D200[15] = (short)(MachinePublic.WriteRfidData & 0XFFFF);
-                D200[14] = (short)(MachinePublic.WriteRfidData >> 16);
+                D200[15] = (short)(OldMachinePublic.WriteRfidData & 0XFFFF);
+                D200[14] = (short)(OldMachinePublic.WriteRfidData >> 16);
             }
         }
 
@@ -1409,9 +1409,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             try
             {
-                for (int i = 0; i < MachinePublic.WD600.Length; i++)
+                for (int i = 0; i < OldMachinePublic.WD600.Length; i++)
                 {
-                    MachinePublic.WD600[i] = 0;
+                    OldMachinePublic.WD600[i] = 0;
                 }
                 foreach (MakePrescriptionParticle detail in particles)
                 {
@@ -1430,12 +1430,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         {
                             if (H % 2 == 0)
                             {
-                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+                                OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << (16 - DBit)));
 
                             }
                             else
                             {
-                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                                OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << DBit - 1));
                             }
                         }
                     }
@@ -1447,10 +1447,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     for (int i = 0; i < Maxnuber; i++)
                     {
-                        NowX = MachinePublic.WD600[42 + i] + NowX;
+                        NowX = OldMachinePublic.WD600[42 + i] + NowX;
                         if (NowX <= MaxCoordinateX)
                         {
-                            MachinePublic.WD600[42 + i] = 16;
+                            OldMachinePublic.WD600[42 + i] = 16;
                         }
                     }
                 }
@@ -1465,13 +1465,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                             NowX = D600[42 + Maxnuber + i] + NowX;
                             if (NowX <= MaxCoordinateX)
                             {
-                                MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                                OldMachinePublic.WD600[42 + Maxnuber + i] = 8;
                             }
                         }
                     }
                 }
-                MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-                MachinePublic.WD600[50] = 1;
+                OldMachinePublic.WD600[49] = Convert.ToInt16(OldMachinePublic.LEDgr);
+                OldMachinePublic.WD600[50] = 1;
                 deviceMaching.WriteLed = true;
             }
             catch
@@ -1788,7 +1788,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         #region rfid读取
         private void Rfid() 
         {
-            MachinePublic.ReadRfidData = deviceMaching.WeighingStation.ReadRfidData;
+            OldMachinePublic.ReadRfidData = deviceMaching.WeighingStation.ReadRfidData;
 
             #region 下药工位
             for (int i = 0; i < 8; i++) //RFID数据的获取
@@ -1851,7 +1851,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             #endregion
 
             #region 称重工位
-            if (!MachinePublic.WeightState && MachinePublic.Weight <200) { return; }
+            if (!OldMachinePublic.WeightState && OldMachinePublic.Weight <200) { return; }
 
             if (deviceMaching.WeighingStation.ReadRfidData == -1)
             {
@@ -1922,7 +1922,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             #region 计算当前称重
             if (mcDetail1 != null)
             {
-                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(MachinePublic.Weight - mcDetail1.EmptyBottleWeight.Value, 1));
+                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(OldMachinePublic.Weight - mcDetail1.EmptyBottleWeight.Value, 1));
             }
             else
             {
@@ -1932,7 +1932,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     kongPingZhongLiang = s;
                 }
-                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(MachinePublic.Weight - kongPingZhongLiang, 1));
+                deviceMaching.WeighingStation.Weight = Convert.ToSingle(Math.Round(OldMachinePublic.Weight - kongPingZhongLiang, 1));
             }
             #endregion
 
@@ -2062,9 +2062,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// <param name="Cab"></param>
         public static void LEDlight(int x,int y)
         {
-            for (int i = 0; i < MachinePublic.WD600.Length; i++)
+            for (int i = 0; i < OldMachinePublic.WD600.Length; i++)
             {
-                MachinePublic.WD600[i] = 0;
+                OldMachinePublic.WD600[i] = 0;
             }
 
 
@@ -2081,12 +2081,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 if (H % 2 == 0)
                 {
-                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+                    OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << (16 - DBit)));
 
                 }
                 else
                 {
-                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                    OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << DBit - 1));
                 }
             }
 
@@ -2098,10 +2098,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 for (int i = 0; i < Maxnuber; i++)
                 {
-                    NowX = MachinePublic.WD600[42 + i] + NowX;
+                    NowX = OldMachinePublic.WD600[42 + i] + NowX;
                     if (NowX <= MaxCoordinateX)
                     {
-                        MachinePublic.WD600[42 + i] = 16;
+                        OldMachinePublic.WD600[42 + i] = 16;
                     }
                 }
             }
@@ -2113,16 +2113,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 for (int i = 0; i < Minnuber; i++)
                 {
                     {
-                        NowX = MachinePublic.WD600[42 + Maxnuber + i] + NowX;
+                        NowX = OldMachinePublic.WD600[42 + Maxnuber + i] + NowX;
                         if (NowX <= MaxCoordinateX)
                         {
-                            MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                            OldMachinePublic.WD600[42 + Maxnuber + i] = 8;
                         }
                     }
                 }
             }
-            MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            MachinePublic.WD600[50] = 1;
+            OldMachinePublic.WD600[49] = Convert.ToInt16(OldMachinePublic.LEDgr);
+            OldMachinePublic.WD600[50] = 1;
         }
         #endregion
 

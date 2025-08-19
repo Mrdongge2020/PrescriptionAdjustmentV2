@@ -299,15 +299,15 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 lbInfos.Items.Insert(0, DateTime.Now + "|下药完成|");
             }
 
-            if (MachinePublic.WriteRfidFish)
+            if (OldMachinePublic.WriteRfidFish)
             {
-                MachinePublic.WriteRfidExcule = false;
+                OldMachinePublic.WriteRfidExcule = false;
                 lbInfos.Items.Insert(0, DateTime.Now + "|" + txtKLBH.Text + "RFID数据写入成功|");
 
             }
-            if (MachinePublic.WriteRfidError)
+            if (OldMachinePublic.WriteRfidError)
             {
-                MachinePublic.WriteRfidExcule = false;
+                OldMachinePublic.WriteRfidExcule = false;
                 MessageBox.Show("|" + txtKLBH.Text + "|写入失败");
                 lbInfos.Items.Insert(0, DateTime.Now + "|RFID数据写入失败|");
 
@@ -416,8 +416,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         private void btnKLBHxr_Click(object sender, EventArgs e)
         {
             int ParticlesID = (Convert.ToInt32(txtKLBH.Text));
-            MachinePublic.WriteRfidData = ParticlesID;
-            MachinePublic.WriteRfidExcule = true;
+            OldMachinePublic.WriteRfidData = ParticlesID;
+            OldMachinePublic.WriteRfidExcule = true;
         }
 
         private void btnKLMCxr_Click(object sender, EventArgs e)
@@ -427,8 +427,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 int ParticlesID = (int)cbKLMC.SelectedValue;
                 if (ParticlesID > 0)
                 {
-                    MachinePublic.WriteRfidData = ParticlesID;
-                    MachinePublic.WriteRfidExcule = true;
+                    OldMachinePublic.WriteRfidData = ParticlesID;
+                    OldMachinePublic.WriteRfidExcule = true;
                 }
             }
             catch (Exception ex)

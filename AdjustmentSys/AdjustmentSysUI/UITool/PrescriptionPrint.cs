@@ -60,7 +60,7 @@ namespace AdjustmentSysUI.UITool
         static List<PrintItemInfo> allpapercheckDatas = new List<PrintItemInfo>();
 
         //判断是否有打印项可以打印
-        public  bool IsOK(bool miancheck = false)
+        public static  bool IsOK(bool miancheck = false)
         {
             allpapercheckDatas = PrintConfigTB.PrintItemInfos.Where(x => x.CheckedValue > 0).ToList();
             if (allpapercheckDatas == null || allpapercheckDatas.Count <= 0)

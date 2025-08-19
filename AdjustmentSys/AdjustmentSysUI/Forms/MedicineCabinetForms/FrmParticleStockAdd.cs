@@ -46,11 +46,11 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         int readRfid = 0;
         private void timerParticleStockAdd_Tick(object sender, EventArgs e)
         {
-            if (!MachinePublic.ConnectionState || !MachinePublic.WeightState || readRfid == MachinePublic.ReadRfidData)
+            if (!OldMachinePublic.ConnectionState || !OldMachinePublic.WeightState || readRfid == OldMachinePublic.ReadRfidData)
             {
                 return;
             }
-            if (MachinePublic.ReadRfidData == -1 || MachinePublic.Weight < 100)
+            if (OldMachinePublic.ReadRfidData == -1 || OldMachinePublic.Weight < 100)
             {
                 if (!lbErroe.Items.Contains("请将药品放入称重工位"))
                 {
@@ -58,7 +58,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 }
                 return;
             }
-            var meDetails = commonDataBLL.GetMedicineCabinetDetail(MachinePublic.ReadRfidData);
+            var meDetails = commonDataBLL.GetMedicineCabinetDetail(OldMachinePublic.ReadRfidData);
             if (meDetails == null)
             {
                 if (!lbErroe.Items.Contains("该药品未在药柜上架"))
@@ -71,14 +71,14 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             {
                 lblKCYL.Text = meDetails.Stock.ToString();
             }
-            if (lblDQCZ.Text != (MachinePublic.Weight - meDetails.EmptyBottleWeight).ToString())
+            if (lblDQCZ.Text != (OldMachinePublic.Weight - meDetails.EmptyBottleWeight).ToString())
             {
-                lblDQCZ.Text = (MachinePublic.Weight - meDetails.EmptyBottleWeight).ToString();
+                lblDQCZ.Text = (OldMachinePublic.Weight - meDetails.EmptyBottleWeight).ToString();
             }
 
             //调整量计算
             float syl = float.TryParse(lblSYZL.Text, out float w) ? w : 0;//上药量
-            float tzl = (float)MachinePublic.Weight - meDetails.EmptyBottleWeight.Value - syl - meDetails.Stock.Value;
+            float tzl = (float)OldMachinePublic.Weight - meDetails.EmptyBottleWeight.Value - syl - meDetails.Stock.Value;
             if (lblTZZL.Text != tzl.ToString())
             {
                 lblTZZL.Text = tzl.ToString();
@@ -92,10 +92,10 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             string name = particles.FirstOrDefault(x => x.ID == meDetails.ParticlesID)?.Name;
             if (!string.IsNullOrEmpty(name))
             {
-                name = name + (int)MachinePublic.ReadRfidData % 10000;
+                name = name + (int)OldMachinePublic.ReadRfidData % 10000;
                 if (lblParticleName.Text != name) { lblParticleName.Text = name; }
             }
-            readRfid = MachinePublic.ReadRfidData;
+            readRfid = OldMachinePublic.ReadRfidData;
         }
 
         private void FrmParticleStockAdd_Load(object sender, EventArgs e)
@@ -186,7 +186,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             //    this.ShowWarningDialog("异常提示", "该药品未在药柜上架");
             //    return;
             //}
-            int rfid = MachinePublic.ReadRfidData;
+            int rfid = OldMachinePublic.ReadRfidData;
             var cumeParticles = meParticles.FirstOrDefault(x => x.RFID == rfid);
             if (cumeParticles == null)
             {
@@ -287,7 +287,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         private void btnOK_Click(object sender, EventArgs e)
         {
             //药柜颗粒信息
-            var meDetail = commonDataBLL.GetMedicineCabinetDetail(MachinePublic.ReadRfidData);
+            var meDetail = commonDataBLL.GetMedicineCabinetDetail(OldMachinePublic.ReadRfidData);
             if (meDetail == null)
             {
                 this.ShowWarningDialog("异常提示", "药柜颗粒信息不存在");

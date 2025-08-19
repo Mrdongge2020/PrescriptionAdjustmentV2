@@ -1,6 +1,10 @@
 ﻿using AdjustmentSys.BLL.Prescription;
+using AdjustmentSys.DAL.Prescription;
+using AdjustmentSys.Entity;
 using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.Machine;
 using AdjustmentSys.Models.Prescription;
+using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
 using AdjustmentSysUI.Forms.PrescriptionForms;
@@ -15,6 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static AdjustmentSys.Models.Machine.DataPrescriptionTB;
 
 namespace AdjustmentSysUI.Forms.UserControlForms
 {
@@ -161,13 +166,165 @@ namespace AdjustmentSysUI.Forms.UserControlForms
                     }
                     else
                     {
-                        buttonItem.StatusStr = "已核对";
+                        if (CheckPre())
+                        {
+                            buttonItem.StatusStr = "已核对";
+                        }
                     }
                     break;
                 }
             }
+            
+            
+        }
+        private bool CheckPre() 
+        {
+            bool isPass = false;
+
+            try
+            {
+                List<string> checkedPreids = null;
+                if (prescriptionBinModel != null && prescriptionBinModel.LoadedPrescriptions != null && prescriptionBinModel.LoadedPrescriptions.Count > 0)
+                {
+                    checkedPreids = prescriptionBinModel.LoadedPrescriptions.Select(x => x.PrescriptionID).ToList();
+                }
+                DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
+                dataGradeViewUi.FormClose("FrmConfirmPrescription");
+                FrmConfirmPrescription frmConfirmPrescription = new FrmConfirmPrescription(selectPreID, checkedPreids);
+                frmConfirmPrescription.ShowDialog();
+                bool isPassed = frmConfirmPrescription.isConfirmOK;
+                if (isPassed)
+                {
+                    uipage.ShowSuccessTip($"处方[{selectPreID}]核对成功");
+                    isPass = true;
+                    OperateLog.WriteLog(LogTypeEnum.用户操作, SysLoginUser._currentUser.UserName + "成功核对处方["+ selectPreID+"]");
+
+                    //写入到文件
+                    if (prescriptionBinModel == null)
+                    {
+                        prescriptionBinModel = new PrescriptionBinModel();
+                    }
+
+                    //写入文件
+                    if (prescriptionBinModel.CheckedPreInfos != null && prescriptionBinModel.CheckedPreInfos.Count > 0)
+                    {
+                        if (!prescriptionBinModel.CheckedPreInfos.Any(x => x.PrescriptionID == frmConfirmPrescription.preModel.PrescriptionID))
+                        {
+                            var predata= SetData(frmConfirmPrescription.preModel);
+                            prescriptionBinModel.CheckedPreInfos.Add(predata);
+                        }
+                    }
+                    else
+                    {
+                        prescriptionBinModel.CheckedPreInfos = new List<DataPrescriptionTB>();
+                        var predata = SetData(frmConfirmPrescription.preModel);
+                        prescriptionBinModel.CheckedPreInfos.Add(predata);
+                    }
+
+                    BinFileHelper.WriteObjectToBinaryFile(fileUrl, prescriptionBinModel);
+
+                    OperateLog.WriteLog(LogTypeEnum.处方调剂, SysLoginUser._currentUser.UserName + "成功核对处方[" + selectPreID + "]已存入文件");
+                }
+                
+            }
+            catch (Exception e)
+            {
+                OperateLog.WriteLog(LogTypeEnum.系统异常, SysLoginUser._currentUser.UserName + "核对处方[" + selectPreID + "]出现异常，原因:"+e.Message);
+            }
+            return isPass;
         }
 
+        private DataPrescriptionTB SetData(PreModel preModel) 
+        {
+            //获取处方
+            PrescriptionBLL prescriptionBLL = new PrescriptionBLL();
+            var data = prescriptionBLL.GetAllPrescriptionInfo(preModel.PrescriptionID, ProcessStatusEnum.待调剂, false);
+            if (data.Item1==null) {
+                OperateLog.WriteLog(LogTypeEnum.处方调剂, SysLoginUser._currentUser.UserName + "成功核对处方[" + selectPreID + "]存入文件失败，未获取到处方信息");
+            }
+            LocalDataPrescriptionInfo preinfo = (LocalDataPrescriptionInfo)data.Item1;
+            DataPrescriptionTB dataPrescriptionTB = new DataPrescriptionTB();
+            dataPrescriptionTB.PrescriptionID = preModel.PrescriptionID;
+            dataPrescriptionTB.PatientName = preModel.PatientName;
+            dataPrescriptionTB.PatientSex = preModel.PatientSex == "女" ? SexEnum.女 : (preModel.PatientSex=="男"? SexEnum .男: SexEnum.保密);
+            dataPrescriptionTB.PatientAge = preModel.PatientAge.Value;
+            dataPrescriptionTB.PatientTel = preinfo.PatientTel;
+            dataPrescriptionTB.PatientEmail = preinfo.PatientEmail;
+            dataPrescriptionTB.PatientLocation = preinfo.PatientLocation;
+            dataPrescriptionTB.DepartmentName= preinfo.DepartmentName;
+            dataPrescriptionTB.DoctorName = preinfo.DoctorName;
+            dataPrescriptionTB.CreateTime = preinfo.CreateTime;
+            dataPrescriptionTB.CreateName = preinfo.CreateName;
+            dataPrescriptionTB.ValuationTime = preinfo.ValuationTime;
+            dataPrescriptionTB.ValuerName = preinfo.ValuerName;
+            dataPrescriptionTB.ValueSn = preinfo.ValueSn;
+            dataPrescriptionTB.PrescriptionType = preinfo.PrescriptionType;
+            dataPrescriptionTB.BedNumber = preinfo.BedNumber;
+            dataPrescriptionTB.PaymentType = preinfo.PaymentType;
+            dataPrescriptionTB.ImportTime = preinfo.ImportTime;
+            dataPrescriptionTB.Quantity = preinfo.Quantity;
+            dataPrescriptionTB.TaskFrequency = preinfo.TaskFrequency;
+            dataPrescriptionTB.UnitPrice = preinfo.UnitPrice;
+            dataPrescriptionTB.TotalPrice = preinfo.TotalPrice;
+            dataPrescriptionTB.DetailedCount = preinfo.DetailedCount;
+            dataPrescriptionTB.ProcessStatus = (int)preinfo.ProcessStatus;
+            dataPrescriptionTB.PrescriptionSource = preinfo.PrescriptionSource;
+            dataPrescriptionTB.Remarks = preinfo.Remarks;
+            dataPrescriptionTB.UsageMethod = preinfo.UsageMethod;
+            dataPrescriptionTB.RegisterID = preinfo.RegisterID;
+            dataPrescriptionTB.BackupField1 = preinfo.BackupField1;
+            dataPrescriptionTB.BackupField2 = preinfo.BackupField2;
+            dataPrescriptionTB.BackupField3 = preinfo.BackupField3;
+
+            List<DetailStructure> deList = new List<DetailStructure>();
+            if (preModel.Details != null && preModel.Details.Count > 0)
+            {
+                foreach (var item in preModel.Details)
+                {
+                    DetailStructure detailStructure = new DetailStructure();
+                    detailStructure.PrescriptionID = item.PrescriptionID;
+                    detailStructure.ParticleOrder = item.ParticleOrder;
+                    detailStructure.ParticlesName = item.ParName;
+                    detailStructure.ParticlesCodeHIS = item.ParticlesCodeHIS;
+                    detailStructure.ParticlesNameHIS = item.ParticlesNameHIS;
+                    detailStructure.ParticlesID = item.ParCode;
+                    detailStructure.DoseHerb = item.DoseHerb;
+                    detailStructure.Dose = item.Dose;
+                    detailStructure.Equivalent = item.Equivalent;
+                    detailStructure.BatchNumber = item.BatchNumber;
+                    detailStructure.Price = item.Price;
+                    detailStructure.RFID = item.MedicineCabinetDetail.RFID;
+
+                    if (item.MedicineCabinetDetail!=null) {
+                        CabinetStorageInfoTB cabinetStorageInfoTB = new CabinetStorageInfoTB();
+                        cabinetStorageInfoTB.CabinetID = item.MedicineCabinetDetail.MedicineCabinetId;
+                        cabinetStorageInfoTB.ParticlesID = item.ParCode;
+                        cabinetStorageInfoTB.CoordinateX = item.MedicineCabinetDetail.CoordinateX;
+                        cabinetStorageInfoTB.CoordinateY = item.MedicineCabinetDetail.CoordinateY;
+                        cabinetStorageInfoTB.BatchNumber = item.MedicineCabinetDetail.BatchNumber;
+                        cabinetStorageInfoTB.ParticlesStockQuantity = item.MedicineCabinetDetail.Stock.Value;
+                        cabinetStorageInfoTB.CoefficientTotalAmountUse = item.MedicineCabinetDetail.TotalErrorAmount.Value;
+                        cabinetStorageInfoTB.LastTotalAmountUse = item.MedicineCabinetDetail.BottleHeadAdjustAmount.Value;
+                        cabinetStorageInfoTB.LastWeightTotalAmountUse = item.MedicineCabinetDetail.LastCoefficientErrorAmount.Value;
+                        cabinetStorageInfoTB.OnyTotalAmountUse = item.MedicineCabinetDetail.CurentAdjustAmount.Value;
+                        cabinetStorageInfoTB.TotalAmountUse = item.MedicineCabinetDetail.TotalUsedAmount.Value;
+                        cabinetStorageInfoTB.DensityCoefficient = item.MedicineCabinetDetail.DensityCoefficient.Value;
+                        cabinetStorageInfoTB.MaturityDate = item.MedicineCabinetDetail.ValidityTime.Value;
+                        cabinetStorageInfoTB.EmptyBottleWeigh = item.MedicineCabinetDetail.EmptyBottleWeight.Value;
+                        cabinetStorageInfoTB.InPosition = item.MedicineCabinetDetail.LastWeightAmount.Value;
+                        cabinetStorageInfoTB.DParticlesID = item.MedicineCabinetDetail.RFID.Value;
+                        cabinetStorageInfoTB.ParticlesName = item.ParName;
+
+                        detailStructure.CabinetParticles = cabinetStorageInfoTB;
+                    }
+
+                    deList.Add(detailStructure);
+                }
+            }
+            dataPrescriptionTB.ParticlesDetail= deList;
+
+            return dataPrescriptionTB;
+        }
         /// <summary>
         /// 复位处方
         /// </summary>

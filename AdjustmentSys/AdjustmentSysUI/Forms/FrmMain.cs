@@ -1,4 +1,5 @@
 ﻿using AdjustmentSys.BLL.Common;
+using AdjustmentSys.BLL.Device;
 using AdjustmentSys.DAL.Common;
 using AdjustmentSys.Models.FileModel;
 using AdjustmentSys.Models.Machine;
@@ -26,6 +27,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +37,10 @@ namespace AdjustmentSysUI.Forms
 {
     public partial class FrmMain : UIForm
     {
-        ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
+        public static ModBusTCP_Cliect modBusTCP_Cliect = new ModBusTCP_Cliect();
+
+        public static bool CheckSC = false;//判断本机是服务器 还是客户端； 接通为服务器 断开为客户端
+
         public FrmMain()
         {
             InitializeComponent();
@@ -57,7 +62,7 @@ namespace AdjustmentSysUI.Forms
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBagDevice(), ++pageIndex));
+            //navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBagDevice(), ++pageIndex));
             
 
             pageIndex = 200;
@@ -163,6 +168,47 @@ namespace AdjustmentSysUI.Forms
             thread.Start();
         }
 
+
+        private static void SCabinet()
+        {
+            DeviceBLL _deviceBLL = new DeviceBLL();
+            var datas = _deviceBLL.GetDeviceInfoList();
+            if (datas.Count(x=>x.MedicineCabinetCode==SysDeviceInfo._currentDeviceInfo.MedicineCabinetCode)>1)
+            {
+                string cabIP= IniFileHelper.ReadIniData("CabinetService", "Ip");
+                SocketCabinet.IP = cabIP;
+                foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (nic.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // IPv4
+                            {
+                                if (ip.Address.ToString() == SocketCabinet.IP)
+                                {
+                                    CheckSC = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (CheckSC)
+                {
+                    SocketCabinet.StartServer();
+                }
+                else
+                {
+                    SocketCabinet.StartClient();
+                }
+            }
+            else
+            {
+                CheckSC = true;
+            }
+
+
+        }
         /// <summary>
         /// 通讯线程
         /// </summary>
@@ -184,7 +230,7 @@ namespace AdjustmentSysUI.Forms
 
         private void ThreadFunction()
         {
-            MachinePublic.ConnectionState = SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus;//Form1_Mian.DeviceConnentionState;
+            OldMachinePublic.ConnectionState = SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus;//Form1_Mian.DeviceConnentionState;
             if (SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus)
             {
                 if (lblDeviceConnectText.Text != "已连接")

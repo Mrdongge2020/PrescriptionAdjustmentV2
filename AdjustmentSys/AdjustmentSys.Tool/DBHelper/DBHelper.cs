@@ -280,7 +280,7 @@ namespace AdjustmentSys.Tool
         /// <param name="sql"></param>
         /// <param name="pms"></param>
         /// <returns></returns>
-        public DataTable ExecuteQueryDataTable(string sql, SqlParameter[] pms = null)
+        public static DataTable ExecuteQueryDataTable(string sql, SqlParameter[] pms = null)
         {
             DataTable dt = new DataTable();
 
@@ -301,7 +301,7 @@ namespace AdjustmentSys.Tool
         /// <param name="sql"></param>
         /// <param name="pms"></param>
         /// <returns></returns>
-        public DataTable ExecuteQueryDataTable(string sql, Dictionary<string, object> pms)
+        public static  DataTable ExecuteQueryDataTable(string sql, Dictionary<string, object> pms)
         {
             SqlParameter[] parameters = null;
 
@@ -318,7 +318,7 @@ namespace AdjustmentSys.Tool
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public DataTable ExecuteQueryDataTable(string sql)
+        public static DataTable ExecuteQueryDataTable(string sql)
         {
             SqlParameter[] parameters = null;
 

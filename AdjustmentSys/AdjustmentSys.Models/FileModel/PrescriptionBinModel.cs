@@ -1,4 +1,5 @@
-﻿using AdjustmentSys.Models.Prescription;
+﻿using AdjustmentSys.Models.Machine;
+using AdjustmentSys.Models.Prescription;
 using AdjustmentSys.Tool.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,20 @@ namespace AdjustmentSys.Models.FileModel
     [Serializable]
     public class PrescriptionBinModel
     {
+        /// <summary>
+        /// 已下载处方列表
+        /// </summary>
         public List<DownLoadedPre> LoadedPrescriptions { get; set; }
+
+        /// <summary>
+        /// 已核对的处方列表
+        /// </summary>
+        public List<DataPrescriptionTB> CheckedPreInfos { get; set; }
+
+        /// <summary>
+        /// 已核对的处方列表
+        /// </summary>
+        public List<PreModel> CheckedPreInfos1 { get; set; }
     }
 
     public class LoadedPrescription() 

@@ -26,7 +26,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         List<CheckPrescriptionResultModel> errorList = null;
         ///List<ConfirmLocalDataPrescriptionDetail> details = new List<ConfirmLocalDataPrescriptionDetail>();
         ///
-        public PreModel preModel = null;
+        public  PreModel preModel;
         private int clickErrorType = 0;//错误列表显示的错误类型
         public bool isConfirmOK = false;//确认是否通过
 
@@ -38,6 +38,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
         }
         private void FrmConfirmPrescription_Load(object sender, EventArgs e)
         {
+            preModel = null;
             InitDgv();
             BindPreInfo();
         }

@@ -230,6 +230,29 @@ namespace AdjustmentSys.DAL.Prescription
         }
 
         /// <summary>
+        /// 新增药品使用记录
+        /// </summary>
+        /// <param name="medicineCabinetOperationLogInfos">药品使用记录</param>
+        /// <returns></returns>
+        public string AddMedicineCabinetOperationLogInfos(List<MedicineCabinetOperationLogInfo> medicineCabinetOperationLogInfos)
+        {
+            using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _eFCoreContext.MedicineCabinetOperationLogInfos.AddRange(medicineCabinetOperationLogInfos);
+                    _eFCoreContext.SaveChanges(true);
+                }
+                catch (Exception e)
+                {
+                    return "新增药品使用记录失败:" + e.Message;
+                }
+            }
+
+            return "";
+        }
+
+        /// <summary>
         /// 插入本地处方记录信息
         /// </summary>
         /// <param name="local">本地处方记录表</param>

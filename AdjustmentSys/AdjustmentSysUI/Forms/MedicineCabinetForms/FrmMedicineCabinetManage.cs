@@ -44,6 +44,23 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             InitData();
             ControlOpterUI.SetTitleStyle(this);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public static event EventHandler StaticVariableChanged;
+
+        private static string _staticVariable;
+
+        public static string StaticVariable
+        {
+            get { return _staticVariable; }
+            set
+            {
+                _staticVariable = value;
+
+                StaticVariableChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
 
         /// <summary>
         /// 初始化数据
@@ -375,7 +392,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     this.ShowWarningDialog("写入失败!请选择药柜颗粒信息");
                     return;
                 }
-                if (!MachinePublic.ConnectionState)
+                if (!OldMachinePublic.ConnectionState)
                 {
                     this.ShowWarningDialog("写入失败!未连接到设备,无法使用RFID写入功能");
                     return;
@@ -387,13 +404,13 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     emptyBottleWeight = w;
                 }
-                if (Math.Abs(MachinePublic.Weight - emptyBottleWeight) > 5)  //|当前重量-空瓶重量|<5
+                if (Math.Abs(OldMachinePublic.Weight - emptyBottleWeight) > 5)  //|当前重量-空瓶重量|<5
                 {
                     this.ShowWarningDialog("写入失败!空瓶重量异常， 请确认药瓶是否为空瓶");
                     return;
                 }
 
-                if (MachinePublic.Weight <= 200 || !MachinePublic.WeightState)
+                if (OldMachinePublic.Weight <= 200 || !OldMachinePublic.WeightState)
                 {
                     this.ShowWarningDialog("写入失败!请等待数称重据稳定后再写入");
                     return;
@@ -406,14 +423,14 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     return;
                 }
 
-                mcd.EmptyBottleWeight = (float)MachinePublic.Weight;
+                mcd.EmptyBottleWeight = (float)OldMachinePublic.Weight;
                 //拼写rfid数据
                 mcd.RFID = CreateRfidNum(mcd.ParticlesID.Value);
                 string msg = medicineCabinetDrugManageBLL.AddParticleNum(null, mcd, null);
                 if (msg == "")
                 {
-                    MachinePublic.WriteRfidData = mcd.RFID.Value;
-                    MachinePublic.WriteRfidExcule = true;
+                    OldMachinePublic.WriteRfidData = mcd.RFID.Value;
+                    OldMachinePublic.WriteRfidExcule = true;
                     timer1.Interval = 200;
                     timer1.Start();
                     //CheckRow();
@@ -554,18 +571,18 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (MachinePublic.WriteRfidFish)
+            if (OldMachinePublic.WriteRfidFish)
             {
-                MachinePublic.WriteRfidExcule = false;
+                OldMachinePublic.WriteRfidExcule = false;
                 this.ShowSuccessTip("数据写入成功");
-                MachinePublic.WriteRfidFish = false;
+                OldMachinePublic.WriteRfidFish = false;
                 timer1.Stop();
 
             }
-            if (MachinePublic.WriteRfidError)
+            if (OldMachinePublic.WriteRfidError)
             {
-                MachinePublic.WriteRfidExcule = false;
-                MachinePublic.WriteRfidError = false;
+                OldMachinePublic.WriteRfidExcule = false;
+                OldMachinePublic.WriteRfidError = false;
                 MessageBox.Show("数据写入失败");
                 timer1.Stop();
             }

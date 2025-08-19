@@ -382,15 +382,15 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                     return;
                 }
                 PrescriptionPrint prescriptionPrint = new PrescriptionPrint();
-                if (prescriptionPrint.IsOK())
-                {
-                    prescriptionPrint.PrintData = prescriptionPrintModel;
-                    prescriptionPrint.Print();
-                }
-                else
-                {
-                    this.ShowWarningDialog("异常提示", "未启动任何打印项，请核对启用打印设置");
-                }
+                //if (prescriptionPrint.IsOK())
+                //{
+                //    prescriptionPrint.PrintData = prescriptionPrintModel;
+                //    prescriptionPrint.Print();
+                //}
+                //else
+                //{
+                //    this.ShowWarningDialog("异常提示", "未启动任何打印项，请核对启用打印设置");
+                //}
             }
             catch (Exception ex)
             {
@@ -466,18 +466,18 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
             {
                 var prescriptionPrintModel = GetPrescriptionPrintModel();
                 PrescriptionPrint prescriptionPrint = new PrescriptionPrint();
-                if (prescriptionPrint.IsOK(true))
-                {
-                    if (prescriptionPrintModel != null)
-                    {
-                        prescriptionPrint.PrintData = prescriptionPrintModel;
-                        prescriptionPrint.Print(false, true);
-                    }
-                }
-                else
-                {
-                    this.ShowWarningDialog("异常提示", "未启用任何主打印项，请核对启用主打印设置");
-                }
+                //if (prescriptionPrint.IsOK(true))
+                //{
+                //    if (prescriptionPrintModel != null)
+                //    {
+                //        prescriptionPrint.PrintData = prescriptionPrintModel;
+                //        prescriptionPrint.Print(false, true);
+                //    }
+                //}
+                //else
+                //{
+                //    this.ShowWarningDialog("异常提示", "未启用任何主打印项，请核对启用主打印设置");
+                //}
             }
             catch (Exception ex)
             {

@@ -300,6 +300,16 @@ namespace AdjustmentSys.BLL.Prescription
         }
 
         /// <summary>
+        /// 新增药品使用记录
+        /// </summary>
+        /// <param name="medicineCabinetOperationLogInfos">药品使用记录</param>
+        /// <returns></returns>
+        public string AddMedicineCabinetOperationLogInfos(List<MedicineCabinetOperationLogInfo> medicineCabinetOperationLogInfos)
+        {
+            return _prescriptionAdjustmentDAL.AddMedicineCabinetOperationLogInfos(medicineCabinetOperationLogInfos);
+        }
+
+        /// <summary>
         /// 更新药柜信息
         /// </summary>
         /// <param name="medicine"></param>

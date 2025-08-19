@@ -42,7 +42,39 @@ namespace AdjustmentSys.DAL.Common
         /// </summary>
         [ConfigAttribute("药瓶容量", 940, "int", 100, 940)]
         public static int BottleCapacity { get; set; }// 药瓶容量
-        
+
+        [ConfigAttribute("药盒单格体积", 200,"",0,200)]
+        public static double BoxCellVolume { get; set; }// 药盒单格体积      
+
+        [ConfigAttribute("空瓶重量", 223.5, "double", 0, 250)]
+        public static double EmptyBottleWeight { get; set; }//  空瓶重量
+
+        [ConfigAttribute("颗粒余量报警下线", 30, "double", 0, 0)]
+        public static double ParticlesBottomLineValue { get; set; } //颗粒下线提示
+
+        [ConfigAttribute("颗粒量低于底限后默认值", 0.4, "double", 0,0)]
+        public static double DoseLimitDefaultValue { get; set; } // 颗粒量低于底线后默认值
+
+
+        [ConfigAttribute("是否调剂方式饮片", 0, "bool", 0, 0)]
+        public static bool AdjustWay { get; set; }
+
+        [ConfigAttribute("颗粒量底限值", 0.4, "double", 0.4, 100)]
+        public static double DoseLimitDown { get; set; }// 颗粒量底线值
+
+        [ConfigAttribute("误差提醒系数（0.01至01)", 0.5,"float",0.01,1)]
+        public static float Percentageerror { get; set; }// 误差提醒系数
+
+        [ConfigAttribute("是否调剂过程语音播报", 0,"bool",0,0)]
+        public static bool Autospeak { get; set; }  //0 不自动播报  1自动播报
+        [ConfigAttribute("是否处方称重调完成熄灯", 0,"bool",0,0)]
+        public static bool CheckLEDf { get; set; } //调剂处方过程中，0该品种调剂完成熄灭  1 称重完成熄灭 
+        [ConfigAttribute("是否自动打印处方从", 1, "bool", 0, 0)]
+        public static bool AutoPrint { set; get; }// 自动打印处方
+        [ConfigAttribute("是否自动打印处方主标签", 0, "bool", 0, 0)]
+        public static bool Automainpaper { get; set; }  //0 不自动打印  1自动打印
+        [ConfigAttribute("是否调剂前打印", 1, "bool", 0, 0)]
+        public static bool PrintBeforeAdjustment { set; get; }// 调剂前打印
 
 
         /// <summary>

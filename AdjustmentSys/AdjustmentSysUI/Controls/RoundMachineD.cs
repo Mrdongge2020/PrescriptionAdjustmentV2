@@ -405,8 +405,8 @@ namespace YD.RewritingControl
             g.DrawString(AllBarvalue.ToString() + "%", new Font("微软雅黑", 20F), new SolidBrush(modelColor), 0, 0, sf);
 
             //绘制工位圆环连接
-            Pen penf = new Pen(System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(59)))), ((int)(((byte)(79)))), ((int)(((byte)(129))))), widthpen);
-            g.DrawArc(penf, diu / -2, (diu / -2), diu, diu, -2, 1 * 160); // 从-90度开始画弧，顺时针方向
+            Pen penf = new Pen(System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(59)))), ((int)(((byte)(79)))), ((int)(((byte)(129))))), widthpen-3);
+            g.DrawArc(penf, diu / -2, (diu / -2), diu, diu, 0, 1 * 160); // 从-90度开始画弧，顺时针方向
             
             //绘制称重工位
             //称重工位

@@ -194,8 +194,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             machineBox.TAxisHomefinish[8] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 9);//8#下药回零
             machineBox.TAxisHomefinish[9] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 10);//8#下药回零
             machineBox.TAxisHomefinish[10] = DataProcessingTool.GetBitValue(machineBox.Finshstate1, 11);//8#下药回零
-            MachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
-            MachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
+            OldMachinePublic.Weight = Math.Round((double)(DataProcessingTool.ByteCheck32(B250, 9 + 2 * 2)) / 100, 2); //  称重工位重量D252 D253
+            OldMachinePublic.WeightState = DataProcessingTool.GetBitValue(DataProcessingTool.ByteCheck16(B250, 9 + 2 * 4), 9);//称重工位状态 D254
             machineBox.iError = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 6);//异常状态 256 - D257      
             machineBox.RFID = DataProcessingTool.RfidByteCheck32(B250, 9 + 2 * 8); //rfid数据D258-D277
             machineBox.InX = DataProcessingTool.ByteCheckU16(B250, 9 + 2 * 28);
@@ -214,9 +214,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 machineBox.WFish = false;
             }
-            DataProcessingTool.ReverseBit16(ref D200[0], 15, MachinePublic.WriteRfidExcule);//RFID写
-            MachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 14);//RFID写入完成
-            MachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(machineBox.Finshstate, 15);//RFID写入错误
+            DataProcessingTool.ReverseBit16(ref D200[0], 15, OldMachinePublic.WriteRfidExcule);//RFID写
+            OldMachinePublic.WriteRfidFish = DataProcessingTool.GetBitValue(machineBox.Finshstate, 14);//RFID写入完成
+            OldMachinePublic.WriteRfidError = DataProcessingTool.GetBitValue(machineBox.Finshstate, 15);//RFID写入错误
             if (machineBox.Runstate == MachineBox.Workstate.Set)
             {
                 machineBox.WAxisHomeDate[0] = DataProcessingTool.ByteCheck16(B400, 9);
@@ -241,8 +241,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
                 //   MachinePublic.WriteRFIDdate       
 
-                D200[15] = (short)(MachinePublic.WriteRfidData & 0XFFFF);
-                D200[14] = (short)(MachinePublic.WriteRfidData >> 16);
+                D200[15] = (short)(OldMachinePublic.WriteRfidData & 0XFFFF);
+                D200[14] = (short)(OldMachinePublic.WriteRfidData >> 16);
             }
         }
 
@@ -1019,9 +1019,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// <param name="Cab"></param>
         public static void LEDlight(MedicineCabinetDetail Cab)
         {
-            for (int i = 0; i < MachinePublic.WD600.Length; i++)
+            for (int i = 0; i < OldMachinePublic.WD600.Length; i++)
             {
-                MachinePublic.WD600[i] = 0;
+                OldMachinePublic.WD600[i] = 0;
             }
 
 
@@ -1038,12 +1038,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 if (H % 2 == 0)
                 {
-                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+                    OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << (16 - DBit)));
 
                 }
                 else
                 {
-                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                    OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << DBit - 1));
                 }
             }
 
@@ -1055,10 +1055,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             {
                 for (int i = 0; i < Maxnuber; i++)
                 {
-                    NowX = MachinePublic.WD600[42 + i] + NowX;
+                    NowX = OldMachinePublic.WD600[42 + i] + NowX;
                     if (NowX <= MaxCoordinateX)
                     {
-                        MachinePublic.WD600[42 + i] = 16;
+                        OldMachinePublic.WD600[42 + i] = 16;
                     }
                 }
             }
@@ -1070,16 +1070,16 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 for (int i = 0; i < Minnuber; i++)
                 {
                     {
-                        NowX = MachinePublic.WD600[42 + Maxnuber + i] + NowX;
+                        NowX = OldMachinePublic.WD600[42 + Maxnuber + i] + NowX;
                         if (NowX <= MaxCoordinateX)
                         {
-                            MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                            OldMachinePublic.WD600[42 + Maxnuber + i] = 8;
                         }
                     }
                 }
             }
-            MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            MachinePublic.WD600[50] = 1;
+            OldMachinePublic.WD600[49] = Convert.ToInt16(OldMachinePublic.LEDgr);
+            OldMachinePublic.WD600[50] = 1;
         }
 
         public void sndPlaye(string name)
@@ -1098,7 +1098,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 }
                 else
                 {
-                   // AiSpeak(name);
+                    // AiSpeak(name);
 
                 }
             }
@@ -1743,9 +1743,9 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             try
             {
-                for (int i = 0; i < MachinePublic.WD600.Length; i++)
+                for (int i = 0; i < OldMachinePublic.WD600.Length; i++)
                 {
-                    MachinePublic.WD600[i] = 0;
+                    OldMachinePublic.WD600[i] = 0;
                 }
                 foreach (DetailM Detail in MD)
                 {
@@ -1764,12 +1764,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         {
                             if (H % 2 == 0)
                             {
-                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+                                OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << (16 - DBit)));
 
                             }
                             else
                             {
-                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                                OldMachinePublic.WD600[D] = (Int16)(OldMachinePublic.WD600[D] + (1 << DBit - 1));
                             }
                         }
                     }
@@ -1781,10 +1781,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 {
                     for (int i = 0; i < Maxnuber; i++)
                     {
-                        NowX = MachinePublic.WD600[42 + i] + NowX;
+                        NowX = OldMachinePublic.WD600[42 + i] + NowX;
                         if (NowX <= MaxCoordinateX)
                         {
-                            MachinePublic.WD600[42 + i] = 16;
+                            OldMachinePublic.WD600[42 + i] = 16;
                         }
                     }
                 }
@@ -1799,13 +1799,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                             NowX = D600[42 + Maxnuber + i] + NowX;
                             if (NowX <= MaxCoordinateX)
                             {
-                                MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                                OldMachinePublic.WD600[42 + Maxnuber + i] = 8;
                             }
                         }
                     }
                 }
-                MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-                MachinePublic.WD600[50] = 1;
+                OldMachinePublic.WD600[49] = Convert.ToInt16(OldMachinePublic.LEDgr);
+                OldMachinePublic.WD600[50] = 1;
                 machineBox.WriteLED = true;
             }
             catch
@@ -2100,6 +2100,11 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     }
                 }
             }
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -25,6 +25,8 @@ namespace AdjustmentSys.Tool.Enums
         [Description("添加药品")]
         添加药品 = 5,
         [Description("异常上药")]
-        异常上药 = 6
+        异常上药 = 6,
+        [Description("重量异常")]
+        重量异常=7
     }
 }

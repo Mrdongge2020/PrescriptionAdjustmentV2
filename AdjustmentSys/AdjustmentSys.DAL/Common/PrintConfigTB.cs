@@ -26,7 +26,7 @@ namespace AdjustmentSys.DAL.Common
         /// </summary>
         public static List<PrintItemInfo> PrintItemInfos { get; set; }
 
-        [ConfigAttribute("医院名称", "XXX医院 ", "string", 0, 0)]
+        [ConfigAttribute("医院名称", "XXX医院 ", "string", 0, 20)]
         public static    string     HospitalName                 { get; set; }//医院名称
         [ConfigAttribute("使用方法", "开水冲,温水服", "string", 0, 0)]
         public static string     GenerateUsageMethodPrefix    { get; set; }//使用方法
@@ -53,7 +53,9 @@ namespace AdjustmentSys.DAL.Common
         [ConfigAttribute("条码宽度", 16, "int", 0, 0)]
         public static int     BarcodeWidth                 { get; set; }//条码宽度
         [ConfigAttribute("每行字符数", 10, "int", 0, 0)]
-        public static int     RowWordNumber { get; set; }                    //每行字符数
+        public static int     RowWordNumber { get; set; }                    //药盒类型
+        [ConfigAttribute("药盒类型","袋", "string", 0, 5)]
+        public static string Box { get; set; } = "袋";
         /// <summary>
         /// 是否自动打印处方主标签
         /// </summary>

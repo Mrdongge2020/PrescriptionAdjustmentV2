@@ -168,7 +168,7 @@
             cmsExcelOpter.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsExcelOpter.Items.AddRange(new ToolStripItem[] { 导出颗粒余量Excel文件ToolStripMenuItem, 导出颗粒位置Excel文件ToolStripMenuItem, 导入颗粒余量Excel文件ToolStripMenuItem, 导入颗粒位置Excel文件ToolStripMenuItem });
             cmsExcelOpter.Name = "uiContextMenuStrip1";
-            cmsExcelOpter.Size = new Size(257, 108);
+            cmsExcelOpter.Size = new Size(257, 130);
             // 
             // 导出颗粒余量Excel文件ToolStripMenuItem
             // 
