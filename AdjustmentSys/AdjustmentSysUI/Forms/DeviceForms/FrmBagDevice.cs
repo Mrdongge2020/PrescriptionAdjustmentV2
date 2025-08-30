@@ -25,6 +25,7 @@ using AdjustmentSys.Tool.Enums;
 using AdjustmentSysUI.Forms.MedicineCabinetForms;
 using AdjustmentSys.Models.User;
 using AdjustmentSysUI.Forms.PrescriptionForms;
+using AdjustmentSys.BLL.Prescription;
 
 namespace AdjustmentSysUI.Forms.DeviceForms
 {
@@ -78,7 +79,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         public static Int16[] D600 = new Int16[51];  //0-41 存储状态 42-47 存储每个药柜的的列数  49灯柜颜色，50 开启灯柜
 
         public SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-
+        DataGradeViewUi dataGradeViewUi = new DataGradeViewUi();
 
         string particleName = "";
 
@@ -93,9 +94,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         public Keys dKeys;
         private void DriveG_Load(object sender, EventArgs e)
         {
-            //int height = Convert.ToInt32(dgvDeviceError.Font.Height * 1.2);
-            //dgvDeviceError.RowTemplate.Height = height;
-
             TableAdd();
 
             SetBootParam();
@@ -112,13 +110,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             table.Columns.Add("异常分析", typeof(string));
 
             MachinePublic.DataTableEorr = table;
-            //   dgvDeviceError.DataSource = MachinePublic.DataTableEorr;
-
-            //DataGridViewButtonColumn DGb = new DataGridViewButtonColumn();
-            //DGb.DefaultCellStyle.NullValue = "复位";
-            //DGb.HeaderText = "异常处理";
-            //dgvDeviceError.Columns.Add(DGb);
-            //dgvDeviceError.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         #region //初始值
@@ -185,9 +176,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             synthesizer.Rate = 2;
             try
             {
-
                 D200 = new Int16[40];
-
                 Jxssend = new Thread(Jxs);
                 Jxssend.IsBackground = true;
                 Jxssend.Start();
@@ -196,8 +185,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             catch (Exception ex)
             {
                 this.ShowErrorDialog(ex.ToString());
-
-
             }
 
             MachinePublic.SealYTime = Convert.ToInt16(IniFileHelper.ReadIniData("PlcHome", "SealYtime"));//封口延时
@@ -248,7 +235,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     MachinePublic.Connectionstate = SysDeviceInfo._currentDeviceInfo.DeviceConnectStatus;
                     if (FrmBagDevice.D600[50] == 0 && MachinePublic.RD600[50] == 1) //读取客户端灯柜数据
                     {
-                        // FrmBagDevice.D600 = MachinePublic.RD600;
                         for (int i = 0; i < MachinePublic.WD600.Length; i++)
                         {
                             FrmBagDevice.D600[i] = MachinePublic.RD600[i];
@@ -260,7 +246,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         {
                             FrmBagDevice.D600[i] = MachinePublic.WD600[i];
                         }
-                        // FrmBagDevice.D600= MachinePublic.WD600;
                     }
                     if (FrmMain.CheckSC)
                     {
@@ -316,7 +301,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 this.ShowErrorDialog(ex.ToString());
             }
         }
-        public  Int16 ByteCheck16(byte[] B400, byte Code1)
+        public Int16 ByteCheck16(byte[] B400, byte Code1)
         {
             if (B400.Length > Code1 + 3)
             {
@@ -370,8 +355,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 this.ShowErrorDialog("EORRE1");
                 return null;
             }
-
-
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -519,9 +502,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             MachinePublic.ReadTemperature1 = ByteCheck16(B400, 40 * 2 + 9) / 10;
             MachinePublic.ReadTemperature2 = ByteCheck16(B400, 41 * 2 + 9) / 10;
             MachinePublic.ReadTemperature3 = ByteCheck16(B400, 42 * 2 + 9) / 10;
-            //MachinePublic.SetTemperature1 = ByteCheck16(B400, 43 * 2 + 9) / 10;
-            //MachinePublic.SetTemperature2 = ByteCheck16(B400, 44 * 2 + 9) / 10;
-            //MachinePublic.SetTemperature3 = ByteCheck16(B400, 45 * 2 + 9) / 10;
 
             ReverseBit16(ref D200[0], 1, ObjMachine.HomeExcute);
             ReverseBit16(ref D200[30], 6, MachinePublic.WriteRFIDExcule);
@@ -554,12 +534,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 ReverseBit16(ref D200[23], 11, MachinePublic.ZeroWeight);
 
             }
-            // FrmBagDevice.D200[31] = (short)(ParticlesID >> 16);
-            //FrmBagDevice.D200[32] = (short)(ParticlesID & 0XFFFF);
             FrmBagDevice.D200[31] = (short)(MachinePublic.WriteRFIDdate >> 16);
             FrmBagDevice.D200[32] = (short)(MachinePublic.WriteRFIDdate & 0XFFFF);
-            // ReverseBit16(ref D200[23], 11, ObjMachine.LEDgr);
-            // ReverseBit16(ref D200[23], 12, ObjMachine.WriteLED);
             if (ObjMachine.WriteLEDfish)
             {
                 ObjMachine.WriteLED = false;
@@ -767,17 +743,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                                         m_ParticlesDetai.state = 2;
                                         MachinePublic.UpdateParticles = 0;
                                         sndPlaye("称重完成请放入调剂工位");//  AddTotal(Detai); //误差量记录
-                                                                //关闭灯光
-                                                                //  CloseLED(new List<Machine.DetailM> { m_ParticlesDetai });
                                         if (ConfigTB.CheckLEDf)
                                         {
                                             CloseLED1(ObjMachine.ParticlesDetailp);
                                         }
-
                                     }
                                 }
                             }
-
                         }
                     }
                 }
@@ -873,67 +845,67 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         }
         public static void LEDlight(CabinetStorageInfoTB Cab)
         {
-            //for (int i = 0; i < MachinePublic.WD600.Length; i++)
-            //{
-            //    MachinePublic.WD600[i] = 0;
-            //}
+            for (int i = 0; i < MachinePublic.WD600.Length; i++)
+            {
+                MachinePublic.WD600[i] = 0;
+            }
 
 
-            //byte DBit = (byte)((Cab.CoordinateX) % 16);
-            //if (DBit == 0)
-            //{
-            //    DBit = 16;
-            //}
-            //byte X = (byte)(Math.Ceiling((double)Cab.CoordinateX / 16) - 1);
-            //byte Y = (byte)(Convert.ToByte(Cab.CoordinateY - 1) * 3);
-            //byte H = (byte)(Convert.ToInt16(ConfigTB.Cy) - (Cab.CoordinateY - 1));
-            //int D = (X + Y);
-            //if (DBit < 17 && D < 42)
-            //{
-            //    if (H % 2 == 0)
-            //    {
-            //        MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+            byte DBit = (byte)((Cab.CoordinateX) % 16);
+            if (DBit == 0)
+            {
+                DBit = 16;
+            }
+            byte X = (byte)(Math.Ceiling((double)Cab.CoordinateX / 16) - 1);
+            byte Y = (byte)(Convert.ToByte(Cab.CoordinateY - 1) * 3);
+            byte H = (byte)(Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.CabinetRowCount) - (Cab.CoordinateY - 1));
+            int D = (X + Y);
+            if (DBit < 17 && D < 42)
+            {
+                if (H % 2 == 0)
+                {
+                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
 
-            //    }
-            //    else
-            //    {
-            //        MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
-            //    }
-            //}
+                }
+                else
+                {
+                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                }
+            }
 
 
-            //int MaxCoordinateX = 48; //灯柜允许最大列
-            //int Maxnuber = Convert.ToInt16(ConfigTB.Cn1); //大药柜数量
-            //int NowX = 0;
-            //if (Maxnuber > 0)
-            //{
-            //    for (int i = 0; i < Maxnuber; i++)
-            //    {
-            //        NowX = MachinePublic.WD600[42 + i] + NowX;
-            //        if (NowX <= MaxCoordinateX)
-            //        {
-            //            MachinePublic.WD600[42 + i] = 16;
-            //        }
-            //    }
-            //}
-            //int Minnuber = Convert.ToInt16(ConfigTB.Cn2); //小药柜数量
+            int MaxCoordinateX = 48; //灯柜允许最大列
+            int Maxnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.LargeCabinetCount); //大药柜数量
+            int NowX = 0;
+            if (Maxnuber > 0)
+            {
+                for (int i = 0; i < Maxnuber; i++)
+                {
+                    NowX = MachinePublic.WD600[42 + i] + NowX;
+                    if (NowX <= MaxCoordinateX)
+                    {
+                        MachinePublic.WD600[42 + i] = 16;
+                    }
+                }
+            }
+            int Minnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.SmallCabinetCount); //小药柜数量
 
-            //if (Minnuber > 0)
-            //{
-            //    NowX = Maxnuber * 16;
-            //    for (int i = 0; i < Minnuber; i++)
-            //    {
-            //        {
-            //            NowX = MachinePublic.WD600[42 + Maxnuber + i] + NowX;
-            //            if (NowX <= MaxCoordinateX)
-            //            {
-            //                MachinePublic.WD600[42 + Maxnuber + i] = 8;
-            //            }
-            //        }
-            //    }
-            //}
-            //MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            //MachinePublic.WD600[50] = 1;
+            if (Minnuber > 0)
+            {
+                NowX = Maxnuber * 16;
+                for (int i = 0; i < Minnuber; i++)
+                {
+                    {
+                        NowX = MachinePublic.WD600[42 + Maxnuber + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                        }
+                    }
+                }
+            }
+            MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+            MachinePublic.WD600[50] = 1;
         }
         /// <summary>
         /// 检查工位药瓶余量是否不足 记录当前扣除的库存量
@@ -1617,14 +1589,14 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                             case 31: //位移次数计算
                                 {
                                     fishp();
-                                    if (uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.Any(x=>x.PrescriptionID==ObjMachine.PrescriptionID))
+                                    if (uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.Any(x => x.PrescriptionID == ObjMachine.PrescriptionID))
                                     {
-                                        //if (Dispensing.PrescriptionDictionary[ObjMachine.PrescriptionID].PresLogObj.TaskState == 8 && !ObjMachine.Startstop)
-                                        //{
-                                        //    Stopdruge();
-                                        //    ObjMachine.Startstop = true;
-                                        //    stopDeductStockWeight();
-                                        //}
+                                        if (uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == ObjMachine.PrescriptionID).TaskState == 8 && !ObjMachine.Startstop)
+                                        {
+                                            Stopdruge();
+                                            ObjMachine.Startstop = true;
+                                            stopDeductStockWeight();
+                                        }
                                     }
                                     if (!ObjMachine.Stop && ObjMachine.AxisHomeStep == 0)
                                     {
@@ -2309,7 +2281,14 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 sndPlaye("请取走药筐", true);
                 //Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[ObjUserMachine.PrescriptionID], 2);
                 //objFrm_OutBoxPrompt.ShowDialog();
-                //ObjUserMachine.worksate = 67;
+                //全部完成，弹出药框
+                Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                if (existingForm == null)
+                {
+                    FrmOutBox frmOutBox = new FrmOutBox(ObjUserMachine.PrescriptionID, ObjUserMachine.BoxCount, false, false,Convert.ToDateTime(NewPresData.StartTime));
+                    frmOutBox.Show();
+                }
+                ObjUserMachine.worksate = 67;
             }
             if (ObjUserMachine.worksate == 80)
             {
@@ -2324,7 +2303,13 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 sndPlaye("请取走药筐", true);
                 //Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[ObjUserMachine.PrescriptionID], 2);
                 //objFrm_OutBoxPrompt.ShowDialog();
-                //ObjUserMachine.worksate = 67;
+                Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                if (existingForm == null)
+                {
+                    FrmOutBox frmOutBox = new FrmOutBox(ObjUserMachine.PrescriptionID, ObjUserMachine.BoxCount, false, false, Convert.ToDateTime(NewPresData.StartTime));
+                    frmOutBox.Show();
+                }
+                ObjUserMachine.worksate = 67;
             }
             if (ObjUserMachine.AxisHomeStep == 40)
             {
@@ -2552,114 +2537,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
 
 
-        //if (ObjUserMachine.Seal)
-        //{
-        //    if (ObjUserMachine.SealEorr == 0)
-        //    {
-
-        //        roundMachined2.HavemodelColor[8] =System.Drawing.Color.Orange;
-        //    }
-        //    else
-        //    {
-        //        roundMachined2.HavemodelColor[8] = System.Drawing.Color.Red;
-        //    }
-        //}
-        //if (ObjUserMachine.Mbox)
-        //{
-        //    if (ObjUserMachine.MboxEorr == 0)
-        //    {
-        //        roundMachined2.HavemodelColor[8] = System.Drawing.Color.Orange;
-        //    }
-        //    else
-        //    {
-        //        roundMachined2.HavemodelColor[0] = System.Drawing.Color.Red;
-        //    }
-
-        //}
-        //if (Dispensing.PrescriptionDictionary.Count > 0)
-        //{
-        //    if (Dispensing.PrescriptionDictionary[ObjMachine.PrescriptionID].PresLogObj.TaskState == 7)//终止调剂
-        //    {
-        //        Stopdruge();
-        //    }
-        //}
-
-
-        //objuserControl[1].sname = OBtname[9].name;
-
-        //if (Math.Abs(MachinePublic.SetTemperature3 - MachinePublic.ReadTemperature3) > 5)
-        //{
-        //    objuserControl[1].sstate = "温度未达到设定值";
-        //    objuserControl[1].color = Color.Red;
-        //    //objuserControl[1].BackColor = System.Drawing.Color.Orange;
-        //}
-        //else
-        //{
-        //    objuserControl[1].sstate = checkgstate(OBtname[9].state).name;
-        //    objuserControl[1].color = Color.Blue;
-        //}
-
-
-        //objuserControl[2].sname = OBtname[10].name;
-        //colorlg = checkgstate(OBtname[10].state);
-        //objuserControl[2].sstate = colorlg.name;
-
-
-        //objuserControl[0].sname = OBtname[11].name;
-        //if (Math.Abs(MachinePublic.SetTemperature1 - MachinePublic.ReadTemperature1) > 5 || Math.Abs(MachinePublic.SetTemperature2 - MachinePublic.ReadTemperature2) > 5)
-        //{
-        //    objuserControl[0].sstate = "温度未达到设定值";
-        //    objuserControl[0].color = Color.Red;
-        //    //  objuserControl[0].BackColor = System.Drawing.Color.Orange;
-        //}
-        //else
-        //{
-        //    objuserControl[0].sstate = checkgstate(OBtname[11].state).name;
-        //    objuserControl[0].color = Color.Blue;
-        //}
-
-        //  objuserControl[0].sstate = colorlg.name;
-
-
-        //if (!GetBitValue(ObjUserMachine.Error, 1))
-        //{
-        //    colortext1.Text = "环境温湿度：" + Math.Round(((double)ObjUserMachine.Temp[0] / 100), 1).ToString() + "℃_" + Math.Round(((double)ObjUserMachine.Temp[1] / 100), 1).ToString() + "%RH ";
-        //    if (ObjUserMachine.Temp[1] > 0 && Oldtemp < ObjUserMachine.Temp[1] - 100)
-        //    {
-        //        Oldtemp = ObjUserMachine.Temp[1];
-
-        //        SaveTemp(Math.Round((double)ObjUserMachine.Temp[0] / 100, 2), Math.Round((double)ObjUserMachine.Temp[1] / 100, 2));
-        //    }
-        //}
-        //else
-        //{
-        //    colortext1.Text = "环境温湿度：未连接 ";
-        //}
-        //if (!GetBitValue(ObjUserMachine.Error, 4))
-        //{
-        //    //    colortext2.Text = "封口温度：" + ObjUserMachine.SealTemp[0].ToString() + "℃ ";
-        //    //}
-        //    //else
-        //    //{
-        //    //    colortext2.Text = "封口温度：未连接 ";
-        //    //}
-        //    //if (ObjUserMachine.SealTemp[0] < ObjMachine.SealTep - 4)
-        //    //{
-        //    //    colortext2.Color2 = Color.Red;
-        //    //}
-        //    //else
-        //    //{
-        //    //    colortext2.Color2 = Color.Blue;
-        //}
-        //if (Machine.RFID[0] > 0)
-        //{
-        //    lbOpterMsg.Items.Insert(0, DateTime.Now + "|" + Machine.RFID[0].ToString() + "|" + Machine.Weightdouble);
-        //}
-
-
-
-
-
+        
         private int Emove() //可以位移次数
         {
 
@@ -2734,15 +2612,10 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     {
                         boxst.Steper = TBd.Steper;
                     }
-
                 }
-
             }
-
-
-
-
         }
+
         private void Lopra()
         {
             ObjMachine.yMoveCount = ObjMachine.MoveCount % ObjMachine.Maxbox;
@@ -2819,16 +2692,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                             ObjMachine.HCSealex = true;
                         }
                     }
-                    ////if (i == 12)//出盒
-                    ////{
-                    ////    if (ObjMachine.BoxST[f].Gsealstate == true)
-                    ////    {
-                    ////        ObjMachine.HCoutbox = f;
-                    ////        ObjMachine.Outbox = true;
-
-
-                    ////    }
-                    ////}
 
                 }
             }
@@ -2967,10 +2830,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             return true;
         }
 
-
-
-
-
         private bool Checkfinish(List<bool> state)
         {
             foreach (bool re in state)
@@ -2984,97 +2843,114 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         }
         private void DispensingStateHandles(string PrescriptionID)
         {
-            //try
-            //{
-            //    if (Dispensing.PrescriptionDictionary[PrescriptionID].PresLogObj.TaskState == 8)
-            //    {
+            try
+            {
+                var preInfo = this.uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == PrescriptionID);
+                PrescriptionBLL _prescriptionBLL = new PrescriptionBLL();
+                if (preInfo == null)
+                {
+                    OperateLog.WriteLog(LogTypeEnum.处方调剂, "调剂过程出现异常,[DispensingStateHandles]方法未找到处方");
+                    return;
+                }
+                if (this.uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == PrescriptionID)?.TaskState == 8)
+                {
+                    var msg1 = _prescriptionBLL.UpdatePrescriptionStatus(new List<string>() { PrescriptionID }, ProcessStatusEnum.作废);
+                    if (msg1 != "")
+                    {
+                        OperateLog.WriteLog(LogTypeEnum.处方调剂, $"处方[{PrescriptionID}]终止时作废失败，原因" + msg1);
+                    }
+                    //DataPrescriptionTB.UpdateProcessStatus(PrescriptionID, DataPrescriptionTB.PrescriptionState.作废);
+                    //Dispensing.PrescriptionDictionary[PrescriptionID].PresLogObj.InsertRecord(Dispensing.PrescriptionDictionary[PrescriptionID]); //写处方调剂记录
+                    //Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[PrescriptionID], 3);
+                    sndPlaye("处方已被终止请勿交与患者");//  AddTotal(Detai); //误差量记录
+                                             //objFrm_OutBoxPrompt.ShowDialog();
+                                             //全部完成，弹出药框
+                    Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                    if (existingForm == null)
+                    {
+                        FrmOutBox frmOutBox = new FrmOutBox(preInfo.PrescriptionID, preInfo.BoxNumber, false, true, null);
+                        frmOutBox.Show();
+                    }
+                    preInfo.ProcessStatus = 4;//更新处方调剂状态到已完成   
+                    //Dispensing.RefreshPrescriptionDictionary();//
+                    lbOpterMsg.Items.Insert(0, ("处方|" + PrescriptionID + "|被终止调剂--时间" + DateTime.Now.ToString()) + "|");
 
-            //        DataPrescriptionTB.UpdateProcessStatus(PrescriptionID, DataPrescriptionTB.PrescriptionState.作废);
-            //        Dispensing.PrescriptionDictionary[PrescriptionID].PresLogObj.InsertRecord(Dispensing.PrescriptionDictionary[PrescriptionID]); //写处方调剂记录
-            //        Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[PrescriptionID], 3);
-            //        sndPlaye("处方已被终止请勿交与患者");//  AddTotal(Detai); //误差量记录
-            //        objFrm_OutBoxPrompt.ShowDialog();
-            //        Dispensing.PrescriptionDictionary[PrescriptionID].ProcessStatus = 4;//更新处方调剂状态到已完成   
-            //        Dispensing.RefreshPrescriptionDictionary();//
-            //        lbOpterMsg.Items.Insert(0, ("处方|" + PrescriptionID + "|被终止调剂--时间" + DateTime.Now.ToString()) + "|");
 
+                    return;
+                }
 
-            //        return;
-            //    }
+                var msg = _prescriptionBLL.UpdatePrescriptionStatus(new List<string>() { PrescriptionID }, ProcessStatusEnum.完成);
 
-            //    if (DataPrescriptionTB.UpdateProcessStatus(PrescriptionID, DataPrescriptionTB.PrescriptionState.已调剂))
-            //    {
-            //        NewPresData.PresLogObj.TaskState = 3;
-            //        Dispensing.PrescriptionDictionary[PrescriptionID] = NewPresData;//刷新字典数据
+                if (msg != "")
+                {
+                    preInfo.TaskState = 3;
+                    preInfo = NewPresData;//刷新字典数据
 
-            //        if (Dispensing.PrescriptionDictionary[PrescriptionID].PresLogObj.InsertRecord(Dispensing.PrescriptionDictionary[PrescriptionID])) //写处方调剂记录
-            //        {
-            //            if (!ConfigTB.PrintBeforeAdjustment)
-            //            {
-            //                if (DAL.ConfigTB.Automainpaper)
-            //                {
-            //                    Paper(ObjMachine.PrescriptionID, 1, false, true);
-            //                }
-            //                if (ConfigTB.AutoPrint)
-            //                {
-            //                    Task.Run(() => Paper(PrescriptionID, ObjMachine.Packboxnumber));
-            //                }
-            //            }
-            //            Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[PrescriptionID], 1);
-            //            sndPlaye("处方调剂完成请取走药筐");
-            //            objFrm_OutBoxPrompt.ShowDialog();
-            //            Dispensing.PrescriptionDictionary[PrescriptionID].ProcessStatus = 3;//更新处方调剂状态到已完成   
-            //            Dispensing.RefreshPrescriptionDictionary();//
-            //            lbOpterMsg.Items.Insert(0, ("处方|" + PrescriptionID + "|调剂完成|时间" + DateTime.Now.ToString()) + "|");
+                    if (!ConfigTB.PrintBeforeAdjustment)
+                    {
+                        if (ConfigTB.Automainpaper)
+                        {
+                            Paper(ObjMachine.PrescriptionID, 1, false, true);
+                        }
+                        if (ConfigTB.AutoPrint)
+                        {
+                            Task.Run(() => Paper(PrescriptionID, ObjMachine.Packboxnumber));
+                        }
+                    }
+                    Form existingForm = Application.OpenForms.Cast<Form>().Where(x => x.Name == "FrmOutBox").FirstOrDefault();
+                    if (existingForm == null)
+                    {
+                        FrmOutBox frmOutBox = new FrmOutBox(preInfo.PrescriptionID, preInfo.BoxNumber, false, true, null);
+                        frmOutBox.Show();
+                    }
+                    //Frm_OutBoxPrompt objFrm_OutBoxPrompt = new Frm_OutBoxPrompt(Dispensing.PrescriptionDictionary[PrescriptionID], 1);
+                    sndPlaye("处方调剂完成请取走药筐");
+                    //objFrm_OutBoxPrompt.ShowDialog();
+                    preInfo.ProcessStatus = 3;//更新处方调剂状态到已完成   
+                    //Dispensing.RefreshPrescriptionDictionary();//
+                    lbOpterMsg.Items.Insert(0, ("处方|" + PrescriptionID + "|调剂完成|时间" + DateTime.Now.ToString()) + "|");
 
-            //            return;
-            //        }
-            //        else
-            //        {
-            //            throw new Exception("处方调剂记录写入失败!");
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        throw new Exception("更新处方完整状态失败!");
-            //    }
-            //}
-
-            //catch (Exception ex)
-            //{
-            //    OperateLog.Write_SystemException(ConfigTB.DeviceID.ToString(), Form1_Mian.UserInfo.UserName, "1146", ex.Message);
-            //    this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1146", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+                    return;
+                }
+                else
+                {
+                    OperateLog.WriteLog(LogTypeEnum.处方调剂, $"更新处方[{PrescriptionID}]完成状态失败，原因" + msg);
+                    MessageBox.Show($"更新处方[{PrescriptionID}]完成状态失败!原因" + msg);
+                }
+            }
+            catch (Exception ex)
+            {
+                OperateLog.WriteLog(LogTypeEnum.系统异常, "调剂过程出现异常" + ex.Message);
+                this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1146");
+            }
         }
         private void Paper(string PrescriptionID, int Nuber, bool check = false, bool mianpaper = false)
         {
-            //try
-            //{
-            //    PrescriptionPrint Print = new PrescriptionPrint();
-            //    if (PrescriptionID != null)
-            //    {
-            //        DataPrescriptionTB NewPres = Dispensing.PrescriptionDictionary[PrescriptionID];
-            //        Print.PrintData = NewPres;
-            //        if (Print.PrintData != null)
-            //        {
-            //            for (int Nubernow = 0; Nubernow < Nuber; Nubernow++)
-            //            {
-            //                Print.Print(check, mianpaper);
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        this.ShowErrorDialog("处方内容不存在!");
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    //  OperateLog.Write_SystemException(Frm_MainUI.DeviceID.ToString(), Frm_MainUI.UserInfo.UserName, "1205", ex.Message);
-            //    this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1205", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            try
+            {
+                PrescriptionPrint Print = new PrescriptionPrint();
+                DataPrescriptionTB NewPres = this.uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == PrescriptionID);
+                if (NewPres != null)
+                {
+                    Print.PrintData = PresHandle.GetPrescriptionPrintModel(NewPres);
+                    if (Print.PrintData != null)
+                    {
+                        for (int Nubernow = 0; Nubernow < Nuber; Nubernow++)
+                        {
+                            Print.Print(check, mianpaper);
+                        }
+                    }
+                }
+                else
+                {
+                    this.ShowErrorDialog("打印时处方内容不存在!");
+                }
+            }
+            catch (Exception ex)
+            {
+                OperateLog.WriteLog(LogTypeEnum.处方调剂, "打印处方[" + PrescriptionID + "]出错，原因" + ex.Message);
+                this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1205");
+            }
         }
 
 
@@ -3085,307 +2961,309 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             lbOpterMsg.Controls.Clear();
 
-            //if (Dispensing.PrescriptionDictionary.Count != 0)
-            //{
-            //    NewPresData = PresHandle.PrescriptionHandles(Dispensing.PrescriptionDictionary[PresHisID]);//讲字典处方类容写入处方数据处理中心
-            //    if (NewPresData == null) { return false; }             //判断处方是否异常
-            //                                                           // this.PresHandle.PresData = NewPresData;                //赋值处方扣量对象
-            //                                                           //处方日志记录
-            //    NewPresData.PresLogObj.BoxNumber = NewPresData.BoxNumber;//下药盒数写入日志
-            //    NewPresData.PresLogObj.StartTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");//更新处方开始调剂时间
-            //    NewPresData.PresLogObj.TaskState = 2;//更新处方状态到调剂中    
-            //    Dispensing.PrescriptionDictionary[NewPresData.PrescriptionID] = NewPresData;  //加工厂的处方数据更新到字典);(NewPresData);
-            //    SendDateDruge(NewPresData);         //显示到列表筐
-            //    Application.DoEvents();
-            //}
-            //else
-            //{
-            //    this.ShowErrorDialog("无可调剂处方!");
-            //    return false;
-            //}
+            if (this.uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.Count != 0)
+            {
+                //NewPresData = PresHandle.PrescriptionHandles(Dispensing.PrescriptionDictionary[PresHisID]);//讲字典处方类容写入处方数据处理中心
+                var presData = this.uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == PresHisID);//讲字典处方类容写入处方数据处理中心
+                NewPresData = PresHandle.PrescriptionHandles(presData);//讲字典处方类容写入处方数据处理中心
+                if (NewPresData == null) { return false; }             //判断处方是否异常
+                                                                       // this.PresHandle.PresData = NewPresData;                //赋值处方扣量对象
+                                                                       //处方日志记录
+                NewPresData.BoxNumber = NewPresData.BoxNumber;//下药盒数写入日志
+                NewPresData.StartTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");//更新处方开始调剂时间
+                NewPresData.TaskState = 2;//更新处方状态到调剂中    
+                //Dispensing.PrescriptionDictionary[NewPresData.PrescriptionID] = NewPresData;  //加工厂的处方数据更新到字典);(NewPresData);
+                SendDateDruge(NewPresData);         //显示到列表筐
+                Application.DoEvents();
+            }
+            else
+            {
+                this.ShowErrorDialog("无可调剂处方!");
+                return false;
+            }
             return true;
         }
         private void SendDateDruge(DataPrescriptionTB Pres)
         {
 
-            //for (int i = 0; i < MachinePublic.WD600.Length; i++)
-            //{
-            //    MachinePublic.WD600[i] = 0;
-            //}
-            //Listdetail.Clear();
-            //ObjMachine.DetailedCount = Pres.DetailedCount;
-            //ObjMachine.BoxCount = Pres.BoxNumber;
-            //ObjMachine.Oddsate = Pres.Oddsate;
-            //dgvPreDetail.Rows.Clear();
-            //foreach (DataPrescriptionTB.DetailStructure Detail in Pres.ParticlesDetail)
-            //{
-            //    Machine.DetailM Reulst = new Machine.DetailM();
-            //    Reulst.PrescriptionID = Detail.PrescriptionID;
-            //    Reulst.ParticlesName = Detail.ParticlesName;
+            for (int i = 0; i < MachinePublic.WD600.Length; i++)
+            {
+                MachinePublic.WD600[i] = 0;
+            }
+            Listdetail.Clear();
+            ObjMachine.DetailedCount = Pres.DetailedCount;
+            ObjMachine.BoxCount = Pres.BoxNumber;
+            ObjMachine.Oddsate = Pres.Oddsate;
+            dgvPreDetail.Rows.Clear();
+            foreach (DataPrescriptionTB.DetailStructure Detail in Pres.ParticlesDetail)
+            {
+                Machine.DetailM Reulst = new Machine.DetailM();
+                Reulst.PrescriptionID = Detail.PrescriptionID;
+                Reulst.ParticlesName = Detail.ParticlesName;
 
 
-            //    Reulst.ParticlesCode = Detail.ParticlesID.ToString();
-            //    Reulst.ParticlesNameHIS = Detail.ParticlesNameHIS;//HIS颗粒名称
-            //    Reulst.ParticlesCodeHIS = Detail.ParticlesCodeHIS;//HIS码
-            //    Reulst.ArkID = Detail.CabinetParticles.ArkID;//颗粒柜号
-            //    Reulst.Layer = Detail.CabinetParticles.Layer;//颗粒层号
-            //    Reulst.CoordinateX = Detail.CabinetParticles.CoordinateX;//X坐标
-            //    Reulst.CoordinateY = Detail.CabinetParticles.CoordinateY;//Y坐标
-            //    Reulst.ParticlesStockQuantity = Detail.CabinetParticles.ParticlesStockQuantity;//颗粒库存量
-            //    Reulst.Dose = Detail.Dose;
-            //    Reulst.NewDose = Detail.NewDose;
-            //    Reulst.state = 1;
-            //    Listdetail.Add(Reulst);
+                Reulst.ParticlesCode = Detail.ParticlesID.ToString();
+                Reulst.ParticlesNameHIS = Detail.ParticlesNameHIS;//HIS颗粒名称
+                Reulst.ParticlesCodeHIS = Detail.ParticlesCodeHIS;//HIS码
+                Reulst.ArkID = Detail.CabinetParticles.ArkID;//颗粒柜号
+                Reulst.Layer = Detail.CabinetParticles.Layer;//颗粒层号
+                Reulst.CoordinateX = Detail.CabinetParticles.CoordinateX;//X坐标
+                Reulst.CoordinateY = Detail.CabinetParticles.CoordinateY;//Y坐标
+                Reulst.ParticlesStockQuantity = Detail.CabinetParticles.ParticlesStockQuantity;//颗粒库存量
+                Reulst.Dose = Detail.Dose;
+                Reulst.NewDose = Detail.NewDose;
+                Reulst.state = 1;
+                Listdetail.Add(Reulst);
 
-            //    DataGridViewRow Row = new DataGridViewRow();
-            //    Row.CreateCells(dgvPreDetail);
-            //    Row.Cells[0].Value = dgvPreDetail.Rows.Count + 1;
-            //    Row.Cells[1].Value = Detail.ParticlesName;
-            //    Row.Cells[2].Value = Detail.Dose;
-            //    Row.Cells[3].Value = "0";
-            //    Row.Cells[4].Value = checkdstate(1);
-            //    Row.Height = (int)(dgvPreDetail.Font.Height * 1.2);
+                DataGridViewRow Row = new DataGridViewRow();
+                Row.CreateCells(dgvPreDetail);
+                Row.Cells[0].Value = dgvPreDetail.Rows.Count + 1;
+                Row.Cells[1].Value = Detail.ParticlesName;
+                Row.Cells[2].Value = Detail.Dose;
+                Row.Cells[3].Value = "0";
+                Row.Cells[4].Value = checkdstate(1);
+                Row.Height = (int)(dgvPreDetail.Font.Height * 1.2);
 
-            //    byte DBit = (byte)((Detail.CabinetParticles.CoordinateX) % 16);
-            //    if (DBit == 0)
-            //    {
-            //        DBit = 16;
-            //    }
-            //    byte X = (byte)(Math.Ceiling((double)Detail.CabinetParticles.CoordinateX / 16) - 1);
-            //    byte Y = (byte)(Convert.ToByte(Detail.CabinetParticles.CoordinateY - 1) * 3);
-            //    byte H = (byte)(Convert.ToInt16(ConfigTB.Cy) - (Detail.CabinetParticles.CoordinateY - 1));
-            //    int D = (X + Y);
-            //    if (DBit < 17 && D < 42)
-            //    {
-            //        if (H % 2 == 0)
-            //        {
-            //            MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+                byte DBit = (byte)((Detail.CabinetParticles.CoordinateX) % 16);
+                if (DBit == 0)
+                {
+                    DBit = 16;
+                }
+                byte X = (byte)(Math.Ceiling((double)Detail.CabinetParticles.CoordinateX / 16) - 1);
+                byte Y = (byte)(Convert.ToByte(Detail.CabinetParticles.CoordinateY - 1) * 3);
+                byte H = (byte)(Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.CabinetRowCount) - (Detail.CabinetParticles.CoordinateY - 1));
+                int D = (X + Y);
+                if (DBit < 17 && D < 42)
+                {
+                    if (H % 2 == 0)
+                    {
+                        MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
 
-            //        }
-            //        else
-            //        {
-            //            MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
-            //        }
-            //    }
-            //    Statecolorl date = checkdstate(Reulst.state);
-            //    Row.Cells[5].Value = "列<" + Detail.CabinetParticles.CoordinateX + ">,行<" + Detail.CabinetParticles.CoordinateY + ">";
-            //    Row.DefaultCellStyle.BackColor = date.color;
-            //    dgvPreDetail.Rows.Add(Row);
+                    }
+                    else
+                    {
+                        MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                    }
+                }
+                Statecolorl date = checkdstate(Reulst.state);
+                Row.Cells[5].Value = "列<" + Detail.CabinetParticles.CoordinateX + ">,行<" + Detail.CabinetParticles.CoordinateY + ">";
+                Row.DefaultCellStyle.BackColor = date.color;
+                dgvPreDetail.Rows.Add(Row);
 
-            //}
-            //int MaxCoordinateX = 48; //灯柜允许最大列
-            //int Maxnuber = Convert.ToInt16(ConfigTB.Cn1); //大药柜数量
-            //int NowX = 0;
-            //if (Maxnuber > 0)
-            //{
-            //    for (int i = 0; i < Maxnuber; i++)
-            //    {
-            //        NowX = MachinePublic.WD600[42 + i] + NowX;
-            //        if (NowX <= MaxCoordinateX)
-            //        {
-            //            MachinePublic.WD600[42 + i] = 16;
-            //        }
-            //    }
-            //}
-            //int Minnuber = Convert.ToInt16(ConfigTB.Cn2); //小药柜数量
+            }
+            int MaxCoordinateX = 48; //灯柜允许最大列
+            int Maxnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.LargeCabinetCount); //大药柜数量
+            int NowX = 0;
+            if (Maxnuber > 0)
+            {
+                for (int i = 0; i < Maxnuber; i++)
+                {
+                    NowX = MachinePublic.WD600[42 + i] + NowX;
+                    if (NowX <= MaxCoordinateX)
+                    {
+                        MachinePublic.WD600[42 + i] = 16;
+                    }
+                }
+            }
+            int Minnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.SmallCabinetCount); //小药柜数量
 
-            //if (Minnuber > 0)
-            //{
-            //    NowX = Maxnuber * 16;
-            //    for (int i = 0; i < Minnuber; i++)
-            //    {
-            //        {
-            //            NowX = D600[42 + Maxnuber + i] + NowX;
-            //            if (NowX <= MaxCoordinateX)
-            //            {
-            //                MachinePublic.WD600[42 + Maxnuber + i] = 8;
-            //            }
-            //        }
-            //    }
-            //}
-            //MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            //MachinePublic.WD600[50] = 1;
-            ////  System.Threading.Thread.Sleep(100);
-            //ObjMachine.WriteLED = true;
-            //this.dgvPreDetail.TopLeftHeaderCell.Value = "共" + dgvPreDetail.Rows.Count.ToString() + "条";
-            //if (ObjMachine.MoveCount == 0)
-            //{
-            //    ObjMachine.MoveCount = 1;
-            //}
-            //ObjMachine.ParticlesDetailp = Listdetail;
-            //ObjMachine.PrescriptionID = Pres.PrescriptionID;
-            //lbOpterMsg.Items.Insert(0, ("处方|" + ObjMachine.PrescriptionID + "|开始调剂|时间" + DateTime.Now.ToString()) + "|");
-            //switch (PrintConfigTB.Automodepapertype)
-            //{
-            //    case 0: { ObjMachine.Packboxnumber = 1; } break;
-            //    case 1: { ObjMachine.Packboxnumber = ObjMachine.BoxCount * 2; } break;
-            //    case 2: { ObjMachine.Packboxnumber = (int)Math.Ceiling((double)(ObjMachine.BoxCount * 2) / (double)MachinePublic.Outboxunber); } break;
-            //}
-            //if (ConfigTB.PrintBeforeAdjustment)
-            //{
-            //    if (PrescriptionPrint.IsOK(true))
-            //    {
-            //        if (ConfigTB.Automainpaper)
-            //        {
-            //            Paper(ObjMachine.PrescriptionID, 1, false, true);
-            //        }
-            //    }
-            //    if (PrescriptionPrint.IsOK())
-            //    {
-            //        if (ConfigTB.AutoPrint)
-            //        {
-            //            Task.Run(() => Paper(ObjMachine.PrescriptionID, ObjMachine.Packboxnumber));
-            //        }
-            //    }
-            //}
+            if (Minnuber > 0)
+            {
+                NowX = Maxnuber * 16;
+                for (int i = 0; i < Minnuber; i++)
+                {
+                    {
+                        NowX = D600[42 + Maxnuber + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                        }
+                    }
+                }
+            }
+            MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+            MachinePublic.WD600[50] = 1;
+            //  System.Threading.Thread.Sleep(100);
+            ObjMachine.WriteLED = true;
+            this.dgvPreDetail.TopLeftHeaderCell.Value = "共" + dgvPreDetail.Rows.Count.ToString() + "条";
+            if (ObjMachine.MoveCount == 0)
+            {
+                ObjMachine.MoveCount = 1;
+            }
+            ObjMachine.ParticlesDetailp = Listdetail;
+            ObjMachine.PrescriptionID = Pres.PrescriptionID;
+            lbOpterMsg.Items.Insert(0, ("处方|" + ObjMachine.PrescriptionID + "|开始调剂|时间" + DateTime.Now.ToString()) + "|");
+            switch (PrintConfigTB.Automodepapertype)
+            {
+                case 0: { ObjMachine.Packboxnumber = 1; } break;
+                case 1: { ObjMachine.Packboxnumber = ObjMachine.BoxCount * 2; } break;
+                case 2: { ObjMachine.Packboxnumber = (int)Math.Ceiling((double)(ObjMachine.BoxCount * 2) / (double)MachinePublic.Outboxunber); } break;
+            }
+            if (ConfigTB.PrintBeforeAdjustment)
+            {
+                if (PrescriptionPrint.IsOK(true))
+                {
+                    if (ConfigTB.Automainpaper)
+                    {
+                        Paper(ObjMachine.PrescriptionID, 1, false, true);
+                    }
+                }
+                if (PrescriptionPrint.IsOK())
+                {
+                    if (ConfigTB.AutoPrint)
+                    {
+                        Task.Run(() => Paper(ObjMachine.PrescriptionID, ObjMachine.Packboxnumber));
+                    }
+                }
+            }
         }
         private void CloseLED(List<Machine.DetailM> MD)
         {
-            //try
-            //{
-            //    for (int i = 0; i < MachinePublic.WD600.Length; i++)
-            //    {
-            //        MachinePublic.WD600[i] = 0;
-            //    }
-            //    foreach (Machine.DetailM Detail in MD)
-            //    {
-            //        if (Detail.state != 4)
-            //        {
-            //            byte DBit = (byte)((Detail.CoordinateX) % 16);
-            //            if (DBit == 0)
-            //            {
-            //                DBit = 16;
-            //            }
-            //            byte X = (byte)((Detail.CoordinateX) / 17);
-            //            byte Y = (byte)(Convert.ToByte(Detail.CoordinateY - 1) * 3);
-            //            byte H = (byte)(Convert.ToInt16(ConfigTB.Cy) - (Detail.CoordinateY - 1));
-            //            int D = (X + Y);
-            //            if (DBit < 17 && D < 42)
-            //            {
-            //                if (H % 2 == 0)
-            //                {
-            //                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+            try
+            {
+                for (int i = 0; i < MachinePublic.WD600.Length; i++)
+                {
+                    MachinePublic.WD600[i] = 0;
+                }
+                foreach (Machine.DetailM Detail in MD)
+                {
+                    if (Detail.state != 4)
+                    {
+                        byte DBit = (byte)((Detail.CoordinateX) % 16);
+                        if (DBit == 0)
+                        {
+                            DBit = 16;
+                        }
+                        byte X = (byte)((Detail.CoordinateX) / 17);
+                        byte Y = (byte)(Convert.ToByte(Detail.CoordinateY - 1) * 3);
+                        byte H = (byte)(Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.CabinetRowCount) - (Detail.CoordinateY - 1));
+                        int D = (X + Y);
+                        if (DBit < 17 && D < 42)
+                        {
+                            if (H % 2 == 0)
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
 
-            //                }
-            //                else
-            //                {
-            //                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
-            //                }
-            //            }
-            //        }
-            //    }
-            //    int MaxCoordinateX = 48; //灯柜允许最大列
-            //    int Maxnuber = Convert.ToInt16(ConfigTB.Cn1); //大药柜数量
-            //    int NowX = 0;
-            //    if (Maxnuber > 0)
-            //    {
-            //        for (int i = 0; i < Maxnuber; i++)
-            //        {
-            //            NowX = MachinePublic.WD600[42 + i] + NowX;
-            //            if (NowX <= MaxCoordinateX)
-            //            {
-            //                MachinePublic.WD600[42 + i] = 16;
-            //            }
-            //        }
-            //    }
-            //    int Minnuber = Convert.ToInt16(ConfigTB.Cn2); //小药柜数量
+                            }
+                            else
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                            }
+                        }
+                    }
+                }
+                int MaxCoordinateX = 48; //灯柜允许最大列
+                int Maxnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.LargeCabinetCount); //大药柜数量
+                int NowX = 0;
+                if (Maxnuber > 0)
+                {
+                    for (int i = 0; i < Maxnuber; i++)
+                    {
+                        NowX = MachinePublic.WD600[42 + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + i] = 16;
+                        }
+                    }
+                }
+                int Minnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.SmallCabinetCount); //小药柜数量
 
-            //    if (Minnuber > 0)
-            //    {
-            //        NowX = Maxnuber * 16;
-            //        for (int i = 0; i < Minnuber; i++)
-            //        {
-            //            {
-            //                NowX = D600[42 + Maxnuber + i] + NowX;
-            //                if (NowX <= MaxCoordinateX)
-            //                {
-            //                    MachinePublic.WD600[42 + Maxnuber + i] = 8;
-            //                }
-            //            }
-            //        }
-            //    }
-            //    MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            //    MachinePublic.WD600[50] = 1;
-            //    ObjMachine.WriteLED = true;
-            //}
-            //catch
-            //{
+                if (Minnuber > 0)
+                {
+                    NowX = Maxnuber * 16;
+                    for (int i = 0; i < Minnuber; i++)
+                    {
+                        {
+                            NowX = D600[42 + Maxnuber + i] + NowX;
+                            if (NowX <= MaxCoordinateX)
+                            {
+                                MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                            }
+                        }
+                    }
+                }
+                MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+                MachinePublic.WD600[50] = 1;
+                ObjMachine.WriteLED = true;
+            }
+            catch
+            {
 
-            //}
+            }
         }
         private void CloseLED1(List<Machine.DetailM> MD)
         {
-            //try
-            //{
-            //    for (int i = 0; i < MachinePublic.WD600.Length; i++)
-            //    {
-            //        MachinePublic.WD600[i] = 0;
-            //    }
-            //    foreach (Machine.DetailM Detail in MD)
-            //    {
-            //        if (Detail.state == 1)
-            //        {
-            //            byte DBit = (byte)((Detail.CoordinateX) % 16);
-            //            if (DBit == 0)
-            //            {
-            //                DBit = 16;
-            //            }
-            //            byte X = (byte)((Detail.CoordinateX) / 17);
-            //            byte Y = (byte)(Convert.ToByte(Detail.CoordinateY - 1) * 3);
-            //            byte H = (byte)(Convert.ToInt16(ConfigTB.Cy) - (Detail.CoordinateY - 1));
-            //            int D = (X + Y);
-            //            if (DBit < 17 && D < 42)
-            //            {
-            //                if (H % 2 == 0)
-            //                {
-            //                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
+            try
+            {
+                for (int i = 0; i < MachinePublic.WD600.Length; i++)
+                {
+                    MachinePublic.WD600[i] = 0;
+                }
+                foreach (Machine.DetailM Detail in MD)
+                {
+                    if (Detail.state == 1)
+                    {
+                        byte DBit = (byte)((Detail.CoordinateX) % 16);
+                        if (DBit == 0)
+                        {
+                            DBit = 16;
+                        }
+                        byte X = (byte)((Detail.CoordinateX) / 17);
+                        byte Y = (byte)(Convert.ToByte(Detail.CoordinateY - 1) * 3);
+                        byte H = (byte)(Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.CabinetRowCount) - (Detail.CoordinateY - 1));
+                        int D = (X + Y);
+                        if (DBit < 17 && D < 42)
+                        {
+                            if (H % 2 == 0)
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << (16 - DBit)));
 
-            //                }
-            //                else
-            //                {
-            //                    MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
-            //                }
-            //            }
-            //        }
-            //    }
-            //    int MaxCoordinateX = 48; //灯柜允许最大列
-            //    int Maxnuber = Convert.ToInt16(ConfigTB.Cn1); //大药柜数量
-            //    int NowX = 0;
-            //    if (Maxnuber > 0)
-            //    {
-            //        for (int i = 0; i < Maxnuber; i++)
-            //        {
-            //            NowX = MachinePublic.WD600[42 + i] + NowX;
-            //            if (NowX <= MaxCoordinateX)
-            //            {
-            //                MachinePublic.WD600[42 + i] = 16;
-            //            }
-            //        }
-            //    }
-            //    int Minnuber = Convert.ToInt16(ConfigTB.Cn2); //小药柜数量
+                            }
+                            else
+                            {
+                                MachinePublic.WD600[D] = (Int16)(MachinePublic.WD600[D] + (1 << DBit - 1));
+                            }
+                        }
+                    }
+                }
+                int MaxCoordinateX = 48; //灯柜允许最大列
+                int Maxnuber = Convert.ToInt16( SysDeviceInfo.currentDeviceInfo.LargeCabinetCount); //大药柜数量
+                int NowX = 0;
+                if (Maxnuber > 0)
+                {
+                    for (int i = 0; i < Maxnuber; i++)
+                    {
+                        NowX = MachinePublic.WD600[42 + i] + NowX;
+                        if (NowX <= MaxCoordinateX)
+                        {
+                            MachinePublic.WD600[42 + i] = 16;
+                        }
+                    }
+                }
+                int Minnuber = Convert.ToInt16(SysDeviceInfo.currentDeviceInfo.SmallCabinetCount); //小药柜数量
 
-            //    if (Minnuber > 0)
-            //    {
-            //        NowX = Maxnuber * 16;
-            //        for (int i = 0; i < Minnuber; i++)
-            //        {
-            //            {
-            //                NowX = D600[42 + Maxnuber + i] + NowX;
-            //                if (NowX <= MaxCoordinateX)
-            //                {
-            //                    MachinePublic.WD600[42 + Maxnuber + i] = 8;
-            //                }
-            //            }
-            //        }
-            //    }
-            //    MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
-            //    MachinePublic.WD600[50] = 1;
-            //    ObjMachine.WriteLED = true;
-            //}
-            //catch
-            //{
+                if (Minnuber > 0)
+                {
+                    NowX = Maxnuber * 16;
+                    for (int i = 0; i < Minnuber; i++)
+                    {
+                        {
+                            NowX = D600[42 + Maxnuber + i] + NowX;
+                            if (NowX <= MaxCoordinateX)
+                            {
+                                MachinePublic.WD600[42 + Maxnuber + i] = 8;
+                            }
+                        }
+                    }
+                }
+                MachinePublic.WD600[49] = Convert.ToInt16(MachinePublic.LEDgr);
+                MachinePublic.WD600[50] = 1;
+                ObjMachine.WriteLED = true;
+            }
+            catch
+            {
 
-            //}
+            }
         }
         private bool CheckDeivce(int value)
         {
@@ -3435,20 +3313,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 if (!ConfigTB.Autospeak) { return; }
                 Task.Run(() =>
                 {
-
-
-                    //string filePath = Application.StartupPath + "\\WAVE\\" + name + ".wav";
-                    //string directoryPath = Path.GetDirectoryName(filePath);
-                    //bool exists = Directory.Exists(directoryPath) && File.Exists(filePath);
-                    //if (exists)
-                    //{
-                    //    System.Media.SoundPlayer sndPlayer = new System.Media.SoundPlayer(Application.StartupPath + "\\WAVE\\" + name + ".wav");    //wav格式的铃声 
-
-                    //    sndPlayer.PlaySync();
-                    //    sndPlayer.Dispose();
-                    //}
-                    //else
-                    //{
                     if (check)
                     {
                         synthesizer.SpeakAsyncCancelAll();
@@ -3456,10 +3320,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     synthesizer.Pause();
                     synthesizer.Resume();
                     synthesizer.Speak(name);
-
-                    // AiSpeak(name);
-
-                    // }
                 });
             }
             catch
@@ -3473,23 +3333,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         {
             try
             {
-
                 Task.Run(() =>
                 {
-
-
-                    //string filePath = Application.StartupPath + "\\WAVE\\" + name + ".wav";
-                    //string directoryPath = Path.GetDirectoryName(filePath);
-                    //bool exists = Directory.Exists(directoryPath) && File.Exists(filePath);
-                    //if (exists)
-                    //{
-                    //    System.Media.SoundPlayer sndPlayer = new System.Media.SoundPlayer(Application.StartupPath + "\\WAVE\\" + name + ".wav");    //wav格式的铃声 
-
-                    //    sndPlayer.PlaySync();
-                    //    sndPlayer.Dispose();
-                    //}
-                    //else
-                    //{
                     if (check)
                     {
                         synthesizer.SpeakAsyncCancelAll();
@@ -3497,18 +3342,12 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     synthesizer.Pause();
                     synthesizer.Resume();
                     synthesizer.Speak(name);
-
-                    // AiSpeak(name);
-
-                    // }
                 });
             }
             catch
             {
 
             }
-
-
         }
         public void sndPEe(bool fish)
         {
@@ -3530,22 +3369,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                         sndPlayer.PlaySync();
                         sndPlayer.Dispose();
                     }
-                    //    synthesizer.SpeakAsyncCancelAll();
-
-                    //    synthesizer.Pause();
-                    //synthesizer.Resume();
-                    //    if (fish)
-                    //    {
-                    //        synthesizer.AddLexicon
-                    //    }
-                    //    else
-                    //    {
-
-
-                    //    }
-                    //    synthesizer.Speak(name);
-
-
                 });
             }
             catch
@@ -3593,8 +3416,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         public static bool GetExtXBit(short nBitIndex)
         {
             int lValue = 0;
-            // Form1_Mian.MultiCardCSD.GA_GetExtDiValue(0, ref lValue, 1);
-            // int c=1 << nBitIndex-1;
             if (0 == (lValue & (1 << (nBitIndex - 1))))
             {
                 return false;
@@ -3610,11 +3431,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         /// <summary>
         /// 1-8下药电机  10送膜 11出盒
         /// </summary>
-
-
-
-
-
 
 
         /// <summary>
@@ -3927,26 +3743,21 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             if (ObjMachine.Stop && (ObjMachine.worksate == 31 || ObjMachine.worksate == 0))
             {
 
-                //if (this.ShowErrorDialog("是否对:" + nuber + " 调剂头执行回零", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                //{
-                //    FrmBagDevice.ObjMachine.TAxisHomeExcute[nuber + 1] = true;
-                //    lbOpterMsg.Items.Insert(0, DateTime.Now + "|" + nuber + "号调剂头正在执行回原点...|");
-                //}
-                //else
-                //{
-                //    return;
-                //}
+                if (this.ShowAskDialog("是否对:" + nuber + " 调剂头执行回零", "提示"))
+                {
+                    FrmBagDevice.ObjMachine.TAxisHomeExcute[nuber + 1] = true;
+                    lbOpterMsg.Items.Insert(0, DateTime.Now + "|" + nuber + "号调剂头正在执行回原点...|");
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
                 this.ShowErrorDialog("请暂停设备后，再执行此操作");
             }
         }
-
-
-
-   
-
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -3991,23 +3802,23 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         }
         private void btnStopRun_Click(object sender, EventArgs e)
         {
-            //if (ObjMachine.PrescriptionID != null && Dispensing.PrescriptionDictionary.ContainsKey(ObjMachine.PrescriptionID))
-            //{
-            //    if (this.ShowAskDialog("是否终止调剂？"))
-            //    {
-            //        Dispensing.PrescriptionDictionary[ObjMachine.PrescriptionID].PresLogObj.TaskState = 8;
-            //        OperateLog.WriteLog(LogTypeEnum.用户操作, "终止调剂处方：" + ObjMachine.PrescriptionID);
-            //    }
-            //    else
-            //    {
-            //        return;
-            //    }
-            //}
-            //else
-            //{
-            //    this.ShowErrorDialog("无处方信息");
-            //}
-
+            var preInfo = uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == ObjMachine.PrescriptionID);
+            if (!string.IsNullOrEmpty(ObjMachine.PrescriptionID) && preInfo != null)
+            {
+                if (this.ShowAskDialog("是否终止调剂？"))
+                {
+                    preInfo.TaskState = 8;
+                    OperateLog.WriteLog(LogTypeEnum.用户操作, "终止调剂处方：" + ObjMachine.PrescriptionID);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                this.ShowErrorDialog("无处方信息");
+            }
         }
 
         private void dgvDeviceError_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -4271,7 +4082,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         private void dgvPreDetail_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
 
-            if (e.Button == MouseButtons.Right) 
+            if (e.Button == MouseButtons.Right)
             {
                 if (e.RowIndex >= 0)
                 {
@@ -4291,24 +4102,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                     {
                         if (ObjMachine.BoxST[i] != null)
                         {
-                            //    List<Machine.ParticlesDetail> Tblistdetail = new List<Machine.ParticlesDetail>();
-                            //    foreach (Machine.DetailM TBd in ObjMachine.ParticlesDetailp)
-                            //    {
-
-                            //       Machine.ParticlesDetail pd = newMachine.ParticlesDetail();
-                            //        pd.Steper = TBd.Steper;
-                            //        pd.ParticlesCode = TBd.ParticlesCode;
-                            //        if (TBd.setfish)
-                            //        {
-                            //            pd.finish = true;
-                            //        }
-                            //        else
-                            //        {
-                            //        }
-                            //    Tblistdetail.Add(pd);
-                            //    }
-                            //    ObjMachine.BoxST[i].ParticlesDetail = Tblistdetail;
-                            //}
                             var ParticlesDetail = ObjMachine.BoxST[i].ParticlesDetail.Where(X => X.ParticlesCode == Fristna).FirstOrDefault();
                             if (!ParticlesDetail.finish)
                             {
@@ -4322,7 +4115,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
         }
         private void remove_Click(object sender, EventArgs e)
         {
-
             if (dgvPreDetail.CurrentRow != null)
             {
                 if (ObjMachine.ParticlesDetailp == null) { return; }
@@ -4348,24 +4140,8 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void dgvPreDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
             e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
             e.CellStyle.SelectionForeColor = Color.Blue;
-
-            //        // 检查当前行是否被选中
-            //        if (dgvPreDetail.Rows[e.RowIndex].Selected)
-            //        {
-            //            // 设置选中行的字体颜色为蓝色
-            //            dgvPreDetail.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Blue;
-            //        }
-            //        else
-            //        {
-            //            // 设置未选中行的字体颜色为黑色
-            //            dgvPreDetail.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Black;
-            //        }
-
-
-
         }
 
         private void btnAddPre_Click(object sender, EventArgs e)
@@ -4439,8 +4215,6 @@ namespace AdjustmentSysUI.Forms.DeviceForms
             }
         }
 
-
-
         private void roundMachined2_MyDoubleClick(object sender, MouseEventArgs e)
         {
             int Homenumber = 10; //调剂工位回零
@@ -4479,41 +4253,41 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnStartRun_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (Dispensing.PrescriptionDictionary.ContainsKey(Dispensing.checkPrescriptionid))
-            //    {
-            //        if (Dispensing.PrescriptionDictionary[Dispensing.checkPrescriptionid].PresLogObj.TaskState == 5)//检查是否处于待调剂
-            //        {
-            //            if (CheckDeivce(1))
-            //            {
-            //                string PrescriptionHisID = Dispensing.checkPrescriptionid;   //获取当前选定处方ID号
-            //                if (!SrartSwapPres(PrescriptionHisID)) { return; }  //开始加载任务drivcedruge                         
-            //                Dispensing.RefreshPrescriptionDictionary();//
-            //                OperateLog.WriteLog(LogTypeEnum.用户操作, "开始调剂处方[" + PrescriptionHisID + "]");
+            var preInfo = uC_PreFlowList1.prescriptionBinModel.CheckedPreInfos.FirstOrDefault(x => x.PrescriptionID == ObjMachine.PrescriptionID);
+            try
+            {
+                if (preInfo != null)
+                {
+                    if (preInfo.TaskState == 5)//检查是否处于待调剂
+                    {
+                        if (CheckDeivce(1))
+                        {
+                            string PrescriptionHisID = uC_PreFlowList1.selectPreID;   //获取当前选定处方ID号
+                            if (!SrartSwapPres(PrescriptionHisID)) { return; }  //开始加载任务drivcedruge                         
+                            OperateLog.WriteLog(LogTypeEnum.用户操作, "开始调剂处方[" + PrescriptionHisID + "]");
 
-            //            }
-            //        }
-            //        else if (Dispensing.PrescriptionDictionary[Dispensing.checkPrescriptionid].PresLogObj.TaskState == 1)
-            //        {
-            //           this.ShowErrorDialog("请先核对处方【" + Dispensing.checkPrescriptionid + "】!");
-            //        }
-            //        else
-            //        {
-            //            this.ShowErrorDialog("处方在调剂中!");
-            //        }
+                        }
+                    }
+                    else if (preInfo.TaskState == 1)
+                    {
+                        this.ShowErrorDialog("请先核对处方【" + uC_PreFlowList1.selectPreID + "】!");
+                    }
+                    else
+                    {
+                        this.ShowErrorDialog("处方在调剂中!");
+                    }
 
-            //    }
-            //    else
-            //    {
-            //        this.ShowErrorDialog("无可调剂的处方!");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // OperateLog.Write_SystemException(ConfigTB.DeviceID.ToString(), Form1_Mian.UserInfo.UserName, "1146", ex.Message);
-            //    this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1146.1");
-            //}
+                }
+                else
+                {
+                    this.ShowErrorDialog("无可调剂的处方!");
+                }
+            }
+            catch (Exception ex)
+            {
+                OperateLog.WriteLog(LogTypeEnum.系统异常, $"开始调剂处方{preInfo.PrescriptionID}出现异常，原因" + ex.Message);
+                this.ShowErrorDialog("" + ex.Message + "\r\n<" + ex.StackTrace + ">", "错误代码:1146.1");
+            }
         }
 
         private void btnSuspend_Click(object sender, EventArgs e)
@@ -4537,6 +4311,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void btnAddParticle_Click(object sender, EventArgs e)
         {
+            dataGradeViewUi.FormClose("FrmParticleStockAdd");
             FrmParticleStockAdd frmParticleStockAdd = new FrmParticleStockAdd();
             frmParticleStockAdd.ShowDialog();
             bool isSuccessed = frmParticleStockAdd.isSuccess;
@@ -4548,6 +4323,7 @@ namespace AdjustmentSysUI.Forms.DeviceForms
 
         private void lblBtnYLTZ_Click(object sender, EventArgs e)
         {
+            dataGradeViewUi.FormClose("FrmAdjustmentOfSurplus");
             FrmAdjustmentOfSurplus frmAdjustmentOfSurplus = new FrmAdjustmentOfSurplus();
             frmAdjustmentOfSurplus.ShowDialog();
             bool isSuccessed = frmAdjustmentOfSurplus.isSuccess;
@@ -4570,6 +4346,19 @@ namespace AdjustmentSysUI.Forms.DeviceForms
                 lbOpterMsg.Items.Insert(0, "|已清除设备所有状态:|" + DateTime.Now);
                 OperateLog.WriteLog(LogTypeEnum.用户操作, SysLoginUser._currentUser.UserName + "清除设备所有状态");
             }
+        }
+
+ 
+        private void lblPrescriptionPaper_Click(object sender, EventArgs e)
+        {
+            if (uC_PreFlowList1.selectPreID == "")
+            {
+                this.ShowWarningDialog("异常提示", "请先选择要查看的处方");
+                return;
+            }
+            dataGradeViewUi.FormClose("FrmPrescriptionPaper");
+            FrmPrescriptionPaper frmPrescriptionPaper = new FrmPrescriptionPaper(uC_PreFlowList1.selectPreID);
+            frmPrescriptionPaper.Show();
         }
     }
 }

@@ -32,6 +32,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YD;
 
 namespace AdjustmentSysUI.Forms
 {
@@ -61,7 +62,7 @@ namespace AdjustmentSysUI.Forms
             pageIndex = 100;
             TreeNode parent = navMenuMainLeft.CreateNode("调剂管理", 558167, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice(), ++pageIndex));
-            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDevice1(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBagDevice(), ++pageIndex));
             //navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBagDevice(), ++pageIndex));
             
 
@@ -86,6 +87,7 @@ namespace AdjustmentSysUI.Forms
             parent = navMenuMainLeft.CreateNode("设备管理", 358723, 28, pageIndex);
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmDevice(), ++pageIndex));
             navMenuMainLeft.CreateChildNode(parent, AddPage(new FrmBoxedDeviceTest(), ++pageIndex));
+            navMenuMainLeft.CreateChildNode(parent, AddPage(new ucGDT8set(), ++pageIndex));
 
 
             pageIndex = 500;

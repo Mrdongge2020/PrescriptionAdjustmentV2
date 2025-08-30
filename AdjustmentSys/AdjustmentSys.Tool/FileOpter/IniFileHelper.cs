@@ -22,7 +22,7 @@ namespace AdjustmentSys.Tool.FileOpter
         #endregion
 
         #region 读ini文件    
-        public static string ReadIniData(string Section,string Key)      
+        public static string ReadIniData(string Section,string Key,string Kvalue="")      
         {
             
             string iniFilePath = filePath;
@@ -30,11 +30,20 @@ namespace AdjustmentSys.Tool.FileOpter
             if (File.Exists(filePath))     
             {                
                 StringBuilder temp = new StringBuilder(1024); 
-                GetPrivateProfileString(Section, Key,"", temp, 1024, filePath);   
-                return temp.ToString();     
+                GetPrivateProfileString(Section, Key,"", temp, 1024, filePath);
+                if (string.IsNullOrEmpty(temp.ToString()))
+                {
+                    WriteIniData(Section, Key, Kvalue);
+                    return Kvalue;
+                }
+                else 
+                {
+                    return temp.ToString();
+                }
             }            
             else   
-            {             
+            {
+                
                 return String.Empty;        
             }      
         }       

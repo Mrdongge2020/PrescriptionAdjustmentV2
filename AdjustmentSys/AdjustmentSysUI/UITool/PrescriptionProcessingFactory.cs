@@ -15,6 +15,8 @@ using AdjustmentSys.Entity;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.BLL.Prescription;
 using AdjustmentSys.Models.FileModel;
+using AdjustmentSys.Models.Prescription;
+using static AdjustmentSys.Models.Machine.DataPrescriptionTB;
 
 namespace AdjustmentSysUI.UITool
 {
@@ -348,6 +350,125 @@ namespace AdjustmentSysUI.UITool
             
             return true;
             
+        }
+
+        public LocalDataPrescriptionInfo GerLocalDataPrescriptionInfo(string PreId) 
+        {
+            PrescriptionAdjustmentBLL prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
+            var preData = prescriptionAdjustmentBLL.GetPrescriptionByCode(PreId);
+            if (preData == null)
+            {
+                return null;
+            }
+            else {
+                return preData.PrescriptionInfo;
+            }
+           
+            //LocalDataPrescriptionInfoRecord record = new LocalDataPrescriptionInfoRecord();
+            //record.PrescriptionID= PresData.PrescriptionID;
+            //record.PatientName= PresData.PatientName;
+            //record.PatientSex= PresData.PatientSex;
+            //record.PatientAge= PresData.PatientAge;
+            //record.PatientBirthDay= PresData.PatientBirthDay;
+            //record.PatientBirthMonth= PresData.PatientBirthMonth;
+            //record.PatientTel= PresData.PatientTel;
+            //record.PatientEmail= PresData.PatientEmail;
+            //record.PatientLocation= PresData.PatientLocation;
+            //record.DoctorName= PresData.DoctorName;
+            //record.DepartmentName= PresData.DepartmentName;
+            //record.CreateName= PresData.CreateName;
+            //record.CreateTime= PresData.CreateTime;
+            //record.ValuerName= PresData.ValuerName;
+            //record.ValueSn=PresData.ValueSn;
+            //record.ValuationTime=PresData.ValuationTime;
+            //record.RegisterID= PresData.RegisterID;
+            //record.PaymentType= PresData.PaymentType;
+            //record.PaymentStatus= PresData.PaymentStatus;
+            //record.PrescriptionType= PresData.PrescriptionType;
+            //record.BedNumber= PresData.BedNumber;
+            //record.ImportTime= PresData.ImportTime;
+            //record.Quantity= PresData.Quantity;
+            //record.DetailedCount= PresData.DetailedCount;
+            //record.TaskFrequency= PresData.TaskFrequency;
+            //record.UnitPrice= PresData.UnitPrice;
+            //record.TotalPrice= PresData.TotalPrice;
+            //record.PrescriptionSource= PresData.PrescriptionSource;
+            //record.ProcessStatus=processStatus;
+            //record.PrescriptionName= PresData.PrescriptionName;
+            //record.Remarks= PresData.Remarks;
+            //record.DownloadName = PresData.DownloadName;
+            //record.DownloadTime= PresData.DownloadTime;
+            //record.DownloadBy= PresData.DownloadBy;
+            //record.UsageMethod= PresData.UsageMethod;
+            //record.BackupField1= PresData.BackupField1;
+            //record.BackupField2 = PresData.BackupField2;
+            //record.BackupField3 = PresData.BackupField3;
+
+          
+        }
+
+        public PrescriptionPrintModel GetPrescriptionPrintModel(DataPrescriptionTB preInfo)
+        {
+            //PrescriptionAdjustmentBLL prescriptionAdjustmentBLL = new PrescriptionAdjustmentBLL();
+            //var preData = prescriptionAdjustmentBLL.GetPrescriptionByCode(PreId);
+            //if (preData == null || preData.PrescriptionInfo==null)
+            //{
+            //    return null;
+            //}
+            
+            //var preInfo=preData.PrescriptionInfo;
+            
+            PrescriptionPrintModel prescriptionPrintModel = new PrescriptionPrintModel();
+            if (preInfo != null)
+            {
+                prescriptionPrintModel.PrescriptionID = preInfo.PrescriptionID;
+                prescriptionPrintModel.PatientName = preInfo.PatientName;
+                prescriptionPrintModel.PatientSex = preInfo.PatientSex.ToString();
+                prescriptionPrintModel.PatientAge = preInfo.PatientAge.ToString();
+                prescriptionPrintModel.DoctorName = preInfo.DoctorName;
+                prescriptionPrintModel.DepartmentName = preInfo.DepartmentName;
+                prescriptionPrintModel.Quantity = preInfo.Quantity;
+                prescriptionPrintModel.TaskFrequency = preInfo.TaskFrequency;
+                prescriptionPrintModel.TotalPrice = preInfo.TotalPrice;
+                prescriptionPrintModel.Remarks = preInfo.Remarks;
+                prescriptionPrintModel.UsageMethod = preInfo.UsageMethod;
+                prescriptionPrintModel.BedNumber = preInfo.BedNumber;
+                prescriptionPrintModel.PrescriptionName = preInfo.PrescriptionName;
+                string processStatusText = preInfo.ProcessStatus.ToString();
+
+                if (!string.IsNullOrEmpty(processStatusText) && processStatusText == "完成")
+                {
+                    prescriptionPrintModel.PreDateTime = DateTime.Now;
+                }
+                else
+                {
+                    prescriptionPrintModel.PreDateTime = preInfo.CreateTime;
+                }
+
+                if (preInfo.ParticlesDetail != null && preInfo.ParticlesDetail.Count > 0)
+                {
+                    List<PrintDetailModel>  printDetails = new List<PrintDetailModel>();
+                    foreach (DetailStructure detail in preInfo.ParticlesDetail)
+                    {
+                        PrintDetailModel printDetailModel = new PrintDetailModel();
+                        printDetailModel.ParCode = detail.ParticlesID.ToString();
+                        string name =detail.ParticlesName.ToString();
+                        printDetailModel.ParName = string.IsNullOrEmpty(name) ? detail.ParticlesNameHIS.ToString() : name;
+                        printDetailModel.Dose = detail.Dose.ToString();
+                        printDetailModel.DoseHerb = detail.DoseHerb.ToString();
+                        printDetails.Add(printDetailModel);
+                    }
+                    prescriptionPrintModel.Details=printDetails;
+                }
+                else
+                {
+                    prescriptionPrintModel.Details = null;
+                }
+            }
+            
+
+            
+            return prescriptionPrintModel;
         }
         private double PresVolume(DataPrescriptionTB PresData)     //返回处方总体积
         {

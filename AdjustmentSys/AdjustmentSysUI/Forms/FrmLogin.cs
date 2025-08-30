@@ -112,6 +112,8 @@ namespace AdjustmentSysUI
                 {
                     SysDeviceInfo.currentDeviceInfo.LargeCabinetCount = mcinfos.Count(x => x.Specifications == "大药柜");
                     SysDeviceInfo.currentDeviceInfo.SmallCabinetCount = mcinfos.Count(x => x.Specifications == "小药柜");
+                    SysDeviceInfo.currentDeviceInfo.CabinetRowCount = 14;
+                    SysDeviceInfo.currentDeviceInfo.CabinetColumCount= mcinfos.Sum(x => x.ColCount);
                 }
                 else 
                 {

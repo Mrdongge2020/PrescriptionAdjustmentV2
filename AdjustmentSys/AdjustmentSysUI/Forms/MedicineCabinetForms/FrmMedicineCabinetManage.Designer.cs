@@ -168,7 +168,7 @@
             cmsExcelOpter.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             cmsExcelOpter.Items.AddRange(new ToolStripItem[] { 导出颗粒余量Excel文件ToolStripMenuItem, 导出颗粒位置Excel文件ToolStripMenuItem, 导入颗粒余量Excel文件ToolStripMenuItem, 导入颗粒位置Excel文件ToolStripMenuItem });
             cmsExcelOpter.Name = "uiContextMenuStrip1";
-            cmsExcelOpter.Size = new Size(257, 130);
+            cmsExcelOpter.Size = new Size(257, 108);
             // 
             // 导出颗粒余量Excel文件ToolStripMenuItem
             // 
@@ -208,6 +208,7 @@
             dgvList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvList.BackgroundColor = Color.FromArgb(243, 249, 255);
+            dgvList.CausesValidation = false;
             dgvList.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 126, 164);
@@ -248,8 +249,9 @@
             dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(48, 48, 48);
             dgvList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgvList.SelectedIndex = -1;
-            dgvList.Size = new Size(1120, 736);
+            dgvList.Size = new Size(1120, 567);
             dgvList.TabIndex = 36;
+            dgvList.CellEnter += dgvList_CellEnter;
             // 
             // timer1
             // 
@@ -293,7 +295,7 @@
             // 
             AllowShowTitle = true;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1140, 834);
+            ClientSize = new Size(1140, 665);
             Controls.Add(btnOpterCabinets);
             Controls.Add(btnCabinetsExport);
             Controls.Add(dgvList);

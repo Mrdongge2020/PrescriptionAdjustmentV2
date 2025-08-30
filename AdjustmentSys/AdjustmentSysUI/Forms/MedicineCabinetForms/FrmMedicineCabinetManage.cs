@@ -40,8 +40,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         public FrmMedicineCabinetManage()
         {
 
-            InitializeComponent();
-            InitData();
+            InitializeComponent(); 
             ControlOpterUI.SetTitleStyle(this);
         }
         /// <summary>
@@ -81,6 +80,8 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         /// </summary>
         private void CreateCabinetDGV()
         {
+            dgvList.Update(); // 更新控件的显示
+            dgvList.Refresh(); // 刷新控件以应用所有更改
             cabinetDrugList = GetCabinetDetails(code);
             cabinetsList = GetCabinets(code);
             if (cabinetDrugList.Count == 0 || cabinetsList.Count == 0)
@@ -116,13 +117,14 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     //设置绑定的字段
                     dataGridViewTextBoxColumn.DataPropertyName = item.ID + "" + i;
                     //设置列宽
-                    dataGridViewTextBoxColumn.Width = 80;
+                    dataGridViewTextBoxColumn.Width = 95;
                     //将创建的列添加到DataGridView中
                     dgvList.Columns.Add(dataGridViewTextBoxColumn);
                 }
             }
 
-            dgvList.RowTemplate.Height = 70;
+            
+            dgvList.RowTemplate.Height = (dgvList.Height-dgvList.ColumnHeadersHeight)/14;
 
             //添加所有行
             for (int i = 0; i < cabinetsList.Max(x => x.RowCount); i++)
@@ -144,7 +146,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     sortIndex++;
                     for (int i = 0; i < cabinetsList.Max(x => x.RowCount); i++)
                     {
-                        this.dgvList.Rows[i].Cells[sortIndex == 1 ? item.CoordinateY - 1 : item.CoordinateY].Value = i + 1;//序号填充
+                        this.dgvList.Rows[i].Cells[sortIndex == 1 ? item.CoordinateX - 1 : item.CoordinateX].Value = i + 1;//序号填充
                     }
                     cabinetId = item.MedicineCabinetId;
                 }
@@ -154,7 +156,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                 {
                     valueText = item.ParticlesName + "\r\n" + (item.Stock ?? 0) + "克";
                     this.dgvList.Rows[rowIndex].Cells[columnIndex].Value = valueText;
-                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock);
+                    this.dgvList.Rows[rowIndex].Cells[columnIndex].Style = CellStyleSet(item.Stock, item.ParticlesName);
                 }
             }
             #endregion
@@ -167,10 +169,15 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
         /// <param name="nameLength">药品名称长度</param>
         /// <param name="stock">药品库存</param>
         /// <returns></returns>
-        private DataGridViewCellStyle CellStyleSet(float? stock)
+        private DataGridViewCellStyle CellStyleSet(float? stock,string pname)
         {
+            int fontSize = 12;
+            if (!string.IsNullOrEmpty(pname) && pname.Length>5) 
+            {
+                fontSize = 9;
+            }
             // 创建一个Font对象，设置字体大小
-            Font newFont = new Font("微软雅黑", 12);
+            Font newFont = new Font("微软雅黑", fontSize);
             // 更新单元格样式中的字体
             DataGridViewCellStyle style = new DataGridViewCellStyle();
             style.Font = newFont;
@@ -187,20 +194,20 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
             if (stock >= 100)
             {
-                return Color.DarkSeaGreen;
+                return Color.Green;
             }
             if (stock > 50 && stock < 100)
             {
                 //return Color.Blue;
-                return Color.Wheat;
+                return Color.Blue;
             }
             if (stock > 50 && stock <= 50)
             {
-                return Color.Pink;
+                return Color.Yellow;
             }
             else
             {
-                return Color.DimGray;
+                return Color.Red;
             }
         }
 
@@ -303,7 +310,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
                     this.ShowSuccessTip("上架颗粒成功");
                     int index = frmListingParticles._Name.IndexOf('(');
                     string valueText = frmListingParticles._Name.Substring(0, index) + "\r\n" + "0克";
-                    dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
+                    dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0, frmListingParticles._Name.Substring(0, index));
                     dgvList.Rows[Rowindex].Cells[Colindex].Value = valueText;
                 }
                 else
@@ -329,7 +336,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
 
         private void FrmMedicineCabinetManage_Load(object sender, EventArgs e)
         {
-
+            InitData();
         }
 
         private void RemoveParticles_Click(object sender, EventArgs e)
@@ -344,7 +351,7 @@ namespace AdjustmentSysUI.Forms.MedicineCabinetForms
             {
                 this.ShowSuccessTip("下架颗粒成功");
 
-                dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0);
+                dgvList.Rows[Rowindex].Cells[Colindex].Style = CellStyleSet(0,"");
                 dgvList.Rows[Rowindex].Cells[Colindex].Value = "";
             }
             else

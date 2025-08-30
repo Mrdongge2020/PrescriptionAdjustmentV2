@@ -1,10 +1,12 @@
-﻿using AdjustmentSys.EFCore;
+﻿using AdjustmentSys.DAL.MedicineCabinet;
+using AdjustmentSys.EFCore;
 using AdjustmentSys.Entity;
 using AdjustmentSys.Models.PublicModel;
 using AdjustmentSys.Models.User;
 using AdjustmentSys.Tool;
 using AdjustmentSys.Tool.Enums;
 using AdjustmentSys.Tool.FileOpter;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -75,7 +77,6 @@ namespace AdjustmentSys.DAL.Common
         public static bool Automainpaper { get; set; }  //0 不自动打印  1自动打印
         [ConfigAttribute("是否调剂前打印", 1, "bool", 0, 0)]
         public static bool PrintBeforeAdjustment { set; get; }// 调剂前打印
-
 
         /// <summary>
         /// 设置config参数

@@ -427,6 +427,7 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
 
             if (dgvPreDetail.Rows.Count > 0)
             {
+                List<PrintDetailModel> printDetails = new List<PrintDetailModel>();
                 foreach (DataGridViewRow row in dgvPreDetail.Rows)
                 {
                     PrintDetailModel printDetailModel = new PrintDetailModel();
@@ -435,7 +436,10 @@ namespace AdjustmentSysUI.Forms.PrescriptionForms
                     printDetailModel.ParName = string.IsNullOrEmpty(name) ? row.Cells["ParticlesNameHIS"].Value?.ToString() : name;
                     printDetailModel.Dose = row.Cells["Dose"].Value?.ToString();
                     printDetailModel.DoseHerb = row.Cells["DoseHerb"].Value?.ToString();
+                    printDetails.Add(printDetailModel);
                 }
+
+                prescriptionPrintModel.Details = printDetails;
             }
             else
             {

@@ -40,9 +40,13 @@ namespace AdjustmentSys.Models.PublicModel
         public int SmallCabinetCount { get; set; }
 
         /// <summary>
-        /// 大药柜数量
+        /// 药柜行数量
         /// </summary>
         public int CabinetRowCount { get; set; } = 14;
+        /// <summary>
+        /// 药柜列数量
+        /// </summary>
+        public int CabinetColumCount { get; set; }
         /// <summary>
         /// //应用单件模式，保存设备连接信息
         /// </summary>

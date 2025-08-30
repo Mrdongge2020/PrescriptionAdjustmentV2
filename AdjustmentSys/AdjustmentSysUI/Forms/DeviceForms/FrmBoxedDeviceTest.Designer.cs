@@ -350,11 +350,14 @@
             dudydkz.Margin = new Padding(4, 5, 4, 5);
             dudydkz.MinimumSize = new Size(100, 0);
             dudydkz.Name = "dudydkz";
+            dudydkz.Padding = new Padding(5);
             dudydkz.ShowText = false;
             dudydkz.Size = new Size(116, 29);
+            dudydkz.Step = 1D;
             dudydkz.TabIndex = 5;
-            dudydkz.Text = null;
+            dudydkz.Text = "0.00";
             dudydkz.TextAlignment = ContentAlignment.MiddleCenter;
+            dudydkz.Value = 0D;
             // 
             // uiLabel1
             // 
@@ -506,10 +509,11 @@
             iudDZTStmcd.Margin = new Padding(4, 5, 4, 5);
             iudDZTStmcd.MinimumSize = new Size(100, 0);
             iudDZTStmcd.Name = "iudDZTStmcd";
+            iudDZTStmcd.Padding = new Padding(5);
             iudDZTStmcd.ShowText = false;
             iudDZTStmcd.Size = new Size(116, 29);
             iudDZTStmcd.TabIndex = 28;
-            iudDZTStmcd.Text = "uiIntegerUpDown4";
+            iudDZTStmcd.Text = "0";
             iudDZTStmcd.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel11
@@ -553,10 +557,11 @@
             iudDZTSfkmfkw.Margin = new Padding(4, 5, 4, 5);
             iudDZTSfkmfkw.MinimumSize = new Size(100, 0);
             iudDZTSfkmfkw.Name = "iudDZTSfkmfkw";
+            iudDZTSfkmfkw.Padding = new Padding(5);
             iudDZTSfkmfkw.ShowText = false;
             iudDZTSfkmfkw.Size = new Size(116, 29);
             iudDZTSfkmfkw.TabIndex = 24;
-            iudDZTSfkmfkw.Text = "uiIntegerUpDown3";
+            iudDZTSfkmfkw.Text = "0";
             iudDZTSfkmfkw.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel9
@@ -600,10 +605,11 @@
             iudDZTSfkmjcw.Margin = new Padding(4, 5, 4, 5);
             iudDZTSfkmjcw.MinimumSize = new Size(100, 0);
             iudDZTSfkmjcw.Name = "iudDZTSfkmjcw";
+            iudDZTSfkmjcw.Padding = new Padding(5);
             iudDZTSfkmjcw.ShowText = false;
             iudDZTSfkmjcw.Size = new Size(116, 29);
             iudDZTSfkmjcw.TabIndex = 20;
-            iudDZTSfkmjcw.Text = "uiIntegerUpDown2";
+            iudDZTSfkmjcw.Text = "0";
             iudDZTSfkmjcw.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel7
@@ -658,10 +664,11 @@
             iudDZTSfkys.Margin = new Padding(4, 5, 4, 5);
             iudDZTSfkys.MinimumSize = new Size(100, 0);
             iudDZTSfkys.Name = "iudDZTSfkys";
+            iudDZTSfkys.Padding = new Padding(5);
             iudDZTSfkys.ShowText = false;
             iudDZTSfkys.Size = new Size(116, 29);
             iudDZTSfkys.TabIndex = 15;
-            iudDZTSfkys.Text = null;
+            iudDZTSfkys.Text = "0";
             iudDZTSfkys.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel2
@@ -694,10 +701,12 @@
             dudDZTSbfb.Margin = new Padding(4, 5, 4, 5);
             dudDZTSbfb.MinimumSize = new Size(100, 0);
             dudDZTSbfb.Name = "dudDZTSbfb";
+            dudDZTSbfb.Padding = new Padding(5);
             dudDZTSbfb.ShowText = false;
             dudDZTSbfb.Size = new Size(101, 29);
+            dudDZTSbfb.Step = 1D;
             dudDZTSbfb.TabIndex = 12;
-            dudDZTSbfb.Text = "uiDoubleUpDown2";
+            dudDZTSbfb.Text = "100.00";
             dudDZTSbfb.TextAlignment = ContentAlignment.MiddleCenter;
             dudDZTSbfb.Value = 100D;
             // 
@@ -1313,14 +1322,15 @@
             uiIntegerUpDown3.Font = new Font("微软雅黑", 10.5F);
             uiIntegerUpDown3.Location = new Point(924, 28);
             uiIntegerUpDown3.Margin = new Padding(4, 5, 4, 5);
-            uiIntegerUpDown3.Maximum = 220;
-            uiIntegerUpDown3.Minimum = 0;
+            uiIntegerUpDown3.Maximum = 220D;
+            uiIntegerUpDown3.Minimum = 0D;
             uiIntegerUpDown3.MinimumSize = new Size(100, 0);
             uiIntegerUpDown3.Name = "uiIntegerUpDown3";
+            uiIntegerUpDown3.Padding = new Padding(5);
             uiIntegerUpDown3.ShowText = false;
             uiIntegerUpDown3.Size = new Size(116, 29);
             uiIntegerUpDown3.TabIndex = 39;
-            uiIntegerUpDown3.Text = "uiIntegerUpDown3";
+            uiIntegerUpDown3.Text = "0";
             uiIntegerUpDown3.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiButton3
@@ -1350,14 +1360,15 @@
             uiIntegerUpDown2.Font = new Font("微软雅黑", 10.5F);
             uiIntegerUpDown2.Location = new Point(519, 28);
             uiIntegerUpDown2.Margin = new Padding(4, 5, 4, 5);
-            uiIntegerUpDown2.Maximum = 220;
-            uiIntegerUpDown2.Minimum = 0;
+            uiIntegerUpDown2.Maximum = 220D;
+            uiIntegerUpDown2.Minimum = 0D;
             uiIntegerUpDown2.MinimumSize = new Size(100, 0);
             uiIntegerUpDown2.Name = "uiIntegerUpDown2";
+            uiIntegerUpDown2.Padding = new Padding(5);
             uiIntegerUpDown2.ShowText = false;
             uiIntegerUpDown2.Size = new Size(116, 29);
             uiIntegerUpDown2.TabIndex = 36;
-            uiIntegerUpDown2.Text = "uiIntegerUpDown3";
+            uiIntegerUpDown2.Text = "0";
             uiIntegerUpDown2.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiButton1
@@ -1387,14 +1398,15 @@
             uiIntegerUpDown1.Font = new Font("微软雅黑", 10.5F);
             uiIntegerUpDown1.Location = new Point(111, 28);
             uiIntegerUpDown1.Margin = new Padding(4, 5, 4, 5);
-            uiIntegerUpDown1.Maximum = 220;
-            uiIntegerUpDown1.Minimum = 0;
+            uiIntegerUpDown1.Maximum = 220D;
+            uiIntegerUpDown1.Minimum = 0D;
             uiIntegerUpDown1.MinimumSize = new Size(100, 0);
             uiIntegerUpDown1.Name = "uiIntegerUpDown1";
+            uiIntegerUpDown1.Padding = new Padding(5);
             uiIntegerUpDown1.ShowText = false;
             uiIntegerUpDown1.Size = new Size(116, 29);
             uiIntegerUpDown1.TabIndex = 33;
-            uiIntegerUpDown1.Text = "uiIntegerUpDown3";
+            uiIntegerUpDown1.Text = "0";
             uiIntegerUpDown1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiButton2

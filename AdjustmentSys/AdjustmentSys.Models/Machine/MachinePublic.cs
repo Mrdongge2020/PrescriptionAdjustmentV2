@@ -29,7 +29,7 @@ namespace AdjustmentSys.Models.Machine
         public static DataTable DataTableEorr = new DataTable();
 
         public static bool Outshowok = false;
-        public static int Outboxunber;
+        public static int Outboxunber=1;
         public static Int32 UpdateParticles;
         public static CabinetStorageInfoTB objCabinetStorageInfoTB = new CabinetStorageInfoTB();
 

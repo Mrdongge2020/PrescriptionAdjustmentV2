@@ -198,6 +198,24 @@ namespace AdjustmentSys.Models.Machine
         /// </summary>
         public string BackupField3 { get; set; }
 
+        
+        #region 扩展字段
+        /// <summary>
+        /// 调剂盒数
+        /// </summary>
+        public int BoxNumber { get; set; }
+        /// <summary>
+        /// 拆分次数
+        /// </summary>
+        public int BreakNumber { get; set; }
+
+
+        /// <summary>
+        /// 生成的实时使用方式
+        /// </summary>
+        public string GenerateUseWay { get; set; }
+        public string GenerateUseWay1 { get; set; }
+
         /// <summary>
         /// 扩展字段
         /// </summary>
@@ -206,6 +224,13 @@ namespace AdjustmentSys.Models.Machine
         public bool Oddsate { get; set; }//奇数调方
 
         public int TaskState { get; set; }//调剂状态
+
+
+
+        public string StartTime { get; set; }
+
+
+        #endregion
         #endregion
 
 
@@ -304,27 +329,7 @@ namespace AdjustmentSys.Models.Machine
         //        return Results;
         //    }
         //}
-        #region 扩展字段
-        /// <summary>
-        /// 调剂盒数
-        /// </summary>
-        public int BoxNumber { get; set; }
-        /// <summary>
-        /// 拆分次数
-        /// </summary>
-        public int BreakNumber { get; set; }
-        ///
-
-
-        /// <summary>
-        /// 生成的实时使用方式
-        /// </summary>
-        public string GenerateUseWay { get; set; }
-        public string GenerateUseWay1 { get; set; }
-
-
-
-        #endregion
+       
         #region 公共方法        
 
         /// <summary>

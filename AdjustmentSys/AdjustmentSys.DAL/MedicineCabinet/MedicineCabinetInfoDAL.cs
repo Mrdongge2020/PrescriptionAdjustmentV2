@@ -54,27 +54,50 @@ namespace AdjustmentSys.DAL.MedicineCabinet
                 return "该药柜名称已存在";
             }
 
-            //获取药柜组最大纵坐标
-            int maxYindex=0;
-            List<int> mIds=_eFCoreContext.MedicineCabinetInfos.Where(x => x.Code==cabinetInfo.Code).Select(x=>x.ID).ToList();
-            if (mIds!=null && mIds.Count>0) 
+            ////获取药柜组最大纵坐标
+            //int maxYindex=0;
+            //List<int> mIds=_eFCoreContext.MedicineCabinetInfos.Where(x => x.Code==cabinetInfo.Code).Select(x=>x.ID).ToList();
+            //if (mIds!=null && mIds.Count>0) 
+            //{
+            //    maxYindex = _eFCoreContext.MedicineCabinetDetails.Max(x=>x.CoordinateY);
+            //}
+            //List<MedicineCabinetDetail> detailList = new List<MedicineCabinetDetail>();
+            //int indexX = 1;int indexY = maxYindex + 1;
+            //for (int i = 0;i<cabinetInfo.RowCount*cabinetInfo.ColCount;i++) 
+            //{
+            //    if (indexX > 14) { indexX = 1; indexY = indexY + 1; }
+            //    MedicineCabinetDetail detail = new MedicineCabinetDetail();
+            //    detail.MedicineCabinetId = 0;
+            //    detail.CoordinateX= indexX;
+            //    detail.CoordinateY = indexY;
+            //    detail.CreateBy = SysLoginUser._currentUser.UserId;
+            //    detail.CreateName = SysLoginUser._currentUser.UserName;
+            //    detail.CreateTime = DateTime.Now;
+            //    detailList.Add(detail);
+            //    indexX++;
+            //}
+
+            //获取药柜组最大横坐标
+            int maxXindex = 0;
+            List<int> mIds = _eFCoreContext.MedicineCabinetInfos.Where(x => x.Code == cabinetInfo.Code).Select(x => x.ID).ToList();
+            if (mIds != null && mIds.Count > 0)
             {
-                maxYindex = _eFCoreContext.MedicineCabinetDetails.Max(x=>x.CoordinateY);
+                maxXindex = _eFCoreContext.MedicineCabinetDetails.Max(x => x.CoordinateX);
             }
             List<MedicineCabinetDetail> detailList = new List<MedicineCabinetDetail>();
-            int indexX = 1;int indexY = maxYindex + 1;
-            for (int i = 0;i<cabinetInfo.RowCount*cabinetInfo.ColCount;i++) 
+            int indexY = 1; int indexX = maxXindex + 1;
+            for (int i = 0; i < cabinetInfo.RowCount * cabinetInfo.ColCount; i++)
             {
-                if (indexX > 14) { indexX = 1; indexY = indexY + 1; }
+                if (indexY > 14) { indexY = 1; indexX = indexX + 1; }
                 MedicineCabinetDetail detail = new MedicineCabinetDetail();
                 detail.MedicineCabinetId = 0;
-                detail.CoordinateX= indexX;
+                detail.CoordinateX = indexX;
                 detail.CoordinateY = indexY;
                 detail.CreateBy = SysLoginUser._currentUser.UserId;
                 detail.CreateName = SysLoginUser._currentUser.UserName;
                 detail.CreateTime = DateTime.Now;
                 detailList.Add(detail);
-                indexX++;
+                indexY++;
             }
 
             using (var dbContextTransaction = _eFCoreContext.Database.BeginTransaction())

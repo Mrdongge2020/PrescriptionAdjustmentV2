@@ -22,10 +22,7 @@ namespace AdjustmentSys.Models.FileModel
         /// </summary>
         public List<DataPrescriptionTB> CheckedPreInfos { get; set; }
 
-        /// <summary>
-        /// 已核对的处方列表
-        /// </summary>
-        public List<PreModel> CheckedPreInfos1 { get; set; }
+      
     }
 
     public class LoadedPrescription() 
